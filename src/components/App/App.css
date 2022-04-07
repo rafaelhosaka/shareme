@@ -1,0 +1,19 @@
+.template {
+  display: grid;
+  grid-template: 55px 92fr / 25fr 50fr 25fr;
+  grid-template-areas:
+    "header header header"
+    "left-content main-content right-content";
+  height: 100vh;
+  background: rgba(240, 242, 245, 255);
+}
+
+.header {
+  grid-area: header;
+  position: fixed;
+}
+
+.container {
+  grid-area: main-content;
+  margin-top: 2rem;
+}

@@ -1,0 +1,19 @@
+.btn {
+  border-radius: 20px;
+  padding: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn--green {
+  background: #025909;
+  color: white;
+}
+
+.btn:hover {
+  background: #02850d;
+}
+
+.btn--stretched {
+  width: 100%;
+}
