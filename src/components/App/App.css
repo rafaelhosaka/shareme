@@ -1,11 +1,9 @@
 .template {
   display: grid;
-  grid-template: 55px 92fr / 25fr 50fr 25fr;
+  grid-template-rows: 70px auto;
   grid-template-areas:
-    "header header header"
-    "left-content main-content right-content";
-  height: 100vh;
-  background: rgb(199 255 219 / 80%);
+    "header"
+    "main-content";
 }
 
 .header {
@@ -16,4 +14,22 @@
 .container {
   grid-area: main-content;
   margin-top: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .template {
+    grid-template: 70px auto/ 25fr 50fr;
+    grid-template-areas:
+      "header header"
+      "left-content main-content";
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .template {
+    grid-template: 70px auto / 25fr 50fr 25fr;
+    grid-template-areas:
+      "header header header"
+      "left-content main-content right-content";
+  }
 }

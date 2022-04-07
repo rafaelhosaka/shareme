@@ -14,7 +14,7 @@ function Navbar(props) {
               src={require("../../assets/images/logo.png")}
             />
           </a>
-          <div className="search-container">
+          <div onClick={() => {}} className="search-container">
             <i className="search-icon fa-solid fa-magnifying-glass fa-xl"></i>
             <input
               className="search"
