@@ -5,7 +5,7 @@
     "header header header"
     "left-content main-content right-content";
   height: 100vh;
-  background: rgba(240, 242, 245, 255);
+  background: rgb(199 255 219 / 80%);
 }
 
 .header {

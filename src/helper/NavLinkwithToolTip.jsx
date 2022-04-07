@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 
 import withToolTip from "./withToolTip";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-function LinkwithToolTip({
+function NavLinkwithToolTip({
   to,
   faClasses,
   tooltipLabel,
@@ -11,12 +11,12 @@ function LinkwithToolTip({
   className,
 }) {
   return (
-    <Link className={className} to={to}>
+    <NavLink className={className} to={to}>
       <i className={faClasses}></i>
 
       {showToolTip && <span className="tooltip-text">{tooltipLabel}</span>}
-    </Link>
+    </NavLink>
   );
 }
 
-export default withToolTip(LinkwithToolTip);
+export default withToolTip(NavLinkwithToolTip);

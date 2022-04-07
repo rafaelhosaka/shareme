@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./Navbar.css";
-import LinkwithToolTip from "../../helper/LinkwithToolTip";
+import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
 
 function Navbar(props) {
   return (
@@ -24,28 +24,29 @@ function Navbar(props) {
           </div>
         </div>
         <div className="nav-center">
-          <LinkwithToolTip
-            className="nav-link active"
+          <NavLinkwithToolTip
+            className="nav-link"
             faClasses="fa-solid fa-house fa-xl"
-            to="#"
+            to="/home"
             tooltipLabel="Home"
           />
-          <LinkwithToolTip
+
+          <NavLinkwithToolTip
             className="nav-link"
             faClasses="fa-solid fa-user-group fa-xl"
-            to="#"
+            to="/friends"
             tooltipLabel="Friends"
           />
-          <LinkwithToolTip
+          <NavLinkwithToolTip
             className="nav-link"
             faClasses="fa-solid fa-users-line fa-xl"
-            to="#"
+            to="/group"
             tooltipLabel="Group"
           />
-          <LinkwithToolTip
+          <NavLinkwithToolTip
             className="nav-link"
             faClasses="fa-solid fa-store fa-xl"
-            to="#"
+            to="/marketplace"
             tooltipLabel="Marketplace"
           />
         </div>
@@ -57,22 +58,22 @@ function Navbar(props) {
             />
             Rafael
           </a>
-          <LinkwithToolTip
+          <NavLinkwithToolTip
             className="nav-link"
             faClasses="fa-solid fa-message fa-xl"
-            to="#"
+            to="/chat"
             tooltipLabel="Chat"
           />
-          <LinkwithToolTip
+          <NavLinkwithToolTip
             className="nav-link"
             faClasses="fa-solid fa-bell fa-xl"
-            to="#"
+            to="/notification"
             tooltipLabel="Notifications"
           />
-          <LinkwithToolTip
+          <NavLinkwithToolTip
             className="nav-link"
             faClasses="fa-solid fa-gear fa-xl"
-            to="#"
+            to="/settings"
             tooltipLabel="Settings"
           />
         </div>
