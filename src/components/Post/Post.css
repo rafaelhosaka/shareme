@@ -41,6 +41,20 @@
 }
 
 .post__details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  border-bottom: 1px solid lightgrey;
+}
+
+.post__details-like,
+.post__details-comment {
+  margin: 0 2rem;
+}
+
+.post__details-share {
+  margin-right: 2rem;
 }
 
 .post__action {

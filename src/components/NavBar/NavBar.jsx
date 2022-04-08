@@ -1,27 +1,44 @@
-import React from "react";
-
-import "./Navbar.css";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
 
+import "./Navbar.css";
+
 function Navbar(props) {
+  const [showSearch, setShowSearch] = useState(false);
+
+  const toggleSearchBar = () => {
+    setShowSearch(showSearch ? false : true);
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-nav">
         <div className="nav-left">
-          <a className="logo-container" href="#">
+          <Link className="logo-container" to="/">
             <img
               className="logo"
               src={require("../../assets/images/logo.png")}
             />
-          </a>
-          <div onClick={() => {}} className="search-container">
-            <i className="search-icon fa-solid fa-magnifying-glass fa-xl"></i>
-            <input
-              className="search"
-              href="#"
-              placeholder="Search on Shareme"
-            />
-          </div>
+          </Link>
+
+          {showSearch ? (
+            <div className="search-container expanded">
+              <i
+                onClick={() => toggleSearchBar()}
+                className="search-icon fa-solid fa-chevron-left fa-xl"
+              ></i>
+              <input
+                className="search"
+                href="#"
+                placeholder="Search on Shareme"
+              />
+            </div>
+          ) : (
+            <div onClick={() => toggleSearchBar()} className="search-container">
+              <i className="search-icon fa-solid fa-magnifying-glass fa-xl"></i>
+            </div>
+          )}
         </div>
         <div className="nav-center">
           <NavLinkwithToolTip

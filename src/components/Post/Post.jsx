@@ -5,7 +5,7 @@ import "./Post.css";
 function Post({ post }) {
   return (
     <>
-      <div className="post">
+      <div className="post" data-aos="fade-up">
         <header className="post__header">
           <div className="post__user">
             <a href="/">
@@ -22,7 +22,13 @@ function Post({ post }) {
         </header>
         <img className="post__image" src={post.url} />
         <footer className="post__footer">
-          <div className="post__details"></div>
+          <div className="post__details">
+            <span className="post__details-like">2 likes</span>
+            <div>
+              <span className="post__details-comment">30 Comments</span>
+              <span className="post__details-share">10 Shares</span>
+            </div>
+          </div>
           <div className="post__action">
             <div className="post__icon">
               <i className="fa-regular fa-heart"></i>
