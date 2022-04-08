@@ -20,20 +20,20 @@ function Post({ post }) {
           </div>
           <p>{post.title}</p>
         </header>
-        <img className="post__image" src={post.url} loading="lazy" />
+        <img className="post__image" src={post.url} />
         <footer className="post__footer">
           <div className="post__details"></div>
           <div className="post__action">
             <div className="post__icon">
-              <i class="fa-regular fa-heart"></i>
+              <i className="fa-regular fa-heart"></i>
               <span>Like</span>
             </div>
             <div className="post__icon">
-              <i class="fa-solid fa-comment"></i>
+              <i className="fa-solid fa-comment"></i>
               <span>Commet</span>
             </div>
             <div className="post__icon">
-              <i class="fa-solid fa-share-from-square"></i>Share
+              <i className="fa-solid fa-share-from-square"></i>Share
             </div>
           </div>
         </footer>
