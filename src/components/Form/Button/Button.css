@@ -3,6 +3,13 @@
   padding: 1rem;
   font-weight: 600;
   cursor: pointer;
+  border: 0;
+  font-size: 1.5rem;
+  margin: 2rem 0;
+}
+
+.btn:disabled {
+  opacity: 0.5;
 }
 
 .btn--green {
@@ -12,6 +19,10 @@
 
 .btn:hover {
   background: #02850d;
+}
+
+.btn:hover.btn:disabled {
+  background: #025909;
 }
 
 .btn--stretched {

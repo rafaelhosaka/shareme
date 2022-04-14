@@ -3,6 +3,11 @@ import Joi from "joi-browser";
 import Input from "./Input/Input";
 import Select from "./Select/Select";
 import Button from "./Button/Button";
+import TextArea from "./TextArea/TextArea";
+
+import "../Form/Button/Button.css";
+import "../Form/Input/Input.css";
+import "./Form.css";
 
 class Form extends Component {
   state = {
@@ -57,30 +62,53 @@ class Form extends Component {
     const { data, errors } = this.state;
 
     return (
-      <Select
-        name={name}
-        value={data[name]}
-        label={label}
-        options={options}
-        onChange={this.handleChange}
-        error={errors[name]}
-      />
+      <div className="form-group">
+        <Select
+          name={name}
+          value={data[name]}
+          label={label}
+          options={options}
+          onChange={this.handleChange}
+          error={errors[name]}
+        />
+      </div>
     );
   }
 
-  renderInput(name, label, className, type = "text") {
+  renderInput(name, label, className, placeholder, type = "text") {
     const { data, errors } = this.state;
 
     return (
-      <Input
-        type={type}
-        name={name}
-        value={data[name]}
-        label={label}
-        onChange={this.handleChange}
-        error={errors[name]}
-        className={className}
-      />
+      <div className="form-group">
+        <Input
+          type={type}
+          name={name}
+          value={data[name]}
+          label={label}
+          onChange={this.handleChange}
+          error={errors[name]}
+          placeholder={placeholder}
+          className={className}
+        />
+      </div>
+    );
+  }
+
+  renderTextArea(name, label, className, placeholder) {
+    const { data, errors } = this.state;
+
+    return (
+      <div className="form-group">
+        <TextArea
+          name={name}
+          value={data[name]}
+          label={label}
+          onChange={this.handleChange}
+          error={errors[name]}
+          placeholder={placeholder}
+          className={className}
+        />
+      </div>
     );
   }
 }

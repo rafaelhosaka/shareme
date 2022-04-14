@@ -74,8 +74,8 @@ a.nav-link,
   border-radius: 30px;
   background: rgba(240, 242, 245, 255);
   padding: 1rem;
-  width: 3rem;
-  height: 3rem;
+  width: 4.5rem;
+  height: 4.5rem;
   display: flex;
   align-self: center;
   align-items: center;
@@ -114,7 +114,7 @@ a.nav-link,
   border-radius: 10px;
 }
 
-.user-image {
+.nav__user-image {
   width: 6rem;
   height: 6rem;
   border-radius: 3rem;

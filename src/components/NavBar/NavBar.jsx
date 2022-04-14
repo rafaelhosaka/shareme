@@ -11,6 +11,22 @@ function Navbar(props) {
     setShowSearch(showSearch ? false : true);
   };
 
+  const getSearchBar = (showSearch) => {
+    return showSearch ? (
+      <div className="search-container expanded">
+        <i
+          onClick={() => toggleSearchBar()}
+          className="search-icon fa-solid fa-chevron-left fa-xl"
+        ></i>
+        <input className="search" href="#" placeholder="Search on Shareme" />
+      </div>
+    ) : (
+      <div onClick={() => toggleSearchBar()} className="search-container">
+        <i className="search-icon fa-solid fa-magnifying-glass fa-xl"></i>
+      </div>
+    );
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-nav">
@@ -21,24 +37,7 @@ function Navbar(props) {
               src={require("../../assets/images/logo.png")}
             />
           </Link>
-
-          {showSearch ? (
-            <div className="search-container expanded">
-              <i
-                onClick={() => toggleSearchBar()}
-                className="search-icon fa-solid fa-chevron-left fa-xl"
-              ></i>
-              <input
-                className="search"
-                href="#"
-                placeholder="Search on Shareme"
-              />
-            </div>
-          ) : (
-            <div onClick={() => toggleSearchBar()} className="search-container">
-              <i className="search-icon fa-solid fa-magnifying-glass fa-xl"></i>
-            </div>
-          )}
+          {getSearchBar(showSearch)}
         </div>
         <div className="nav-center">
           <NavLinkwithToolTip
@@ -70,10 +69,10 @@ function Navbar(props) {
         <div className="nav-right">
           <a className="user" href="#">
             <img
-              className="user-image"
+              className="nav__user-image"
               src={require("../../assets/images/RAFAEL_FOTO.JPG")}
             />
-            Rafael
+            <span className="nav__user-name">User</span>
           </a>
           <NavLinkwithToolTip
             className="nav-link"

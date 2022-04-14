@@ -1,0 +1,14 @@
+.alert {
+  padding-left: 2rem;
+  font-weight: 500;
+}
+
+.alert--danger {
+  color: red;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem 0;
+}
