@@ -3,6 +3,7 @@ import * as photoService from "../../services/photoService";
 import { paginate } from "../../utils/paginate";
 
 import Post from "../Post/Post";
+import PostForm from "../Post/PostForm";
 
 const Home = (props) => {
   const [posts, setPost] = useState([]);
@@ -40,11 +41,14 @@ const Home = (props) => {
   };
 
   return (
-    <div onScroll={() => onScroll()}>
-      {pagedPosts.slice().map((post) => (
-        <Post key={post.id} post={post} />
-      ))}
-    </div>
+    <>
+      <PostForm />
+      <div onScroll={() => onScroll()}>
+        {pagedPosts.slice().map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
+      </div>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import "./Post.css";
 function Post({ post }) {
   return (
     <>
-      <div className="post" data-aos="fade-up">
+      <div className="post">
         <header className="post__header">
           <div className="post__user">
             <a href="/">
