@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-
+import { formatDate } from "../../utils/formatDate";
+import { imageDownload } from "../../services/postService";
 import "./Post.css";
 
 function Post({ post }) {
@@ -18,9 +19,12 @@ function Post({ post }) {
               Rafael Hosaka
             </a>
           </div>
-          <p>{post.title}</p>
+          <p className="post__date">{formatDate(post.dateCreated)}</p>
         </header>
-        <img className="post__image" src={post.url} />
+        <p className="post__description">{post.description}</p>
+        {post.fileName && (
+          <img className="post__image" src={imageDownload(post.id)} />
+        )}
         <footer className="post__footer">
           <div className="post__details">
             <span className="post__details-like">2 likes</span>

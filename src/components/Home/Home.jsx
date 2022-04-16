@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import * as photoService from "../../services/photoService";
+import * as postService from "../../services/postService";
 import { paginate } from "../../utils/paginate";
+import _ from "lodash";
 
 import Post from "../Post/Post";
 import PostForm from "../Post/PostForm";
@@ -11,10 +12,14 @@ const Home = (props) => {
   const [pageInfo, setPageInfo] = useState({ currentPage: 1, pageSize: 10 });
 
   useEffect(() => {
-    async function getPhotos() {
-      const { data } = await photoService.getPhotos();
-      setPost(data);
-      const paged = paginate(data, pageInfo.currentPage, pageInfo.pageSize);
+    async function getPosts() {
+      const { data } = await postService.getPosts();
+
+      const sorted = _.orderBy(data, "dateCreated", "desc");
+
+      setPost(sorted);
+
+      const paged = paginate(sorted, pageInfo.currentPage, pageInfo.pageSize);
       setPagedPosts(paged);
 
       window.addEventListener("scroll", onScroll);
@@ -24,7 +29,7 @@ const Home = (props) => {
       };
     }
 
-    getPhotos();
+    getPosts();
   }, []);
 
   useEffect(() => {
