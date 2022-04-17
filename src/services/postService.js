@@ -20,7 +20,7 @@ export function savePostWithImage(formData) {
   });
 }
 
-//needs to return raw url because
+//needs to return raw url
 export function imageDownload(postId) {
-  return httpService.getBaseUrl() + "post/" + postId + "/download";
+  return httpService.getBaseUrl() + "post/download/" + postId;
 }

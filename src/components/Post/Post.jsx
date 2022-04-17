@@ -12,7 +12,7 @@ function Post({ post }) {
             <a href="/">
               <img
                 className="post__user-image"
-                src={require("../../assets/images/RAFAEL_FOTO.JPG")}
+                src={"./images/RAFAEL_FOTO.JPG"}
               />
             </a>
             <a href="/" className="post__user-name">
@@ -43,7 +43,8 @@ function Post({ post }) {
               <span>Commet</span>
             </div>
             <div className="post__icon">
-              <i className="fa-solid fa-share-from-square"></i>Share
+              <i className="fa-solid fa-share-from-square"></i>
+              <span>Share</span>
             </div>
           </div>
         </footer>

@@ -89,7 +89,7 @@ class PostForm extends Form {
           <div className="form-post__user">
             <img
               className="form-post__user-image"
-              src={require("../../assets/images/RAFAEL_FOTO.JPG")}
+              src={"./images/RAFAEL_FOTO.JPG"}
             />
             <span className="form-post__user-name">User</span>
           </div>

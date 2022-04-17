@@ -32,10 +32,7 @@ function Navbar(props) {
       <div className="navbar-nav">
         <div className="nav-left">
           <Link className="logo-container" to="/">
-            <img
-              className="logo"
-              src={require("../../assets/images/logo.png")}
-            />
+            <img className="logo" src={"./images/logo.png"} />
           </Link>
           {getSearchBar(showSearch)}
         </div>
@@ -68,10 +65,7 @@ function Navbar(props) {
         </div>
         <div className="nav-right">
           <a className="user" href="#">
-            <img
-              className="nav__user-image"
-              src={require("../../assets/images/RAFAEL_FOTO.JPG")}
-            />
+            <img className="nav__user-image" src={"./images/RAFAEL_FOTO.JPG"} />
             <span className="nav__user-name">User</span>
           </a>
           <NavLinkwithToolTip

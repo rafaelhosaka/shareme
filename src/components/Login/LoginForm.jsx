@@ -1,6 +1,8 @@
 import React from "react";
 import Form from "../Form/Form";
+import authService from "../../services/authService";
 import Joi from "joi-browser";
+import withRouter from "../../helper/withRouter";
 import "./LoginForm.css";
 
 class LoginForm extends Form {
@@ -14,23 +16,37 @@ class LoginForm extends Form {
     password: Joi.string().required().label("Password"),
   };
 
+  doSubmit = () => {
+    const { email, password } = this.state.data;
+    authService.login(email, password);
+    const { navigate } = this.props.router;
+    navigate("/home");
+  };
+
   render() {
     return (
       <>
         <img
           className="login-logo"
-          src={require("../../assets/images/logo-full.png")}
+          src={"./images/logo-full.png"}
           alt="Logo of the Shareme"
         />
         <div className="form-login-container">
           <h1 className="form-login-heading">Log Into Shareme</h1>
-          <form>
-            {this.renderInput("email", "Email", "form-control", "email")}
+          <form onSubmit={this.handleSubmit}>
+            {this.renderInput(
+              "email",
+              "Email",
+              "form-control",
+              "Email",
+              "email"
+            )}
 
             {this.renderInput(
               "password",
               "Password",
               "form-control",
+              "Password",
               "password"
             )}
 
@@ -46,4 +62,4 @@ class LoginForm extends Form {
   }
 }
 
-export default LoginForm;
+export default withRouter(LoginForm);
