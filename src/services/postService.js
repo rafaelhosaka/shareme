@@ -1,5 +1,5 @@
 import httpService from "./httpService";
-
+import authService from "./authService";
 const apiEndPoint = "/post";
 
 export function getPosts() {

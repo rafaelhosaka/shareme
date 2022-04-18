@@ -1,4 +1,5 @@
 import axios from "axios";
+import authService from "./authService";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -14,6 +15,18 @@ axios.interceptors.response.use(null, (error) => {
 
   if (!expectedError) {
     console.log("Unexpected error");
+  } else {
+    if (error.response.status === 401) {
+      const refreshToken = authService.getRefreshToken();
+      if (authService.isTokenExpired(refreshToken)) {
+        console.log("RefreshToken expired");
+        authService.logout();
+      } else {
+        console.log("Renew Token");
+        setJwt(refreshToken);
+        authService.renewTokens();
+      }
+    }
   }
 
   return Promise.reject(error);

@@ -5,7 +5,7 @@ const apiEndPoint = "/auth";
 const accessToken = "access_token";
 const refreshToken = "refresh_token";
 
-httpService.setJwt(getJwt());
+httpService.setJwt(getToken());
 
 export async function login(username, password) {
   const form = new FormData();
@@ -19,23 +19,50 @@ export async function login(username, password) {
 export function logout() {
   localStorage.removeItem(accessToken);
   localStorage.removeItem(refreshToken);
+  window.location = "/login";
 }
 
 export function getCurrentUser() {
   try {
-    return jwtDecode(getJwt());
+    return jwtDecode(getToken());
   } catch (ex) {
     return null;
   }
 }
 
-export function getJwt() {
+export function getToken() {
   return localStorage.getItem(accessToken);
+}
+
+export function getRefreshToken() {
+  return localStorage.getItem(refreshToken);
+}
+
+export function isTokenExpired(token) {
+  const decodedToken = jwtDecode(token);
+  const currentDate = new Date();
+  if (decodedToken.exp * 1000 < currentDate.getTime()) {
+    console.log("Token expired.");
+    return true;
+  } else {
+    console.log("Valid token");
+    return false;
+  }
+}
+
+export async function renewTokens() {
+  const { data: jwt } = await httpService.get(apiEndPoint + "/refresh");
+  localStorage.setItem(accessToken, jwt.access_token);
+  localStorage.setItem(refreshToken, jwt.refresh_token);
+  window.location = "/home";
 }
 
 export default {
   login,
   logout,
   getCurrentUser,
-  getJwt,
+  getToken,
+  getRefreshToken,
+  isTokenExpired,
+  renewTokens,
 };

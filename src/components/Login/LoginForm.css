@@ -12,6 +12,10 @@
   padding: 3rem;
 }
 
+.form-login {
+  border-bottom: 1px solid lightgray;
+}
+
 .form-login-heading {
   text-align: center;
   font-size: 2rem;
@@ -20,4 +24,11 @@
 .login-logo {
   width: 200px;
   margin: 3rem;
+}
+
+a.btn {
+  color: white;
+  text-decoration: none;
+  display: block;
+  text-align: center;
 }
