@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route, Navigate } from "react-router";
 import Navbar from "../NavBar/NavBar";
-import LoginForm from "../Login/LoginForm";
+import LoginForm from "../Form/LoginForm/LoginForm";
 import Home from "../Home/Home";
 import authService from "../../services/authService";
 import { useState, useEffect, useContext } from "react";
@@ -13,6 +13,7 @@ function App() {
 
   useEffect(() => {
     const currentUser = authService.getCurrentUser();
+
     setCurrentUser(currentUser);
   }, []);
 

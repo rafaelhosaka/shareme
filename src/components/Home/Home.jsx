@@ -4,7 +4,7 @@ import { paginate } from "../../utils/paginate";
 import _ from "lodash";
 
 import Post from "../Post/Post";
-import PostForm from "../Post/PostForm";
+import PostForm from "../Form/PostForm/PostForm";
 
 const Home = (props) => {
   const [posts, setPost] = useState([]);
