@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
 
 import "./Navbar.css";
+import UserContext from "../../context/userContext";
 
 function Navbar(props) {
   const [showSearch, setShowSearch] = useState(false);
+  const currentUser = useContext(UserContext);
 
   const toggleSearchBar = () => {
     setShowSearch(showSearch ? false : true);
@@ -66,7 +68,7 @@ function Navbar(props) {
         <div className="nav-right">
           <a className="user" href="#">
             <img className="nav__user-image" src={"./images/RAFAEL_FOTO.JPG"} />
-            <span className="nav__user-name">User</span>
+            <span className="nav__user-name">{currentUser.firstName}</span>
           </a>
           <NavLinkwithToolTip
             className="nav-link"

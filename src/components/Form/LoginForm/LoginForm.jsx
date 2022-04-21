@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 import { useInput } from "../../../hook/useInput";
 import authService from "../../../services/authService";
 
-import "../Form.css";
 import "./LoginForm.css";
 
-function LoginFormNew(props) {
+function LoginForm(props) {
   const { value: email, bind: bindEmail } = useInput("");
   const { value: password, bind: bindPassword } = useInput("");
 
@@ -66,4 +65,4 @@ function LoginFormNew(props) {
   );
 }
 
-export default LoginFormNew;
+export default LoginForm;

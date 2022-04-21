@@ -1,20 +1,27 @@
-import "./App.css";
 import { Routes, Route, Navigate } from "react-router";
 import Navbar from "../NavBar/NavBar";
 import LoginForm from "../Form/LoginForm/LoginForm";
 import Home from "../Home/Home";
 import authService from "../../services/authService";
+import { getUserByEmail } from "../../services/userService";
 import { useState, useEffect, useContext } from "react";
 import UserContext from "../../context/userContext";
 
+import "./App.css";
+import "../Form/Form.css";
+
 function App() {
-  const [currentUser, setCurrentUser] = useState({});
-  const userContext = useContext(UserContext);
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    const currentUser = authService.getCurrentUser();
-
-    setCurrentUser(currentUser);
+    async function getUser() {
+      const currentUser = authService.getCurrentUser();
+      if (currentUser) {
+        const { data: user } = await getUserByEmail(currentUser.sub);
+        setCurrentUser(user);
+      }
+    }
+    getUser();
   }, []);
 
   return (

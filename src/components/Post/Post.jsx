@@ -16,7 +16,7 @@ function Post({ post }) {
               />
             </a>
             <a href="/" className="post__user-name">
-              Rafael Hosaka
+              {`${post.user.firstName} ${post.user.lastName}`}
             </a>
           </div>
           <p className="post__date">{formatDate(post.dateCreated)}</p>
