@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import * as postService from "../../services/postService";
 import { paginate } from "../../utils/paginate";
 import _ from "lodash";
@@ -46,14 +46,14 @@ const Home = (props) => {
   };
 
   return (
-    <>
+    <main className="container">
       <PostForm />
       <div onScroll={() => onScroll()}>
         {pagedPosts.slice().map((post) => (
           <Post key={post.id} post={post} />
         ))}
       </div>
-    </>
+    </main>
   );
 };
 

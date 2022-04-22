@@ -9,6 +9,7 @@ import UserContext from "../../context/userContext";
 
 import "./App.css";
 import "../Form/Form.css";
+import Friends from "../Friends/Friends";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -29,21 +30,25 @@ function App() {
       <UserContext.Provider value={currentUser}>
         <div className="template">
           <header className="header">{currentUser && <Navbar />}</header>
-          <main className="container">
-            <Routes>
-              <Route
-                path="/login"
-                element={!currentUser ? <LoginForm /> : <Navigate to="/home" />}
-              />
+          <Routes>
+            <Route
+              path="/login"
+              element={!currentUser ? <LoginForm /> : <Navigate to="/home" />}
+            />
 
-              {currentUser && <Route path="/home" element={<Home />} />}
+            {currentUser && <Route path="/home" element={<Home />} />}
+            {currentUser && (
+              <Route path="/friends" element={<Friends />}>
+                <Route path="all" element={<Home />} />
+                <Route path="request" element={<Home />} />
+              </Route>
+            )}
 
-              <Route
-                path="/*"
-                element={!currentUser && <Navigate to="/login" push />}
-              />
-            </Routes>
-          </main>
+            <Route
+              path="/*"
+              element={!currentUser && <Navigate to="/login" push />}
+            />
+          </Routes>
           <footer></footer>
         </div>
       </UserContext.Provider>

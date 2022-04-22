@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
 
 import "./Navbar.css";
@@ -66,10 +66,10 @@ function Navbar(props) {
           />
         </div>
         <div className="nav-right">
-          <a className="user" href="#">
+          <NavLink className="user" to="/profile">
             <img className="nav__user-image" src={"./images/RAFAEL_FOTO.JPG"} />
             <span className="nav__user-name">{currentUser.firstName}</span>
-          </a>
+          </NavLink>
           <NavLinkwithToolTip
             className="nav-link"
             faClasses="fa-solid fa-message fa-xl"

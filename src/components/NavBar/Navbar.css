@@ -106,18 +106,24 @@ a.nav-link,
   text-decoration: none;
   color: black;
   width: 13rem;
+  padding: 0.5rem;
+  border-radius: 30px;
+}
+
+.active.user {
+  background-color: rgba(199, 255, 219, 0.8);
+  color: #025909;
 }
 
 .user:hover {
   background: rgba(240, 242, 245, 255);
   background-size: cover;
-  border-radius: 10px;
 }
 
 .nav__user-image {
-  width: 6rem;
-  height: 6rem;
-  border-radius: 3rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 2rem;
   margin-right: 1rem;
 }
 

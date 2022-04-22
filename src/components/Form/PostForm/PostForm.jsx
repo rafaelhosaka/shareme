@@ -65,12 +65,14 @@ function PostForm(props) {
     formData.append("post", JSON.stringify({ user: currentUser, description }));
     formData.append("file", files[0]); //for now accept only one image
     const { data: post } = await savePostWithImage(formData);
+    return post;
   };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
       createPost();
+      window.location.reload(false);
     } catch (ex) {
       console.log(ex);
     }

@@ -17,6 +17,11 @@
   margin-top: 2rem;
 }
 
+.left-content {
+  grid-area: left-content;
+  max-width: 420px;
+}
+
 @media screen and (min-width: 768px) {
   .template {
     grid-template: 70px auto/ 25fr 50fr;

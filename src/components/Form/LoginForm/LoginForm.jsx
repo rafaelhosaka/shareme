@@ -25,7 +25,7 @@ function LoginForm(props) {
   };
 
   return (
-    <>
+    <main className="container">
       <img
         className="login-logo"
         src={"./images/logo-full.png"}
@@ -61,7 +61,7 @@ function LoginForm(props) {
           Create Account
         </Link>
       </div>
-    </>
+    </main>
   );
 }
 
