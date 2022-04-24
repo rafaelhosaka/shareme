@@ -1,0 +1,105 @@
+.container {
+  margin: 0;
+}
+
+.profile__background {
+  background: linear-gradient(
+    180deg,
+    hsla(260, 75%, 95%, 1) 0%,
+    hsla(125, 86%, 83%, 1) 0%,
+    hsla(0, 0%, 100%, 1) 60%
+  );
+
+  width: 100vw;
+  position: absolute;
+  height: 620px;
+  display: inline-block;
+  box-shadow: 0px 0px 5px 1px rgba(83, 83, 83, 0.363);
+  z-index: -1;
+}
+
+.profile__header {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 480px;
+}
+
+.background-image__container {
+  position: absolute;
+  z-index: -1;
+}
+
+.background-image {
+  width: 100%;
+  height: 349px;
+  object-fit: cover;
+  border-radius: 0 0 10px 10px;
+}
+
+.profile-user {
+  display: flex;
+  align-items: center;
+}
+
+.profile-user__image {
+  width: 16.8rem;
+  height: 16.8rem;
+  border-radius: 8.4rem;
+  border: 5px solid white;
+}
+
+.profile-user__details {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.profile-user__name {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.profile-user__friends-qty {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: rgb(101, 103, 107);
+  margin-top: 1rem;
+  text-decoration: none;
+}
+
+.profile-user__friends-qty:hover {
+  text-decoration: underline;
+}
+
+.profile-options__container {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 2rem 0;
+  border-top: 1px solid lightgray;
+}
+
+.profile-options {
+  display: flex;
+  width: 100%;
+}
+
+.profile-option {
+  margin: 1rem 0;
+  padding: 1.8rem 1.5rem;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.profile-option:hover.profile-option:not(.active) {
+  background: rgba(240, 242, 245, 255);
+  background-size: cover;
+  border-radius: 10px;
+}
+
+.active.profile-option {
+  font-weight: bold;
+  border-bottom: 5px solid #025909;
+  color: #025909;
+}

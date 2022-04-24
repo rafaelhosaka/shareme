@@ -4,12 +4,14 @@ import LoginForm from "../Form/LoginForm/LoginForm";
 import Home from "../Home/Home";
 import authService from "../../services/authService";
 import { getUserByEmail } from "../../services/userService";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import UserContext from "../../context/userContext";
+import Friends from "../Friends/Friends";
+import Profile from "../ProfilePage/Profile";
+import NotFound from "../NotFound/NotFound";
 
 import "./App.css";
 import "../Form/Form.css";
-import Friends from "../Friends/Friends";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -32,6 +34,11 @@ function App() {
           <header className="header">{currentUser && <Navbar />}</header>
           <Routes>
             <Route
+              path="/"
+              element={!currentUser && <Navigate to="/login" push />}
+            />
+
+            <Route
               path="/login"
               element={!currentUser ? <LoginForm /> : <Navigate to="/home" />}
             />
@@ -44,10 +51,13 @@ function App() {
               </Route>
             )}
 
-            <Route
-              path="/*"
-              element={!currentUser && <Navigate to="/login" push />}
-            />
+            <Route path="/profile" element={<Profile />}>
+              <Route path="posts" element={<Home />} />
+              <Route path="images" element={<Home />} />
+              <Route path="videos" element={<Home />} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <footer></footer>
         </div>

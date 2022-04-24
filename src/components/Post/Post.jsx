@@ -12,7 +12,7 @@ function Post({ post }) {
             <a href="/">
               <img
                 className="post__user-image"
-                src={"./images/RAFAEL_FOTO.JPG"}
+                src={process.env.PUBLIC_URL + "/images/RAFAEL_FOTO.JPG"}
               />
             </a>
             <a href="/" className="post__user-name">

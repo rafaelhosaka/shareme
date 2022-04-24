@@ -36,4 +36,6 @@
 .active.friends-menu__item {
   background-color: rgba(199, 255, 219, 0.8);
   border-radius: 10px;
+  font-weight: 700;
+  color: #025909;
 }

@@ -66,7 +66,7 @@ function Navbar(props) {
           />
         </div>
         <div className="nav-right">
-          <NavLink className="user" to="/profile">
+          <NavLink className="user" to="/profile/posts">
             <img className="nav__user-image" src={"./images/RAFAEL_FOTO.JPG"} />
             <span className="nav__user-name">{currentUser.firstName}</span>
           </NavLink>

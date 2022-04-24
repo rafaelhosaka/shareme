@@ -91,7 +91,7 @@ function PostForm(props) {
         <div className="form-post__user">
           <img
             className="form-post__user-image"
-            src={"./images/RAFAEL_FOTO.JPG"}
+            src={process.env.PUBLIC_URL + "/images/RAFAEL_FOTO.JPG"}
           />
           <span className="form-post__user-name">{`${currentUser.firstName} ${currentUser.lastName}`}</span>
         </div>

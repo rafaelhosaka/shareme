@@ -14,12 +14,14 @@
 
 .container {
   grid-area: main-content;
-  margin-top: 2rem;
 }
 
 .left-content {
   grid-area: left-content;
-  max-width: 420px;
+}
+
+.right-content {
+  grid-area: right-content;
 }
 
 @media screen and (min-width: 768px) {
