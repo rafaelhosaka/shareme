@@ -1,5 +1,5 @@
 import axios from "axios";
-import authService from "./authService";
+import authService, { getToken } from "./authService";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 

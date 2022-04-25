@@ -9,3 +9,7 @@ export function getUserByEmail(email) {
 export function saveUser(user) {
   return httpService.post(apiEndPoint + "/", user);
 }
+
+export function userImageDownload(userId) {
+  return httpService.get(apiEndPoint + "/download/" + userId);
+}

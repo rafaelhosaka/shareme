@@ -12,7 +12,6 @@ import NotFound from "../NotFound/NotFound";
 
 import "./App.css";
 import "../Form/Form.css";
-
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -35,7 +34,13 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={!currentUser && <Navigate to="/login" push />}
+              element={
+                !currentUser ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <Navigate to="/home" replace />
+                )
+              }
             />
 
             <Route
@@ -57,7 +62,12 @@ function App() {
               <Route path="videos" element={<Home />} />
             </Route>
 
-            <Route path="*" element={<NotFound />} />
+            <Route
+              path="*"
+              element={
+                !currentUser ? <Navigate to="/login" replace /> : <NotFound />
+              }
+            />
           </Routes>
           <footer></footer>
         </div>

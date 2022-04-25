@@ -1,12 +1,13 @@
 import React, { useCallback, useState, useContext } from "react";
 import { useInput } from "../../../hook/useInput";
 import { savePostWithImage } from "../../../services/postService";
-import { saveUser } from "../../../services/userService";
+import { userImageDownload } from "../../../services/userService";
 import { useDropzone } from "react-dropzone";
 
 import "./PostForm.css";
 import UserContext from "../../../context/userContext";
 import { useNavigate } from "react-router-dom";
+import { useBase64Image } from "../../../hook/useBase64Image";
 
 function PostForm(props) {
   const onDrop = useCallback((acceptedFiles) => {
@@ -20,6 +21,7 @@ function PostForm(props) {
   });
   const navigate = useNavigate();
   const currentUser = useContext(UserContext);
+  const userProfileImage = useBase64Image(userImageDownload(currentUser.id));
 
   const handleClose = () => {
     setFiles([]);
@@ -64,8 +66,7 @@ function PostForm(props) {
     const formData = new FormData();
     formData.append("post", JSON.stringify({ user: currentUser, description }));
     formData.append("file", files[0]); //for now accept only one image
-    const { data: post } = await savePostWithImage(formData);
-    return post;
+    await savePostWithImage(formData);
   };
 
   const handleSubmit = async (e) => {
@@ -89,11 +90,10 @@ function PostForm(props) {
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className="form-post__user">
-          <img
-            className="form-post__user-image"
-            src={process.env.PUBLIC_URL + "/images/RAFAEL_FOTO.JPG"}
-          />
-          <span className="form-post__user-name">{`${currentUser.firstName} ${currentUser.lastName}`}</span>
+          <img className="form-post__user-image" src={userProfileImage} />
+          <span className="form-post__user-name">
+            {currentUser && `${currentUser.firstName} ${currentUser.lastName}`}
+          </span>
         </div>
 
         <div className="form-group">

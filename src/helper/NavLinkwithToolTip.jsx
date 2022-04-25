@@ -9,9 +9,10 @@ function NavLinkwithToolTip({
   tooltipLabel,
   showToolTip,
   className,
+  ...props
 }) {
   return (
-    <NavLink className={className} to={to}>
+    <NavLink className={className} to={to} {...props}>
       <i className={faClasses}></i>
 
       {showToolTip && <span className="tooltip-text">{tooltipLabel}</span>}

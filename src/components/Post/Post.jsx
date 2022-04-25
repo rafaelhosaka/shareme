@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { formatDate } from "../../utils/formatDate";
-import { imageDownload } from "../../services/postService";
+import { postImageDownload } from "../../services/postService";
+import { userImageDownload } from "../../services/userService";
 import "./Post.css";
+import { useBase64Image } from "../../hook/useBase64Image";
 
 function Post({ post }) {
+  const postImage = useBase64Image(postImageDownload(post.id));
+  const postUserImage = useBase64Image(userImageDownload(post.user.id));
+
   return (
     <>
       <div className="post">
         <header className="post__header">
           <div className="post__user">
             <a href="/">
-              <img
-                className="post__user-image"
-                src={process.env.PUBLIC_URL + "/images/RAFAEL_FOTO.JPG"}
-              />
+              <img className="post__user-image" src={postUserImage} />
             </a>
             <a href="/" className="post__user-name">
               {`${post.user.firstName} ${post.user.lastName}`}
@@ -22,9 +24,7 @@ function Post({ post }) {
           <p className="post__date">{formatDate(post.dateCreated)}</p>
         </header>
         <p className="post__description">{post.description}</p>
-        {post.fileName && (
-          <img className="post__image" src={imageDownload(post.id)} />
-        )}
+        {post.fileName && <img className="post__image" src={postImage} />}
         <footer className="post__footer">
           <div className="post__details">
             <span className="post__details-like">2 likes</span>

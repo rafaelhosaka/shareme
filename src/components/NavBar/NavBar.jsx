@@ -1,13 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
-
+import { userImageDownload } from "../../services/userService";
+import { useBase64Image } from "../../hook/useBase64Image";
 import "./Navbar.css";
 import UserContext from "../../context/userContext";
 
 function Navbar(props) {
   const [showSearch, setShowSearch] = useState(false);
   const currentUser = useContext(UserContext);
+  const userProfileImage = useBase64Image(userImageDownload(currentUser.id));
 
   const toggleSearchBar = () => {
     setShowSearch(showSearch ? false : true);
@@ -34,7 +36,10 @@ function Navbar(props) {
       <div className="navbar-nav">
         <div className="nav-left">
           <Link className="logo-container" to="/">
-            <img className="logo" src={"./images/logo.png"} />
+            <img
+              className="logo"
+              src={process.env.PUBLIC_URL + "/images/logo.png"}
+            />
           </Link>
           {getSearchBar(showSearch)}
         </div>
@@ -49,7 +54,8 @@ function Navbar(props) {
           <NavLinkwithToolTip
             className="nav-link"
             faClasses="fa-solid fa-user-group fa-xl"
-            to="/friends"
+            to="/friends/all"
+            end
             tooltipLabel="Friends"
           />
           <NavLinkwithToolTip
@@ -67,7 +73,7 @@ function Navbar(props) {
         </div>
         <div className="nav-right">
           <NavLink className="user" to="/profile/posts">
-            <img className="nav__user-image" src={"./images/RAFAEL_FOTO.JPG"} />
+            <img className="nav__user-image" src={userProfileImage} />
             <span className="nav__user-name">{currentUser.firstName}</span>
           </NavLink>
           <NavLinkwithToolTip

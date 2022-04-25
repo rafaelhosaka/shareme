@@ -1,11 +1,11 @@
-import httpService from "./httpService";
+import httpService, { setJwt } from "./httpService";
 import jwtDecode from "jwt-decode";
 
 const apiEndPoint = "/auth";
 const accessToken = "access_token";
 const refreshToken = "refresh_token";
 
-httpService.setJwt(getToken());
+setJwt(getToken());
 
 export async function login(username, password) {
   const form = new FormData();
