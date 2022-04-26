@@ -3,11 +3,10 @@ import { useInput } from "../../../hook/useInput";
 import { savePostWithImage } from "../../../services/postService";
 import { userImageDownload } from "../../../services/userService";
 import { useDropzone } from "react-dropzone";
-
 import "./PostForm.css";
-import UserContext from "../../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import { useBase64Image } from "../../../hook/useBase64Image";
+import { useUser } from "../../../context/UserContext";
 
 function PostForm(props) {
   const onDrop = useCallback((acceptedFiles) => {
@@ -20,7 +19,7 @@ function PostForm(props) {
     onDrop,
   });
   const navigate = useNavigate();
-  const currentUser = useContext(UserContext);
+  const currentUser = useUser();
   const userProfileImage = useBase64Image(userImageDownload(currentUser.id));
 
   const handleClose = () => {

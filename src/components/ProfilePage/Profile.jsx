@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
-import UserContext from "../../context/userContext";
+import React from "react";
 import { userImageDownload } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
 import "./Profile.css";
 import { NavLink, Outlet, Link } from "react-router-dom";
+import { useUser } from "../../context/UserContext";
 
 function Profile(props) {
-  const currentUser = useContext(UserContext);
-  const userProfileImage = useBase64Image(userImageDownload(currentUser.id));
+  const currentUser = useUser();
+  const userProfileImage = useBase64Image(
+    userImageDownload(currentUser && currentUser.id)
+  );
   return (
     <>
       <div className="profile__background"></div>

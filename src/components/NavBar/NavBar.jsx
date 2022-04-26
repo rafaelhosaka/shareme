@@ -4,11 +4,11 @@ import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
 import { userImageDownload } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
 import "./Navbar.css";
-import UserContext from "../../context/userContext";
+import { useUser } from "../../context/UserContext";
 
 function Navbar(props) {
   const [showSearch, setShowSearch] = useState(false);
-  const currentUser = useContext(UserContext);
+  const currentUser = useUser();
   const userProfileImage = useBase64Image(userImageDownload(currentUser.id));
 
   const toggleSearchBar = () => {

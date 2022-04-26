@@ -1,0 +1,60 @@
+import { Routes, Route, Navigate } from "react-router";
+import Navbar from "../NavBar/NavBar";
+import LoginForm from "../Form/LoginForm/LoginForm";
+import Home from "../Home/Home";
+import Friends from "../Friends/Friends";
+import Profile from "../ProfilePage/Profile";
+import NotFound from "../NotFound/NotFound";
+import { useUser } from "../../context/UserContext";
+
+function AppRoutes(props) {
+  const currentUser = useUser();
+
+  return (
+    <div className="template">
+      <header className="header">{currentUser && <Navbar />}</header>
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            !currentUser ? (
+              <Navigate to="/login" replace />
+            ) : (
+              <Navigate to="/home" replace />
+            )
+          }
+        />
+
+        <Route
+          path="/login"
+          element={!currentUser ? <LoginForm /> : <Navigate to="/home" />}
+        />
+
+        {currentUser && <Route path="/home" element={<Home />} />}
+        {currentUser && (
+          <Route path="/friends" element={<Friends />}>
+            <Route path="all" element={<NotFound />} />
+            <Route path="request" element={<NotFound />} />
+          </Route>
+        )}
+
+        <Route path="/profile" element={<Profile />}>
+          <Route path="posts" element={<NotFound />} />
+          <Route path="images" element={<NotFound />} />
+          <Route path="videos" element={<NotFound />} />
+        </Route>
+
+        <Route
+          path="*"
+          element={
+            !currentUser ? <Navigate to="/login" replace /> : <NotFound />
+          }
+        />
+      </Routes>
+      <footer></footer>
+    </div>
+  );
+}
+
+export default AppRoutes;
