@@ -5,27 +5,24 @@ import { userImageDownload } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
 import "./Navbar.css";
 import { useUser } from "../../context/UserContext";
+import { useToggle } from "../../hook/useToggle";
 
 function Navbar(props) {
-  const [showSearch, setShowSearch] = useState(false);
+  const [showSearch, toggleSearch] = useToggle(false);
   const currentUser = useUser();
   const userProfileImage = useBase64Image(userImageDownload(currentUser.id));
-
-  const toggleSearchBar = () => {
-    setShowSearch(showSearch ? false : true);
-  };
 
   const getSearchBar = (showSearch) => {
     return showSearch ? (
       <div className="search-container expanded">
         <i
-          onClick={() => toggleSearchBar()}
+          onClick={toggleSearch}
           className="search-icon fa-solid fa-chevron-left fa-xl"
         ></i>
         <input className="search" href="#" placeholder="Search on Shareme" />
       </div>
     ) : (
-      <div onClick={() => toggleSearchBar()} className="search-container">
+      <div onClick={toggleSearch} className="search-container">
         <i className="search-icon fa-solid fa-magnifying-glass fa-xl"></i>
       </div>
     );
@@ -90,9 +87,9 @@ function Navbar(props) {
           />
           <NavLinkwithToolTip
             className="nav-link"
-            faClasses="fa-solid fa-gear fa-xl"
-            to="/settings"
-            tooltipLabel="Settings"
+            faClasses="fa-solid fa-right-from-bracket fa-xl"
+            to="/logout"
+            tooltipLabel="Logout"
           />
         </div>
       </div>

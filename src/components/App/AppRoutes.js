@@ -1,11 +1,13 @@
 import { Routes, Route, Navigate } from "react-router";
 import Navbar from "../NavBar/NavBar";
 import LoginForm from "../Form/LoginForm/LoginForm";
-import Home from "../Home/Home";
+import Feed from "../Feed/Feed";
 import Friends from "../Friends/Friends";
 import Profile from "../ProfilePage/Profile";
 import NotFound from "../NotFound/NotFound";
 import { useUser } from "../../context/UserContext";
+import Logout from "../Form/LoginForm/Logout";
+import RegisterForm from "../Form/RegisterForm/RegisterForm";
 
 function AppRoutes(props) {
   const currentUser = useUser();
@@ -30,8 +32,14 @@ function AppRoutes(props) {
           path="/login"
           element={!currentUser ? <LoginForm /> : <Navigate to="/home" />}
         />
+        <Route
+          path="/logout"
+          element={currentUser ? <Logout /> : <Navigate to="/login" />}
+        />
 
-        {currentUser && <Route path="/home" element={<Home />} />}
+        <Route path="/register" element={<RegisterForm />} />
+
+        {currentUser && <Route path="/home" element={<Feed />} />}
         {currentUser && (
           <Route path="/friends" element={<Friends />}>
             <Route path="all" element={<NotFound />} />

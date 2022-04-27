@@ -1,0 +1,10 @@
+.form-register-container {
+  box-shadow: 0 0 30px 1px rgb(197, 196, 196);
+  border-radius: 10px;
+  background-color: white;
+}
+
+.form-register-header {
+  border-bottom: 1px solid #ccd0d4;
+  padding: 1rem;
+}

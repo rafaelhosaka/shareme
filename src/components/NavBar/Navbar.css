@@ -143,6 +143,25 @@
   right: 10px;
 }
 
+.setting:hover .setting-menu {
+  display: inline;
+}
+
+.setting-menu {
+  position: absolute;
+  top: 5rem;
+
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.3rem;
+  border-radius: 5px;
+  display: none;
+}
+
+a.setting-item {
+  color: white;
+  text-decoration: none;
+}
+
 @media screen and (min-width: 768px) {
   .nav-left {
     justify-content: flex-start;

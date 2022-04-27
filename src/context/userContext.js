@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import authService from "../services/authService";
 import { getUserByEmail, userImageDownload } from "../services/userService";
-import { useBase64Image } from "../hook/useBase64Image";
 
 const UserContext = React.createContext();
 

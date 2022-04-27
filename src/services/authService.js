@@ -14,12 +14,16 @@ export async function login(username, password) {
   const { data: jwt } = await httpService.post(apiEndPoint + "/login", form);
   localStorage.setItem(accessToken, jwt.access_token);
   localStorage.setItem(refreshToken, jwt.refresh_token);
+  setJwt(jwt.accessToken);
 }
 
 export function logout() {
   localStorage.removeItem(accessToken);
   localStorage.removeItem(refreshToken);
-  window.location = "/login";
+}
+
+export function createUserAccount(user) {
+  return httpService.post(apiEndPoint + "/user/save", user);
 }
 
 export function getCurrentUser() {
@@ -65,4 +69,5 @@ export default {
   getRefreshToken,
   isTokenExpired,
   renewTokens,
+  createUserAccount,
 };

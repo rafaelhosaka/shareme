@@ -1,5 +1,4 @@
 import httpService from "./httpService";
-import authService from "./authService";
 const apiEndPoint = "/user";
 
 export function getUserByEmail(email) {
@@ -7,7 +6,7 @@ export function getUserByEmail(email) {
 }
 
 export function saveUser(user) {
-  return httpService.post(apiEndPoint + "/", user);
+  return httpService.post(apiEndPoint + "/save", user);
 }
 
 export function userImageDownload(userId) {

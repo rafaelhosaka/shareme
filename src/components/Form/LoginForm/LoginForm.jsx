@@ -35,21 +35,19 @@ function LoginForm(props) {
         <h1 className="form-login-heading">Log Into Shareme</h1>
         <form className="form-login" onSubmit={(e) => handleSubmit(e)}>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
             <input
-              name="email"
+              placeholder="Email"
               type="email"
-              className="form-control"
+              className="form-input"
               {...bindEmail}
               required
             />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
             <input
-              name="password"
+              placeholder="Password"
               type="password"
-              className="form-control"
+              className="form-input"
               {...bindPassword}
               required
             />

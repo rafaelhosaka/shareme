@@ -6,7 +6,7 @@ import _ from "lodash";
 import Post from "../Post/Post";
 import PostForm from "../Form/PostForm/PostForm";
 
-const Home = (props) => {
+const Feed = (props) => {
   const [posts, setPost] = useState([]);
   const [pagedPosts, setPagedPosts] = useState([]);
   const [pageInfo, setPageInfo] = useState({ currentPage: 1, pageSize: 10 });
@@ -57,4 +57,4 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+export default Feed;
