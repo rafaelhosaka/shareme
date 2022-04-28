@@ -3,14 +3,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useInput } from "../../../hook/useInput";
 import authService from "../../../services/authService";
+import { useAlert } from "../../Alert/Alert";
 
 import "./LoginForm.css";
 
 function LoginForm(props) {
   const { value: email, bind: bindEmail } = useInput("");
   const { value: password, bind: bindPassword } = useInput("");
-
-  const [error, setError] = useState("");
+  const [alert, dispatchAlert] = useAlert();
 
   const handleSubmit = async (e) => {
     try {
@@ -19,13 +19,14 @@ function LoginForm(props) {
       window.location = "/home";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
-        setError("Username/Password incorrect");
+        dispatchAlert("Username/Password incorrect", "warning");
       }
     }
   };
 
   return (
     <main className="container">
+      {alert}
       <img
         className="login-logo"
         src={"./images/logo-full.png"}
@@ -52,7 +53,7 @@ function LoginForm(props) {
               required
             />
           </div>
-          {error && <div className="alert alert--danger">{error}</div>}
+
           <button className="btn btn--green btn--stretched">Log In</button>
         </form>
         <Link className="btn btn--green btn--stretched" to="/register">
