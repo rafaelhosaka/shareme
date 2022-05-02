@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useInput } from "../../../hook/useInput";
 import authService from "../../../services/authService";
 import { saveUser } from "../../../services/userService";
 
 import "./RegisterForm.css";
+import { useAlert } from "../../Alert/Alert";
+import { useNavigate } from "react-router-dom";
 
 function RegisterForm(props) {
   const { value: firstName, bind: bindFirstName } = useInput("");
@@ -15,6 +16,9 @@ function RegisterForm(props) {
   const { value: month, bind: bindMonth } = useInput(new Date().getMonth());
   const { value: year, bind: bindYear } = useInput(new Date().getFullYear());
   const [gender, setGender] = useState("");
+
+  const [alert, dispatchAlert] = useAlert();
+  const navigate = useNavigate();
 
   const MONTHS = [
     "Jan",
@@ -51,20 +55,30 @@ function RegisterForm(props) {
     return response;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      createUserAccount().then((response) => {
-        if (response.status === 201) {
-          createUser();
-          window.location = "/login";
-        }
-      });
-    } catch (ex) {}
+
+      const response = await createUserAccount();
+      if (response.status === 201) {
+        await createUser();
+        navigate("/login", {
+          state: {
+            alert: {
+              message: "Account created, please login",
+              type: "success",
+            },
+          },
+        });
+      }
+    } catch (ex) {
+      dispatchAlert(ex.response.data, "danger");
+    }
   };
 
   return (
     <main className="container">
+      {alert}
       <img
         className="login-logo"
         src={"./images/logo-full.png"}
@@ -81,12 +95,14 @@ function RegisterForm(props) {
               type="text"
               placeholder="First name"
               {...bindFirstName}
+              required
             />
             <input
               className="form-input form-input--gray"
               type="text"
               placeholder="Last name"
               {...bindLastName}
+              required
             />
           </div>
           <div className="form-group">
@@ -95,6 +111,7 @@ function RegisterForm(props) {
               type="email"
               placeholder="Email"
               {...bindEmail}
+              required
             />
           </div>
           <div className="form-group">
@@ -103,8 +120,10 @@ function RegisterForm(props) {
               type="password"
               placeholder="New Password"
               {...bindPassword}
+              required
             />
           </div>
+          <span className="form-label">Birthday</span>
           <div className="grid--3x1">
             <select className="form-select" {...bindMonth}>
               {MONTHS.map((m, i) => (
@@ -129,6 +148,7 @@ function RegisterForm(props) {
               ))}
             </select>
           </div>
+          <span className="form-label">Gender</span>
           <div className="grid--2x1">
             <div onClick={() => setGender("female")} className="form-radio">
               <label htmlFor="female">Female</label>
@@ -140,6 +160,7 @@ function RegisterForm(props) {
                 value="female"
                 checked={gender === "female"}
                 onChange={(e) => setGender(e.target.value)}
+                required
               />
             </div>
 

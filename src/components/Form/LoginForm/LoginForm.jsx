@@ -1,6 +1,6 @@
 import { validate } from "joi-browser";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useInput } from "../../../hook/useInput";
 import authService from "../../../services/authService";
 import { useAlert } from "../../Alert/Alert";
@@ -11,6 +11,14 @@ function LoginForm(props) {
   const { value: email, bind: bindEmail } = useInput("");
   const { value: password, bind: bindPassword } = useInput("");
   const [alert, dispatchAlert] = useAlert();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state && location.state.alert) {
+      const alert = location.state.alert;
+      dispatchAlert(alert.message, alert.type);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     try {
@@ -19,7 +27,7 @@ function LoginForm(props) {
       window.location = "/home";
     } catch (ex) {
       if (ex.response && ex.response.status === 400) {
-        dispatchAlert("Username/Password incorrect", "warning");
+        dispatchAlert("Username/Password incorrect", "danger");
       }
     }
   };
