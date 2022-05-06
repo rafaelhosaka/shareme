@@ -1,5 +1,5 @@
 import axios from "axios";
-import authService, { getToken } from "./authService";
+import authService from "./authService";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
@@ -21,6 +21,7 @@ axios.interceptors.response.use(null, (error) => {
       if (authService.isTokenExpired(refreshToken)) {
         console.log("RefreshToken expired");
         authService.logout();
+        window.location = "/home";
       } else {
         console.log("Renew Token");
         setJwt(refreshToken);

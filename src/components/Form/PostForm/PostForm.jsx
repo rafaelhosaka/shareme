@@ -6,7 +6,7 @@ import { useDropzone } from "react-dropzone";
 import "./PostForm.css";
 import { useNavigate } from "react-router-dom";
 import { useBase64Image } from "../../../hook/useBase64Image";
-import { useUser } from "../../../context/UserContext";
+import { useUser, useUserImage } from "../../../context/UserContext";
 
 function PostForm(props) {
   const onDrop = useCallback((acceptedFiles) => {
@@ -18,9 +18,8 @@ function PostForm(props) {
   const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
     onDrop,
   });
-  const navigate = useNavigate();
   const currentUser = useUser();
-  const userProfileImage = useBase64Image(userImageDownload(currentUser.id));
+  const userImage = useUserImage();
 
   const handleClose = () => {
     setFiles([]);
@@ -89,7 +88,7 @@ function PostForm(props) {
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className="form-post__user">
-          <img className="form-post__user-image" src={userProfileImage} />
+          <img className="form-post__user-image" src={userImage} />
           <span className="form-post__user-name">
             {currentUser && `${currentUser.firstName} ${currentUser.lastName}`}
           </span>

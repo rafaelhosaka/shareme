@@ -1,15 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { userImageDownload } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
 import "./Profile.css";
 import { NavLink, Outlet, Link } from "react-router-dom";
-import { useUser } from "../../context/UserContext";
+import { useUser, useUserImage } from "../../context/UserContext";
 
 function Profile(props) {
   const currentUser = useUser();
-  const userProfileImage = useBase64Image(
-    userImageDownload(currentUser && currentUser.id)
-  );
+  const userImage = useUserImage();
   return (
     <>
       <div className="profile__background"></div>
@@ -22,7 +20,10 @@ function Profile(props) {
         </div>
         <div className="profile__header">
           <div className="profile-user">
-            <img className="profile-user__image" src={userProfileImage} />
+            <img
+              className="profile-user__image"
+              src={currentUser && userImage}
+            />
             <div className="profile-user__details">
               <span className="profile-user__name">
                 {currentUser &&

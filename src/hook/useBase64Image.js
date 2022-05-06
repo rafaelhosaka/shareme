@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 
 export function useBase64Image(httpService) {
   const [image, setImage] = useState();
+  const [service, setService] = useState(httpService);
 
   useEffect(() => {
     async function getImage() {
-      if (httpService) {
-        const { data } = await httpService;
+      if (service) {
+        const { data } = await service;
         if (data) {
           setImage(`data:image/jpeg;base64,${data}`);
         } else {
@@ -15,7 +16,7 @@ export function useBase64Image(httpService) {
       }
     }
     getImage();
-  }, []);
+  }, [service]);
 
-  return image;
+  return { image: image, setService: setService };
 }

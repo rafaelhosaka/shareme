@@ -4,13 +4,13 @@ import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
 import { userImageDownload } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
 import "./Navbar.css";
-import { useUser } from "../../context/UserContext";
+import { useUser, useUserImage } from "../../context/UserContext";
 import { useToggle } from "../../hook/useToggle";
 
 function Navbar(props) {
   const [showSearch, toggleSearch] = useToggle(false);
   const currentUser = useUser();
-  const userProfileImage = useBase64Image(userImageDownload(currentUser.id));
+  const userImage = useUserImage();
 
   const getSearchBar = (showSearch) => {
     return showSearch ? (
@@ -70,7 +70,7 @@ function Navbar(props) {
         </div>
         <div className="nav-right">
           <NavLink className="user" to="/profile/posts">
-            <img className="nav__user-image" src={userProfileImage} />
+            <img className="nav__user-image" src={userImage} />
             <span className="nav__user-name">{currentUser.firstName}</span>
           </NavLink>
           <NavLinkwithToolTip

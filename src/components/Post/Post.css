@@ -81,6 +81,7 @@
   max-width: 500px;
   width: 100vw;
   height: 50px;
+  cursor: pointer;
 }
 
 .post__icon > span {

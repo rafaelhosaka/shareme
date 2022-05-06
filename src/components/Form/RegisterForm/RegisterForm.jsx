@@ -37,8 +37,8 @@ function RegisterForm(props) {
 
   const currentYear = new Date().getFullYear();
 
-  const createUser = async () => {
-    await saveUser({
+  const createUser = () => {
+    return saveUser({
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -47,12 +47,11 @@ function RegisterForm(props) {
     });
   };
 
-  const createUserAccount = async () => {
-    const response = await authService.createUserAccount({
+  const createUserAccount = () => {
+    return authService.createUserAccount({
       username: email,
       password: password,
     });
-    return response;
   };
 
   const handleSubmit = async (e) => {
