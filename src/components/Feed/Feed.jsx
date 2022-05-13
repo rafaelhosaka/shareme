@@ -38,8 +38,9 @@ const Feed = (props) => {
     setPagedPosts(concatPages);
   }, [pageInfo]);
 
-  const onScroll = () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+  const onScroll = (e) => {
+    let element = e.target.scrollingElement;
+    if (element.scrollHeight - element.scrollTop <= element.clientHeight) {
       setPageInfo({ currentPage: pageInfo.currentPage++, ...pageInfo });
       console.log("End of window");
     }
@@ -48,8 +49,8 @@ const Feed = (props) => {
   return (
     <main className="container">
       <PostForm />
-      <div onScroll={() => onScroll()}>
-        {pagedPosts.slice().map((post) => (
+      <div onScroll={(e) => onScroll(e)}>
+        {pagedPosts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
       </div>

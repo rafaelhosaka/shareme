@@ -2,7 +2,11 @@ import httpService from "./httpService";
 const apiEndPoint = "/user";
 
 export function getUserByEmail(email) {
-  return httpService.get(apiEndPoint + "/" + email);
+  return httpService.get(apiEndPoint + "/email/" + email);
+}
+
+export function getUserById(userId) {
+  return httpService.get(apiEndPoint + "/id/" + userId);
 }
 
 export function saveUser(user) {

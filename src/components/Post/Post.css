@@ -55,12 +55,16 @@
   align-items: center;
   justify-content: space-between;
   height: 40px;
-  border-bottom: 1px solid lightgrey;
 }
 
 .post__details-like,
 .post__details-comment {
   margin: 0 2rem;
+}
+
+.post__details-comment:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .post__details-share {
@@ -72,6 +76,7 @@
   height: 50px;
   align-items: center;
   justify-content: space-around;
+  border-top: 1px solid lightgrey;
 }
 
 .post__icon {
@@ -94,5 +99,10 @@
   border-radius: 10px;
 }
 
-@media screen and (max-width: 768px) {
+.post__comments {
+  border-top: 1px solid lightgrey;
+}
+
+.post__comments.hidden {
+  display: none;
 }

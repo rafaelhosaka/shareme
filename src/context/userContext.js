@@ -28,6 +28,7 @@ export function UserProvider({ children }) {
         const { data } = await getUserByEmail(currentUser.sub);
         setService(userImageDownload(data.id));
         setUser(data);
+        localStorage.setItem("user", data);
       }
     }
     getUser();
