@@ -10,7 +10,7 @@ import Logout from "../Form/LoginForm/Logout";
 import RegisterForm from "../Form/RegisterForm/RegisterForm";
 
 function AppRoutes(props) {
-  const currentUser = useUser();
+  const { user: currentUser } = useUser();
 
   return (
     <div className="template">

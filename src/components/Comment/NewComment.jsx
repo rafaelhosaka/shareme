@@ -6,7 +6,7 @@ import "./Comment.css";
 
 function NewComment({ postId, handleNewComment, elementRef }) {
   const userImage = useUserImage();
-  const currentUser = useUser();
+  const { user: currentUser } = useUser();
   const {
     value: description,
     bind: bindDescription,

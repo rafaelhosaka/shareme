@@ -77,7 +77,7 @@
 }
 
 .btn:hover {
-  background: #02850d;
+  filter: brightness(130%);
 }
 
 .btn:hover.btn:disabled {

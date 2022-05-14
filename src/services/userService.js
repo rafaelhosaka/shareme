@@ -16,3 +16,9 @@ export function saveUser(user) {
 export function userImageDownload(userId) {
   return httpService.get(apiEndPoint + "/download/" + userId);
 }
+
+export function userImageUpload(formData) {
+  return httpService.put(`${apiEndPoint}/upload`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+}

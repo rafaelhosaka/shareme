@@ -47,6 +47,36 @@
   height: 16.8rem;
   border-radius: 8.4rem;
   border: 5px solid white;
+  background: white;
+}
+
+.change-icon__container {
+  position: relative;
+}
+
+.change-icon__container #upload-image {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.change-icon {
+  background-color: rgba(240, 242, 245, 255);
+  border-radius: 30px;
+  width: 10px;
+  height: 10px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 1px;
+  top: 30px;
+}
+
+.change-icon:hover {
+  cursor: pointer;
+  filter: brightness(95%);
 }
 
 .profile-user__details {

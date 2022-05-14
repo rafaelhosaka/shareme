@@ -1,13 +1,21 @@
-import React, { useEffect } from "react";
-import { userImageDownload } from "../../services/userService";
-import { useBase64Image } from "../../hook/useBase64Image";
+import React, { useState } from "react";
 import "./Profile.css";
 import { NavLink, Outlet, Link } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/UserContext";
+import { userImageUpload } from "../../services/userService";
 
 function Profile(props) {
-  const currentUser = useUser();
+  const { user: currentUser, setUser } = useUser();
   const userImage = useUserImage();
+
+  const handleUploadImage = async (e) => {
+    const formData = new FormData();
+    formData.append("file", e.target.files[0]);
+    formData.append("userId", currentUser.user.id);
+    const { data } = await userImageUpload(formData);
+    setUser(data);
+  };
+
   return (
     <>
       <div className="profile__background"></div>
@@ -24,6 +32,19 @@ function Profile(props) {
               className="profile-user__image"
               src={currentUser && userImage}
             />
+            <div className="change-icon__container">
+              <label htmlFor="upload-image">
+                <div className="change-icon">
+                  <i className="fa-solid fa-camera fa-xl"></i>
+                </div>
+                <input
+                  id="upload-image"
+                  type="file"
+                  accept=".png,.jpeg,.jpg"
+                  onChange={(e) => handleUploadImage(e)}
+                />
+              </label>
+            </div>
             <div className="profile-user__details">
               <span className="profile-user__name">
                 {currentUser &&

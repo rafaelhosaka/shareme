@@ -28,14 +28,19 @@ export function UserProvider({ children }) {
         const { data } = await getUserByEmail(currentUser.sub);
         setService(userImageDownload(data.id));
         setUser(data);
-        localStorage.setItem("user", data);
       }
     }
     getUser();
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      setService(userImageDownload(user.id));
+    }
+  }, [user]);
+
   return (
-    <UserContext.Provider value={user}>
+    <UserContext.Provider value={{ user, setUser }}>
       <UserImageContext.Provider value={userImage}>
         {children}
       </UserImageContext.Provider>

@@ -110,7 +110,6 @@
   align-items: center;
   text-decoration: none;
   color: black;
-  width: 13rem;
   padding: 0.5rem;
   border-radius: 30px;
 }
@@ -130,6 +129,10 @@
   height: 4rem;
   border-radius: 2rem;
   margin-right: 1rem;
+}
+
+.nav__user-name {
+  padding-right: 1.5rem;
 }
 
 .logo-container {

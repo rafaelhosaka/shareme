@@ -1,25 +1,32 @@
 import React, { useCallback, useState, useContext } from "react";
 import { useInput } from "../../../hook/useInput";
 import { savePostWithImage } from "../../../services/postService";
-import { userImageDownload } from "../../../services/userService";
 import { useDropzone } from "react-dropzone";
 import "./PostForm.css";
-import { useNavigate } from "react-router-dom";
-import { useBase64Image } from "../../../hook/useBase64Image";
 import { useUser, useUserImage } from "../../../context/UserContext";
+import { useAlert } from "../../Alert/Alert";
 
 function PostForm(props) {
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles(acceptedFiles);
+  const onDrop = useCallback((acceptedFiles, fileRejections) => {
+    if (fileRejections.length !== 0) {
+      dispatchAlert("Invalid file type!", "danger");
+      fileRejections = [];
+    } else {
+      setFiles(acceptedFiles);
+    }
   }, []);
 
   const { value: description, bind: bindDescription } = useInput("");
   const [files, setFiles] = useState([]);
-  const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-    onDrop,
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: onDrop,
+    accept: {
+      "image/*": [],
+    },
   });
-  const currentUser = useUser();
+  const { user: currentUser } = useUser();
   const userImage = useUserImage();
+  const [alert, dispatchAlert] = useAlert();
 
   const handleClose = () => {
     setFiles([]);
@@ -79,6 +86,7 @@ function PostForm(props) {
 
   return (
     <div className="form-post__container">
+      {alert}
       <header>
         <h1 className="form-post__heading">Create Post</h1>
       </header>

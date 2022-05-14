@@ -1,15 +1,13 @@
-import React, { useState, useContext, useEffect } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
-import { userImageDownload } from "../../services/userService";
-import { useBase64Image } from "../../hook/useBase64Image";
 import "./Navbar.css";
 import { useUser, useUserImage } from "../../context/UserContext";
 import { useToggle } from "../../hook/useToggle";
 
 function Navbar(props) {
   const [showSearch, toggleSearch] = useToggle(false);
-  const currentUser = useUser();
+  const { user: currentUser } = useUser();
   const userImage = useUserImage();
 
   const getSearchBar = (showSearch) => {

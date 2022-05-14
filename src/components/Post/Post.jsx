@@ -17,15 +17,16 @@ function Post(props) {
   const { image: postUserImage } = useBase64Image(
     userImageDownload(post.user.id)
   );
-  const currentUser = useUser();
+  const { user: currentUser } = useUser();
   const commentDivRef = useRef();
   const inputNewCommentRef = useRef();
 
   const [pagedComments, setPagedComments] = useState([]);
   const [pageInfo, setPageInfo] = useState({ currentPage: 1, pageSize: 5 });
+  const MIN_COMMENT = 2;
 
   useEffect(() => {
-    if (post.commentCount !== 0) {
+    if (post.commentCount > MIN_COMMENT) {
       commentDivRef.current.className = "post__comments hidden";
     }
   }, []);
