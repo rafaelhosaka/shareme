@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
 import "./Navbar.css";
-import { useUser, useUserImage } from "../../context/UserContext";
+import { useUser, useUserImage } from "../../context/userContext";
 import { useToggle } from "../../hook/useToggle";
 
 function Navbar(props) {

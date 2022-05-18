@@ -1,5 +1,5 @@
 import React from "react";
-import { useUser, useUserImage } from "../../context/UserContext";
+import { useUser, useUserImage } from "../../context/userContext";
 import { useInput } from "../../hook/useInput";
 import { newComment } from "../../services/commentService";
 import "./Comment.css";

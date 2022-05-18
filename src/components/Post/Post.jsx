@@ -3,7 +3,7 @@ import { formatDate } from "../../utils/formatDate";
 import { postImageDownload } from "../../services/postService";
 import { userImageDownload } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../context/userContext";
 import NewComment from "../Comment/NewComment";
 import Comment from "../Comment/Comment";
 import { likePost } from "../../services/likeService";

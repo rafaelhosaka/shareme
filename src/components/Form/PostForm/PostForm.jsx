@@ -3,7 +3,7 @@ import { useInput } from "../../../hook/useInput";
 import { savePostWithImage } from "../../../services/postService";
 import { useDropzone } from "react-dropzone";
 import "./PostForm.css";
-import { useUser, useUserImage } from "../../../context/UserContext";
+import { useUser, useUserImage } from "../../../context/userContext";
 import { useAlert } from "../../Alert/Alert";
 
 function PostForm(props) {

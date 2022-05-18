@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Profile.css";
 import { NavLink, Outlet, Link } from "react-router-dom";
-import { useUser, useUserImage } from "../../context/UserContext";
+import { useUser, useUserImage } from "../../context/userContext";
 import { userImageUpload } from "../../services/userService";
 
 function Profile(props) {
@@ -11,7 +11,7 @@ function Profile(props) {
   const handleUploadImage = async (e) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
-    formData.append("userId", currentUser.user.id);
+    formData.append("userId", currentUser.id);
     const { data } = await userImageUpload(formData);
     setUser(data);
   };

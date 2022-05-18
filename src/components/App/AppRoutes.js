@@ -5,7 +5,7 @@ import Feed from "../Feed/Feed";
 import Friends from "../Friends/Friends";
 import Profile from "../ProfilePage/Profile";
 import NotFound from "../NotFound/NotFound";
-import { useUser } from "../../context/UserContext";
+import { useUser } from "../../context/userContext";
 import Logout from "../Form/LoginForm/Logout";
 import RegisterForm from "../Form/RegisterForm/RegisterForm";
 

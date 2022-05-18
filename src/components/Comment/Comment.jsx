@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useUserImage } from "../../context/UserContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";

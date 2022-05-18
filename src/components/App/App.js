@@ -1,4 +1,4 @@
-import { UserProvider } from "../../context/UserContext";
+import { UserProvider } from "../../context/userContext";
 import "./App.css";
 import "../Form/Form.css";
 import AppRoutes from "./AppRoutes";
