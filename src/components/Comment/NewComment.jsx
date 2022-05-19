@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/userContext";
 import { useInput } from "../../hook/useInput";
 import { newComment } from "../../services/commentService";
@@ -27,7 +28,9 @@ function NewComment({ postId, handleNewComment, elementRef }) {
 
   return (
     <div className="new-comment__container">
-      <img className="comment__user" src={userImage} />
+      <Link to={`/profile/${currentUser.id}`}>
+        <img className="comment__user" src={userImage} />
+      </Link>
       <form className="new-comment__form" onSubmit={(e) => handleSubmit(e)}>
         <input
           ref={elementRef}

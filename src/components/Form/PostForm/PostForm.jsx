@@ -1,10 +1,11 @@
-import React, { useCallback, useState, useContext } from "react";
+import React, { useCallback, useState } from "react";
 import { useInput } from "../../../hook/useInput";
 import { savePostWithImage } from "../../../services/postService";
 import { useDropzone } from "react-dropzone";
 import "./PostForm.css";
 import { useUser, useUserImage } from "../../../context/userContext";
 import { useAlert } from "../../Alert/Alert";
+import { Link } from "react-router-dom";
 
 function PostForm(props) {
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
@@ -96,7 +97,9 @@ function PostForm(props) {
         onSubmit={(e) => handleSubmit(e)}
       >
         <div className="form-post__user">
-          <img className="form-post__user-image" src={userImage} />
+          <Link to={`/profile/${currentUser.id}`}>
+            <img className="form-post__user-image" src={userImage} />
+          </Link>
           <span className="form-post__user-name">
             {currentUser && `${currentUser.firstName} ${currentUser.lastName}`}
           </span>

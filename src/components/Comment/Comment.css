@@ -43,8 +43,13 @@
   flex-direction: column;
 }
 
-.comment__username {
+.comment__user-name {
   font-weight: 600;
+  text-decoration: none;
+}
+
+.comment__user-name:hover {
+  text-decoration: underline;
 }
 
 .comment__description {

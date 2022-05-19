@@ -8,7 +8,7 @@ import NewComment from "../Comment/NewComment";
 import Comment from "../Comment/Comment";
 import { likePost } from "../../services/likeService";
 import { paginate } from "../../utils/paginate";
-
+import { Link } from "react-router-dom";
 import "./Post.css";
 
 function Post(props) {
@@ -25,9 +25,12 @@ function Post(props) {
   const [pageInfo, setPageInfo] = useState({ currentPage: 1, pageSize: 5 });
   const MIN_COMMENT = 2;
 
+  const [flag, setFlag] = useState(true);
+
   useEffect(() => {
     if (post.commentCount > MIN_COMMENT) {
       commentDivRef.current.className = "post__comments hidden";
+      setFlag(false);
     }
   }, []);
 
@@ -47,6 +50,7 @@ function Post(props) {
 
   const showComments = () => {
     commentDivRef.current.className = "post__comments";
+    setFlag(true);
   };
 
   const handleLike = async () => {
@@ -83,12 +87,12 @@ function Post(props) {
       <div className="post">
         <header className="post__header">
           <div className="post__user">
-            <a href="/">
+            <Link to={`/profile/${post.user.id}`}>
               <img className="post__user-image" src={postUserImage} />
-            </a>
-            <a href="/" className="post__user-name">
+            </Link>
+            <Link to={`/profile/${post.user.id}`} className="post__user-name">
               {`${post.user.firstName} ${post.user.lastName}`}
-            </a>
+            </Link>
           </div>
           <p className="post__date">{formatDate(post.dateCreated)}</p>
         </header>
@@ -138,9 +142,10 @@ function Post(props) {
               handleNewComment={handleNewComment}
               postId={post.id}
             />
-            {pagedComments.map((comment) => (
-              <Comment key={comment.id} comment={comment} />
-            ))}
+            {flag &&
+              pagedComments.map((comment) => (
+                <Comment key={comment.id} comment={comment} />
+              ))}
             {post.commentCount > pageInfo.pageSize && (
               <>
                 {pageInfo.currentPage * pageInfo.pageSize <

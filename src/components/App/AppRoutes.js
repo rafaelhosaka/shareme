@@ -47,7 +47,7 @@ function AppRoutes(props) {
           </Route>
         )}
 
-        <Route path="/profile" element={<Profile />}>
+        <Route path="/profile/:id" element={<Profile />}>
           <Route path="posts" element={<NotFound />} />
           <Route path="images" element={<NotFound />} />
           <Route path="videos" element={<NotFound />} />

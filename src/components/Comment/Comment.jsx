@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
@@ -20,11 +21,13 @@ function Comment({ comment }) {
   return (
     <div className="comment__container">
       <div className="comment">
-        <img className="comment__user" src={commentUserImage} />
+        <Link to={`/profile/${user?.id}`}>
+          <img className="comment__user" src={commentUserImage} />
+        </Link>
         <div className="comment__body">
-          <span className="comment__username">
+          <Link className="comment__user-name" to={`/profile/${user?.id}`}>
             {user && `${user.firstName} ${user.lastName}`}
-          </span>
+          </Link>
           <span className="comment__description">{comment.description}</span>
         </div>
       </div>

@@ -1,17 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Profile.css";
-import { NavLink, Outlet, Link } from "react-router-dom";
-import { useUser, useUserImage } from "../../context/userContext";
-import { userImageUpload } from "../../services/userService";
+import {
+  NavLink,
+  Outlet,
+  Link,
+  useParams,
+  useNavigate,
+} from "react-router-dom";
+import {
+  getUserById,
+  userImageDownload,
+  userImageUpload,
+} from "../../services/userService";
+import { useBase64Image } from "../../hook/useBase64Image";
 
 function Profile(props) {
-  const { user: currentUser, setUser } = useUser();
-  const userImage = useUserImage();
+  const { id } = useParams();
+  const [user, setUser] = useState();
+
+  const { image: userImage } = useBase64Image(userImageDownload(id));
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const { data } = await getUserById(id);
+        setUser(data);
+      } catch (ex) {
+        if (ex.response && ex.response.status === 404) {
+          navigate("/notfound");
+        }
+      }
+    }
+
+    getUser();
+  }, []);
 
   const handleUploadImage = async (e) => {
     const formData = new FormData();
     formData.append("file", e.target.files[0]);
-    formData.append("userId", currentUser.id);
+    formData.append("userId", user.id);
     const { data } = await userImageUpload(formData);
     setUser(data);
   };
@@ -28,10 +56,7 @@ function Profile(props) {
         </div>
         <div className="profile__header">
           <div className="profile-user">
-            <img
-              className="profile-user__image"
-              src={currentUser && userImage}
-            />
+            <img className="profile-user__image" src={user && userImage} />
             <div className="change-icon__container">
               <label htmlFor="upload-image">
                 <div className="change-icon">
@@ -47,8 +72,7 @@ function Profile(props) {
             </div>
             <div className="profile-user__details">
               <span className="profile-user__name">
-                {currentUser &&
-                  `${currentUser.firstName} ${currentUser.lastName}`}
+                {user && `${user.firstName} ${user.lastName}`}
               </span>
               <Link to="/friends/all" className="profile-user__friends-qty">
                 30 friends
