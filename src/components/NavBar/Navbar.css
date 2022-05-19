@@ -25,7 +25,7 @@
   border-radius: 5px;
 }
 
-.nav-link,
+.nav-link:link,
 .search-icon {
   color: rgba(0, 0, 0, 0.55);
   transition: transform 0.3s;
