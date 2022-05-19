@@ -22,15 +22,13 @@ function Post(props) {
   const inputNewCommentRef = useRef();
 
   const [pagedComments, setPagedComments] = useState([]);
+  const [commentCount, setCommentCount] = useState(post.comments.length);
   const [pageInfo, setPageInfo] = useState({ currentPage: 1, pageSize: 5 });
   const MIN_COMMENT = 2;
-
-  const [flag, setFlag] = useState(true);
 
   useEffect(() => {
     if (post.commentCount > MIN_COMMENT) {
       commentDivRef.current.className = "post__comments hidden";
-      setFlag(false);
     }
   }, []);
 
@@ -50,7 +48,6 @@ function Post(props) {
 
   const showComments = () => {
     commentDivRef.current.className = "post__comments";
-    setFlag(true);
   };
 
   const handleLike = async () => {
@@ -65,6 +62,7 @@ function Post(props) {
 
   const handleNewComment = (comment) => {
     setPagedComments([comment, ...pagedComments]);
+    setCommentCount((prev) => prev + 1);
   };
 
   const isLiked = post.likes.some((like) => {
@@ -108,8 +106,8 @@ function Post(props) {
             <div>
               <span onClick={showComments} className="post__details-comment">
                 {post.commentCount > 1
-                  ? `${post.commentCount} Comments`
-                  : `${post.commentCount} Comment`}
+                  ? `${commentCount} Comments`
+                  : `${commentCount} Comment`}
               </span>
               <span className="post__details-share">10 Shares</span>
             </div>
@@ -142,10 +140,9 @@ function Post(props) {
               handleNewComment={handleNewComment}
               postId={post.id}
             />
-            {flag &&
-              pagedComments.map((comment) => (
-                <Comment key={comment.id} comment={comment} />
-              ))}
+            {pagedComments.map((comment) => (
+              <Comment key={comment.id} comment={comment} />
+            ))}
             {post.commentCount > pageInfo.pageSize && (
               <>
                 {pageInfo.currentPage * pageInfo.pageSize <
