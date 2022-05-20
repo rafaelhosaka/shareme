@@ -55,7 +55,7 @@ function PostForm(props) {
         <div onClick={() => handleClose()} className="thumbnail__close">
           <i className="close__icon fa-solid fa-xmark"></i>
         </div>
-        <div className="thumbnail__images">
+        <div className={files.length <= 1 ? "" : "grid--2x1"}>
           {files.map((file) => (
             <img
               className="thumbnail__image"

@@ -69,11 +69,6 @@
   overflow: scroll;
 }
 
-.thumbnail__images {
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
 .thumbnail__close {
   border: 1px solid black;
   border-radius: 32px;
