@@ -18,7 +18,7 @@ function Profile(props) {
   const { id } = useParams();
   const [user, setUser] = useState();
 
-  const { image: userImage } = useBase64Image(userImageDownload(id));
+  const { image: userImage, setService } = useBase64Image(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,13 +26,13 @@ function Profile(props) {
       try {
         const { data } = await getUserById(id);
         setUser(data);
+        setService(userImageDownload(data.id));
       } catch (ex) {
         if (ex.response && ex.response.status === 404) {
           navigate("/notfound");
         }
       }
     }
-
     getUser();
   }, []);
 

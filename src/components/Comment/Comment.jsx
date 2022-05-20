@@ -6,9 +6,7 @@ import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
 
 function Comment({ comment }) {
   const [user, setUser] = useState();
-  const { image: commentUserImage } = useBase64Image(
-    userImageDownload(comment.userId)
-  );
+  const { image: commentUserImage, setService } = useBase64Image(null);
 
   useEffect(() => {
     async function getUser() {
@@ -16,6 +14,7 @@ function Comment({ comment }) {
       setUser(data);
     }
     getUser();
+    setService(userImageDownload(comment.userId));
   }, []);
 
   return (

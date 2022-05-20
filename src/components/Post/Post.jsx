@@ -13,24 +13,30 @@ import "./Post.css";
 
 function Post(props) {
   const [post, setPost] = useState(props.post);
-  const { image: postImage } = useBase64Image(postImageDownload(post.id));
-  const { image: postUserImage } = useBase64Image(
-    userImageDownload(post.user.id)
-  );
+  const { image: postImage, setService: setPostImageService } =
+    useBase64Image(null);
+  const { image: postUserImage, setService: setPostUserService } =
+    useBase64Image(null);
   const { user: currentUser } = useUser();
-  const commentDivRef = useRef();
   const inputNewCommentRef = useRef();
+  const [showComments, setShowComments] = useState(true);
 
   const [pagedComments, setPagedComments] = useState([]);
   const [commentCount, setCommentCount] = useState(post.comments.length);
   const [pageInfo, setPageInfo] = useState({ currentPage: 1, pageSize: 5 });
-  const MIN_COMMENT = 2;
+  const MIN_COMMENT = 0;
 
   useEffect(() => {
+    setPostUserService(userImageDownload(post.user.id));
+    setPostImageService(postImageDownload(post.id));
     if (post.commentCount > MIN_COMMENT) {
-      commentDivRef.current.className = "post__comments hidden";
+      setShowComments(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (showComments) focus();
+  }, [showComments]);
 
   useEffect(() => {
     const paged = paginate(
@@ -44,10 +50,6 @@ function Post(props) {
 
   const loadMoreComments = () => {
     setPageInfo({ currentPage: pageInfo.currentPage++, ...pageInfo });
-  };
-
-  const showComments = () => {
-    commentDivRef.current.className = "post__comments";
   };
 
   const handleLike = async () => {
@@ -80,6 +82,33 @@ function Post(props) {
     });
   };
 
+  const renderComments = () => {
+    return (
+      <div className="post__comments">
+        <NewComment
+          elementRef={inputNewCommentRef}
+          handleNewComment={handleNewComment}
+          postId={post.id}
+        />
+        {pagedComments.map((comment) => (
+          <Comment key={comment.id} comment={comment} />
+        ))}
+        {post.commentCount > pageInfo.pageSize && (
+          <>
+            {pageInfo.currentPage * pageInfo.pageSize < post.commentCount && (
+              <div onClick={loadMoreComments} className="more-comment">
+                View more comments
+              </div>
+            )}
+            <div onClick={focus} className="write-comment">
+              Write a comment...
+            </div>
+          </>
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
       <div className="post">
@@ -104,7 +133,10 @@ function Post(props) {
                 : `${post.likeCount} like`}
             </span>
             <div>
-              <span onClick={showComments} className="post__details-comment">
+              <span
+                onClick={() => setShowComments(true)}
+                className="post__details-comment"
+              >
                 {post.commentCount > 1
                   ? `${commentCount} Comments`
                   : `${commentCount} Comment`}
@@ -121,8 +153,8 @@ function Post(props) {
             </div>
             <div
               onClick={() => {
-                showComments();
-                focus();
+                setShowComments(true);
+                showComments && focus();
               }}
               className="post__icon"
             >
@@ -134,29 +166,7 @@ function Post(props) {
               <span>Share</span>
             </div>
           </div>
-          <div className="post__comments" ref={commentDivRef}>
-            <NewComment
-              elementRef={inputNewCommentRef}
-              handleNewComment={handleNewComment}
-              postId={post.id}
-            />
-            {pagedComments.map((comment) => (
-              <Comment key={comment.id} comment={comment} />
-            ))}
-            {post.commentCount > pageInfo.pageSize && (
-              <>
-                {pageInfo.currentPage * pageInfo.pageSize <
-                  post.commentCount && (
-                  <div onClick={loadMoreComments} className="more-comment">
-                    View more comments
-                  </div>
-                )}
-                <div onClick={focus} className="write-comment">
-                  Write a comment...
-                </div>
-              </>
-            )}
-          </div>
+          {showComments && renderComments()}
         </footer>
       </div>
     </>
