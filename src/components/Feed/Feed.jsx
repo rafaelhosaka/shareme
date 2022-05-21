@@ -46,9 +46,13 @@ const Feed = (props) => {
     }
   };
 
+  const handleNewPost = (post) => {
+    setPagedPosts([post, ...pagedPosts]);
+  };
+
   return (
     <main className="container">
-      <PostForm />
+      <PostForm handleNewPost={handleNewPost} />
       <div onScroll={(e) => onScroll(e)}>
         {pagedPosts.map((post) => (
           <Post key={post.id} post={post} />

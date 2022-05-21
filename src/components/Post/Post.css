@@ -28,6 +28,7 @@
   padding-top: 0.5rem;
   padding-left: 0.7rem;
   text-decoration: none;
+  height: 50%;
 }
 
 .post__user-name:hover {

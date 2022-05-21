@@ -28,6 +28,12 @@
 
 .form-post__user-name {
   font-weight: 700;
+  text-decoration: none;
+  height: 50%;
+}
+
+.form-post__user-name:hover {
+  text-decoration: underline;
 }
 
 .form-post {

@@ -20,11 +20,14 @@ function Comment({ comment }) {
   return (
     <div className="comment__container">
       <div className="comment">
-        <Link to={`/profile/${user?.id}`}>
+        <Link to={`/profile/${user?.id}/posts`}>
           <img className="comment__user" src={commentUserImage} />
         </Link>
         <div className="comment__body">
-          <Link className="comment__user-name" to={`/profile/${user?.id}`}>
+          <Link
+            className="comment__user-name"
+            to={`/profile/${user?.id}/posts`}
+          >
             {user && `${user.firstName} ${user.lastName}`}
           </Link>
           <span className="comment__description">{comment.description}</span>

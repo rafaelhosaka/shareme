@@ -7,7 +7,7 @@ import { useUser, useUserImage } from "../../../context/userContext";
 import { useAlert } from "../../Alert/Alert";
 import { Link } from "react-router-dom";
 
-function PostForm(props) {
+function PostForm({ handleNewPost }) {
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
     if (fileRejections.length !== 0) {
       dispatchAlert("Invalid file type!", "danger");
@@ -17,7 +17,11 @@ function PostForm(props) {
     }
   }, []);
 
-  const { value: description, bind: bindDescription } = useInput("");
+  const {
+    value: description,
+    bind: bindDescription,
+    reset: resetDescription,
+  } = useInput("");
   const [files, setFiles] = useState([]);
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: onDrop,
@@ -72,14 +76,16 @@ function PostForm(props) {
     const formData = new FormData();
     formData.append("post", JSON.stringify({ user: currentUser, description }));
     formData.append("file", files[0]); //for now accept only one image
-    await savePostWithImage(formData);
+    const { data } = await savePostWithImage(formData);
+    return data;
   };
 
   const handleSubmit = async (e) => {
     try {
       e.preventDefault();
-      createPost();
-      window.location.reload(false);
+      handleNewPost(await createPost());
+      handleClose();
+      resetDescription();
     } catch (ex) {
       console.log(ex);
     }
@@ -100,9 +106,12 @@ function PostForm(props) {
           <Link to={`/profile/${currentUser.id}`}>
             <img className="form-post__user-image" src={userImage} />
           </Link>
-          <span className="form-post__user-name">
+          <Link
+            className="form-post__user-name"
+            to={`/profile/${currentUser.id}/posts`}
+          >
             {currentUser && `${currentUser.firstName} ${currentUser.lastName}`}
-          </span>
+          </Link>
         </div>
 
         <div className="form-group">

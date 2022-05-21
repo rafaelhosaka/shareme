@@ -19,19 +19,15 @@ function Post(props) {
     useBase64Image(null);
   const { user: currentUser } = useUser();
   const inputNewCommentRef = useRef();
-  const [showComments, setShowComments] = useState(true);
+  const [showComments, setShowComments] = useState(false);
 
   const [pagedComments, setPagedComments] = useState([]);
   const [commentCount, setCommentCount] = useState(post.comments.length);
   const [pageInfo, setPageInfo] = useState({ currentPage: 1, pageSize: 5 });
-  const MIN_COMMENT = 0;
 
   useEffect(() => {
     setPostUserService(userImageDownload(post.user.id));
     setPostImageService(postImageDownload(post.id));
-    if (post.commentCount > MIN_COMMENT) {
-      setShowComments(false);
-    }
   }, []);
 
   useEffect(() => {
@@ -117,7 +113,10 @@ function Post(props) {
             <Link to={`/profile/${post.user.id}`}>
               <img className="post__user-image" src={postUserImage} />
             </Link>
-            <Link to={`/profile/${post.user.id}`} className="post__user-name">
+            <Link
+              to={`/profile/${post.user.id}/posts`}
+              className="post__user-name"
+            >
               {`${post.user.firstName} ${post.user.lastName}`}
             </Link>
           </div>
