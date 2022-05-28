@@ -8,6 +8,7 @@ import NotFound from "../NotFound/NotFound";
 import { useUser } from "../../context/userContext";
 import Logout from "../Form/LoginForm/Logout";
 import RegisterForm from "../Form/RegisterForm/RegisterForm";
+import Search from "../Search/Search";
 
 function AppRoutes(props) {
   const { user: currentUser } = useUser();
@@ -53,12 +54,9 @@ function AppRoutes(props) {
           <Route path="videos" element={<NotFound />} />
         </Route>
 
-        <Route
-          path="*"
-          element={
-            !currentUser ? <Navigate to="/login" replace /> : <NotFound />
-          }
-        />
+        <Route path="/search/:filter" element={<Search />} />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <footer></footer>
     </div>

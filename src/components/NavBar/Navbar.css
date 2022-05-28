@@ -88,8 +88,15 @@
   transition: width 0.3s;
 }
 
+.search__form {
+  display: flex;
+  align-items: center;
+  width: 31rem;
+  height: inherit;
+}
+
 .search-container.expanded {
-  width: 30rem;
+  width: inherit;
 }
 
 .expanded .search-icon {
@@ -101,8 +108,9 @@
   border: 0;
   padding: 1rem;
   outline: 0;
-  background: rgba(240, 242, 245, 255);
-  width: 30rem;
+  background-color: transparent;
+  width: inherit;
+  height: inherit;
 }
 
 .user {

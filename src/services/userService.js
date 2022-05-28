@@ -9,6 +9,12 @@ export function getUserById(userId) {
   return httpService.get(apiEndPoint + "/id/" + userId);
 }
 
+export function searchUsersContainsName(searchedName) {
+  return httpService.get(
+    apiEndPoint + "/search/name?query=" + encodeURIComponent(searchedName)
+  );
+}
+
 export function saveUser(user) {
   return httpService.post(apiEndPoint + "/save", user);
 }

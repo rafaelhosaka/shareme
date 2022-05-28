@@ -16,6 +16,10 @@
   grid-area: main-content;
 }
 
+.container.right {
+  grid-area: 2/2/2/4;
+}
+
 .left-content {
   grid-area: left-content;
 }
