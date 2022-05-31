@@ -14,10 +14,12 @@ import {
 } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
 import Spinner from "../Spinner/Spinner";
+import { useUser } from "../../context/userContext";
 
 function Profile(props) {
   const { id } = useParams();
   const [user, setUser] = useState();
+  const { user: currentUser, setUser: setCurrentUser } = useUser();
 
   const { image: userImage, setService } = useBase64Image(null);
   const navigate = useNavigate();
@@ -35,7 +37,7 @@ function Profile(props) {
       }
     }
     getUser();
-  }, []);
+  }, [id]);
 
   const handleUploadImage = async (e) => {
     const formData = new FormData();
@@ -44,6 +46,7 @@ function Profile(props) {
     const { data } = await userImageUpload(formData);
     setUser(data);
     setService(userImageDownload(data.id));
+    setCurrentUser(data);
   };
 
   return (
@@ -67,22 +70,24 @@ function Profile(props) {
                     className="profile-user__image"
                     src={user && userImage}
                   />
-                  <div className="change-icon__container">
-                    <label htmlFor="upload-image">
-                      <div className="change-icon">
-                        <i className="fa-solid fa-camera fa-xl"></i>
-                      </div>
-                      <input
-                        id="upload-image"
-                        type="file"
-                        accept=".png,.jpeg,.jpg"
-                        onChange={(e) => {
-                          setService(null);
-                          handleUploadImage(e);
-                        }}
-                      />
-                    </label>
-                  </div>
+                  {currentUser?.id === user?.id && (
+                    <div className="change-icon__container">
+                      <label htmlFor="upload-image">
+                        <div className="change-icon">
+                          <i className="fa-solid fa-camera fa-xl"></i>
+                        </div>
+                        <input
+                          id="upload-image"
+                          type="file"
+                          accept=".png,.jpeg,.jpg"
+                          onChange={(e) => {
+                            setService(null);
+                            handleUploadImage(e);
+                          }}
+                        />
+                      </label>
+                    </div>
+                  )}
                 </>
               }
             />
