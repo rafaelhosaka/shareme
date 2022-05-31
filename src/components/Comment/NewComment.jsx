@@ -29,7 +29,7 @@ function NewComment({ postId, handleNewComment, elementRef }) {
   return (
     <div className="new-comment__container">
       <Link to={`/profile/${currentUser.id}`}>
-        <img className="comment__user" src={userImage} />
+        <img className="comment__user size--40" src={userImage} />
       </Link>
       <form className="new-comment__form" onSubmit={(e) => handleSubmit(e)}>
         <input

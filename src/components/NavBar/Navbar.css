@@ -136,10 +136,10 @@
   width: 4rem;
   height: 4rem;
   border-radius: 2rem;
-  margin-right: 1rem;
 }
 
 .nav__user-name {
+  margin-left: 1rem;
   padding-right: 1.5rem;
 }
 

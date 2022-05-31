@@ -10,6 +10,7 @@ import { likePost } from "../../services/likeService";
 import { paginate } from "../../utils/paginate";
 import { Link } from "react-router-dom";
 import "./Post.css";
+import Spinner from "../Spinner/Spinner";
 
 function Post(props) {
   const [post, setPost] = useState(props.post);
@@ -105,14 +106,36 @@ function Post(props) {
     );
   };
 
+  const renderPostImage = () => {
+    return (
+      post.fileName && (
+        <Spinner
+          show={!postImage}
+          className="size--680"
+          fragment={<img className="post__image" src={postImage} />}
+        />
+      )
+    );
+  };
+
+  const renderPostUserImage = () => {
+    return (
+      <Spinner
+        show={!postUserImage}
+        className="size--60"
+        fragment={
+          <img className="post__user-image size--60" src={postUserImage} />
+        }
+      />
+    );
+  };
+
   return (
     <>
       <div className="post">
         <header className="post__header">
           <div className="post__user">
-            <Link to={`/profile/${post.user.id}`}>
-              <img className="post__user-image" src={postUserImage} />
-            </Link>
+            <Link to={`/profile/${post.user.id}`}>{renderPostUserImage()}</Link>
             <Link
               to={`/profile/${post.user.id}/posts`}
               className="post__user-name"
@@ -123,7 +146,7 @@ function Post(props) {
           <p className="post__date">{formatDate(post.dateCreated)}</p>
         </header>
         <p className="post__description">{post.description}</p>
-        {post.fileName && <img className="post__image" src={postImage} />}
+        {renderPostImage()}
         <footer className="post__footer">
           <div className="post__details">
             <span className="post__details-like">

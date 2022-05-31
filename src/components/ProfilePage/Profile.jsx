@@ -13,6 +13,7 @@ import {
   userImageUpload,
 } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
+import Spinner from "../Spinner/Spinner";
 
 function Profile(props) {
   const { id } = useParams();
@@ -42,6 +43,7 @@ function Profile(props) {
     formData.append("userId", user.id);
     const { data } = await userImageUpload(formData);
     setUser(data);
+    setService(userImageDownload(data.id));
   };
 
   return (
@@ -56,20 +58,35 @@ function Profile(props) {
         </div>
         <div className="profile__header">
           <div className="profile-user">
-            <img className="profile-user__image" src={user && userImage} />
-            <div className="change-icon__container">
-              <label htmlFor="upload-image">
-                <div className="change-icon">
-                  <i className="fa-solid fa-camera fa-xl"></i>
-                </div>
-                <input
-                  id="upload-image"
-                  type="file"
-                  accept=".png,.jpeg,.jpg"
-                  onChange={(e) => handleUploadImage(e)}
-                />
-              </label>
-            </div>
+            <Spinner
+              show={!userImage}
+              className="size--168"
+              fragment={
+                <>
+                  <img
+                    className="profile-user__image"
+                    src={user && userImage}
+                  />
+                  <div className="change-icon__container">
+                    <label htmlFor="upload-image">
+                      <div className="change-icon">
+                        <i className="fa-solid fa-camera fa-xl"></i>
+                      </div>
+                      <input
+                        id="upload-image"
+                        type="file"
+                        accept=".png,.jpeg,.jpg"
+                        onChange={(e) => {
+                          setService(null);
+                          handleUploadImage(e);
+                        }}
+                      />
+                    </label>
+                  </div>
+                </>
+              }
+            />
+
             <div className="profile-user__details">
               <span className="profile-user__name">
                 {user && `${user.firstName} ${user.lastName}`}

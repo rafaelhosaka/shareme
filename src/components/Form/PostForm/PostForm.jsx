@@ -6,6 +6,7 @@ import "./PostForm.css";
 import { useUser, useUserImage } from "../../../context/userContext";
 import { useAlert } from "../../Alert/Alert";
 import { Link } from "react-router-dom";
+import Spinner from "../../Spinner/Spinner";
 
 function PostForm({ handleNewPost }) {
   const onDrop = useCallback((acceptedFiles, fileRejections) => {
@@ -104,7 +105,16 @@ function PostForm({ handleNewPost }) {
       >
         <div className="form-post__user">
           <Link to={`/profile/${currentUser.id}`}>
-            <img className="form-post__user-image" src={userImage} />
+            <Spinner
+              show={!userImage}
+              className="size--60"
+              fragment={
+                <img
+                  className="form-post__user-image size--60"
+                  src={userImage}
+                />
+              }
+            />
           </Link>
           <Link
             className="form-post__user-name"

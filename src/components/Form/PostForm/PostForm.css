@@ -16,10 +16,7 @@
 }
 
 .form-post__user-image {
-  width: 6rem;
-  height: 6rem;
   border-radius: 3rem;
-  margin-right: 1rem;
 }
 
 .form-post__user {
@@ -27,9 +24,11 @@
 }
 
 .form-post__user-name {
+  margin-left: 1rem;
   font-weight: 700;
   text-decoration: none;
   height: 50%;
+  padding-top: 1rem;
 }
 
 .form-post__user-name:hover {

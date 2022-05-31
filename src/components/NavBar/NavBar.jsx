@@ -5,6 +5,7 @@ import "./Navbar.css";
 import { useUser, useUserImage } from "../../context/userContext";
 import { useToggle } from "../../hook/useToggle";
 import { useNavigate } from "react-router";
+import Spinner from "../Spinner/Spinner";
 
 function Navbar(props) {
   const [showSearch, toggleSearch] = useToggle(false);
@@ -38,7 +39,6 @@ function Navbar(props) {
           <input
             ref={searchRef}
             className="search"
-            href="#"
             placeholder="Search on Shareme"
           />
         </form>
@@ -92,7 +92,11 @@ function Navbar(props) {
         </div>
         <div className="nav-right">
           <NavLink className="user" to={`/profile/${currentUser.id}/posts`}>
-            <img className="nav__user-image" src={userImage} />
+            <Spinner
+              show={!userImage}
+              className="size--40"
+              fragment={<img className="nav__user-image" src={userImage} />}
+            />
             <span className="nav__user-name">{currentUser.firstName}</span>
           </NavLink>
           <NavLinkwithToolTip

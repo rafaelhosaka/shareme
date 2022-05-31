@@ -13,6 +13,8 @@ export function useBase64Image(httpService) {
         } else {
           setImage(process.env.PUBLIC_URL + "/images/no-picture.jpeg");
         }
+      } else {
+        setImage(null);
       }
     }
     getImage();

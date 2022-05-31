@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
+import Spinner from "../Spinner/Spinner";
 
 function Comment({ comment }) {
   const [user, setUser] = useState();
@@ -21,7 +22,13 @@ function Comment({ comment }) {
     <div className="comment__container">
       <div className="comment">
         <Link to={`/profile/${user?.id}/posts`}>
-          <img className="comment__user" src={commentUserImage} />
+          <Spinner
+            show={!commentUserImage}
+            className="size--40"
+            fragment={
+              <img className="comment__user size--40" src={commentUserImage} />
+            }
+          />
         </Link>
         <div className="comment__body">
           <Link

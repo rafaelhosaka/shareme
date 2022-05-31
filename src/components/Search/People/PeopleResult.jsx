@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useBase64Image } from "../../../hook/useBase64Image";
 import { userImageDownload } from "../../../services/userService";
+import Spinner from "../../Spinner/Spinner";
 import "./PeopleResult.css";
 
 function PeopleResult({ data }) {
@@ -15,7 +16,13 @@ function PeopleResult({ data }) {
     <div className="people__container">
       <div className="people__info">
         <Link to={`/profile/${data.id}`}>
-          <img className="people__user-image" src={userImage} />
+          <Spinner
+            show={!userImage}
+            className="size--60"
+            fragment={
+              <img className="people__user-image size--60" src={userImage} />
+            }
+          />
         </Link>
         <Link to={`/profile/${data.id}`} className="people__name">
           {data.firstName} {data.lastName}
