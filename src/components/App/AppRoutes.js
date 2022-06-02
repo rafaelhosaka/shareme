@@ -9,6 +9,7 @@ import { useUser } from "../../context/userContext";
 import Logout from "../Form/LoginForm/Logout";
 import RegisterForm from "../Form/RegisterForm/RegisterForm";
 import Search from "../Search/Search";
+import FriendRequestList from "../Friends/FriendRequest/FriendRequestList";
 
 function AppRoutes(props) {
   const { user: currentUser } = useUser();
@@ -44,7 +45,7 @@ function AppRoutes(props) {
         {currentUser && (
           <Route path="/friends" element={<Friends />}>
             <Route path="all" element={<NotFound />} />
-            <Route path="request" element={<NotFound />} />
+            <Route path="request" element={<FriendRequestList />} />
           </Route>
         )}
 
@@ -54,7 +55,10 @@ function AppRoutes(props) {
           <Route path="videos" element={<NotFound />} />
         </Route>
 
-        <Route path="/search/:filter" element={<Search />} />
+        <Route
+          path="/search/:filter"
+          element={<Search currentUser={currentUser} />}
+        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

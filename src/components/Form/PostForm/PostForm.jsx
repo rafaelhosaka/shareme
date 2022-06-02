@@ -120,7 +120,7 @@ function PostForm({ handleNewPost }) {
             className="form-post__user-name"
             to={`/profile/${currentUser.id}/posts`}
           >
-            {currentUser && `${currentUser.firstName} ${currentUser.lastName}`}
+            {currentUser.fullName}
           </Link>
         </div>
 

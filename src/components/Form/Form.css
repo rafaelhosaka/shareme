@@ -67,6 +67,10 @@
   margin: 2rem 0;
 }
 
+.btn--no-margin {
+  margin: 0;
+}
+
 .btn:disabled {
   opacity: 0.5;
 }

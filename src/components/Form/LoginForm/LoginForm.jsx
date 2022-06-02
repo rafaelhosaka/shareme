@@ -33,7 +33,7 @@ function LoginForm(props) {
   };
 
   return (
-    <main className="container">
+    <main className="container center">
       {alert}
       <img
         className="login-logo"

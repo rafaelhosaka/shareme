@@ -16,6 +16,12 @@
   grid-area: main-content;
 }
 
+.container.center {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
 .container.right {
   grid-area: 2/2/2/4;
 }

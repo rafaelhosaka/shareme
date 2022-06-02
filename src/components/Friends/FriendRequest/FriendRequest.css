@@ -1,0 +1,38 @@
+.friend-request-list__container {
+  margin: 4rem;
+}
+
+.friend-request__container {
+  max-width: 20rem;
+  flex-direction: column;
+  box-shadow: 0px 0px 5px 1px rgba(83, 83, 83, 0.363);
+  border-radius: 10px;
+}
+
+.friend-request__user-image {
+  display: flex;
+  background-color: white;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 1px solid lightgray;
+  width: 100%;
+}
+
+.friend-request__body {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  padding: 1rem;
+}
+
+.friend-request__user-name {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-decoration: none;
+}
+
+.friend-request__user-name:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

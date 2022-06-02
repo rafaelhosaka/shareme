@@ -21,6 +21,11 @@
   border-top: calc(16.8rem * 0.2) solid #025909;
 }
 
+.loader.size--200 {
+  border: calc(20rem * 0.2) solid #f3f3f3;
+  border-top: calc(20rem * 0.2) solid #025909;
+}
+
 .loader.size--680 {
   border: calc(68rem * 0.2) solid #f3f3f3;
   border-top: calc(68rem * 0.2) solid #025909;

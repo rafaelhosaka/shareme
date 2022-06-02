@@ -93,11 +93,11 @@ function Profile(props) {
             />
 
             <div className="profile-user__details">
-              <span className="profile-user__name">
-                {user && `${user.firstName} ${user.lastName}`}
-              </span>
+              <span className="profile-user__name">{user?.fullName}</span>
               <Link to="/friends/all" className="profile-user__friends-qty">
-                30 friends
+                {user?.friendCount <= 1
+                  ? `${user?.friendCount} friend`
+                  : `${user?.friendCount} friends`}
               </Link>
             </div>
           </div>

@@ -1,22 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, useNavigate, useParams } from "react-router";
-import { NavLink, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
+import { useSearchParams } from "react-router-dom";
 import { searchUsersContainsName } from "../../services/userService";
 import "./Search.css";
 import PeopleResult from "./People/PeopleResult";
-import { replace } from "lodash";
+import {
+  getPendingFriendRequest,
+  getRequestedUsers,
+} from "../../services/friendService";
 
-function Search(props) {
+function Search({ currentUser }) {
   const { filter } = useParams();
   let [searchParams] = useSearchParams();
   let query = searchParams.get("q");
   const [result, setResult] = useState([]);
+
+  const [requestedUsers, setRequestedUsers] = useState([]);
+  const [pendingUsers, setPedingUsers] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!query) {
       navigate("/not-found", { replace: false });
+    }
+    if (!currentUser) {
+      navigate("/");
     }
   }, []);
 
@@ -25,9 +34,14 @@ function Search(props) {
       switch (filter) {
         case "people":
           setResult(await getPeoples());
+          const { data: requested } = await getRequestedUsers(currentUser?.id);
+          setRequestedUsers(requested);
+          const { data: pending } = await getPendingFriendRequest(
+            currentUser?.id
+          );
+          setPedingUsers(pending);
       }
     }
-
     filterResult();
   }, [filter, query]);
 
@@ -52,22 +66,32 @@ function Search(props) {
   };
 
   const renderResult = () => {
-    let Component;
+    if (result.length === 0) return <div>No result found</div>;
     switch (filter) {
       case "people":
-        Component = PeopleResult;
-        break;
+        return renderPeople();
     }
-    return result.length ? (
-      result.map((data) => <Component key={data.id} data={data} />)
-    ) : (
-      <div>No result found</div>
-    );
+  };
+
+  const renderPeople = () => {
+    return result.map((people) => (
+      <PeopleResult
+        key={people.id}
+        people={people}
+        requested={requestedUsers.some((element) => {
+          return element.targetUserId === people.id;
+        })}
+        pending={pendingUsers.some((element) => {
+          return element.requestingUserId === people.id;
+        })}
+        ownSelf={people.id === currentUser.id}
+      />
+    ));
   };
 
   return (
     <>
-      <main className="container right">{renderResult()}</main>
+      <main className="container right center">{renderResult()}</main>
       <div className="left-content">
         <div className="search-menu__container">
           <h1 className="search-menu__heading">Search Results</h1>

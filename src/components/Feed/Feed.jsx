@@ -51,7 +51,7 @@ const Feed = (props) => {
   };
 
   return (
-    <main className="container">
+    <main className="container center">
       <PostForm handleNewPost={handleNewPost} />
       <div onScroll={(e) => onScroll(e)}>
         {pagedPosts.map((post) => (

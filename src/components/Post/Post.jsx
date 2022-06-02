@@ -140,7 +140,7 @@ function Post(props) {
               to={`/profile/${post.user.id}/posts`}
               className="post__user-name"
             >
-              {`${post.user.firstName} ${post.user.lastName}`}
+              {post.user.fullName}
             </Link>
           </div>
           <p className="post__date">{formatDate(post.dateCreated)}</p>
