@@ -26,3 +26,7 @@ a.btn {
   display: block;
   text-align: center;
 }
+
+.copyright {
+  font-weight: 600;
+}

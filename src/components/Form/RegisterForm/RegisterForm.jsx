@@ -5,7 +5,7 @@ import { saveUser } from "../../../services/userService";
 
 import "./RegisterForm.css";
 import { useAlert } from "../../Alert/Alert";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function RegisterForm(props) {
   const { value: firstName, bind: bindFirstName } = useInput("");
@@ -78,11 +78,13 @@ function RegisterForm(props) {
   return (
     <main className="container center">
       {alert}
-      <img
-        className="login-logo"
-        src={"./images/logo-full.png"}
-        alt="Logo of the Shareme"
-      />
+      <Link to="/login">
+        <img
+          className="login-logo"
+          src={"./images/logo-full.png"}
+          alt="Logo of the Shareme"
+        />
+      </Link>
       <div className="form-register-container">
         <div className="form-register-header">
           <h1>Sign Up</h1>
@@ -177,7 +179,9 @@ function RegisterForm(props) {
             </div>
           </div>
           <div className="form-group">
-            <button className="btn btn--green btn--stretched">Sign Up</button>
+            <button className="btn m-2x0 btn--green btn--stretched">
+              Sign Up
+            </button>
           </div>
         </form>
       </div>

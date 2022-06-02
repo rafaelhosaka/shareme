@@ -37,6 +37,7 @@ h2{
   font-size: 2rem;
 }
 
+/* Grids */
 .grid--2x1{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -49,6 +50,16 @@ h2{
   margin: 1rem;
 }
 
+/* Margins */
+.m-1x0{
+  margin: 1rem 0;
+}
+
+.m-2x0{
+  margin: 2rem 0;
+}
+
+/* Sizes */
 .size--40{
   width: 4rem;
   height: 4rem;

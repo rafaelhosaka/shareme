@@ -1,4 +1,3 @@
-import { validate } from "joi-browser";
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useInput } from "../../../hook/useInput";
@@ -62,11 +61,16 @@ function LoginForm(props) {
             />
           </div>
 
-          <button className="btn btn--green btn--stretched">Log In</button>
+          <button className="btn m-2x0 btn--green btn--stretched">
+            Log In
+          </button>
         </form>
-        <Link className="btn btn--green btn--stretched" to="/register">
+        <Link className="btn m-2x0 btn--green btn--stretched" to="/register">
           Create Account
         </Link>
+      </div>
+      <div className="copyright m-2x0">
+        Copyright 2022 <a href="#">Rafael Hideki Hosaka</a>
       </div>
     </main>
   );

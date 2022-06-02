@@ -1,4 +1,3 @@
-import { result } from "lodash";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useBase64Image } from "../../../hook/useBase64Image";

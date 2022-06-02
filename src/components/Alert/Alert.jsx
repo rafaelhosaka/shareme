@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Alert.css";
-import { useToggle } from "../../hook/useToggle";
 
 const ALERT = {
   SUCESS: "success",

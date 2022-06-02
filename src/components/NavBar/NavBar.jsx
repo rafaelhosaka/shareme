@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { createSearchParams, Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import NavLinkwithToolTip from "../../helper/NavLinkwithToolTip";
 import "./Navbar.css";
 import { useUser, useUserImage } from "../../context/userContext";

@@ -8,6 +8,7 @@ import {
   getPendingFriendRequest,
   getRequestedUsers,
 } from "../../services/friendService";
+import _ from "lodash";
 
 function Search({ currentUser }) {
   const { filter } = useParams();
@@ -78,12 +79,8 @@ function Search({ currentUser }) {
       <PeopleResult
         key={people.id}
         people={people}
-        requested={requestedUsers.some((element) => {
-          return element.targetUserId === people.id;
-        })}
-        pending={pendingUsers.some((element) => {
-          return element.requestingUserId === people.id;
-        })}
+        requested={_.some(requestedUsers, ["targetUserId", people.id])}
+        pending={_.some(pendingUsers, ["requestingUserId", people.id])}
         ownSelf={people.id === currentUser.id}
       />
     ));

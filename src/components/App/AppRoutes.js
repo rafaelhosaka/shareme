@@ -62,7 +62,6 @@ function AppRoutes(props) {
 
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <footer></footer>
     </div>
   );
 }

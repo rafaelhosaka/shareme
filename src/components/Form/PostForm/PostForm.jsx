@@ -133,7 +133,7 @@ function PostForm({ handleNewPost }) {
         </div>
 
         {renderPreview()}
-        <button className="btn btn--green btn--stretched">Post</button>
+        <button className="btn m-2x0 btn--green btn--stretched">Post</button>
       </form>
     </div>
   );

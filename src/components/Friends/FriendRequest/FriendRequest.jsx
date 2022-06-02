@@ -3,7 +3,6 @@ import { getUserById, userImageDownload } from "../../../services/userService";
 import { useBase64Image } from "../../../hook/useBase64Image";
 import { Link } from "react-router-dom";
 import Spinner from "../../Spinner/Spinner";
-import { deleteFriendRequest } from "../../../services/friendService";
 
 function FriendRequest({ request, handleDelete }) {
   const { image, setService } = useBase64Image(null);
@@ -34,7 +33,7 @@ function FriendRequest({ request, handleDelete }) {
         >
           {user?.fullName}
         </Link>
-        <button className="btn btn--green btn--no-margin">Confirm</button>
+        <button className="btn m-1x0 btn--green">Confirm</button>
         <button onClick={() => handleDelete(request)} className="btn">
           Delete
         </button>
