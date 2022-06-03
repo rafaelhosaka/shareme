@@ -22,7 +22,20 @@ export function deleteFriendRequest(friendRequest) {
 
 export function getFriendRequestFromIds(targetUserId, requestingUserId) {
   return httpService.get(
-    apiEndPoint +
-      `/getRequest?targetUserId=${targetUserId}&requestingUserId=${requestingUserId}`
+    `${apiEndPoint}/getRequest?targetUserId=${targetUserId}&requestingUserId=${requestingUserId}`
   );
+}
+
+export async function isRequested(requestingUserId, targetUserId) {
+  const { data } = await httpService.get(
+    `${apiEndPoint}/isRequested?requestingUserId=${requestingUserId}&targetUserId=${targetUserId}`
+  );
+  return data;
+}
+
+export async function isPending(requestingUserId, targetUserId) {
+  const { data } = await httpService.get(
+    `${apiEndPoint}/isPending?requestingUserId=${requestingUserId}&targetUserId=${targetUserId}`
+  );
+  return data;
 }

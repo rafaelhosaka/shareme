@@ -39,7 +39,7 @@
 
 .profile-user {
   display: flex;
-  align-items: center;
+  width: 100%;
 }
 
 .profile-user__image {
@@ -70,8 +70,8 @@
   align-items: center;
   justify-content: center;
   position: absolute;
-  right: 1px;
-  top: 30px;
+  right: 0;
+  bottom: 10px;
 }
 
 .change-icon:hover {
@@ -81,8 +81,16 @@
 
 .profile-user__details {
   display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+.profile-user__info {
+  display: flex;
+  align-self: center;
   flex-direction: column;
-  padding: 2rem;
 }
 
 .profile-user__name {
@@ -90,12 +98,16 @@
   font-weight: 700;
 }
 
-.profile-user__friends-qty {
+a.profile-user__friends-qty {
   font-size: 1.7rem;
   font-weight: 600;
   color: rgb(101, 103, 107);
-  margin-top: 1rem;
   text-decoration: none;
+  padding-top: 0.5rem;
+}
+
+.profile-user__buttons-area {
+  align-self: flex-end;
 }
 
 .profile-user__friends-qty:hover {
