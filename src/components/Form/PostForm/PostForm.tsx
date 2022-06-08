@@ -2,12 +2,13 @@ import React, { useCallback, useState } from "react";
 import { useInput } from "../../../hook/useInput";
 import { savePostWithImage } from "../../../services/postService";
 import { FileRejection, useDropzone } from "react-dropzone";
-import "./PostForm.css";
 import { useUser, useUserImage } from "../../../context/userContext";
 import { useAlert } from "../../Alert/Alert";
 import { Link } from "react-router-dom";
 import Spinner from "../../Spinner/Spinner";
 import PostEntity from "../../../models/post";
+
+import css from "./PostForm.module.scss";
 
 interface PostFormProps {
   handleNewPost: (post: PostEntity) => void;
@@ -54,24 +55,27 @@ function PostForm({ handleNewPost }: PostFormProps) {
 
   const getDropZone = () => {
     return (
-      <div {...getRootProps({ className: "dropzone" })}>
+      <div {...getRootProps({ className: css.dropzone })}>
         <input {...getInputProps()} />
-        <div className="dropzone__label">Add Photos</div>
-        <div className="dropzone__sublabel">or drag and drop</div>
+        <div className={css["dropzone__label"]}>Add Photos</div>
+        <div className={css["dropzone__sublabel"]}>or drag and drop</div>
       </div>
     );
   };
 
   const getThumbnail = () => {
     return (
-      <div className="thumbnail">
-        <div onClick={() => handleClose()} className="thumbnail__close">
-          <i className="close__icon fa-solid fa-xmark"></i>
+      <div className={css.thumbnail}>
+        <div
+          onClick={() => handleClose()}
+          className={`${css["thumbnail__close"]} m1 size--40`}
+        >
+          <i className={`${css["close__icon"]} fa-solid fa-xmark`}></i>
         </div>
         <div className={files.length <= 1 ? "" : "grid--2x1"}>
           {files.map((file) => (
             <img
-              className="thumbnail__image"
+              className={css["thumbnail__image"]}
               key={file.name}
               src={URL.createObjectURL(file)}
             />
@@ -103,32 +107,28 @@ function PostForm({ handleNewPost }: PostFormProps) {
   };
 
   return (
-    <div className="form-post__container">
+    <div className={`${css["form-post__container"]} my-2`}>
       {alert}
 
       <header>
-        <h1 className="form-post__heading">Create Post</h1>
+        <h1 className={`${css.heading} my-2`}>Create Post</h1>
       </header>
-      <form
-        id="form-post"
-        className="form-post"
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        <div className="form-post__user">
+      <form id="form-post" className="p2" onSubmit={(e) => handleSubmit(e)}>
+        <div className={css.user}>
           <Link to={`/profile/${currentUser?.id}`}>
             <Spinner
               show={!userImage}
               className="size--60"
               fragment={
                 <img
-                  className="form-post__user-image size--60"
+                  className={`${css["user-image"]} size--60`}
                   src={userImage}
                 />
               }
             />
           </Link>
           <Link
-            className="form-post__user-name"
+            className={css["user-name"]}
             to={`/profile/${currentUser?.id}/posts`}
           >
             {currentUser?.fullName}
@@ -137,14 +137,14 @@ function PostForm({ handleNewPost }: PostFormProps) {
 
         <div className="form-group">
           <textarea
-            className="form-post__description"
+            className={css.description}
             placeholder="Let's Share your ideias?"
             {...bindDescription}
           />
         </div>
 
         {renderPreview()}
-        <button className="btn m-2x0 btn--green btn--stretched">Post</button>
+        <button className="btn my-2 btn--green btn--stretched">Post</button>
       </form>
     </div>
   );

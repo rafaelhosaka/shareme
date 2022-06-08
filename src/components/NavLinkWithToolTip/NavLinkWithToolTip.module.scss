@@ -1,0 +1,23 @@
+@use "../../styles/abstracts/variables" as v;
+
+.tooltip-container {
+  display: flex;
+  align-items: center;
+  width: 9rem;
+  height: 5rem;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.tooltip-text {
+  position: absolute;
+  top: 5.3rem;
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 0.3rem;
+  border-radius: 5px;
+}
+
+.active {
+  color: v.$primary-color;
+}

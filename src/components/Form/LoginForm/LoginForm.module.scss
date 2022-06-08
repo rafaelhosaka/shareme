@@ -1,0 +1,35 @@
+@use "../../../styles/abstracts/variables" as v;
+
+.login-logo {
+  width: 200px;
+  margin: 3rem;
+}
+
+.form-login-container {
+  width: 400px;
+  box-shadow: v.$box-shadow;
+  border-radius: 10px;
+  background-color: v.$background-color;
+  padding: 3rem;
+
+  .heading {
+    text-align: center;
+    font-size: 2rem;
+  }
+
+  .form {
+    border-bottom: 1px solid lightgray;
+  }
+
+  a {
+    display: block;
+    text-align: center;
+  }
+}
+
+.copyright {
+  font-weight: 600;
+  & > a {
+    text-decoration: underline;
+  }
+}

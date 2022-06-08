@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useInput } from "../../../hook/useInput";
 import authService from "../../../services/authService";
 import { saveUser } from "../../../services/userService";
-
-import "./RegisterForm.css";
 import { useAlert } from "../../Alert/Alert";
 import { Link, useNavigate } from "react-router-dom";
 import AlertEntity from "../../../models/alert";
 import UserProfileEntity from "../../../models/userProfile";
+
+import cssRegisterForm from "./RegisterForm.module.scss";
+import cssLoginForm from "../LoginForm/LoginForm.module.scss";
 
 function RegisterForm() {
   const { value: firstName, bind: bindFirstName } = useInput("");
@@ -88,13 +89,13 @@ function RegisterForm() {
       {alert}
       <Link to="/login">
         <img
-          className="login-logo"
+          className={cssLoginForm["login-logo"]}
           src={"./images/logo-full.png"}
           alt="Logo of the Shareme"
         />
       </Link>
-      <div className="form-register-container">
-        <div className="form-register-header">
+      <div className={cssRegisterForm["form-register-container"]}>
+        <div className={cssRegisterForm.header}>
           <h1>Sign Up</h1>
         </div>
         <form className="form-login" onSubmit={(e) => handleSubmit(e)}>
@@ -187,7 +188,7 @@ function RegisterForm() {
             </div>
           </div>
           <div className="form-group">
-            <button className="btn m-2x0 btn--green btn--stretched">
+            <button className="btn my-2 btn--green btn--stretched">
               Sign Up
             </button>
           </div>

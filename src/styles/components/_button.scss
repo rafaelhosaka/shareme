@@ -1,0 +1,32 @@
+@use "../abstracts/variables" as v;
+
+.btn {
+  border-radius: 20px;
+  padding: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 0;
+  font-size: 1.5rem;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+}
+
+a.btn--green,
+.btn--green {
+  background: v.$primary-color;
+  color: v.$background-color;
+}
+
+.btn:hover {
+  filter: brightness(90%);
+}
+
+.btn:hover.btn:disabled {
+  background: v.$primary-color;
+}
+
+.btn--stretched {
+  width: 100%;
+}

@@ -5,7 +5,7 @@ import AlertEntity, { LocationProps } from "../../../models/alert";
 import authService from "../../../services/authService";
 import { useAlert } from "../../Alert/Alert";
 
-import "./LoginForm.css";
+import css from "./LoginForm.module.scss";
 
 function LoginForm() {
   const { value: email, bind: bindEmail } = useInput("");
@@ -36,13 +36,13 @@ function LoginForm() {
     <main className="container center">
       <>{alert}</>
       <img
-        className="login-logo"
+        className={css["login-logo"]}
         src={"./images/logo-full.png"}
         alt="Logo of the Shareme"
       />
-      <div className="form-login-container">
-        <h1 className="form-login-heading">Log Into Shareme</h1>
-        <form className="form-login" onSubmit={(e) => handleSubmit(e)}>
+      <div className={css["form-login-container"]}>
+        <h1 className={css["heading"]}>Log Into Shareme</h1>
+        <form className={css["form"]} onSubmit={(e) => handleSubmit(e)}>
           <div className="form-group">
             <input
               placeholder="Email"
@@ -62,15 +62,13 @@ function LoginForm() {
             />
           </div>
 
-          <button className="btn m-2x0 btn--green btn--stretched">
-            Log In
-          </button>
+          <button className="btn my-2 btn--green btn--stretched">Log In</button>
         </form>
-        <Link className="btn m-2x0 btn--green btn--stretched" to="/register">
+        <Link className="btn my-2 btn--green btn--stretched" to="/register">
           Create Account
         </Link>
       </div>
-      <div className="copyright m-2x0">
+      <div className={`${css.copyright} my-2`}>
         Copyright 2022 <a href="#">Rafael Hideki Hosaka</a>
       </div>
     </main>

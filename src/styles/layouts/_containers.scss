@@ -4,34 +4,34 @@
   grid-template-areas:
     "header"
     "main-content";
-}
 
-.header {
-  grid-area: header;
-  position: fixed;
-  z-index: 1;
-}
+  .header {
+    grid-area: header;
+    position: fixed;
+    z-index: 1;
+  }
 
-.container {
-  grid-area: main-content;
-}
+  .container {
+    grid-area: main-content;
 
-.container.center {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
+    &.center {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
 
-.container.right {
-  grid-area: 2/2/2/4;
-}
+    &.right {
+      grid-area: 2/2/2/4;
+    }
+  }
 
-.left-content {
-  grid-area: left-content;
-}
+  .left-content {
+    grid-area: left-content;
+  }
 
-.right-content {
-  grid-area: right-content;
+  .right-content {
+    grid-area: right-content;
+  }
 }
 
 @media screen and (min-width: 768px) {

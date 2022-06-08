@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "./Alert.css";
+import css from "./Alert.module.scss";
 
 const ALERT = {
   SUCESS: "success",
@@ -40,13 +40,13 @@ interface AlertProps {
 
 function Alert({ message, type, closeAlert }: AlertProps) {
   return (
-    <div id="alert" className={`alert${getClass(type)}`}>
+    <div id="alert" className={`${css.alert} ${getClass(type)}`}>
       <div>
-        <span className="alert__label">{getLabel(type)}</span>
-        <span className="alert__message">{message}</span>
+        <span className={css["label"]}>{getLabel(type)}</span>
+        <span className={css["message"]}>{message}</span>
       </div>
       <i
-        className="alert__close fa-solid fa-xmark fa-xl"
+        className={`${css["close-btn"]} fa-solid fa-xmark fa-xl`}
         onClick={closeAlert}
       ></i>
     </div>
@@ -69,11 +69,11 @@ function getLabel(type: string) {
 function getClass(type: string) {
   switch (type) {
     case ALERT.SUCESS:
-      return " alert--success";
+      return `${css["alert--success"]}`;
     case ALERT.DANGER:
-      return " alert--danger";
+      return `${css["alert--danger"]}`;
     case ALERT.WARNING:
-      return " alert--warning";
+      return `${css["alert--warning"]}`;
     default:
       return "";
   }
