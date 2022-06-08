@@ -9,10 +9,13 @@ import Comment from "../Comment/Comment";
 import { likePost } from "../../services/likeService";
 import { paginate } from "../../utils/paginate";
 import { Link } from "react-router-dom";
-import "./Post.css";
+
 import Spinner from "../Spinner/Spinner";
 import PostEntity from "../../models/post";
 import CommentEntity from "../../models/comment";
+
+import css from "./Post.module.scss";
+import PageInfoEntity from "../../models/pageInfo";
 
 interface PostProps {
   post: PostEntity;
@@ -30,7 +33,10 @@ function Post(props: PostProps) {
 
   const [pagedComments, setPagedComments] = useState<CommentEntity[]>([]);
   const [commentCount, setCommentCount] = useState(post.comments.length);
-  const [pageInfo, setPageInfo] = useState({ currentPage: 1, pageSize: 5 });
+  const [pageInfo, setPageInfo] = useState<PageInfoEntity>({
+    currentPage: 1,
+    pageSize: 5,
+  });
 
   useEffect(() => {
     setPostUserService(userImageDownload(post.user.id));
@@ -52,10 +58,7 @@ function Post(props: PostProps) {
   }, [pageInfo]);
 
   const loadMoreComments = () => {
-    setPageInfo({
-      currentPage: pageInfo.currentPage++,
-      pageSize: pageInfo.pageSize,
-    });
+    setPageInfo((prev) => ({ ...prev, currentPage: prev.currentPage + 1 }));
   };
 
   const handleLike = async () => {
@@ -93,7 +96,7 @@ function Post(props: PostProps) {
 
   const renderComments = () => {
     return (
-      <div className="post__comments">
+      <div className={css["comments"]}>
         <NewComment
           elementRef={inputNewCommentRef}
           handleNewComment={handleNewComment}
@@ -105,11 +108,11 @@ function Post(props: PostProps) {
         {post.commentCount > pageInfo.pageSize && (
           <>
             {pageInfo.currentPage * pageInfo.pageSize < post.commentCount && (
-              <div onClick={loadMoreComments} className="more-comment">
+              <div onClick={loadMoreComments} className={css["more-comment"]}>
                 View more comments
               </div>
             )}
-            <div onClick={focus} className="write-comment">
+            <div onClick={focus} className={css["write-comment"]}>
               Write a comment...
             </div>
           </>
@@ -123,8 +126,8 @@ function Post(props: PostProps) {
       post.fileName && (
         <Spinner
           show={!postImage}
-          className="size--680"
-          fragment={<img className="post__image" src={postImage} />}
+          sizeClass="size--680"
+          fragment={<img className={css["post__image"]} src={postImage} />}
         />
       )
     );
@@ -134,9 +137,12 @@ function Post(props: PostProps) {
     return (
       <Spinner
         show={!postUserImage}
-        className="size--60"
+        sizeClass="size--60"
         fragment={
-          <img className="post__user-image size--60" src={postUserImage} />
+          <img
+            className={`${css["user-image"]} size--60`}
+            src={postUserImage}
+          />
         }
       />
     );
@@ -144,24 +150,24 @@ function Post(props: PostProps) {
 
   return (
     <>
-      <div className="post">
-        <header className="post__header">
-          <div className="post__user">
+      <div className={css.post}>
+        <header className={css["header"]}>
+          <div className={css["user"]}>
             <Link to={`/profile/${post.user.id}`}>{renderPostUserImage()}</Link>
             <Link
               to={`/profile/${post.user.id}/posts`}
-              className="post__user-name"
+              className={css["user-name"]}
             >
               {post.user.fullName}
             </Link>
           </div>
-          <p className="post__date">{formatDate(post.dateCreated)}</p>
+          <p>{formatDate(post.dateCreated)}</p>
         </header>
-        <p className="post__description">{post.description}</p>
+        <p className={css["description"]}>{post.description}</p>
         {renderPostImage()}
-        <footer className="post__footer">
-          <div className="post__details">
-            <span className="post__details-like">
+        <footer className={css["footer"]}>
+          <div className={css["details"]}>
+            <span className={`${css["details-like"]} mx-2`}>
               {post.likeCount > 1
                 ? `${post.likeCount} likes`
                 : `${post.likeCount} like`}
@@ -169,17 +175,17 @@ function Post(props: PostProps) {
             <div>
               <span
                 onClick={() => setShowComments(true)}
-                className="post__details-comment"
+                className={`${css["details-comment"]} mx-2`}
               >
                 {post.commentCount > 1
                   ? `${commentCount} Comments`
                   : `${commentCount} Comment`}
               </span>
-              <span className="post__details-share">10 Shares</span>
+              <span className={css["details-share"]}>10 Shares</span>
             </div>
           </div>
-          <div className="post__action">
-            <div onClick={handleLike} className="post__icon">
+          <div className={css["action"]}>
+            <div onClick={handleLike} className={css["icon"]}>
               <i
                 className={liked ? "fa-solid fa-heart" : "fa-regular fa-heart"}
               ></i>
@@ -190,12 +196,12 @@ function Post(props: PostProps) {
                 setShowComments(true);
                 showComments && focus();
               }}
-              className="post__icon"
+              className={css["icon"]}
             >
               <i className="fa-regular fa-comment"></i>
               <span>Comment</span>
             </div>
-            <div className="post__icon">
+            <div className={css["icon"]}>
               <i className="fa-solid fa-share-from-square"></i>
               <span>Share</span>
             </div>

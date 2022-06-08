@@ -6,6 +6,8 @@ import Spinner from "../../Spinner/Spinner";
 import FriendRequestEntity from "../../../models/friendRequest";
 import UserProfileEntity from "../../../models/userProfile";
 
+import css from "./FriendRequest.module.scss";
+
 interface FriendRequestProps {
   request: FriendRequestEntity;
   handleDelete: (request: FriendRequestEntity) => void;
@@ -24,22 +26,24 @@ function FriendRequest({ request, handleDelete }: FriendRequestProps) {
   }, []);
 
   return (
-    <div className="friend-request__container">
+    <div className={`${css["friend-request__container"]} m2`}>
       <Link to={`/profile/${request.requestingUserId}`}>
         <Spinner
           show={!image}
-          className="size--200"
-          fragment={<img src={image} className="friend-request__user-image" />}
+          sizeClass="size--200"
+          fragment={
+            <img src={image} className={css["friend-request__user-image"]} />
+          }
         />
       </Link>
-      <div className="friend-request__body">
+      <div className={css["friend-request__body"]}>
         <Link
-          className="friend-request__user-name"
+          className={css["friend-request__user-name"]}
           to={`/profile/${request.requestingUserId}`}
         >
           {user?.fullName}
         </Link>
-        <button className="btn m-1x0 btn--green">Confirm</button>
+        <button className="btn my-1 btn--green">Confirm</button>
         <button onClick={() => handleDelete(request)} className="btn">
           Delete
         </button>

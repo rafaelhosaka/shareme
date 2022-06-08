@@ -106,7 +106,7 @@ function Navbar() {
           >
             <Spinner
               show={!userImage}
-              className="size--40"
+              sizeClass="size--40"
               fragment={
                 <img
                   className={`${css["user-image"]} size--40`}

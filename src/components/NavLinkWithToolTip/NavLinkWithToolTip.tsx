@@ -1,10 +1,10 @@
 import withToolTip from "../../helper/withToolTip";
-import { NavLink, To } from "react-router-dom";
-import { useState } from "react";
+import { NavLink } from "react-router-dom";
+
 import css from "./NavLinkWithToolTip.module.scss";
 
 interface NavLinkWithToolTipProps {
-  to: To;
+  to: string;
   faClasses: string;
   tooltipLabel: string;
   showToolTip: boolean;
@@ -22,21 +22,16 @@ function NavLinkWithToolTip({
   activeClass,
   ...props
 }: NavLinkWithToolTipProps) {
-  const [active, setActive] = useState(false);
-
-  const handleActive = (isActive: boolean) => {
-    setActive(isActive);
-    return isActive ? `${activeClass} ${className}` : className;
-  };
-
   return (
     <div className={css["tooltip-container"]}>
       <NavLink
-        className={({ isActive }) => handleActive(isActive)}
+        className={({ isActive }) =>
+          isActive ? `${activeClass} ${className}` : className
+        }
         to={to}
         {...props}
       >
-        <i className={active ? `${css.active} ${faClasses}` : faClasses}></i>
+        <i className={faClasses}></i>
 
         {showToolTip && (
           <span className={css["tooltip-text"]}>{tooltipLabel}</span>

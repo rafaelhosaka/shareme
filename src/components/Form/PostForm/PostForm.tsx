@@ -87,7 +87,6 @@ function PostForm({ handleNewPost }: PostFormProps) {
 
   const createPost = async () => {
     const formData = new FormData();
-    console.log(currentUser);
 
     formData.append("post", JSON.stringify({ user: currentUser, description }));
     formData.append("file", files[0]); //for now accept only one image
@@ -118,7 +117,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
           <Link to={`/profile/${currentUser?.id}`}>
             <Spinner
               show={!userImage}
-              className="size--60"
+              sizeClass="size--60"
               fragment={
                 <img
                   className={`${css["user-image"]} size--60`}

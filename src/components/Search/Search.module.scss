@@ -1,10 +1,12 @@
+@use "../../styles/abstracts/variables" as v;
+
 .search-menu__container {
-  background-color: rgb(255, 255, 255);
+  background-color: v.$background-color;
   padding: 0.7rem;
   position: sticky;
   top: 70px;
   height: calc(100vh - 70px);
-  box-shadow: 0px 0px 5px 1px rgba(83, 83, 83, 0.363);
+  box-shadow: v.$box-shadow;
 }
 
 .search-menu__heading {
@@ -32,18 +34,17 @@
   font-size: 1.7rem;
   font-weight: 500;
   padding: 2rem;
-  text-decoration: none;
-}
 
-.search-menu__item:hover {
-  background-color: rgba(199, 255, 219, 0.8);
-  border-radius: 10px;
-  cursor: pointer;
-}
+  &:hover {
+    background-color: v.$web-background-color;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 
-.active.search-menu__item {
-  background-color: rgba(199, 255, 219, 0.8);
-  border-radius: 10px;
-  font-weight: 700;
-  color: #025909;
+  &.active {
+    background-color: v.$web-background-color;
+    border-radius: 10px;
+    font-weight: 700;
+    color: v.$primary-color;
+  }
 }

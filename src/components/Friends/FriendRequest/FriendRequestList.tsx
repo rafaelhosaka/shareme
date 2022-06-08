@@ -6,7 +6,7 @@ import {
   getPendingFriendRequest,
 } from "../../../services/friendService";
 import FriendRequest from "./FriendRequest";
-import "./FriendRequest.css";
+import css from "./FriendRequest.module.scss";
 
 function FriendRequestList() {
   const { user: currentUser } = useUser();
@@ -30,15 +30,17 @@ function FriendRequestList() {
   };
 
   return (
-    <div className="friend-request-list__container">
+    <div className={css["friend-request-list__container"]}>
       <h2>Friend Requests</h2>
-      {friendRequests.map((request) => (
-        <FriendRequest
-          key={request.id}
-          request={request}
-          handleDelete={handleDelete}
-        />
-      ))}
+      <div className={css["friend-requests"]}>
+        {friendRequests.map((request) => (
+          <FriendRequest
+            key={request.id}
+            request={request}
+            handleDelete={handleDelete}
+          />
+        ))}
+      </div>
     </div>
   );
 }

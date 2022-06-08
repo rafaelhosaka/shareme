@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useBase64Image } from "../../../hook/useBase64Image";
 import { userImageDownload } from "../../../services/userService";
 import Spinner from "../../Spinner/Spinner";
-import "./PeopleResult.css";
 import {
   createFriendRequest,
   deleteFriendRequest,
@@ -11,6 +10,7 @@ import {
 } from "../../../services/friendService";
 import { useUser } from "../../../context/userContext";
 import UserProfileEntity from "../../../models/userProfile";
+import css from "./PeopleResult.module.scss";
 
 interface PeopleResultProps {
   people: UserProfileEntity;
@@ -62,14 +62,14 @@ function PeopleResult({
     if (req) {
       return (
         <button onClick={() => handleCancelRequest()} className="btn">
-          <span className="people__add-friend">Cancel request</span>
+          <span className={css["people__add-friend"]}>Cancel request</span>
         </button>
       );
     }
     if (pend) {
       return (
         <button className="btn btn--green">
-          <span className="people__add-friend">Confirm request</span>
+          <span className={css["people__add-friend"]}>Confirm request</span>
         </button>
       );
     }
@@ -77,7 +77,7 @@ function PeopleResult({
       return (
         <Link to={`/profile/${people.id}`}>
           <button className="btn">
-            <span className="people__add-friend">View profile</span>
+            <span className={css["people__add-friend"]}>View profile</span>
           </button>
         </Link>
       );
@@ -87,24 +87,27 @@ function PeopleResult({
         onClick={() => handleCreateFriendRequest()}
         className="btn btn--green"
       >
-        <span className="people__add-friend">Add friend</span>
+        <span className={css["people__add-friend"]}>Add friend</span>
       </button>
     );
   };
 
   return (
-    <div className="people__container">
-      <div className="people__info">
+    <div className={css["people__container"]}>
+      <div className={css["people__info"]}>
         <Link to={`/profile/${people.id}`}>
           <Spinner
             show={!userImage}
-            className="size--60"
+            sizeClass="size--60"
             fragment={
-              <img className="people__user-image size--60" src={userImage} />
+              <img
+                className={`${css["people__user-image"]} size--60`}
+                src={userImage}
+              />
             }
           />
         </Link>
-        <Link to={`/profile/${people.id}`} className="people__name">
+        <Link to={`/profile/${people.id}`} className={css["people__name"]}>
           {people.fullName}
         </Link>
       </div>

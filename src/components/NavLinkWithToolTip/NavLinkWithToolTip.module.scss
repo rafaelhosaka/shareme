@@ -6,7 +6,6 @@
   width: 9rem;
   height: 5rem;
   justify-content: center;
-  text-decoration: none;
 }
 
 .tooltip-text {
@@ -16,8 +15,4 @@
   background: rgba(0, 0, 0, 0.7);
   padding: 0.3rem;
   border-radius: 5px;
-}
-
-.active {
-  color: v.$primary-color;
 }

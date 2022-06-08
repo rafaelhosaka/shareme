@@ -65,6 +65,9 @@
 
 .active {
   border-bottom: 5px solid v.$primary-color;
+  & > i {
+    color: v.$primary-color;
+  }
 }
 
 .nav-link {
@@ -73,7 +76,6 @@
   width: 9rem;
   height: 5rem;
   justify-content: center;
-  text-decoration: none;
   padding: 3.3rem;
 
   &:link {
@@ -107,7 +109,6 @@
 .user {
   display: flex;
   align-items: center;
-  text-decoration: none;
   color: black;
   padding: 0.5rem;
   border-radius: 30px;

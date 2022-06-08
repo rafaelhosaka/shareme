@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { searchUsersContainsName } from "../../services/userService";
-import "./Search.css";
 import PeopleResult from "./People/PeopleResult";
 import {
   getPendingFriendRequest,
@@ -10,6 +9,7 @@ import {
 } from "../../services/friendService";
 import _ from "lodash";
 import UserProfileEntity from "../../models/userProfile";
+import css from "./Search.module.scss";
 
 interface SearchProps {
   currentUser: UserProfileEntity;
@@ -99,13 +99,15 @@ function Search({ currentUser }: SearchProps) {
     <>
       <main className="container right center">{renderResult()}</main>
       <div className="left-content">
-        <div className="search-menu__container">
-          <h1 className="search-menu__heading">Search Results</h1>
-          <span className="search-filter">Filters</span>
-          <div className="search-menu__list">
+        <div className={css["search-menu__container"]}>
+          <h1 className={css["search-menu__heading"]}>Search Results</h1>
+          <span className={css["search-filter"]}>Filters</span>
+          <div className={css["search-menu__list"]}>
             <div
               onClick={() => handleFilterSelected("people")}
-              className={`search-menu__item ${isActive("people")}`}
+              className={`${css["search-menu__item"]} ${
+                css[isActive("people")]
+              }`}
             >
               People
             </div>

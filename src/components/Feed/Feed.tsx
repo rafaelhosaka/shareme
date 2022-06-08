@@ -51,10 +51,10 @@ const Feed = () => {
     if (e.target instanceof Document) {
       let element: Element = e.target.scrollingElement as Element;
       if (element.scrollHeight - element.scrollTop <= element.clientHeight) {
-        setPageInfo({
-          currentPage: pageInfo.currentPage++,
-          pageSize: pageInfo.pageSize,
-        });
+        setPageInfo((prev) => ({
+          ...prev,
+          currentPage: prev.currentPage + 1,
+        }));
         console.log("End of window");
       }
     }

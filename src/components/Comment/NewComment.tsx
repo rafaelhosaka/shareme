@@ -4,7 +4,7 @@ import { useUser, useUserImage } from "../../context/userContext";
 import { useInput } from "../../hook/useInput";
 import CommentEntity from "../../models/comment";
 import { newComment } from "../../services/commentService";
-import "./Comment.css";
+import css from "./Comment.module.scss";
 
 interface NewCommentProps {
   postId: string;
@@ -34,14 +34,17 @@ function NewComment({ postId, handleNewComment, elementRef }: NewCommentProps) {
   };
 
   return (
-    <div className="new-comment__container">
+    <div className={css["new-comment__container"]}>
       <Link to={`/profile/${currentUser?.id}`}>
-        <img className="comment__user size--40" src={userImage} />
+        <img className={`${css["comment__user"]} size--40`} src={userImage} />
       </Link>
-      <form className="new-comment__form" onSubmit={(e) => handleSubmit(e)}>
+      <form
+        className={css["new-comment__form"]}
+        onSubmit={(e) => handleSubmit(e)}
+      >
         <input
           ref={elementRef}
-          className="new-comment__description"
+          className={css["new-comment__description"]}
           placeholder="Write a comment..."
           {...bindDescription}
         />

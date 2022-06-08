@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./Profile.css";
 import {
   NavLink,
   Outlet,
@@ -17,6 +16,8 @@ import Spinner from "../Spinner/Spinner";
 import { useUser } from "../../context/userContext";
 import { isPending, isRequested } from "../../services/friendService";
 import UserProfileEntity from "../../models/userProfile";
+import css from "./Profile.module.scss";
+import _ from "lodash";
 
 function Profile() {
   const { id } = useParams();
@@ -27,6 +28,13 @@ function Profile() {
   const [pending, setPending] = useState(false);
 
   const { image: userImage, setService } = useBase64Image(null);
+
+  const menu = [
+    { key: "posts", value: "Posts" },
+    { key: "friends", value: "Friends" },
+    { key: "photos", value: "Photos" },
+    { key: "videos", value: "Videos" },
+  ];
 
   const navigate = useNavigate();
 
@@ -78,31 +86,49 @@ function Profile() {
     return <button className="btn btn--green">Add Friend</button>;
   };
 
+  const renderMenu = () => {
+    return menu.map((option) => {
+      return (
+        <NavLink
+          key={option.key}
+          to={option.key}
+          className={({ isActive }) =>
+            isActive
+              ? `${css["profile-option"]} ${css["active"]}`
+              : css["profile-option"]
+          }
+        >
+          {option.value}
+        </NavLink>
+      );
+    });
+  };
+
   return (
     <>
-      <div className="profile__background"></div>
+      <div className={css["profile__background"]}></div>
       <main className="container center">
-        <div className="background-image__container">
+        <div className={css["background-image__container"]}>
           <img
-            className="background-image"
+            className={css["background-image"]}
             src={process.env.PUBLIC_URL + "/images/bg.jpeg"}
           />
         </div>
-        <div className="profile__header">
-          <div className="profile-user">
+        <div className={css["profile__header"]}>
+          <div className={css["profile-user"]}>
             <Spinner
               show={!userImage}
-              className="size--168"
+              sizeClass="size--168"
               fragment={
                 <>
                   <img
-                    className="profile-user__image"
+                    className={css["profile-user__image"]}
                     src={user && userImage}
                   />
                   {currentUser?.id === user?.id && (
-                    <div className="change-icon__container">
+                    <div className={css["change-icon__container"]}>
                       <label htmlFor="upload-image">
-                        <div className="change-icon">
+                        <div className={css["change-icon"]}>
                           <i className="fa-solid fa-camera fa-xl"></i>
                         </div>
                         <input
@@ -121,33 +147,24 @@ function Profile() {
               }
             />
 
-            <div className="profile-user__details">
-              <div className="profile-user__info">
-                <span className="profile-user__name">{user?.fullName}</span>
-                <Link to="friends" className="profile-user__friends-qty">
+            <div className={css["profile-user__details"]}>
+              <div className={css["profile-user__info"]}>
+                <span className={css["profile-user__name"]}>
+                  {user?.fullName}
+                </span>
+                <Link to="friends" className={css["profile-user__friends-qty"]}>
                   {user && user.friendCount <= 1
                     ? `${user?.friendCount} friend`
                     : `${user?.friendCount} friends`}
                 </Link>
               </div>
-              <div className="profile-user__buttons-area">{renderButton()}</div>
+              <div className={css["profile-user__buttons-area"]}>
+                {renderButton()}
+              </div>
             </div>
           </div>
         </div>
-        <div className="profile-options__container">
-          <NavLink to="posts" className="profile-option">
-            Posts
-          </NavLink>
-          <NavLink to="friends" className="profile-option">
-            Friends
-          </NavLink>
-          <NavLink to="photos" className="profile-option">
-            Photos
-          </NavLink>
-          <NavLink to="videos" className="profile-option">
-            Videos
-          </NavLink>
-        </div>
+        <div className={css["profile-options__container"]}>{renderMenu()}</div>
         <div>
           <Outlet />
         </div>

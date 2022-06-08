@@ -1,43 +1,40 @@
+@use "../../styles/abstracts/variables" as v;
+
 .post {
   background: white;
   max-width: 680px;
   width: 100vw;
   border-radius: 10px;
-  box-shadow: 0px 0px 5px 1px rgba(83, 83, 83, 0.363);
+  box-shadow: v.$box-shadow;
   margin-bottom: 2rem;
 }
 
-.post__header {
+.header {
   padding: 1rem;
   display: flex;
   justify-content: space-between;
 }
 
-.post__user {
+.user {
   display: flex;
 }
 
-.post__user-image {
+.user-image {
   border-radius: 30px;
 }
 
-.post__user-name {
+.user-name {
   font-weight: 500;
   padding-top: 0.5rem;
   padding-left: 0.7rem;
-  text-decoration: none;
   height: 50%;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
-.post__user-name:hover {
-  text-decoration: underline;
-}
-
-.post__date {
-  margin: 0;
-}
-
-.post__description {
+.description {
   padding-left: 1rem;
 }
 
@@ -45,32 +42,29 @@
   width: 100%;
 }
 
-.post__footer {
+.footer {
   padding: 0.3rem;
 }
 
-.post__details {
+.details {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 40px;
 }
 
-.post__details-like,
-.post__details-comment {
-  margin: 0 2rem;
-}
-
-.post__details-comment:hover {
+.details-like:hover,
+.details-share:hover,
+.details-comment:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.post__details-share {
+.details-share {
   margin-right: 2rem;
 }
 
-.post__action {
+.action {
   display: flex;
   height: 50px;
   align-items: center;
@@ -78,7 +72,7 @@
   border-top: 1px solid lightgrey;
 }
 
-.post__icon {
+.icon {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,22 +80,33 @@
   width: 100vw;
   height: 50px;
   cursor: pointer;
+
+  & > span {
+    margin-left: 1rem;
+  }
+
+  &:hover {
+    background: v.$secondary-color;
+    background-size: cover;
+    border-radius: 10px;
+  }
 }
 
-.post__icon > span {
-  margin-left: 1rem;
-}
-
-.post__icon:hover {
-  background: rgba(240, 242, 245, 255);
-  background-size: cover;
-  border-radius: 10px;
-}
-
-.post__comments {
+.comments {
   border-top: 1px solid lightgrey;
+  &.hidden {
+    display: none;
+  }
 }
 
-.post__comments.hidden {
-  display: none;
+.more-comment,
+.write-comment {
+  padding: 0.8rem;
+  color: rgb(101, 103, 107);
+  font-weight: 600;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }

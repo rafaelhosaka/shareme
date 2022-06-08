@@ -1,13 +1,21 @@
-import "./Spinner.css";
+import css from "./Spinner.module.scss";
 
 interface SpinnerProps {
   fragment: JSX.Element;
-  className: string;
+  sizeClass: string;
   show: boolean;
 }
 
-function Spinner({ fragment, className, show = true }: SpinnerProps) {
-  return <>{show ? <div className={`loader ${className}`}></div> : fragment}</>;
+function Spinner({ fragment, sizeClass, show = true }: SpinnerProps) {
+  return (
+    <>
+      {show ? (
+        <div className={`${css.loader} ${css[sizeClass]} ${sizeClass}`}></div>
+      ) : (
+        fragment
+      )}
+    </>
+  );
 }
 
 export default Spinner;

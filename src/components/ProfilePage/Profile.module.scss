@@ -1,20 +1,13 @@
-.container {
-  margin: 0;
-}
+@use "../../styles/abstracts/variables" as v;
 
 .profile__background {
-  background: linear-gradient(
-    180deg,
-    hsla(260, 75%, 95%, 1) 0%,
-    hsla(125, 86%, 83%, 1) 0%,
-    hsla(0, 0%, 100%, 1) 60%
-  );
+  background: v.$profile-gradient-color;
 
   width: 100vw;
   position: absolute;
   height: 620px;
   display: inline-block;
-  box-shadow: 0px 0px 5px 1px rgba(83, 83, 83, 0.363);
+  box-shadow: v.$box-shadow;
   z-index: -1;
 }
 
@@ -47,21 +40,21 @@
   height: 16.8rem;
   border-radius: 8.4rem;
   border: 5px solid white;
-  background: white;
+  background: v.$background-color;
 }
 
 .change-icon__container {
   position: relative;
-}
 
-.change-icon__container #upload-image {
-  opacity: 0;
-  position: absolute;
-  z-index: -1;
+  [id="upload-image"] {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+  }
 }
 
 .change-icon {
-  background-color: rgba(240, 242, 245, 255);
+  background-color: v.$secondary-color;
   border-radius: 30px;
   width: 10px;
   height: 10px;
@@ -72,11 +65,11 @@
   position: absolute;
   right: 0;
   bottom: 10px;
-}
 
-.change-icon:hover {
-  cursor: pointer;
-  filter: brightness(95%);
+  &:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+  }
 }
 
 .profile-user__details {
@@ -96,14 +89,13 @@
 .profile-user__name {
   font-size: 3.2rem;
   font-weight: 700;
-}
 
-a.profile-user__friends-qty {
-  font-size: 1.7rem;
-  font-weight: 600;
-  color: rgb(101, 103, 107);
-  text-decoration: none;
-  padding-top: 0.5rem;
+  &a {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: rgb(101, 103, 107);
+    padding-top: 0.5rem;
+  }
 }
 
 .profile-user__buttons-area {
@@ -127,21 +119,20 @@ a.profile-user__friends-qty {
 }
 
 .profile-option {
-  margin: 1rem 0;
-  padding: 1.8rem 1.5rem;
-  text-decoration: none;
+  margin: 0.5rem 0;
+  padding: 1.2rem 1.5rem;
   font-size: 1.5rem;
   font-weight: 600;
+
+  &.active {
+    font-weight: bold;
+    border-bottom: 5px solid v.$primary-color;
+    color: v.$primary-color;
+  }
 }
 
 .profile-option:hover.profile-option:not(.active) {
-  background: rgba(240, 242, 245, 255);
+  background: v.$secondary-color;
   background-size: cover;
   border-radius: 10px;
-}
-
-.active.profile-option {
-  font-weight: bold;
-  border-bottom: 5px solid #025909;
-  color: #025909;
 }

@@ -1,0 +1,26 @@
+@use "../../styles/abstracts/variables" as v;
+@use "../../styles/utils/sizing" as s;
+
+.loader {
+  border: 1rem solid v.$secondary-color;
+  border-top: 1rem solid v.$primary-color;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+  background-color: v.$background-color;
+
+  @each $size, $value in s.$sizes {
+    &.size--#{$size} {
+      border: calc($value * 0.2) solid v.$secondary-color;
+      border-top: calc($value * 0.2) solid v.$primary-color;
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

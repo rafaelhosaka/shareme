@@ -1,24 +1,14 @@
-.size--40 {
-  width: 4rem;
-  height: 4rem;
-}
+$sizes: (
+  "40": 4rem,
+  "60": 6rem,
+  "168": 16.8rem,
+  "200": 20rem,
+  "680": 68rem,
+);
 
-.size--60 {
-  width: 6rem;
-  height: 6rem;
-}
-
-.size--168 {
-  width: 16.8rem;
-  height: 16.8rem;
-}
-
-.size--200 {
-  width: 20rem;
-  height: 20rem;
-}
-
-.size--680 {
-  width: 68rem;
-  height: 68rem;
+@each $size, $value in $sizes {
+  .size--#{$size} {
+    width: $value;
+    height: $value;
+  }
 }
