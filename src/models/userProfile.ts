@@ -6,6 +6,7 @@ export default class UserProfileEntity {
   birthDate: Date;
   gender: string;
   friends: string[];
+  roles: string[];
 
   constructor(data: UserProfileEntity) {
     this.id = data.id;
@@ -15,6 +16,7 @@ export default class UserProfileEntity {
     this.birthDate = data.birthDate;
     this.gender = data.gender;
     this.friends = data.friends;
+    this.roles = [];
   }
 
   get fullName(): string {

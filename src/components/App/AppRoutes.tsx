@@ -10,6 +10,11 @@ import Logout from "../Form/LoginForm/Logout";
 import RegisterForm from "../Form/RegisterForm/RegisterForm";
 import Search from "../Search/Search";
 import FriendRequestList from "../Friends/FriendRequest/FriendRequestList";
+import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
+import Unauthorized from "../Unauthorized/Unauthorized";
+
+const userRole = ["ROLE_USER"];
+const adminRole = ["ROLE_ADMIN"];
 
 function AppRoutes() {
   const { user: currentUser } = useUser();
@@ -17,53 +22,45 @@ function AppRoutes() {
   return (
     <div className="template">
       <header className="header">{currentUser && <Navbar />}</header>
-
       <Routes>
-        <Route
-          path="/"
-          element={
-            !currentUser ? (
-              <Navigate to="/login" replace />
-            ) : (
-              <Navigate to="/home" replace />
-            )
-          }
-        />
-
+        {/* Public */}
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route
           path="/login"
-          element={!currentUser ? <LoginForm /> : <Navigate to="/home" />}
+          element={currentUser ? <Navigate to="/home" /> : <LoginForm />}
         />
         <Route
-          path="/logout"
-          element={currentUser ? <Logout /> : <Navigate to="/login" />}
+          path="/register"
+          element={currentUser ? <Navigate to="/home" /> : <RegisterForm />}
         />
 
-        <Route path="/register" element={<RegisterForm />} />
+        {/* USER and ADMIN */}
+        <Route
+          element={
+            <ProtectedRoutes allowedRoles={[...userRole, ...adminRole]} />
+          }
+        >
+          <Route path="/home" element={<Feed />} />
 
-        {currentUser && <Route path="/home" element={<Feed />} />}
-        {currentUser && (
           <Route path="/friends" element={<Friends />}>
             <Route path="all" element={<NotFound />} />
             <Route path="request" element={<FriendRequestList />} />
           </Route>
-        )}
 
-        {currentUser && (
           <Route path="/profile/:id" element={<Profile />}>
             <Route path="posts" element={<NotFound />} />
             <Route path="friends" element={<NotFound />} />
             <Route path="photos" element={<NotFound />} />
             <Route path="videos" element={<NotFound />} />
           </Route>
-        )}
-        {currentUser && (
-          <Route
-            path="/search/:filter"
-            element={<Search currentUser={currentUser} />}
-          />
-        )}
 
+          <Route path="/logout" element={<Logout />} />
+        </Route>
+
+        <Route element={<ProtectedRoutes allowedRoles={adminRole} />}>
+          <Route path="/search/:filter" element={<Search />} />
+        </Route>
+        <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

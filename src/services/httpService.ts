@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import authService from "./authService";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -6,6 +6,16 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 export function getBaseUrl() {
   return process.env.REACT_APP_API_URL;
 }
+
+axios.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    if (config.headers !== undefined) {
+      config.headers["Authorization"] = `Bearer ${authService.getToken()}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 axios.interceptors.response.use(
   (response) => {
@@ -20,16 +30,10 @@ axios.interceptors.response.use(
     if (!expectedError) {
       console.log("Unexpected error " + error.response);
     } else {
-      if (error.response.status === 401) {
-        const refreshToken = authService.getRefreshToken();
-        if (authService.isTokenExpired(refreshToken)) {
-          console.log("RefreshToken expired");
+      if (error.response.status === 403) {
+        if (authService.isTokenExpired(authService.getToken())) {
           authService.logout();
-          window.location.href = "/home";
-        } else {
-          console.log("Renew Token");
-          setJwt(refreshToken);
-          authService.renewTokens();
+          window.location.href = "/login";
         }
       }
     }

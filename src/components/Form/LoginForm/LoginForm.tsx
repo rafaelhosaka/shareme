@@ -6,12 +6,17 @@ import authService from "../../../services/authService";
 import { useAlert } from "../../Alert/Alert";
 
 import css from "./LoginForm.module.scss";
+import { useUser } from "../../../context/userContext";
+import { getUserByEmail } from "../../../services/userService";
+import { useNavigate } from "react-router";
 
 function LoginForm() {
+  const { setUser } = useUser();
   const { value: email, bind: bindEmail } = useInput("");
   const { value: password, bind: bindPassword } = useInput("");
   const [alert, dispatchAlert] = useAlert();
   const location = useLocation() as unknown as LocationProps;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (location.state && (location.state.alert as AlertEntity)) {
@@ -23,8 +28,14 @@ function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault();
-      await authService.login(email, password);
-      window.location.href = "/home";
+      if (setUser) {
+        await authService.login(email, password);
+        const currentUser = authService.getCurrentUser();
+        const data = await getUserByEmail(currentUser.sub);
+        data.roles = currentUser.roles;
+        setUser(data);
+        navigate("/home");
+      }
     } catch (ex: any) {
       if (ex.response && ex.response.status === 400) {
         dispatchAlert("Username/Password incorrect", "danger");
@@ -64,7 +75,7 @@ function LoginForm() {
 
           <button className="btn my-2 btn--green btn--stretched">Log In</button>
         </form>
-        <Link className="btn my-2 btn--green btn--stretched" to="/register">
+        <Link className="btn my-2 btn--secondary btn--stretched" to="/register">
           Create Account
         </Link>
       </div>

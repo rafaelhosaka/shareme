@@ -1,12 +1,10 @@
 import ApplicationUserEntity from "../models/applicationUser";
-import httpService, { setJwt } from "./httpService";
+import httpService from "./httpService";
 const jwtDecode = require("jwt-decode");
 
 const apiEndPoint = "/auth";
 const accessToken = "access_token";
 const refreshToken = "refresh_token";
-
-setJwt(getToken());
 
 export async function login(username: string, password: string) {
   const form = new FormData();
@@ -15,7 +13,6 @@ export async function login(username: string, password: string) {
   const { data: jwt } = await httpService.post(apiEndPoint + "/login", form);
   localStorage.setItem(accessToken, jwt.access_token);
   localStorage.setItem(refreshToken, jwt.refresh_token);
-  setJwt(jwt.accessToken);
 }
 
 export function logout() {
@@ -55,7 +52,7 @@ export function isTokenExpired(token: string | null) {
   }
 }
 
-export async function renewTokens() {
+export async function refresh() {
   const { data: jwt } = await httpService.get(apiEndPoint + "/refresh");
   localStorage.setItem(accessToken, jwt.access_token);
   localStorage.setItem(refreshToken, jwt.refresh_token);
@@ -69,6 +66,6 @@ export default {
   getToken,
   getRefreshToken,
   isTokenExpired,
-  renewTokens,
+  refresh,
   createUserAccount,
 };

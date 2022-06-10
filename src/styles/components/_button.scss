@@ -1,12 +1,19 @@
 @use "../abstracts/variables" as v;
+@use "../abstracts/colors" as c;
 
 .btn {
-  border-radius: 20px;
+  border-radius: 30px;
   padding: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
   border: 0;
-  font-size: 1.5rem;
+  font-size: 2rem;
+}
+
+a.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn:disabled {
@@ -19,8 +26,25 @@ a.btn--green,
   color: v.$background-color;
 }
 
-.btn:hover {
-  filter: brightness(90%);
+a.btn--secondary,
+.btn--secondary {
+  background: v.$secondary-color;
+  color: c.$dark-900;
+}
+
+.btn--small {
+  width: 100px;
+  height: 50px;
+}
+
+.btn--medium {
+  width: 150px;
+  height: 60px;
+}
+
+.btn--big {
+  width: 200px;
+  height: 70px;
 }
 
 .btn:hover.btn:disabled {

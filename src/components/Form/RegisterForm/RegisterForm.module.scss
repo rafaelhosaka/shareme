@@ -2,11 +2,13 @@
 
 .form-register-container {
   box-shadow: v.$box-shadow;
-  border-radius: 10px;
+  border-radius: 20px;
   background-color: v.$background-color;
+}
 
-  .header {
-    border-bottom: 1px solid #ccd0d4;
-    padding: 1rem;
-  }
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccd0d4;
 }

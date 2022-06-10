@@ -10,16 +10,14 @@ import {
 import _ from "lodash";
 import UserProfileEntity from "../../models/userProfile";
 import css from "./Search.module.scss";
+import { useUser } from "../../context/userContext";
 
-interface SearchProps {
-  currentUser: UserProfileEntity;
-}
-
-function Search({ currentUser }: SearchProps) {
+function Search() {
   const { filter } = useParams();
   let [searchParams] = useSearchParams();
   let query = searchParams.get("q");
   const [result, setResult] = useState<UserProfileEntity[]>([]);
+  const { user: currentUser } = useUser();
 
   const [requestedUsers, setRequestedUsers] = useState([]);
   const [pendingUsers, setPedingUsers] = useState([]);
@@ -27,11 +25,11 @@ function Search({ currentUser }: SearchProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
     if (!query) {
       navigate("/not-found", { replace: false });
-    }
-    if (!currentUser) {
-      navigate("/");
     }
   }, []);
 
@@ -39,13 +37,17 @@ function Search({ currentUser }: SearchProps) {
     async function filterResult() {
       switch (filter) {
         case "people":
-          setResult(await getPeoples());
-          const { data: requested } = await getRequestedUsers(currentUser.id);
-          setRequestedUsers(requested);
-          const { data: pending } = await getPendingFriendRequest(
-            currentUser.id
-          );
-          setPedingUsers(pending);
+          if (currentUser) {
+            setResult(await getPeoples());
+            const { data: requested } = await getRequestedUsers(
+              currentUser?.id
+            );
+            setRequestedUsers(requested);
+            const { data: pending } = await getPendingFriendRequest(
+              currentUser?.id
+            );
+            setPedingUsers(pending);
+          }
       }
     }
     filterResult();
@@ -90,7 +92,7 @@ function Search({ currentUser }: SearchProps) {
         people={new UserProfileEntity(people)}
         requested={_.some(requestedUsers, ["targetUserId", people.id])}
         pending={_.some(pendingUsers, ["requestingUserId", people.id])}
-        ownSelf={people.id === currentUser.id}
+        ownSelf={people.id === currentUser?.id}
       />
     ));
   };

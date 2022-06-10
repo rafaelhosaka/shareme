@@ -8,7 +8,6 @@ import AlertEntity from "../../../models/alert";
 import UserProfileEntity from "../../../models/userProfile";
 
 import cssRegisterForm from "./RegisterForm.module.scss";
-import cssLoginForm from "../LoginForm/LoginForm.module.scss";
 
 function RegisterForm() {
   const { value: firstName, bind: bindFirstName } = useInput("");
@@ -87,18 +86,12 @@ function RegisterForm() {
   return (
     <main className="container center">
       {alert}
-      <Link to="/login">
-        <img
-          className={cssLoginForm["login-logo"]}
-          src={"./images/logo-full.png"}
-          alt="Logo of the Shareme"
-        />
-      </Link>
-      <div className={cssRegisterForm["form-register-container"]}>
-        <div className={cssRegisterForm.header}>
+
+      <div className={`${cssRegisterForm["form-register-container"]}`}>
+        <div className={`${cssRegisterForm.header} p2`}>
           <h1>Sign Up</h1>
         </div>
-        <form className="form-login" onSubmit={(e) => handleSubmit(e)}>
+        <form className="form-login p1" onSubmit={(e) => handleSubmit(e)}>
           <div className="grid--2x1">
             <input
               className="form-input form-input--gray"
@@ -191,6 +184,12 @@ function RegisterForm() {
             <button className="btn my-2 btn--green btn--stretched">
               Sign Up
             </button>
+            <Link
+              to="/login"
+              className="btn my-2 btn--secondary btn--stretched"
+            >
+              Back
+            </Link>
           </div>
         </form>
       </div>
