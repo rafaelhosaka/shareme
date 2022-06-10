@@ -38,6 +38,7 @@ export function UserProvider({ children }: UserProviderProps) {
       if (currentUser) {
         const data = await getUserByEmail(currentUser.sub);
         setService(userImageDownload(data.id));
+        data.roles = currentUser.roles;
         setUser(data);
       }
     }
