@@ -1,5 +1,6 @@
 import ApplicationUserEntity from "../models/applicationUser";
 import httpService from "./httpService";
+import axios from "axios";
 const jwtDecode = require("jwt-decode");
 
 const apiEndPoint = "/auth";
@@ -44,19 +45,23 @@ export function isTokenExpired(token: string | null) {
   const decodedToken = jwtDecode(token);
   const currentDate = new Date();
   if (decodedToken.exp * 1000 < currentDate.getTime()) {
-    console.log("Token expired.");
     return true;
   } else {
-    console.log("Valid token");
     return false;
   }
 }
 
 export async function refresh() {
-  const { data: jwt } = await httpService.get(apiEndPoint + "/refresh");
-  localStorage.setItem(accessToken, jwt.access_token);
-  localStorage.setItem(refreshToken, jwt.refresh_token);
-  window.location.href = "/home";
+  const axiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+  });
+
+  const { data: jwt } = await axiosInstance.get(apiEndPoint + "/refresh", {
+    headers: { Authorization: `Bearer ${getRefreshToken()}` as string },
+  });
+
+  localStorage.setItem("access_token", jwt.access_token);
+  localStorage.setItem("refresh_token", jwt.refresh_token);
 }
 
 export default {

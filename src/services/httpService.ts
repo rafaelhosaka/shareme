@@ -3,10 +3,6 @@ import authService from "./authService";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
-export function getBaseUrl() {
-  return process.env.REACT_APP_API_URL;
-}
-
 axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     if (config.headers !== undefined) {
@@ -19,23 +15,29 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (response) => {
-    return Promise.resolve(response);
+    return response;
   },
-  (error) => {
+  async (error) => {
     const expectedError =
       error.response &&
       error.response.status >= 400 &&
       error.response.status < 500;
 
     if (!expectedError) {
-      console.log("Unexpected error " + error.response);
+      console.log("Unexpected error " + error);
     } else {
-      if (error.response.status === 403) {
-        if (authService.isTokenExpired(authService.getToken())) {
+      const prevRequest = error?.config;
+      if (error.response.status === 403 && !prevRequest?.sent) {
+        prevRequest.sent = true;
+        const refreshToken = authService.getRefreshToken();
+        if (authService.isTokenExpired(refreshToken)) {
           authService.logout();
           window.location.href = "/login";
+        } else {
+          authService.refresh();
         }
       }
+      return axios.request(prevRequest);
     }
 
     return Promise.reject(error);
@@ -53,6 +55,5 @@ export default {
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
-  getBaseUrl,
   setJwt,
 };
