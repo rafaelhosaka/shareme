@@ -77,13 +77,13 @@ function Profile() {
   const renderButton = () => {
     if (currentUser?.id === id) return;
     if (requested) {
-      return <button className="btn btn--green">Cancel request</button>;
+      return <button className="btn btn--primary">Cancel request</button>;
     }
     if (pending) {
-      return <button className="btn btn--green">Confirm request</button>;
+      return <button className="btn btn--primary">Confirm request</button>;
     }
 
-    return <button className="btn btn--green">Add Friend</button>;
+    return <button className="btn btn--primary">Add Friend</button>;
   };
 
   const renderMenu = () => {

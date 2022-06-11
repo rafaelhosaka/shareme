@@ -1,5 +1,11 @@
+@use "../../styles/abstracts/variables" as v;
+
 .form-select {
   padding: 1rem;
   margin: 0 0.5rem;
   border-radius: 5px;
+  &:hover {
+    outline: auto;
+    outline-color: v.$primary-color;
+  }
 }

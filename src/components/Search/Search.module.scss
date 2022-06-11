@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/variables" as v;
+@use "../../styles/abstracts/theme" as t;
 
 .search-menu__container {
   background-color: v.$background-color;
@@ -46,5 +47,23 @@
     border-radius: 10px;
     font-weight: 700;
     color: v.$primary-color;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .search-menu__container {
+    background-color: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .search-menu__item {
+    &:hover {
+      background-color: t.$dark-secondary-color;
+    }
+
+    &.active {
+      background-color: t.$dark-accent-color;
+      color: t.$dark-primary-color;
+    }
   }
 }

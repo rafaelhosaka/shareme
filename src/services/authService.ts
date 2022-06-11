@@ -60,8 +60,8 @@ export async function refresh() {
     headers: { Authorization: `Bearer ${getRefreshToken()}` as string },
   });
 
-  localStorage.setItem("access_token", jwt.access_token);
-  localStorage.setItem("refresh_token", jwt.refresh_token);
+  localStorage.setItem(accessToken, jwt.access_token);
+  localStorage.setItem(refreshToken, jwt.refresh_token);
 }
 
 export default {

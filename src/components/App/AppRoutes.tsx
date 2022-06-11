@@ -54,12 +54,15 @@ function AppRoutes() {
             <Route path="videos" element={<NotFound />} />
           </Route>
 
+          <Route path="/search/:filter" element={<Search />} />
+
           <Route path="/logout" element={<Logout />} />
         </Route>
 
-        <Route element={<ProtectedRoutes allowedRoles={adminRole} />}>
-          <Route path="/search/:filter" element={<Search />} />
-        </Route>
+        {/* ADMIN */}
+        <Route element={<ProtectedRoutes allowedRoles={adminRole} />}></Route>
+
+        {/* Others */}
         <Route path="/unauthorized" element={<Unauthorized />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

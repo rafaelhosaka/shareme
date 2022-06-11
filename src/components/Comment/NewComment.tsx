@@ -44,7 +44,7 @@ function NewComment({ postId, handleNewComment, elementRef }: NewCommentProps) {
       >
         <input
           ref={elementRef}
-          className={css["new-comment__description"]}
+          className={`${css["new-comment__description"]} form-input--gray`}
           placeholder="Write a comment..."
           {...bindDescription}
         />

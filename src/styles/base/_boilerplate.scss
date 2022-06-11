@@ -1,15 +1,17 @@
 @use "./typography" as t;
 @use "../abstracts/variables" as v;
+@use "../abstracts/colors" as c;
+@use "../abstracts/theme" as theme;
 
 html {
   font-size: 62.5%;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 body {
   font-family: t.$font-family;
   font-size: 1.6rem;
-  background: v.$web-background-color;
+  background-color: v.$web-background-color;
 }
 
 a,
@@ -17,4 +19,18 @@ a:link,
 a:visited {
   text-decoration: none;
   color: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: theme.$dark-accent-color;
+    background-color: black;
+  }
+
+  input,
+  select,
+  textarea {
+    color: theme.$dark-accent-color;
+    background-color: theme.$dark-primary-color;
+  }
 }

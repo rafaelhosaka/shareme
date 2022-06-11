@@ -143,7 +143,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
         </div>
 
         {renderPreview()}
-        <button className="btn my-2 btn--green btn--stretched">Post</button>
+        <button className="btn my-2 btn--primary btn--stretched">Post</button>
       </form>
     </div>
   );

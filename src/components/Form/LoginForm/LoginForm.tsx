@@ -73,7 +73,9 @@ function LoginForm() {
             />
           </div>
 
-          <button className="btn my-2 btn--green btn--stretched">Log In</button>
+          <button className="btn my-2 btn--primary btn--stretched">
+            Log In
+          </button>
         </form>
         <Link className="btn my-2 btn--secondary btn--stretched" to="/register">
           Create Account

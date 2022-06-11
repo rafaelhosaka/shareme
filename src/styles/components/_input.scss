@@ -1,11 +1,24 @@
+@use "../abstracts/variables" as v;
+@use "../abstracts/theme" as t;
+
 .form-input {
   padding: 1.5rem 2rem;
   border-radius: 10px;
-  outline: 0;
+  outline-color: v.$primary-color;
   border: 1px solid #dddfe2;
   margin: 0 1rem;
+  &:hover {
+    outline: auto;
+    outline-color: v.$primary-color;
+  }
 }
 
 .form-input--gray {
-  background-color: #f5f6f7;
+  background-color: v.$secondary-color;
+}
+
+@media (prefers-color-scheme: dark) {
+  .form-input--gray {
+    background-color: t.$dark-primary-color;
+  }
 }

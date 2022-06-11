@@ -1,5 +1,6 @@
 @use "../../styles/abstracts/variables" as v;
 @use "../../styles/utils/sizing" as s;
+@use "../../styles/abstracts/theme" as t;
 
 .loader {
   border: 1rem solid v.$secondary-color;
@@ -22,5 +23,20 @@
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .loader {
+    border: 1rem solid t.$dark-primary-color;
+    border-top: 1rem solid t.$dark-accent-color;
+    background-color: t.$dark-secondary-bgcolor;
+
+    @each $size, $value in s.$sizes {
+      &.size--#{$size} {
+        border: calc($value * 0.2) solid t.$dark-secondary-color;
+        border-top: calc($value * 0.2) solid t.$dark-accent-color;
+      }
+    }
   }
 }

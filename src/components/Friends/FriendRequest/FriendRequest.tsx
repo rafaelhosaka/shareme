@@ -43,7 +43,7 @@ function FriendRequest({ request, handleDelete }: FriendRequestProps) {
         >
           {user?.fullName}
         </Link>
-        <button className="btn my-1 btn--green">Confirm</button>
+        <button className="btn my-1 btn--primary">Confirm</button>
         <button onClick={() => handleDelete(request)} className="btn">
           Delete
         </button>

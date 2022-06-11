@@ -1,5 +1,6 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/colors" as c;
+@use "../abstracts/theme" as theme;
 
 .btn {
   border-radius: 30px;
@@ -8,6 +9,10 @@
   cursor: pointer;
   border: 0;
   font-size: 2rem;
+
+  &:hover {
+    filter: brightness(90%);
+  }
 }
 
 a.btn {
@@ -20,10 +25,13 @@ a.btn {
   opacity: 0.5;
 }
 
-a.btn--green,
-.btn--green {
+a.btn--primary,
+.btn--primary {
   background: v.$primary-color;
   color: v.$background-color;
+  &:hover {
+    filter: brightness(120%);
+  }
 }
 
 a.btn--secondary,
@@ -53,4 +61,20 @@ a.btn--secondary,
 
 .btn--stretched {
   width: 100%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .btn {
+    border: 1px solid theme.$dark-accent-color;
+  }
+
+  a.btn--primary,
+  .btn--primary {
+    background-color: theme.$dark-primary-color;
+  }
+
+  a.btn--secondary,
+  .btn--secondary {
+    background: theme.$dark-accent-color;
+  }
 }

@@ -69,14 +69,14 @@ function Navbar() {
           <NavLinkWithToolTip
             activeClass={css.active}
             className={css["nav-link"]}
-            faClasses="fa-solid fa-house fa-xl"
+            faClasses="fa-solid fa-house fa-xl active"
             to="/home"
             tooltipLabel="Home"
           />
 
           <NavLinkWithToolTip
             activeClass={css.active}
-            className={css["nav-link"]}
+            className={`${css["nav-link"]}`}
             faClasses="fa-solid fa-user-group fa-xl"
             to="/friends/all"
             end

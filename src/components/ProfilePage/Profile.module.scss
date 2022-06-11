@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/variables" as v;
+@use "../../styles/abstracts/theme" as t;
 
 .profile__background {
   background: v.$profile-gradient-color;
@@ -113,11 +114,6 @@
   border-top: 1px solid lightgray;
 }
 
-.profile-options {
-  display: flex;
-  width: 100%;
-}
-
 .profile-option {
   margin: 0.5rem 0;
   padding: 1.2rem 1.5rem;
@@ -135,4 +131,24 @@
   background: v.$secondary-color;
   background-size: cover;
   border-radius: 10px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .profile__background {
+    background: t.$dark-primary-bgcolor;
+  }
+  .change-icon {
+    color: t.$dark-primary-color;
+  }
+
+  .profile-option {
+    &.active {
+      border-bottom: 5px solid t.$dark-accent-color;
+      color: t.$dark-accent-color;
+    }
+  }
+
+  .profile-option:hover.profile-option:not(.active) {
+    background: t.$dark-secondary-color;
+  }
 }

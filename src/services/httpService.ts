@@ -44,16 +44,9 @@ axios.interceptors.response.use(
   }
 );
 
-export function setJwt(jwt: string | null) {
-  if (jwt) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${jwt}`;
-  }
-}
-
 export default {
   get: axios.get,
   post: axios.post,
   put: axios.put,
   delete: axios.delete,
-  setJwt,
 };

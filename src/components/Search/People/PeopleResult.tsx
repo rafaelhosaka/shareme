@@ -68,7 +68,7 @@ function PeopleResult({
     }
     if (pend) {
       return (
-        <button className="btn btn--green">
+        <button className="btn btn--primary">
           <span className={css["people__add-friend"]}>Confirm request</span>
         </button>
       );
@@ -85,7 +85,7 @@ function PeopleResult({
     return (
       <button
         onClick={() => handleCreateFriendRequest()}
-        className="btn btn--green"
+        className="btn btn--primary"
       >
         <span className={css["people__add-friend"]}>Add friend</span>
       </button>

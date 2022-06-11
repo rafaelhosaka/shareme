@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/variables" as v;
+@use "../../styles/abstracts/" as t;
 
 .navbar {
   display: flex;
@@ -123,7 +124,9 @@
 
 .active-user {
   background-color: v.$web-background-color;
-  color: #025909;
+  & span {
+    color: v.$primary-color;
+  }
   &:hover {
     background-color: v.$web-background-color;
   }
@@ -167,5 +170,54 @@
 
   .navbar-nav {
     grid-template-columns: 40rem 1fr auto;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .navbar {
+    box-shadow: t.$dark-box-shadow;
+    background-color: t.$dark-secondary-bgcolor;
+  }
+
+  .active {
+    border-bottom: 5px solid t.$dark-accent-color;
+    & > i {
+      color: white;
+    }
+  }
+
+  .user {
+    &:hover {
+      background-color: t.$dark-secondary-color;
+    }
+  }
+
+  .active-user {
+    background-color: t.$dark-accent-color;
+    & span {
+      color: black;
+    }
+    &:hover {
+      background-color: t.$dark-accent-color;
+    }
+  }
+
+  .search-container {
+    background: black;
+  }
+
+  .search-icon {
+    color: t.$dark-accent-color;
+  }
+
+  .nav-link {
+    &:link {
+      color: rgba($color: v.$nav-link-color, $alpha: 0.5);
+      transition: transform 0.3s;
+    }
+
+    &:hover {
+      background-color: t.$dark-secondary-color;
+    }
   }
 }

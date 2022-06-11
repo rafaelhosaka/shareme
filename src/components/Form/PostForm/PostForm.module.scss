@@ -1,4 +1,5 @@
 @use "../../../styles/abstracts/variables" as v;
+@use "../../../styles/abstracts/theme" as t;
 
 .form-post__container {
   background: v.$background-color;
@@ -103,4 +104,24 @@
 .dropzone__sublabel {
   font-weight: 300;
   font-size: 1.2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .form-post__container {
+    background: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .description {
+    background: t.$dark-secondary-bgcolor;
+  }
+
+  .dropzone {
+    background: t.$dark-secondary-bgcolor;
+    border: 1px solid t.$dark-accent-color;
+
+    &:hover {
+      background: t.$dark-primary-bgcolor;
+    }
+  }
 }

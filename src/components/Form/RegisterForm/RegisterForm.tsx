@@ -181,7 +181,7 @@ function RegisterForm() {
             </div>
           </div>
           <div className="form-group">
-            <button className="btn my-2 btn--green btn--stretched">
+            <button className="btn my-2 btn--primary btn--stretched">
               Sign Up
             </button>
             <Link
