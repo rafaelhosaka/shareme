@@ -82,7 +82,7 @@ function LoginForm() {
         </Link>
       </div>
       <div className={`${css.copyright} my-2`}>
-        Copyright 2022 <a href="#">Rafael Hideki Hosaka</a>
+        Copyright 2022 Rafael Hideki Hosaka
       </div>
     </main>
   );

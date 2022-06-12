@@ -12,6 +12,7 @@ import Search from "../Search/Search";
 import FriendRequestList from "../Friends/FriendRequest/FriendRequestList";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Unauthorized from "../Unauthorized/Unauthorized";
+import FriendList from "../Friends/FriendList/FriendList";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -43,7 +44,7 @@ function AppRoutes() {
           <Route path="/home" element={<Feed />} />
 
           <Route path="/friends" element={<Friends />}>
-            <Route path="all" element={<NotFound />} />
+            <Route path="all" element={<FriendList />} />
             <Route path="request" element={<FriendRequestList />} />
           </Route>
 

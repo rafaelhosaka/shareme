@@ -1,4 +1,5 @@
 @use "../../../styles/abstracts/variables" as v;
+@use "../../../styles/abstracts/theme" as t;
 
 .people__container {
   background-color: v.$background-color;
@@ -35,4 +36,11 @@
 .people__add-friend {
   font-size: 1.5rem;
   font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .people__container {
+    background-color: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
 }

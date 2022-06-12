@@ -32,30 +32,6 @@
   transition: width 0.3s;
 }
 
-.search {
-  display: block;
-  border: 0;
-  outline: 0;
-  background-color: transparent;
-  width: inherit;
-  height: inherit;
-}
-
-.search__form {
-  display: flex;
-  align-items: center;
-  width: 31rem;
-  height: inherit;
-}
-
-.search-icon {
-  color: rgba($color: v.$nav-link-color, $alpha: 0.7);
-}
-
-.search-container.expanded {
-  width: inherit;
-}
-
 .navbar-nav {
   display: grid;
   grid-template-columns: 1fr;
@@ -200,14 +176,6 @@
     &:hover {
       background-color: t.$dark-accent-color;
     }
-  }
-
-  .search-container {
-    background: black;
-  }
-
-  .search-icon {
-    color: t.$dark-accent-color;
   }
 
   .nav-link {

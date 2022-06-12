@@ -1,0 +1,49 @@
+@use "../../styles/abstracts/variables" as v;
+@use "../../styles/abstracts/theme" as t;
+
+.search-container {
+  border-radius: 30px;
+  background: v.$secondary-color;
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  align-self: center;
+  align-items: center;
+  cursor: pointer;
+  transition: width 0.3s;
+}
+
+.search {
+  display: block;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  width: inherit;
+  height: inherit;
+  font-weight: 700;
+}
+
+.search__form {
+  display: flex;
+  align-items: center;
+  width: 31rem;
+  height: inherit;
+}
+
+.search-icon {
+  color: rgba($color: v.$nav-link-color, $alpha: 0.7);
+}
+
+.search-container.expanded {
+  width: inherit;
+}
+
+@media (prefers-color-scheme: dark) {
+  .search-container {
+    background: black;
+  }
+
+  .search-icon {
+    color: t.$dark-accent-color;
+  }
+}

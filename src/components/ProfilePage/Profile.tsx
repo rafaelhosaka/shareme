@@ -76,6 +76,9 @@ function Profile() {
 
   const renderButton = () => {
     if (currentUser?.id === id) return;
+    if (user && currentUser?.friends.includes(user.id)) {
+      return <button className="btn btn--primary">Friend</button>;
+    }
     if (requested) {
       return <button className="btn btn--primary">Cancel request</button>;
     }

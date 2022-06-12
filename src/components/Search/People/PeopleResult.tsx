@@ -59,9 +59,19 @@ function PeopleResult({
   };
 
   const renderButton = () => {
+    if (currentUser?.friends.includes(people.id)) {
+      return (
+        <button className="btn btn--secondary btn--small">
+          <span className={css["people__add-friend"]}>Friend</span>
+        </button>
+      );
+    }
     if (req) {
       return (
-        <button onClick={() => handleCancelRequest()} className="btn">
+        <button
+          onClick={() => handleCancelRequest()}
+          className="btn btn--secondary"
+        >
           <span className={css["people__add-friend"]}>Cancel request</span>
         </button>
       );
@@ -76,7 +86,7 @@ function PeopleResult({
     if (ownSelf) {
       return (
         <Link to={`/profile/${people.id}`}>
-          <button className="btn">
+          <button className="btn btn--secondary">
             <span className={css["people__add-friend"]}>View profile</span>
           </button>
         </Link>

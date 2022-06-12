@@ -29,7 +29,7 @@ function Friends() {
 
   return (
     <>
-      <main className="container">
+      <main className="container right">
         <Outlet />
       </main>
       <div className="left-content">

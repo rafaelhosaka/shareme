@@ -49,3 +49,11 @@ export async function isPending(
   );
   return data;
 }
+
+export async function acceptFriendRequest(friendRequest: FriendRequestEntity) {
+  const { data } = await httpService.post(
+    `${apiEndPoint}/acceptRequest`,
+    friendRequest
+  );
+  return data;
+}

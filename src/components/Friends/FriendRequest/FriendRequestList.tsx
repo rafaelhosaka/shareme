@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useUser } from "../../../context/userContext";
 import FriendRequestEntity from "../../../models/friendRequest";
 import {
+  acceptFriendRequest,
   deleteFriendRequest,
   getPendingFriendRequest,
 } from "../../../services/friendService";
@@ -29,6 +30,11 @@ function FriendRequestList() {
     setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
   };
 
+  const handleConfirm = (request: FriendRequestEntity) => {
+    acceptFriendRequest(request);
+    setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
+  };
+
   return (
     <div className={css["friend-request-list__container"]}>
       <h2>Friend Requests</h2>
@@ -38,6 +44,7 @@ function FriendRequestList() {
             key={request.id}
             request={request}
             handleDelete={handleDelete}
+            handleConfirm={handleConfirm}
           />
         ))}
       </div>

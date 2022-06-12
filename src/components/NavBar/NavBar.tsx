@@ -1,56 +1,20 @@
-import React, { useEffect, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/userContext";
-import { useToggle } from "../../hook/useToggle";
 import { useNavigate } from "react-router";
 import Spinner from "../Spinner/Spinner";
 import NavLinkWithToolTip from "../NavLinkWithToolTip/NavLinkWithToolTip";
 
 import css from "./Navbar.module.scss";
+import SearchBar from "../SearchBar/SearchBar";
 
 function Navbar() {
-  const [showSearch, toggleSearch] = useToggle(false);
   const { user: currentUser } = useUser();
   const userImage = useUserImage();
-  const searchRef = useRef<HTMLInputElement>(null);
+
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (showSearch) {
-      searchRef?.current?.focus();
-    }
-  }, [showSearch]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchRef?.current?.value) {
-      navigate(`/search/people?q=${searchRef.current.value}`);
-    }
-  };
-
-  const getSearchBar = () => {
-    return showSearch ? (
-      <div className={`${css["search-container"]} ${css.expanded}`}>
-        <form className={css["search__form"]} onSubmit={(e) => handleSubmit(e)}>
-          <i
-            onClick={toggleSearch}
-            className={`${css["search-icon"]} fa-solid fa-chevron-left fa-xl m1`}
-          ></i>
-
-          <input
-            ref={searchRef}
-            className={`${css.search} p1`}
-            placeholder="Search on Shareme"
-          />
-        </form>
-      </div>
-    ) : (
-      <div onClick={toggleSearch} className={`${css["search-container"]} p1`}>
-        <i
-          className={`${css["search-icon"]} fa-solid fa-magnifying-glass fa-xl`}
-        ></i>
-      </div>
-    );
+  const handleSubmit = (searchQuery: string) => {
+    navigate(`/search/people?q=${searchQuery}`);
   };
 
   return (
@@ -63,7 +27,11 @@ function Navbar() {
               src={process.env.PUBLIC_URL + "/images/logo.png"}
             />
           </Link>
-          {getSearchBar()}
+          <SearchBar
+            placeHolder="Search on Shareme"
+            onSubmit={handleSubmit}
+            expandable={true}
+          />
         </div>
         <div className={css["nav-center"]}>
           <NavLinkWithToolTip

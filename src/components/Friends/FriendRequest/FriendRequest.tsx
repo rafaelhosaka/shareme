@@ -11,9 +11,14 @@ import css from "./FriendRequest.module.scss";
 interface FriendRequestProps {
   request: FriendRequestEntity;
   handleDelete: (request: FriendRequestEntity) => void;
+  handleConfirm: (request: FriendRequestEntity) => void;
 }
 
-function FriendRequest({ request, handleDelete }: FriendRequestProps) {
+function FriendRequest({
+  request,
+  handleDelete,
+  handleConfirm,
+}: FriendRequestProps) {
   const { image, setService } = useBase64Image(null);
   const [user, setUser] = useState<UserProfileEntity>();
 
@@ -43,7 +48,12 @@ function FriendRequest({ request, handleDelete }: FriendRequestProps) {
         >
           {user?.fullName}
         </Link>
-        <button className="btn my-1 btn--primary">Confirm</button>
+        <button
+          onClick={() => handleConfirm(request)}
+          className="btn my-1 btn--primary"
+        >
+          Confirm
+        </button>
         <button onClick={() => handleDelete(request)} className="btn">
           Delete
         </button>

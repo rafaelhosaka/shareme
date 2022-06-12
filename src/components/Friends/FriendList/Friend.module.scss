@@ -1,0 +1,54 @@
+@use "../../../styles/abstracts/variables" as v;
+@use "../../../styles/abstracts/theme" as t;
+
+.friend-list__container {
+  margin: 4rem;
+  background-color: v.$background-color;
+  border-radius: 10px;
+  box-shadow: v.$box-shadow;
+}
+
+.heading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.friend__container {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid rgb(231, 230, 230);
+  border-radius: 10px;
+  background-color: v.$background-color;
+}
+
+.friend-image {
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.friend-name {
+  font-weight: 700;
+  margin-left: 1rem;
+
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .friend-list__container {
+    background-color: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .friend__container {
+    border: 1px solid rgb(231, 230, 230);
+    background-color: t.$dark-secondary-bgcolor;
+  }
+}

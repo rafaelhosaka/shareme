@@ -37,3 +37,11 @@ export async function userImageUpload(
   });
   return new UserProfileEntity(data);
 }
+
+export async function getUsersFromIds(ids: string[]) {
+  const { data } = await httpService.post(
+    `${apiEndPoint}/getUsersFromIds`,
+    ids
+  );
+  return data;
+}

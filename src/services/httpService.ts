@@ -26,18 +26,21 @@ axios.interceptors.response.use(
     if (!expectedError) {
       console.log("Unexpected error " + error);
     } else {
-      const prevRequest = error?.config;
-      if (error.response.status === 403 && !prevRequest?.sent) {
-        prevRequest.sent = true;
-        const refreshToken = authService.getRefreshToken();
-        if (authService.isTokenExpired(refreshToken)) {
-          authService.logout();
-          window.location.href = "/login";
-        } else {
-          authService.refresh();
+      if (error.response.status === 403) {
+        const prevRequest = error?.config;
+        if (!prevRequest?.sent) {
+          prevRequest.sent = true;
+          const refreshToken = authService.getRefreshToken();
+          if (authService.isTokenExpired(refreshToken)) {
+            console.log("RefreshToken expired");
+            authService.logout();
+            window.location.href = "/login";
+          } else {
+            authService.refresh();
+          }
         }
+        return axios.request(prevRequest);
       }
-      return axios.request(prevRequest);
     }
 
     return Promise.reject(error);
