@@ -1,5 +1,6 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/theme" as t;
+@use "../abstracts/mixins" as mixins;
 
 .form-input {
   padding: 1.5rem 2rem;
@@ -17,7 +18,7 @@
   background-color: v.$secondary-color;
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .form-input--gray {
     background-color: t.$dark-primary-color;
   }

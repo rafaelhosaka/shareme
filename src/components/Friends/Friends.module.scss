@@ -1,5 +1,6 @@
 @use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .friends-menu__container {
   background-color: v.$background-color;
@@ -42,7 +43,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .friends-menu__container {
     background-color: t.$dark-secondary-bgcolor;
     box-shadow: t.$dark-box-shadow;

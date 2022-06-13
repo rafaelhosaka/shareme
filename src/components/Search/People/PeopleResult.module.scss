@@ -1,5 +1,6 @@
 @use "../../../styles/abstracts/variables" as v;
 @use "../../../styles/abstracts/theme" as t;
+@use "../../../styles/abstracts/mixins" as mixins;
 
 .people__container {
   background-color: v.$background-color;
@@ -38,7 +39,7 @@
   font-weight: 600;
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .people__container {
     background-color: t.$dark-secondary-bgcolor;
     box-shadow: t.$dark-box-shadow;

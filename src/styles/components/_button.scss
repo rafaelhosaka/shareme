@@ -1,6 +1,7 @@
 @use "../abstracts/variables" as v;
 @use "../abstracts/colors" as c;
 @use "../abstracts/theme" as theme;
+@use "../abstracts/mixins" as mixins;
 
 .btn {
   border-radius: 30px;
@@ -63,7 +64,7 @@ a.btn--secondary,
   width: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDark {
   .btn {
     border: 1px solid theme.$dark-accent-color;
   }

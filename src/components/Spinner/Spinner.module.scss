@@ -1,6 +1,7 @@
 @use "../../styles/abstracts/variables" as v;
 @use "../../styles/utils/sizing" as s;
 @use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .loader {
   border: 1rem solid v.$secondary-color;
@@ -26,7 +27,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .loader {
     border: 1rem solid t.$dark-primary-color;
     border-top: 1rem solid t.$dark-accent-color;

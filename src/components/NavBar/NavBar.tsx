@@ -7,7 +7,12 @@ import NavLinkWithToolTip from "../NavLinkWithToolTip/NavLinkWithToolTip";
 import css from "./Navbar.module.scss";
 import SearchBar from "../SearchBar/SearchBar";
 
-function Navbar() {
+interface NavBarProps {
+  dark: boolean;
+  setDark: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function Navbar({ dark, setDark }: NavBarProps) {
   const { user: currentUser } = useUser();
   const userImage = useUserImage();
 
@@ -27,6 +32,16 @@ function Navbar() {
               src={process.env.PUBLIC_URL + "/images/logo.png"}
             />
           </Link>
+          <button
+            className="btn btn--primary mx-1"
+            onClick={() => setDark((prev) => !prev)}
+          >
+            {dark ? (
+              <i className="fa-solid fa-sun"></i>
+            ) : (
+              <i className="fa-solid fa-moon"></i>
+            )}
+          </button>
           <SearchBar
             placeHolder="Search on Shareme"
             onSubmit={handleSubmit}

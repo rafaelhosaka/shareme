@@ -1,5 +1,6 @@
 @use "../../../styles/abstracts/variables" as v;
 @use "../../../styles/abstracts/theme" as t;
+@use "../../../styles/abstracts/mixins" as mixins;
 
 .form-post__container {
   background: v.$background-color;
@@ -106,7 +107,7 @@
   font-size: 1.2rem;
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .form-post__container {
     background: t.$dark-secondary-bgcolor;
     box-shadow: t.$dark-box-shadow;

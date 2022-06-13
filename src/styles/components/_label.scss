@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/theme" as t;
+@use "../abstracts/mixins" as mixins;
 
 .form-label {
   color: rgb(96, 103, 112);
@@ -7,7 +8,7 @@
   margin: 0 2rem;
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .form-label {
     color: t.$dark-accent-color;
   }

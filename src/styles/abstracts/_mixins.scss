@@ -1,0 +1,11 @@
+@mixin whenDark {
+  html.dark {
+    @content;
+  }
+}
+
+@mixin whenDarkModule {
+  html:global(.dark) {
+    @content;
+  }
+}

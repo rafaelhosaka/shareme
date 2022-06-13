@@ -1,5 +1,6 @@
 @use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .profile__background {
   background: v.$profile-gradient-color;
@@ -133,7 +134,7 @@
   border-radius: 10px;
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .profile__background {
     background: t.$dark-primary-bgcolor;
   }

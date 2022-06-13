@@ -1,5 +1,6 @@
 @use "../../../styles/abstracts/variables" as v;
 @use "../../../styles/abstracts/theme" as t;
+@use "../../../styles/abstracts/mixins" as mixins;
 
 .login-logo {
   width: 200px;
@@ -8,10 +9,10 @@
 
 .form-login-container {
   width: 400px;
-  box-shadow: v.$box-shadow;
   border-radius: 10px;
-  background-color: v.$background-color;
   padding: 3rem;
+  box-shadow: v.$box-shadow;
+  background-color: v.$background-color;
 }
 
 .heading {
@@ -31,7 +32,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .form-login-container {
     background-color: t.$dark-secondary-bgcolor;
     box-shadow: t.$dark-box-shadow;

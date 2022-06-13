@@ -1,5 +1,6 @@
 @use "../../../styles/abstracts/variables" as v;
 @use "../../../styles/abstracts/theme" as t;
+@use "../../../styles/abstracts/mixins" as mixins;
 
 .friend-request-list__container {
   margin: 4rem;
@@ -42,7 +43,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .friend-request__container {
     box-shadow: t.$dark-box-shadow;
   }

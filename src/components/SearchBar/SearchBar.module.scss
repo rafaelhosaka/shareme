@@ -1,5 +1,6 @@
 @use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .search-container {
   border-radius: 30px;
@@ -38,12 +39,16 @@
   width: inherit;
 }
 
-@media (prefers-color-scheme: dark) {
+@include mixins.whenDarkModule {
   .search-container {
     background: black;
   }
 
   .search-icon {
     color: t.$dark-accent-color;
+  }
+
+  .search {
+    background-color: transparent;
   }
 }
