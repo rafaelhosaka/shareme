@@ -5,7 +5,6 @@ import Feed from "../Feed/Feed";
 import Friends from "../Friends/Friends";
 import Profile from "../ProfilePage/Profile";
 import NotFound from "../NotFound/NotFound";
-import { useUser } from "../../context/userContext";
 import Logout from "../Form/LoginForm/Logout";
 import RegisterForm from "../Form/RegisterForm/RegisterForm";
 import Search from "../Search/Search";
@@ -13,42 +12,19 @@ import FriendRequestList from "../Friends/FriendRequest/FriendRequestList";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Unauthorized from "../Unauthorized/Unauthorized";
 import FriendList from "../Friends/FriendList/FriendList";
-import { useEffect, useState } from "react";
+import UserProfileEntity from "../../models/userProfile";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
 
-function AppRoutes() {
-  const { user: currentUser } = useUser();
-  const [dark, setDark] = useState(false);
+interface AppRoutesProps {
+  currentUser: UserProfileEntity | undefined;
+}
 
-  useEffect(() => {
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      setDark(true);
-    }
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", (event) => {
-        setDark(event.matches ? true : false);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (dark) {
-      document.getElementsByTagName("html")[0].classList.add("dark");
-    } else {
-      document.getElementsByTagName("html")[0].classList.remove("dark");
-    }
-  }, [dark]);
-
+function AppRoutes({ currentUser }: AppRoutesProps) {
   return (
     <div className="template">
-      <header className="header">
-        {currentUser && <Navbar dark={dark} setDark={setDark} />}
-      </header>
+      <header className="header">{currentUser && <Navbar />}</header>
       <Routes>
         {/* Public */}
         <Route path="/" element={<Navigate to="/login" />} />

@@ -12,7 +12,11 @@ export default function withToolTip<T>(Component: ComponentType<T>) {
     };
 
     return (
-      <div onMouseOver={() => mouseOver()} onMouseOut={() => mouseOut()}>
+      <div
+        className="tooltip-container"
+        onMouseOver={() => mouseOver()}
+        onMouseOut={() => mouseOut()}
+      >
         <Component {...props} showToolTip={showToolTip} />
       </div>
     );

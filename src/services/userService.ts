@@ -45,3 +45,8 @@ export async function getUsersFromIds(ids: string[]) {
   );
   return data;
 }
+
+export async function updateUser(user: UserProfileEntity) {
+  const { data } = await httpService.put(`${apiEndPoint}/updateUser`, user);
+  return new UserProfileEntity(data);
+}

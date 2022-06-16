@@ -29,7 +29,6 @@ interface UserProviderProps {
 
 export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<UserProfileEntity | null>(null);
-
   const { image: userImage, setService: setService } = useBase64Image(null);
 
   useEffect(() => {
@@ -51,8 +50,17 @@ export function UserProvider({ children }: UserProviderProps) {
     }
   }, [user]);
 
+  const updateUser = (user: UserProfileEntity) => {
+    if (!user.roles || user.roles.length === 0) {
+      user.roles = authService.getRoles();
+    }
+    setUser(user);
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser } as UserContextInterface}>
+    <UserContext.Provider
+      value={{ user, setUser: updateUser } as UserContextInterface}
+    >
       <UserImageContext.Provider value={userImage}>
         {children}
       </UserImageContext.Provider>

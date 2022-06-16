@@ -3,6 +3,8 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./components/App/App";
 import { createRoot } from "react-dom/client";
 import "./styles/_main.scss";
+import { UserProvider } from "./context/userContext";
+import { ThemeProvider } from "./context/themeContext";
 
 document.title = process.env.REACT_APP_NAME as string;
 
@@ -11,7 +13,11 @@ const root = createRoot(container as HTMLElement);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <UserProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </UserProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

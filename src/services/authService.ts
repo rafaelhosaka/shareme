@@ -33,6 +33,10 @@ export function getCurrentUser() {
   }
 }
 
+export function getRoles() {
+  return getCurrentUser().roles;
+}
+
 export function getToken() {
   return localStorage.getItem(accessToken);
 }
@@ -68,6 +72,7 @@ export default {
   login,
   logout,
   getCurrentUser,
+  getRoles,
   getToken,
   getRefreshToken,
   isTokenExpired,

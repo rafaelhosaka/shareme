@@ -41,13 +41,6 @@
   height: 60px;
 }
 
-.active {
-  border-bottom: 5px solid v.$primary-color;
-  & > i {
-    color: v.$primary-color;
-  }
-}
-
 .nav-link {
   display: flex;
   align-items: center;
@@ -55,10 +48,17 @@
   height: 5rem;
   justify-content: center;
   padding: 3.3rem;
+  transition: transform 0.3s;
 
-  &:link {
-    color: rgba($color: v.$nav-link-color, $alpha: 0.5);
-    transition: transform 0.3s;
+  & > i {
+    color: rgba($color: v.$nav-link-color, $alpha: 0.7);
+  }
+
+  &.active {
+    border-bottom: 5px solid v.$primary-color;
+    & > i {
+      color: v.$primary-color;
+    }
   }
 
   &:hover {
@@ -97,15 +97,15 @@
     background-size: cover;
     transform: scale(1.5);
   }
-}
 
-.active-user {
-  background-color: v.$web-background-color;
-  & span {
-    color: v.$primary-color;
-  }
-  &:hover {
+  &.active-user {
     background-color: v.$web-background-color;
+    & span {
+      color: v.$primary-color;
+    }
+    &:hover {
+      background-color: v.$web-background-color;
+    }
   }
 }
 
@@ -116,6 +116,11 @@
 .user-name {
   margin-left: 1rem;
   padding-right: 1.5rem;
+}
+
+.menu {
+  position: absolute;
+  top: 70px;
 }
 
 @media screen and (min-width: 768px) {
@@ -156,13 +161,6 @@
     background-color: t.$dark-secondary-bgcolor;
   }
 
-  .active {
-    border-bottom: 5px solid t.$dark-accent-color;
-    & > i {
-      color: white;
-    }
-  }
-
   .user {
     &:hover {
       background-color: t.$dark-secondary-color;
@@ -180,9 +178,15 @@
   }
 
   .nav-link {
-    &:link {
-      color: rgba($color: v.$nav-link-color, $alpha: 0.5);
-      transition: transform 0.3s;
+    & > i {
+      color: rgba($color: t.$dark-accent-color, $alpha: 0.3);
+    }
+
+    &.active {
+      border-bottom: 5px solid t.$dark-accent-color;
+      & > i {
+        color: white;
+      }
     }
 
     &:hover {

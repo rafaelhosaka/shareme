@@ -1,0 +1,114 @@
+@use "../../styles/abstracts/variables" as v;
+@use "../../styles/abstracts/mixins" as mixins;
+@use "../../styles/abstracts/theme" as t;
+
+.menu-list-container {
+  border: 1px solid white;
+  height: auto;
+  width: 300px;
+  background-color: v.$background-color;
+  border-radius: 10px;
+  box-shadow: v.$box-shadow;
+}
+
+.menu-heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  min-height: 45px;
+}
+
+.menu-back-btn {
+  padding: 1rem;
+  &:hover {
+    cursor: pointer;
+    background-color: v.$secondary-color;
+    border-radius: 30px;
+  }
+}
+
+.menu-list-title {
+  font-size: 2.4rem;
+  margin-left: 1rem;
+}
+
+.menu-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  border-radius: 10px;
+  height: 60px;
+
+  &.active {
+    background-color: v.$web-background-color;
+    color: v.$primary-color;
+
+    &:hover {
+      background-color: v.$web-background-color;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: v.$secondary-color;
+  }
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+}
+
+.menu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: v.$web-background-color;
+  border-radius: 30px;
+  margin-right: 1rem;
+
+  padding: 1rem;
+}
+
+@include mixins.whenDarkModule {
+  .menu-list-container {
+    border: 1px solid white;
+    background-color: t.$dark-secondary-bgcolor;
+    border-radius: 10px;
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .menu-item-container {
+    &.active {
+      background-color: t.$dark-accent-color;
+      color: t.$dark-primary-color;
+
+      &:hover {
+        background-color: t.$dark-accent-color;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: t.$dark-secondary-color;
+    }
+  }
+
+  .menu-item-icon {
+    background-color: t.$dark-accent-color;
+    color: t.$dark-primary-color;
+  }
+
+  .menu-back-btn {
+    &:hover {
+      background-color: t.$dark-secondary-color;
+    }
+  }
+}
