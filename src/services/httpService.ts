@@ -5,7 +5,7 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.request.use(
   (config: AxiosRequestConfig) => {
-    if (config.headers !== undefined) {
+    if (config.headers !== undefined && authService.getToken()) {
       config.headers["Authorization"] = `Bearer ${authService.getToken()}`;
     }
     return config;
