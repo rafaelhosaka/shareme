@@ -9,6 +9,7 @@ import Spinner from "../../Spinner/Spinner";
 import PostEntity from "../../../models/post";
 
 import css from "./PostForm.module.scss";
+import UserProfileEntity, { UserProfileDTO } from "../../../models/userProfile";
 
 interface PostFormProps {
   handleNewPost: (post: PostEntity) => void;
@@ -85,10 +86,13 @@ function PostForm({ handleNewPost }: PostFormProps) {
     );
   };
 
-  const createPost = async () => {
+  const createPost = async (currentUser: UserProfileEntity) => {
     const formData = new FormData();
 
-    formData.append("post", JSON.stringify({ user: currentUser, description }));
+    formData.append(
+      "post",
+      JSON.stringify({ user: new UserProfileDTO(currentUser), description })
+    );
     formData.append("file", files[0]); //for now accept only one image
     const { data } = await savePostWithImage(formData);
     return data;
@@ -97,9 +101,11 @@ function PostForm({ handleNewPost }: PostFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault();
-      handleNewPost(await createPost());
-      handleClose();
-      resetDescription();
+      if (currentUser) {
+        handleNewPost(await createPost(currentUser));
+        handleClose();
+        resetDescription();
+      }
     } catch (ex) {
       console.log(ex);
     }
