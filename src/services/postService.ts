@@ -10,6 +10,10 @@ export function getPostById(id: string) {
   return httpService.get(`${apiEndPoint}/${id}`);
 }
 
+export function getPostsByUsersId(usersId: string[]) {
+  return httpService.post(`${apiEndPoint}/getPostsByUsersId`, usersId);
+}
+
 export function savePostWithImage(formData: FormData) {
   return httpService.post(`${apiEndPoint}/upload`, formData, {
     headers: { "Content-Type": "multipart/form-data" },

@@ -7,8 +7,10 @@ import Post from "../Post/Post";
 import PostForm from "../Form/PostForm/PostForm";
 import PostEntity from "../../models/post";
 import PageInfoEntity from "../../models/pageInfo";
+import { useUser } from "../../context/userContext";
 
 const Feed = () => {
+  const { user: currentUser } = useUser();
   const [posts, setPost] = useState<PostEntity[]>([]);
   const [pagedPosts, setPagedPosts] = useState<PostEntity[]>([]);
   const [pageInfo, setPageInfo] = useState<PageInfoEntity>({
@@ -18,27 +20,28 @@ const Feed = () => {
 
   useEffect(() => {
     async function getPosts() {
-      const { data } = await postService.getPosts();
+      if (currentUser) {
+        const { data } = await postService.getPostsByUsersId(
+          _.concat(currentUser.friends, currentUser.id)
+        );
 
-      const sorted: PostEntity[] = _.orderBy(data, "dateCreated", "desc");
+        const sorted: PostEntity[] = _.orderBy(data, "dateCreated", "desc");
 
-      setPost(sorted);
+        setPost(sorted);
 
-      const paged: PostEntity[] = paginate(
-        sorted,
-        pageInfo.currentPage,
-        pageInfo.pageSize
-      );
-      setPagedPosts(paged);
-
-      window.addEventListener("scroll", onScroll);
-
-      return () => {
-        window.removeEventListener("scroll", onScroll);
-      };
+        const paged: PostEntity[] = paginate(
+          sorted,
+          pageInfo.currentPage,
+          pageInfo.pageSize
+        );
+        setPagedPosts(paged);
+        window.addEventListener("scroll", onScroll);
+      }
     }
-
     getPosts();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
