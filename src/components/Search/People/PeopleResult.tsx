@@ -40,7 +40,7 @@ function PeopleResult({
     setPend(pending);
   }, [requested, pending]);
 
-  const handleCreateFriendRequest = async () => {
+  const handleAddFriend = async () => {
     if (currentUser) {
       await createFriendRequest({
         requestingUserId: currentUser.id,
@@ -93,10 +93,7 @@ function PeopleResult({
       );
     }
     return (
-      <button
-        onClick={() => handleCreateFriendRequest()}
-        className="btn btn--primary"
-      >
+      <button onClick={() => handleAddFriend()} className="btn btn--primary">
         <span className={css["people__add-friend"]}>Add friend</span>
       </button>
     );

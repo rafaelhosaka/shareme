@@ -6,14 +6,16 @@ import {
   deleteFriendRequest,
   getPendingFriendRequest,
 } from "../../../services/friendService";
+import { useAlert } from "../../Alert/Alert";
 import FriendRequest from "./FriendRequest";
 import css from "./FriendRequest.module.scss";
 
 function FriendRequestList() {
-  const { user: currentUser } = useUser();
+  const { user: currentUser, setUser } = useUser();
   const [friendRequests, setFriendRequests] = useState<FriendRequestEntity[]>(
     []
   );
+  const [alert, dispatchAlert] = useAlert();
 
   useEffect(() => {
     async function getFriendRequests() {
@@ -30,13 +32,18 @@ function FriendRequestList() {
     setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
   };
 
-  const handleConfirm = (request: FriendRequestEntity) => {
-    acceptFriendRequest(request);
-    setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
+  const handleConfirm = async (request: FriendRequestEntity) => {
+    if (setUser) {
+      const modifiedUsers = await acceptFriendRequest(request);
+      setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
+      dispatchAlert("Friend request accepted", "success");
+      setUser(modifiedUsers[1]);
+    }
   };
 
   return (
     <div className={css["friend-request-list__container"]}>
+      {alert}
       <h2>Friend Requests</h2>
       <div className={css["friend-requests"]}>
         {friendRequests.map((request) => (

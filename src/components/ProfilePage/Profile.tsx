@@ -14,7 +14,14 @@ import {
 import { useBase64Image } from "../../hook/useBase64Image";
 import Spinner from "../Spinner/Spinner";
 import { useUser } from "../../context/userContext";
-import { isPending, isRequested } from "../../services/friendService";
+import {
+  acceptFriendRequest,
+  createFriendRequest,
+  deleteFriendRequest,
+  getFriendRequestFromIds,
+  isPending,
+  isRequested,
+} from "../../services/friendService";
 import UserProfileEntity from "../../models/userProfile";
 import css from "./Profile.module.scss";
 import _ from "lodash";
@@ -74,19 +81,62 @@ function Profile() {
     }
   };
 
+  const handleCancelRequest = async () => {
+    if (currentUser && user) {
+      const { data } = await getFriendRequestFromIds(user.id, currentUser.id);
+      deleteFriendRequest(data);
+      setRequested(false);
+    }
+  };
+
+  const handleAddFriend = async () => {
+    if (currentUser && user) {
+      await createFriendRequest({
+        requestingUserId: currentUser.id,
+        targetUserId: user.id,
+      });
+      setRequested(true);
+    }
+  };
+
+  const handleConfirm = async () => {
+    if (currentUser && setCurrentUser && user) {
+      const { data } = await getFriendRequestFromIds(currentUser.id, user.id);
+      const modifiedUsers = await acceptFriendRequest(data);
+      setPending(false);
+      setCurrentUser(new UserProfileEntity(modifiedUsers[1]));
+      setUser(new UserProfileEntity(modifiedUsers[0]));
+    }
+  };
+
   const renderButton = () => {
     if (currentUser?.id === id) return;
     if (user && currentUser?.friends.includes(user.id)) {
       return <button className="btn btn--primary">Friend</button>;
     }
     if (requested) {
-      return <button className="btn btn--primary">Cancel request</button>;
+      return (
+        <button
+          onClick={() => handleCancelRequest()}
+          className="btn btn--primary"
+        >
+          Cancel request
+        </button>
+      );
     }
     if (pending) {
-      return <button className="btn btn--primary">Confirm request</button>;
+      return (
+        <button onClick={() => handleConfirm()} className="btn btn--primary">
+          Confirm request
+        </button>
+      );
     }
 
-    return <button className="btn btn--primary">Add Friend</button>;
+    return (
+      <button onClick={() => handleAddFriend()} className="btn btn--primary">
+        Add Friend
+      </button>
+    );
   };
 
   const renderMenu = () => {
