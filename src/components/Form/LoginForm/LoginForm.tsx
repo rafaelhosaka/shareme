@@ -15,11 +15,11 @@ function LoginForm() {
   const { value: email, bind: bindEmail } = useInput("");
   const { value: password, bind: bindPassword } = useInput("");
   const [alert, dispatchAlert] = useAlert();
-  const location = useLocation() as unknown as LocationProps;
+  const location = useLocation() as LocationProps;
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.state && (location.state.alert as AlertEntity)) {
+    if (location?.state?.alert as AlertEntity) {
       const alert = location.state.alert;
       dispatchAlert(alert.message, alert.type);
     }
