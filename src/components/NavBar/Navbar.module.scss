@@ -54,20 +54,23 @@
     color: rgba($color: v.$nav-link-color, $alpha: 0.7);
   }
 
+  &:hover {
+    background-color: v.$secondary-color;
+    background-size: cover;
+    border-radius: 10px;
+    padding: 2rem;
+    transform: scale(1.5);
+  }
+
   &.active {
     border-bottom: 5px solid v.$primary-color;
     & > i {
       color: v.$primary-color;
     }
-  }
 
-  &:hover {
-    background-color: v.$secondary-color;
-    background-size: cover;
-    border-radius: 10px;
-    transform: scale(1.5);
-    border-bottom: none;
-    padding: 2rem;
+    &:hover {
+      border-bottom: none;
+    }
   }
 }
 
@@ -100,7 +103,7 @@
 
   &.active-user {
     background-color: v.$web-background-color;
-    & span {
+    & .user-name {
       color: v.$primary-color;
     }
     &:hover {

@@ -4,6 +4,7 @@ import { useBase64Image } from "../../../hook/useBase64Image";
 import { userImageDownload } from "../../../services/userService";
 import Spinner from "../../Spinner/Spinner";
 import {
+  acceptFriendRequest,
   createFriendRequest,
   deleteFriendRequest,
   getFriendRequestFromIds,
@@ -26,7 +27,7 @@ function PeopleResult({
   ownSelf,
 }: PeopleResultProps) {
   const { image: userImage, setService } = useBase64Image(null);
-  const { user: currentUser } = useUser();
+  const { user: currentUser, setUser } = useUser();
 
   const [pend, setPend] = useState<boolean>();
   const [req, setReq] = useState<boolean>();
@@ -58,6 +59,17 @@ function PeopleResult({
     }
   };
 
+  const handleConfirm = async () => {
+    if (currentUser && setUser) {
+      const { data: request } = await getFriendRequestFromIds(
+        currentUser.id,
+        people.id
+      );
+      const modifiedUsers = await acceptFriendRequest(request);
+      setUser(modifiedUsers[1]);
+    }
+  };
+
   const renderButton = () => {
     if (currentUser?.friends.includes(people.id)) {
       return (
@@ -78,7 +90,7 @@ function PeopleResult({
     }
     if (pend) {
       return (
-        <button className="btn btn--primary">
+        <button onClick={() => handleConfirm()} className="btn btn--primary">
           <span className={css["people__add-friend"]}>Confirm request</span>
         </button>
       );

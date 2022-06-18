@@ -1,5 +1,7 @@
 import withToolTip from "./withToolTip";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import _ from "lodash";
+import { useEffect } from "react";
 
 interface NavLinkWithToolTipProps {
   children: JSX.Element;
@@ -7,8 +9,10 @@ interface NavLinkWithToolTipProps {
   faClasses: string;
   tooltipLabel: string;
   showToolTip: boolean;
+  initializeToolTipText: (text: string) => void;
   className: string;
   activeClass?: string;
+  activeURLs?: string[];
   [x: string]: any;
 }
 
@@ -16,22 +20,33 @@ function NavLinkWithToolTip({
   children,
   to,
   tooltipLabel,
+  initializeToolTipText,
   showToolTip,
   className,
   activeClass,
+  activeURLs,
   ...props
 }: NavLinkWithToolTipProps) {
+  const { pathname: currentURL } = useLocation();
+  const isActive = () => {
+    if (activeURLs) {
+      return activeURLs?.includes(currentURL);
+    } else {
+      return to === currentURL;
+    }
+  };
+
+  useEffect(() => {
+    initializeToolTipText(tooltipLabel);
+  }, []);
+
   return (
     <NavLink
-      className={({ isActive }) =>
-        isActive ? `${activeClass} ${className}` : className
-      }
+      className={isActive() ? `${activeClass} ${className}` : className}
       to={to}
       {...props}
     >
       {children}
-
-      {showToolTip && <span className={"tooltip-text"}>{tooltipLabel}</span>}
     </NavLink>
   );
 }

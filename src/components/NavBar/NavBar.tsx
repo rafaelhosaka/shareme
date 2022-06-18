@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/userContext";
 import { useNavigate } from "react-router";
 import Spinner from "../Spinner/Spinner";
@@ -113,7 +113,7 @@ function Navbar() {
             activeClass={css.active}
             className={`${css["nav-link"]}`}
             to="/friends/all"
-            end
+            activeURLs={["/friends/all", "/friends/request"]}
             tooltipLabel="Friends"
           >
             <i className="fa-solid fa-user-group fa-xl"></i>
@@ -136,11 +136,18 @@ function Navbar() {
           </NavLinkWithToolTip>
         </div>
         <div className={css["nav-right"]}>
-          <NavLink
-            className={({ isActive }) =>
-              isActive ? `${css.user} ${css["active-user"]}` : css.user
-            }
+          <NavLinkWithToolTip
+            activeClass={css["active-user"]}
+            className={css["user"]}
             to={`/profile/${currentUser?.id}/posts`}
+            tooltipLabel="Profile Page"
+            activeURLs={[
+              `/profile/${currentUser?.id}`,
+              `/profile/${currentUser?.id}/posts`,
+              `/profile/${currentUser?.id}/friends`,
+              `/profile/${currentUser?.id}/photos`,
+              `/profile/${currentUser?.id}/videos`,
+            ]}
           >
             <Spinner
               show={!userImage}
@@ -153,7 +160,7 @@ function Navbar() {
               }
             />
             <span className={css["user-name"]}>{currentUser?.firstName}</span>
-          </NavLink>
+          </NavLinkWithToolTip>
           <NavLinkWithToolTip
             activeClass={css.active}
             className={css["nav-link"]}

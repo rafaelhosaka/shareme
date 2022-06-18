@@ -1,16 +1,16 @@
 .tooltip-container {
   display: flex;
   align-items: center;
-  width: 9rem;
   height: 5rem;
   justify-content: center;
 }
 
 .tooltip-text {
   position: absolute;
-  top: 5.3rem;
+  top: 7rem;
   color: white;
   background: rgba(0, 0, 0, 0.7);
+  font-size: 2rem;
   padding: 0.3rem;
   border-radius: 5px;
 }

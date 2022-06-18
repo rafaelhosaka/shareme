@@ -1,24 +1,24 @@
 import withToolTip from "./withToolTip";
+import { useEffect } from "react";
 
 interface DivWithToolTipProps {
   children: JSX.Element;
   tooltipLabel: string;
   className: string;
   showToolTip: boolean;
+  initializeToolTipText: (text: string) => void;
 }
 
 function DivWithToolTip({
   children,
   tooltipLabel,
   className,
-  showToolTip,
+  initializeToolTipText,
 }: DivWithToolTipProps) {
-  return (
-    <div className={className}>
-      {children}
-      {showToolTip && <span className={"tooltip-text"}>{tooltipLabel}</span>}
-    </div>
-  );
+  useEffect(() => {
+    initializeToolTipText(tooltipLabel);
+  }, []);
+  return <div className={className}>{children}</div>;
 }
 
 export default withToolTip(DivWithToolTip);
