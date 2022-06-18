@@ -8,7 +8,13 @@
   margin: 0 2rem;
 }
 
-@include mixins.whenDarkModule {
+@include mixins.tablet {
+  .form-label {
+    font-size: 2rem;
+  }
+}
+
+@include mixins.whenDark {
   .form-label {
     color: t.$dark-accent-color;
   }

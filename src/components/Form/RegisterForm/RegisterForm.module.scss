@@ -6,6 +6,13 @@
   box-shadow: v.$box-shadow;
   border-radius: 20px;
   background-color: v.$background-color;
+  width: 380px;
+}
+
+.register-fields {
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 1rem;
 }
 
 .header {
@@ -13,6 +20,17 @@
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #ccd0d4;
+}
+
+@include mixins.tablet {
+  .register-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-register-container {
+    width: 720px;
+  }
 }
 
 @include mixins.whenDarkModule {

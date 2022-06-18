@@ -44,7 +44,7 @@ function LoginForm() {
   };
 
   return (
-    <main className="container center">
+    <main className="container full center">
       <>{alert}</>
       <img
         className={css["login-logo"]}

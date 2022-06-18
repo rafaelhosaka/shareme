@@ -8,9 +8,9 @@
 }
 
 .form-login-container {
-  width: 400px;
   border-radius: 10px;
-  padding: 3rem;
+  padding: 2rem 1rem;
+  width: 350px;
   box-shadow: v.$box-shadow;
   background-color: v.$background-color;
 }
@@ -27,9 +27,31 @@
 .copyright {
   display: flex;
   font-weight: 600;
+  font-size: 1.8rem;
   & > a {
     text-decoration: underline;
   }
+}
+
+@include mixins.tablet {
+  .login-logo {
+    width: 300px;
+  }
+
+  .heading {
+    font-size: 3rem;
+  }
+
+  .form-login-container {
+    width: 600px;
+  }
+
+  .copyright {
+    font-size: 3rem;
+  }
+}
+
+@include mixins.desktop {
 }
 
 @include mixins.whenDarkModule {

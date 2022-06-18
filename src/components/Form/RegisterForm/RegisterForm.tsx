@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AlertEntity from "../../../models/alert";
 import UserProfileEntity from "../../../models/userProfile";
 
-import cssRegisterForm from "./RegisterForm.module.scss";
+import css from "./RegisterForm.module.scss";
 
 function RegisterForm() {
   const { value: firstName, bind: bindFirstName } = useInput("");
@@ -84,15 +84,15 @@ function RegisterForm() {
   };
 
   return (
-    <main className="container center">
+    <main className="container full center">
       {alert}
 
-      <div className={`${cssRegisterForm["form-register-container"]}`}>
-        <div className={`${cssRegisterForm.header} p2`}>
+      <div className={`${css["form-register-container"]}`}>
+        <div className={`${css.header} p2`}>
           <h1>Sign Up</h1>
         </div>
-        <form className="form-login p1" onSubmit={(e) => handleSubmit(e)}>
-          <div className="grid--2x1">
+        <form className={`p1`} onSubmit={(e) => handleSubmit(e)}>
+          <div className={css["register-fields"]}>
             <input
               className="form-input form-input--gray"
               type="text"
@@ -107,8 +107,7 @@ function RegisterForm() {
               {...bindLastName}
               required
             />
-          </div>
-          <div className="form-group">
+
             <input
               className="form-input form-input--gray"
               type="email"
@@ -116,8 +115,7 @@ function RegisterForm() {
               {...bindEmail}
               required
             />
-          </div>
-          <div className="form-group">
+
             <input
               className="form-input form-input--gray"
               type="password"
