@@ -42,6 +42,13 @@
   }
 }
 
+.result {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 2rem;
+}
+
 @include mixins.whenDarkModule {
   .friend-list__container {
     background-color: t.$dark-secondary-bgcolor;
@@ -51,5 +58,9 @@
   .friend__container {
     border: 1px solid rgb(231, 230, 230);
     background-color: t.$dark-secondary-bgcolor;
+  }
+
+  .result {
+    color: rgb(t.$dark-accent-color, 60%);
   }
 }

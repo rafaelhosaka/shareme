@@ -11,9 +11,9 @@ export async function login(username: string, password: string) {
   const form = new FormData();
   form.append("username", username);
   form.append("password", password);
-  const { data: jwt } = await httpService.post(apiEndPoint + "/login", form);
-  localStorage.setItem(accessToken, jwt.access_token);
-  localStorage.setItem(refreshToken, jwt.refresh_token);
+  const { data } = await httpService.post(apiEndPoint + "/login", form);
+  localStorage.setItem(accessToken, data.access_token);
+  localStorage.setItem(refreshToken, data.refresh_token);
 }
 
 export function logout() {

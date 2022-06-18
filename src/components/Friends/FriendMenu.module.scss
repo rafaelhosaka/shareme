@@ -28,6 +28,9 @@
   font-size: 1.7rem;
   font-weight: 500;
   padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   &:hover {
     background-color: v.$web-background-color;
@@ -40,6 +43,13 @@
     border-radius: 10px;
     font-weight: 700;
     color: v.$primary-color;
+  }
+
+  & > span {
+    padding: 1rem 2rem;
+    background-color: v.$secondary-color;
+    border-radius: 50px;
+    font-weight: 800;
   }
 }
 
@@ -56,6 +66,15 @@
 
     &.active {
       background-color: t.$dark-accent-color;
+      color: t.$dark-primary-color;
+
+      & > span {
+        background-color: t.$dark-secondary-bgcolor;
+        color: t.$dark-accent-color;
+      }
+    }
+
+    & > span {
       color: t.$dark-primary-color;
     }
   }

@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from "react-router";
 import Navbar from "../NavBar/NavBar";
 import LoginForm from "../Form/LoginForm/LoginForm";
 import Feed from "../Feed/Feed";
-import Friends from "../Friends/Friends";
+import FriendMenu from "../Friends/FriendMenu";
 import Profile from "../ProfilePage/Profile";
 import NotFound from "../NotFound/NotFound";
 import Logout from "../Form/LoginForm/Logout";
@@ -45,7 +45,7 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
         >
           <Route path="/home" element={<Feed />} />
 
-          <Route path="/friends" element={<Friends />}>
+          <Route path="/friends" element={<FriendMenu />}>
             <Route path="all" element={<FriendList />} />
             <Route path="request" element={<FriendRequestList />} />
           </Route>

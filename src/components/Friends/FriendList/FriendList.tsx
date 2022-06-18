@@ -13,6 +13,7 @@ function FriendList() {
   const [filteredFriends, setFilteredFriends] = useState<UserProfileEntity[]>(
     []
   );
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function getFriends() {
@@ -25,6 +26,24 @@ function FriendList() {
     getFriends();
   }, []);
 
+  const renderFriends = () => {
+    if (friends.length === 0) {
+      return (
+        <div className={css["result"]}>You do not have any friends yet</div>
+      );
+    }
+
+    return filteredFriends.length === 0 ? (
+      <div className={css["result"]}>No result for : {searchQuery}</div>
+    ) : (
+      <div className="grid--2x1">
+        {filteredFriends.map((friend) => (
+          <Friend key={friend.id} friend={new UserProfileEntity(friend)} />
+        ))}
+      </div>
+    );
+  };
+
   const handleChange = (searchQuery: string | undefined) => {
     if (!searchQuery) {
       setFilteredFriends(friends);
@@ -33,6 +52,7 @@ function FriendList() {
         f.firstName.toLowerCase().startsWith(searchQuery.toLowerCase())
       );
       setFilteredFriends(filtered);
+      setSearchQuery(searchQuery);
     }
   };
 
@@ -42,11 +62,7 @@ function FriendList() {
         <h2>Friends</h2>
         <SearchBar placeHolder="Search" onChange={handleChange} />
       </header>
-      <div className="grid--2x1">
-        {filteredFriends.map((friend) => (
-          <Friend key={friend.id} friend={new UserProfileEntity(friend)} />
-        ))}
-      </div>
+      {renderFriends()}{" "}
     </div>
   );
 }

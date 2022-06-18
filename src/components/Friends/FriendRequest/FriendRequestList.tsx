@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useOutletContext } from "react-router";
 import { useUser } from "../../../context/userContext";
 import FriendRequestEntity from "../../../models/friendRequest";
 import {
@@ -16,6 +17,7 @@ function FriendRequestList() {
     []
   );
   const [alert, dispatchAlert] = useAlert();
+  const { setFriendRequestCount } = useOutletContext<any>();
 
   useEffect(() => {
     async function getFriendRequests() {
@@ -26,6 +28,10 @@ function FriendRequestList() {
     }
     getFriendRequests();
   }, []);
+
+  useEffect(() => {
+    setFriendRequestCount(friendRequests.length);
+  }, [friendRequests]);
 
   const handleDelete = (request: FriendRequestEntity) => {
     deleteFriendRequest(request);
