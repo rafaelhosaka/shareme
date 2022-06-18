@@ -76,7 +76,10 @@ function Search() {
   };
 
   const renderResult = () => {
-    if (result.length === 0) return <div>No result found</div>;
+    if (result.length === 0)
+      return (
+        <h1 className={css["no-result"]}>No result found for : {query}</h1>
+      );
     switch (filter) {
       case "people":
         return renderPeople();

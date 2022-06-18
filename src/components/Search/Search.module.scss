@@ -51,6 +51,14 @@
   }
 }
 
+.no-result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-weight: 800;
+}
+
 @include mixins.whenDarkModule {
   .search-menu__container {
     background-color: t.$dark-secondary-bgcolor;
