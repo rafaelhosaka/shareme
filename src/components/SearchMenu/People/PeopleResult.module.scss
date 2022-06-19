@@ -4,7 +4,7 @@
 
 .people__container {
   background-color: v.$background-color;
-  margin: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   align-items: center;
   max-width: 68rem;
@@ -34,9 +34,35 @@
   }
 }
 
-.people__add-friend {
-  font-size: 1.5rem;
-  font-weight: 600;
+@include mixins.tablet {
+  .people__container {
+    height: 120px;
+  }
+
+  .people__name {
+    font-size: 2rem;
+  }
+
+  .people__user-image {
+    transform: scale(1.2);
+    margin: 0 1rem;
+  }
+}
+
+@include mixins.desktop {
+  .people__container {
+    max-width: 100rem;
+    height: 140px;
+  }
+
+  .people__name {
+    font-size: 2.5rem;
+  }
+
+  .people__user-image {
+    transform: scale(1.4);
+    margin: 0 1.4rem;
+  }
 }
 
 @include mixins.whenDarkModule {

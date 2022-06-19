@@ -179,12 +179,12 @@ function RegisterForm() {
             </div>
           </div>
           <div className="form-group">
-            <button className="btn my-2 btn--primary btn--stretched">
+            <button className="btn btn--small my-2 btn--primary btn--stretched">
               Sign Up
             </button>
             <Link
               to="/login"
-              className="btn my-2 btn--secondary btn--stretched"
+              className="btn btn--small my-2 btn--secondary btn--stretched"
             >
               Back
             </Link>

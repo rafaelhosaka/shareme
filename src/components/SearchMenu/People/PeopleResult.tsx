@@ -72,41 +72,43 @@ function PeopleResult({
 
   const renderButton = () => {
     if (currentUser?.friends.includes(people.id)) {
-      return (
-        <button className="btn btn--secondary btn--small">
-          <span className={css["people__add-friend"]}>Friend</span>
-        </button>
-      );
+      return <button className="btn btn--secondary btn--small">Friend</button>;
     }
     if (req) {
       return (
         <button
           onClick={() => handleCancelRequest()}
-          className="btn btn--secondary"
+          className="btn btn--small btn--secondary"
         >
-          <span className={css["people__add-friend"]}>Cancel request</span>
+          Cancel request
         </button>
       );
     }
     if (pend) {
       return (
-        <button onClick={() => handleConfirm()} className="btn btn--primary">
-          <span className={css["people__add-friend"]}>Confirm request</span>
+        <button
+          onClick={() => handleConfirm()}
+          className="btn btn--small btn--primary"
+        >
+          Confirm request
         </button>
       );
     }
     if (ownSelf) {
       return (
         <Link to={`/profile/${people.id}`}>
-          <button className="btn btn--secondary">
-            <span className={css["people__add-friend"]}>View profile</span>
+          <button className="btn btn--small btn--secondary">
+            View profile
           </button>
         </Link>
       );
     }
     return (
-      <button onClick={() => handleAddFriend()} className="btn btn--primary">
-        <span className={css["people__add-friend"]}>Add friend</span>
+      <button
+        onClick={() => handleAddFriend()}
+        className="btn btn--small btn--primary"
+      >
+        Add friend
       </button>
     );
   };

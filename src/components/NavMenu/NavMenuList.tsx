@@ -2,7 +2,7 @@ import { NavMenuListProps, isMenuItemProps } from "../../models/navMenu";
 import css from "./NavMenu.module.scss";
 import React from "react";
 
-function MenuList({
+function NavMenuList({
   children,
   title,
   redirectToMenu,
@@ -40,4 +40,4 @@ function MenuList({
   );
 }
 
-export default MenuList;
+export default NavMenuList;

@@ -1,14 +1,17 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 
-import css from "./FriendMenu.module.scss";
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/userContext";
 import { getPendingFriendRequest } from "../../services/friendService";
+import MenuList from "../MenuList/MenuList";
+import MenuItem from "../MenuList/MenuItem";
+import css from "./FriendMenu.module.scss";
 
 function FriendMenu() {
   const { user: currentUser } = useUser();
   const [friendRequestCount, setFriendRequestCount] = useState(0);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     async function getFriendRequests() {
@@ -26,32 +29,21 @@ function FriendMenu() {
         <Outlet context={{ setFriendRequestCount }} />
       </main>
       <div className="left-content">
-        <div className={css["friends-menu__container"]}>
-          <h1 className={css["friends-menu__heading"]}>Friends</h1>
-          <div className={css["friends-menu__list"]}>
-            <NavLink
-              to={"all"}
-              className={({ isActive }) =>
-                isActive
-                  ? `${css["friends-menu__item"]} ${css.active}`
-                  : css["friends-menu__item"]
-              }
-            >
-              All friends
-            </NavLink>
-            <NavLink
-              to={"request"}
-              className={({ isActive }) =>
-                isActive
-                  ? `${css["friends-menu__item"]} ${css.active}`
-                  : css["friends-menu__item"]
-              }
-            >
+        <MenuList title="Friends">
+          <MenuItem active={pathname === "/friends/all"}>
+            <NavLink to={"all"}>All friends</NavLink>
+          </MenuItem>
+          <MenuItem active={pathname === "/friends/request"}>
+            <NavLink to={"request"}>
               Friend Requests
-              {friendRequestCount !== 0 && <span>{friendRequestCount}</span>}
+              {friendRequestCount !== 0 && (
+                <span className={css["friend-request-count"]}>
+                  {friendRequestCount}
+                </span>
+              )}
             </NavLink>
-          </div>
-        </div>
+          </MenuItem>
+        </MenuList>
       </div>
     </>
   );

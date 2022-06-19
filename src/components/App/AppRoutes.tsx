@@ -7,12 +7,13 @@ import Profile from "../ProfilePage/Profile";
 import NotFound from "../NotFound/NotFound";
 import Logout from "../Form/LoginForm/Logout";
 import RegisterForm from "../Form/RegisterForm/RegisterForm";
-import Search from "../Search/Search";
+import SearchMenu from "../SearchMenu/SearchMenu";
 import FriendRequestList from "../Friends/FriendRequest/FriendRequestList";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Unauthorized from "../Unauthorized/Unauthorized";
 import FriendList from "../Friends/FriendList/FriendList";
 import UserProfileEntity from "../../models/userProfile";
+import ChatMenu from "../Chat/ChatMenu";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -50,6 +51,10 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
             <Route path="request" element={<FriendRequestList />} />
           </Route>
 
+          <Route path="/chat" element={<ChatMenu />}>
+            <Route path="all" element={<NotFound />} />
+          </Route>
+
           <Route path="/profile/:id" element={<Profile />}>
             <Route path="posts" element={<NotFound />} />
             <Route path="friends" element={<NotFound />} />
@@ -57,7 +62,7 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
             <Route path="videos" element={<NotFound />} />
           </Route>
 
-          <Route path="/search/:filter" element={<Search />} />
+          <Route path="/search/:filter" element={<SearchMenu />} />
 
           <Route path="/logout" element={<Logout />} />
         </Route>

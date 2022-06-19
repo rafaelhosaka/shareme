@@ -1,7 +1,7 @@
 import { NavMenuItemProps } from "../../models/navMenu";
 import css from "./NavMenu.module.scss";
 
-function MenuItem({
+function NavMenuItem({
   label,
   toMenuId,
   redirectToMenu,
@@ -38,4 +38,4 @@ function MenuItem({
   );
 }
 
-export default MenuItem;
+export default NavMenuItem;

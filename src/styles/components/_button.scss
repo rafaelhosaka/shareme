@@ -9,7 +9,6 @@
   font-weight: 700;
   cursor: pointer;
   border: 0;
-  font-size: 1.8rem;
 
   &:hover {
     filter: brightness(90%);
@@ -42,18 +41,18 @@ a.btn--secondary,
 }
 
 .btn--small {
-  width: 100px;
   height: 50px;
+  font-size: 1.5rem;
 }
 
 .btn--medium {
-  width: 150px;
   height: 60px;
+  font-size: 2rem;
 }
 
 .btn--big {
-  width: 200px;
   height: 70px;
+  font-size: 3rem;
 }
 
 .btn:hover.btn:disabled {
@@ -65,8 +64,9 @@ a.btn--secondary,
 }
 
 @include mixins.tablet {
-  .btn {
-    font-size: 2.5rem;
+  .btn--small {
+    height: 60px;
+    font-size: 2rem;
   }
 }
 

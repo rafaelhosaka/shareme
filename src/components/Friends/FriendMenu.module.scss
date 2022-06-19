@@ -2,80 +2,37 @@
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
-.friends-menu__container {
-  background-color: v.$background-color;
-  padding: 0.7rem;
-  position: sticky;
-  top: 70px;
-  height: calc(100vh - 70px);
-  box-shadow: v.$box-shadow;
-}
-
-.friends-menu__heading {
-  margin: 0;
-  padding: 1.5rem;
-  font-size: 2.4rem;
-}
-
-.friends-menu__list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.friends-menu__item {
-  font-size: 1.7rem;
-  font-weight: 500;
-  padding: 2rem;
+a {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  &:hover {
-    background-color: v.$web-background-color;
-    border-radius: 10px;
-    cursor: pointer;
-  }
-
-  &.active {
-    background-color: v.$web-background-color;
-    border-radius: 10px;
-    font-weight: 700;
-    color: v.$primary-color;
-  }
-
-  & > span {
-    padding: 1rem 2rem;
-    background-color: v.$secondary-color;
-    border-radius: 50px;
-    font-weight: 800;
+  &:global(.active) {
+    & > .friend-request-count {
+      background-color: v.$primary-color;
+      color: v.$secondary-color;
+    }
   }
 }
 
+.friend-request-count {
+  padding: 0.5rem 1.2rem;
+  background-color: v.$secondary-color;
+  border-radius: 50px;
+  font-weight: 800;
+}
+
 @include mixins.whenDarkModule {
-  .friends-menu__container {
-    background-color: t.$dark-secondary-bgcolor;
-    box-shadow: t.$dark-box-shadow;
-  }
-
-  .friends-menu__item {
-    &:hover {
-      background-color: t.$dark-secondary-color;
-    }
-
-    &.active {
-      background-color: t.$dark-accent-color;
-      color: t.$dark-primary-color;
-
-      & > span {
+  a {
+    &:global(.active) {
+      & > .friend-request-count {
         background-color: t.$dark-secondary-bgcolor;
         color: t.$dark-accent-color;
       }
     }
+  }
 
-    & > span {
-      color: t.$dark-primary-color;
-    }
+  .friend-request-count {
+    color: t.$dark-primary-color;
   }
 }

@@ -9,10 +9,12 @@ import {
 } from "../../services/friendService";
 import _ from "lodash";
 import UserProfileEntity from "../../models/userProfile";
-import css from "./Search.module.scss";
+import css from "./SearchMenu.module.scss";
 import { useUser } from "../../context/userContext";
+import MenuList from "../MenuList/MenuList";
+import MenuItem from "../MenuList/MenuItem";
 
-function Search() {
+function SearchMenu() {
   const { filter } = useParams();
   let [searchParams] = useSearchParams();
   let query = searchParams.get("q");
@@ -67,12 +69,11 @@ function Search() {
   };
 
   const handleFilterSelected = (filterValue: string) => {
-    setResult([]);
     navigate(`/search/${filterValue}?q=${query}`, { replace: false });
   };
 
   const isActive = (label: string) => {
-    return label === filter ? "active" : "";
+    return label === filter ? true : false;
   };
 
   const renderResult = () => {
@@ -104,23 +105,15 @@ function Search() {
     <>
       <main className="container right center">{renderResult()}</main>
       <div className="left-content">
-        <div className={css["search-menu__container"]}>
-          <h1 className={css["search-menu__heading"]}>Search Results</h1>
+        <MenuList title="Search Results">
           <span className={css["search-filter"]}>Filters</span>
-          <div className={css["search-menu__list"]}>
-            <div
-              onClick={() => handleFilterSelected("people")}
-              className={`${css["search-menu__item"]} ${
-                css[isActive("people")]
-              }`}
-            >
-              People
-            </div>
-          </div>
-        </div>
+          <MenuItem active={isActive("people")}>
+            <div onClick={() => handleFilterSelected("people")}>People</div>
+          </MenuItem>
+        </MenuList>
       </div>
     </>
   );
 }
 
-export default Search;
+export default SearchMenu;

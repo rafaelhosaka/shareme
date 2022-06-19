@@ -13,6 +13,7 @@
 
   .container {
     grid-area: main-content;
+    margin: 1rem;
 
     &.center {
       display: flex;
