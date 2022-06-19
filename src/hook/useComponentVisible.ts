@@ -3,11 +3,20 @@ import { useState, useEffect, useRef } from "react";
 export default function useComponentVisible(initialIsVisible: boolean) {
   const [isComponentVisible, setIsComponentVisible] =
     useState(initialIsVisible);
-  const ref = useRef<any>(null);
+  const refs = useRef<any>([]);
 
   const handleClickOutside = (event: Event) => {
-    if (ref.current && !ref.current.contains(event.target)) {
-      setIsComponentVisible(false);
+    let visible = false;
+
+    refs?.current.map((element: any) => {
+      if (element.contains(event.target)) {
+        visible = true;
+      }
+    });
+
+    //not update when true, to have possibility to update from outside
+    if (!visible) {
+      setIsComponentVisible(visible);
     }
   };
 
@@ -18,5 +27,5 @@ export default function useComponentVisible(initialIsVisible: boolean) {
     };
   }, []);
 
-  return { ref, isComponentVisible, setIsComponentVisible };
+  return { refs, isComponentVisible, setIsComponentVisible };
 }

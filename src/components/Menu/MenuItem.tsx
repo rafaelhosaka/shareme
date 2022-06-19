@@ -7,6 +7,7 @@ function MenuItem({
   redirectToMenu,
   active = false,
   iconClass,
+  children,
 }: MenuItemProps) {
   const getIcon = () => {
     return iconClass ? (
@@ -28,6 +29,7 @@ function MenuItem({
       }
     >
       <div className={css["menu-item"]}>
+        {children}
         {getIcon()}
         <li>{label}</li>
       </div>

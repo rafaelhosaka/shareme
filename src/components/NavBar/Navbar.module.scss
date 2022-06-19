@@ -34,9 +34,8 @@
 }
 
 .navbar-nav {
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-content: space-between;
+  display: flex;
+
   width: 100vw;
   height: 60px;
 }
@@ -74,46 +73,36 @@
   }
 }
 
-.nav-right,
 .nav-center {
   display: none;
 }
 
 .nav-left {
   font-weight: bold;
-  left: 0;
+
   display: flex;
-  justify-content: space-between;
-  width: 100%;
+}
+
+.nav-right {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 .user {
-  display: flex;
-  align-items: center;
-  color: black;
-  padding: 0.5rem;
-  border-radius: 30px;
+  margin: 0 2rem;
   transition: transform 0.3s;
 
   &:hover {
-    background-color: v.$secondary-color;
-    background-size: cover;
     transform: scale(1.5);
-  }
-
-  &.active-user {
-    background-color: v.$web-background-color;
-    & .user-name {
-      color: v.$primary-color;
-    }
-    &:hover {
-      background-color: v.$web-background-color;
-    }
+    cursor: pointer;
   }
 }
 
 .user-image {
   border-radius: 2rem;
+  margin-right: 1rem;
 }
 
 .user-name {
@@ -124,20 +113,20 @@
 .menu {
   position: absolute;
   top: 70px;
+  right: 0;
 }
 
-@media screen and (min-width: 768px) {
-  .nav-left {
-    justify-content: flex-start;
-    width: auto;
+@include mixins.tablet {
+  .nav-center {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
   }
 
-  .nav-right {
-    font-weight: bold;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  .nav-left {
+    flex: 1;
   }
 
   .navbar-nav {
@@ -145,14 +134,7 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
-  .nav-center {
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
+@include mixins.desktop {
   .navbar-nav {
     grid-template-columns: 40rem 1fr auto;
   }
@@ -164,10 +146,8 @@
     background-color: t.$dark-secondary-bgcolor;
   }
 
-  .user {
-    &:hover {
-      background-color: t.$dark-secondary-color;
-    }
+  .user-name {
+    color: t.$dark-accent-color;
   }
 
   .active-user {

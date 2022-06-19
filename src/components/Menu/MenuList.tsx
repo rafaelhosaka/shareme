@@ -25,14 +25,16 @@ function MenuList({
 
   return (
     <div className={`${css["menu-list-container"]} p1 `}>
-      <div className={css["menu-heading"]}>
-        {!isMain && back && (
-          <div onClick={() => back()} className={css["menu-back-btn"]}>
-            <i className="fa-solid fa-arrow-left fa-xl"></i>
-          </div>
-        )}
-        <span className={css["menu-list-title"]}>{title}</span>
-      </div>
+      {(!isMain || title) && (
+        <div className={css["menu-heading"]}>
+          {!isMain && back && (
+            <div onClick={() => back()} className={css["menu-back-btn"]}>
+              <i className="fa-solid fa-arrow-left fa-xl"></i>
+            </div>
+          )}
+          {title && <span className={css["menu-list-title"]}>{title}</span>}
+        </div>
+      )}
       <ul className={css["menu-list"]}>{renderChildrenWithProps()}</ul>
     </div>
   );

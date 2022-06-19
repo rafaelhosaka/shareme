@@ -21,6 +21,7 @@ export interface MenuItemProps {
   toMenuId?: string;
   redirectToMenu?: (menuId: string | undefined) => void;
   active?: boolean;
+  children?: ReactElement | ReactElement[];
 }
 
 export function isMenuItemProps(obj: any) {
