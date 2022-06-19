@@ -1,5 +1,5 @@
-import { MenuItemProps } from "../../models/menu";
-import css from "./Menu.module.scss";
+import { NavMenuItemProps } from "../../models/navMenu";
+import css from "./NavMenu.module.scss";
 
 function MenuItem({
   label,
@@ -8,7 +8,7 @@ function MenuItem({
   active = false,
   iconClass,
   children,
-}: MenuItemProps) {
+}: NavMenuItemProps) {
   const getIcon = () => {
     return iconClass ? (
       <div className={`${css["menu-item-icon"]} size--40`}>

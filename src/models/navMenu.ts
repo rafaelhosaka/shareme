@@ -1,21 +1,21 @@
 import { ReactElement } from "react";
 
 export interface NavMenuProps {
-  children?: ReactElement<MenuListProps>[];
+  children?: ReactElement<NavMenuListProps>[];
   currentMenuId: string;
   mainMenuId: string;
 }
 
-export interface MenuListProps {
+export interface NavMenuListProps {
   id: string;
   title?: string;
-  children?: ReactElement<MenuItemProps> | ReactElement<MenuItemProps>[];
+  children?: ReactElement<NavMenuItemProps> | ReactElement<NavMenuItemProps>[];
   redirectToMenu?: (menuId: string | undefined) => void;
   back?: () => void;
   isMain?: boolean;
 }
 
-export interface MenuItemProps {
+export interface NavMenuItemProps {
   label: string;
   iconClass?: string;
   toMenuId?: string;

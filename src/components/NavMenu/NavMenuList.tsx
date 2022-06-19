@@ -1,5 +1,5 @@
-import { MenuListProps, isMenuItemProps } from "../../models/menu";
-import css from "./Menu.module.scss";
+import { NavMenuListProps, isMenuItemProps } from "../../models/navMenu";
+import css from "./NavMenu.module.scss";
 import React from "react";
 
 function MenuList({
@@ -8,7 +8,7 @@ function MenuList({
   redirectToMenu,
   back,
   isMain,
-}: MenuListProps) {
+}: NavMenuListProps) {
   const renderChildrenWithProps = () => {
     let childrenWithProps = children;
 

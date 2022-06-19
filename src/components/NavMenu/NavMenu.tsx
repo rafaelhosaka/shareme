@@ -1,8 +1,9 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { MenuListProps, NavMenuProps } from "../../models/menu";
+import { NavMenuListProps, NavMenuProps } from "../../models/navMenu";
 
 function NavMenu({ children, currentMenuId, mainMenuId }: NavMenuProps) {
-  const [menuDisplay, setMenuDisplay] = useState<ReactElement<MenuListProps>>();
+  const [menuDisplay, setMenuDisplay] =
+    useState<ReactElement<NavMenuListProps>>();
   const [currentId, setCurrentId] = useState(currentMenuId);
   const [isMain, setIsMain] = useState(true);
 

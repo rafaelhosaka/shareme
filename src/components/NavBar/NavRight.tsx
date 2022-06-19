@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/userContext";
 import useComponentVisible from "../../hook/useComponentVisible";
-import MenuItem from "../Menu/MenuItem";
+import NavMenuItem from "../NavMenu/NavMenuItem";
 import Spinner from "../Spinner/Spinner";
 import NavLinkWithToolTip from "../ToolTip/NavLinkWithToolTip";
 import css from "./Navbar.module.scss";
-import NavMenu from "../Menu/NavMenu";
-import MenuList from "../Menu/MenuList";
+import NavMenu from "../NavMenu/NavMenu";
+import NavMenuList from "../NavMenu/NavMenuList";
 import { updateUser } from "../../services/userService";
 import _ from "lodash";
 import DivWithToolTip from "../ToolTip/DivWithToolTip";
@@ -50,9 +50,9 @@ const NavRight = () => {
   const getProfileMenu = () => {
     return (
       <NavMenu currentMenuId={menuId} mainMenuId="1">
-        <MenuList id="1">
+        <NavMenuList id="1">
           <Link to={`/profile/${currentUser?.id}/posts`}>
-            <MenuItem
+            <NavMenuItem
               label={`${currentUser?.fullName}`}
               active={_.startsWith(pathname, `/profile/${currentUser?.id}`)}
             >
@@ -66,43 +66,43 @@ const NavRight = () => {
                   />
                 }
               />
-            </MenuItem>
+            </NavMenuItem>
           </Link>
-          <MenuItem
+          <NavMenuItem
             iconClass="fa-solid fa-palette fa-xl"
             label={`Theme: ${currentUser?.themePreference}`}
             toMenuId="2"
           />
           <Link to="/logout">
-            <MenuItem
+            <NavMenuItem
               iconClass="fa-solid fa-right-from-bracket fa-xl"
               label="Logout"
             />
           </Link>
-        </MenuList>
-        <MenuList id="2" title="Theme">
+        </NavMenuList>
+        <NavMenuList id="2" title="Theme">
           <div onClick={() => handleThemeChange("light")}>
-            <MenuItem
+            <NavMenuItem
               iconClass="fa-solid fa-sun fa-xl"
               active={currentUser?.themePreference === "light"}
               label="Light"
             />
           </div>
           <div onClick={() => handleThemeChange("dark")}>
-            <MenuItem
+            <NavMenuItem
               iconClass="fa-solid fa-moon fa-xl"
               active={currentUser?.themePreference === "dark"}
               label="Dark"
             />
           </div>
           <div onClick={() => handleThemeChange("device")}>
-            <MenuItem
+            <NavMenuItem
               iconClass="fa-solid fa-desktop fa-xl"
               active={currentUser?.themePreference === "device"}
               label="Device"
             />
           </div>
-        </MenuList>
+        </NavMenuList>
       </NavMenu>
     );
   };
@@ -110,11 +110,11 @@ const NavRight = () => {
   const getMenu = () => {
     return (
       <NavMenu currentMenuId="1" mainMenuId="1">
-        <MenuList id="1">
+        <NavMenuList id="1">
           {isMobile ? getCenterMenu() : <></>}
           {!isDesktop ? getRightMenu() : <></>}
-        </MenuList>
-        <MenuList id="2" />
+        </NavMenuList>
+        <NavMenuList id="2" />
       </NavMenu>
     );
   };
@@ -123,28 +123,28 @@ const NavRight = () => {
     return (
       <>
         <Link to="/home">
-          <MenuItem
+          <NavMenuItem
             iconClass="fa-solid fa-house fa-xl"
             label="Home"
             active={pathname === "/home"}
           />
         </Link>
         <Link to="/friends/all">
-          <MenuItem
+          <NavMenuItem
             iconClass="fa-solid fa-user-group fa-xl"
             label="Frinds"
             active={_.startsWith(pathname, "/friends")}
           />
         </Link>
         <Link to="/group">
-          <MenuItem
+          <NavMenuItem
             iconClass="fa-solid fa-users-line fa-xl"
             label="Group"
             active={pathname === "/group"}
           />
         </Link>
         <Link to="/market">
-          <MenuItem
+          <NavMenuItem
             iconClass="fa-solid fa-store fa-xl"
             label="MarketPlace"
             active={pathname === "/market"}
@@ -157,16 +157,20 @@ const NavRight = () => {
   const getRightMenu = () => {
     return (
       <>
-        <MenuItem
-          iconClass="fa-solid fa-message fa-xl"
-          label="Chat"
-          active={pathname === "/chat"}
-        />
-        <MenuItem
-          iconClass="fa-solid fa-bell fa-xl"
-          label="Notifications"
-          active={pathname === "/notifications"}
-        />
+        <Link to="/chat">
+          <NavMenuItem
+            iconClass="fa-solid fa-message fa-xl"
+            label="Chat"
+            active={pathname === "/chat"}
+          />
+        </Link>
+        <Link to="/notifications">
+          <NavMenuItem
+            iconClass="fa-solid fa-bell fa-xl"
+            label="Notifications"
+            active={pathname === "/notifications"}
+          />
+        </Link>
       </>
     );
   };
