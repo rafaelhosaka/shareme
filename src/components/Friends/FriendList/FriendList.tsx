@@ -36,7 +36,7 @@ function FriendList() {
     return filteredFriends.length === 0 ? (
       <div className={css["result"]}>No result for : {searchQuery}</div>
     ) : (
-      <div className="grid--2x1">
+      <div className={css["friend-list"]}>
         {filteredFriends.map((friend) => (
           <Friend key={friend.id} friend={new UserProfileEntity(friend)} />
         ))}
@@ -62,7 +62,7 @@ function FriendList() {
         <h2>Friends</h2>
         <SearchBar placeHolder="Search" onChange={handleChange} />
       </header>
-      {renderFriends()}{" "}
+      {renderFriends()}
     </div>
   );
 }

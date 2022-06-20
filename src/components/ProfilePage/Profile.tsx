@@ -218,8 +218,10 @@ function Profile() {
           </div>
         </div>
         <div className={css["profile-options__container"]}>{renderMenu()}</div>
-        <div>
-          <Outlet />
+        <div className={css["profile-content-container"]}>
+          <div className={css["profile-content"]}>
+            <Outlet />
+          </div>
         </div>
       </main>
     </>

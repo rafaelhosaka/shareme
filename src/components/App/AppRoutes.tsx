@@ -56,8 +56,8 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           </Route>
 
           <Route path="/profile/:id" element={<Profile />}>
-            <Route path="posts" element={<NotFound />} />
-            <Route path="friends" element={<NotFound />} />
+            <Route path="posts" element={<Feed />} />
+            <Route path="friends" element={<FriendList />} />
             <Route path="photos" element={<NotFound />} />
             <Route path="videos" element={<NotFound />} />
           </Route>

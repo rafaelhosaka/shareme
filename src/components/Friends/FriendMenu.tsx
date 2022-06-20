@@ -34,7 +34,7 @@ function FriendMenu() {
             <NavLink to={"all"}>All friends</NavLink>
           </MenuItem>
           <MenuItem active={pathname === "/friends/request"}>
-            <NavLink to={"request"}>
+            <NavLink className={css["friend-request-link"]} to={"request"}>
               Friend Requests
               {friendRequestCount !== 0 && (
                 <span className={css["friend-request-count"]}>

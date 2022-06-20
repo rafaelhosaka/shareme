@@ -14,6 +14,11 @@
   justify-content: space-between;
 }
 
+.friend-list {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 .friend__container {
   width: auto;
   display: flex;
@@ -47,6 +52,12 @@
   font-size: 2rem;
   font-weight: 800;
   margin: 2rem;
+}
+
+@include mixins.desktop {
+  .friend-list {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @include mixins.whenDarkModule {

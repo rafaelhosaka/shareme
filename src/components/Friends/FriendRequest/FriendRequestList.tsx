@@ -10,6 +10,7 @@ import {
 import { useAlert } from "../../Alert/Alert";
 import FriendRequest from "./FriendRequest";
 import css from "./FriendRequest.module.scss";
+import UserProfileEntity from "../../../models/userProfile";
 
 function FriendRequestList() {
   const { user: currentUser, setUser } = useUser();
@@ -43,7 +44,7 @@ function FriendRequestList() {
       const modifiedUsers = await acceptFriendRequest(request);
       setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
       dispatchAlert("Friend request accepted", "success");
-      setUser(modifiedUsers[1]);
+      setUser(new UserProfileEntity(modifiedUsers[1]));
     }
   };
 

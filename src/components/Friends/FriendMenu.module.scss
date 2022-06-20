@@ -2,7 +2,7 @@
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
-a {
+.friend-request-link {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,7 +23,7 @@ a {
 }
 
 @include mixins.whenDarkModule {
-  a {
+  .friend-request-link {
     &:global(.active) {
       & > .friend-request-count {
         background-color: t.$dark-secondary-bgcolor;

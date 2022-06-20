@@ -18,6 +18,7 @@
   align-items: flex-end;
   width: 100%;
   height: 480px;
+  padding-bottom: 0.5rem;
 }
 
 .background-image__container {
@@ -110,13 +111,12 @@
 
 .profile-options__container {
   width: 100%;
-  margin-top: 1rem;
   padding: 2rem 0;
   border-top: 1px solid lightgray;
 }
 
 .profile-option {
-  margin: 0.5rem 0;
+  margin: 0.5rem;
   padding: 1.2rem 1.5rem;
   font-size: 1.5rem;
   font-weight: 600;
@@ -132,6 +132,17 @@
   background: v.$secondary-color;
   background-size: cover;
   border-radius: 10px;
+}
+
+.profile-content-container {
+  position: relative;
+  width: 100%;
+}
+
+.profile-content {
+  position: absolute;
+  width: 80vw;
+  right: -32%;
 }
 
 @include mixins.whenDarkModule {

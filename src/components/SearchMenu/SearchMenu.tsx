@@ -103,7 +103,7 @@ function SearchMenu() {
 
   return (
     <>
-      <main className="container right center">{renderResult()}</main>
+      <main className="container right center m2">{renderResult()}</main>
       <div className="left-content">
         <MenuList title="Search Results">
           <span className={css["search-filter"]}>Filters</span>
