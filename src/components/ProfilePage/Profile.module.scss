@@ -2,40 +2,48 @@
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
+.profile__container {
+  padding: 0 20rem;
+}
+
 .profile__background {
   background: v.$profile-gradient-color;
 
   width: 100vw;
   position: absolute;
-  height: 620px;
+  height: 730px;
   display: inline-block;
   box-shadow: v.$box-shadow;
   z-index: -1;
 }
 
-.profile__header {
-  display: flex;
-  align-items: flex-end;
-  width: 100%;
-  height: 480px;
-  padding-bottom: 0.5rem;
-}
-
 .background-image__container {
-  position: absolute;
-  z-index: -1;
+  position: relative;
 }
 
 .background-image {
-  width: 100%;
-  height: 349px;
+  z-index: -1;
+  position: absolute;
+  max-width: 100%;
+  width: 125rem;
+  height: 45rem;
   object-fit: cover;
   border-radius: 0 0 10px 10px;
 }
 
+.profile__header {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: flex-end;
+  max-width: 100%;
+  height: 670px;
+  padding-bottom: 0.5rem;
+}
+
 .profile-user {
   display: flex;
-  width: 100%;
+  padding-left: 2rem;
 }
 
 .profile-user__image {
@@ -135,14 +143,7 @@
 }
 
 .profile-content-container {
-  position: relative;
-  width: 100%;
-}
-
-.profile-content {
-  position: absolute;
-  width: 80vw;
-  right: -32%;
+  margin: 2rem;
 }
 
 @include mixins.whenDarkModule {

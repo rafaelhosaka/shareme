@@ -25,7 +25,7 @@ function FriendMenu() {
 
   return (
     <>
-      <main className="container right">
+      <main className="container right m2">
         <Outlet context={{ setFriendRequestCount }} />
       </main>
       <div className="left-content">

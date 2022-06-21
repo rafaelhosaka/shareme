@@ -3,7 +3,6 @@
 @use "../../../styles/abstracts/mixins" as mixins;
 
 .friend-list__container {
-  margin: 4rem;
   background-color: v.$background-color;
   border-radius: 10px;
   box-shadow: v.$box-shadow;
