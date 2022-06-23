@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  NavLink,
-  Outlet,
-  Link,
-  useParams,
-  useNavigate,
-} from "react-router-dom";
+import { NavLink, Link, useParams, useNavigate } from "react-router-dom";
 import {
   getUserById,
   userImageDownload,
@@ -25,6 +19,7 @@ import {
 import UserProfileEntity from "../../models/userProfile";
 import css from "./Profile.module.scss";
 import _ from "lodash";
+import ProfileContent from "./ProfileContent";
 
 function Profile() {
   const { id } = useParams();
@@ -144,7 +139,7 @@ function Profile() {
       return (
         <NavLink
           key={option.key}
-          to={option.key}
+          to={`/profile/${id}/${option.key}`}
           className={({ isActive }) =>
             isActive
               ? `${css["profile-option"]} ${css["active"]}`
@@ -224,9 +219,7 @@ function Profile() {
               {renderMenu()}
             </div>
           </div>
-        </div>
-        <div className={css["profile-content-container"]}>
-          <Outlet />
+          <ProfileContent />
         </div>
       </main>
     </>

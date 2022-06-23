@@ -32,7 +32,7 @@ function FriendRequest({
 
   return (
     <div className={`${css["friend-request__container"]} m2`}>
-      <Link to={`/profile/${request.requestingUserId}`}>
+      <Link to={`/profile/${request.requestingUserId}/posts`}>
         <Spinner
           show={!image}
           sizeClass="size--200"
@@ -44,7 +44,7 @@ function FriendRequest({
       <div className={css["friend-request__body"]}>
         <Link
           className={css["friend-request__user-name"]}
-          to={`/profile/${request.requestingUserId}`}
+          to={`/profile/${request.requestingUserId}/posts`}
         >
           {user?.fullName}
         </Link>

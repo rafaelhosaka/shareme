@@ -6,6 +6,7 @@ $sizes: (
   "168": 16.8rem,
   "200": 20rem,
   "680": 68rem,
+  "840": 84rem,
 );
 
 @each $size, $value in $sizes {

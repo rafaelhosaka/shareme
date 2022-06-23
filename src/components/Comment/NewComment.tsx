@@ -35,7 +35,7 @@ function NewComment({ postId, handleNewComment, elementRef }: NewCommentProps) {
 
   return (
     <div className={css["new-comment__container"]}>
-      <Link to={`/profile/${currentUser?.id}`}>
+      <Link to={`/profile/${currentUser?.id}/posts`}>
         <img className={`${css["comment__user"]} size--40`} src={userImage} />
       </Link>
       <form

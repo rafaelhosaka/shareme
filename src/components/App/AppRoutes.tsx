@@ -8,10 +8,8 @@ import NotFound from "../NotFound/NotFound";
 import Logout from "../Form/LoginForm/Logout";
 import RegisterForm from "../Form/RegisterForm/RegisterForm";
 import SearchMenu from "../SearchMenu/SearchMenu";
-import FriendRequestList from "../Friends/FriendRequest/FriendRequestList";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Unauthorized from "../Unauthorized/Unauthorized";
-import FriendList from "../Friends/FriendList/FriendList";
 import UserProfileEntity from "../../models/userProfile";
 import ChatMenu from "../Chat/ChatMenu";
 
@@ -46,21 +44,13 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
         >
           <Route path="/home" element={<Feed />} />
 
-          <Route path="/friends" element={<FriendMenu />}>
-            <Route path="all" element={<FriendList />} />
-            <Route path="request" element={<FriendRequestList />} />
-          </Route>
+          <Route path="/friends/:option" element={<FriendMenu />} />
 
           <Route path="/chat" element={<ChatMenu />}>
             <Route path="all" element={<NotFound />} />
           </Route>
 
-          <Route path="/profile/:id" element={<Profile />}>
-            <Route path="posts" element={<Feed />} />
-            <Route path="friends" element={<FriendList />} />
-            <Route path="photos" element={<NotFound />} />
-            <Route path="videos" element={<NotFound />} />
-          </Route>
+          <Route path="/profile/:id/:option" element={<Profile />} />
 
           <Route path="/search/:filter" element={<SearchMenu />} />
 

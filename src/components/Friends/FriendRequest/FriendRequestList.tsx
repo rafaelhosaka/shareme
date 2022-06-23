@@ -1,38 +1,27 @@
-import { useState, useEffect } from "react";
-import { useOutletContext } from "react-router";
 import { useUser } from "../../../context/userContext";
 import FriendRequestEntity from "../../../models/friendRequest";
 import {
   acceptFriendRequest,
   deleteFriendRequest,
-  getPendingFriendRequest,
 } from "../../../services/friendService";
 import { useAlert } from "../../Alert/Alert";
 import FriendRequest from "./FriendRequest";
 import css from "./FriendRequest.module.scss";
 import UserProfileEntity from "../../../models/userProfile";
 
-function FriendRequestList() {
-  const { user: currentUser, setUser } = useUser();
-  const [friendRequests, setFriendRequests] = useState<FriendRequestEntity[]>(
-    []
-  );
+interface FriendRequestListProps {
+  friendRequests: FriendRequestEntity[];
+  setFriendRequests: React.Dispatch<
+    React.SetStateAction<FriendRequestEntity[]>
+  >;
+}
+
+function FriendRequestList({
+  friendRequests,
+  setFriendRequests,
+}: FriendRequestListProps) {
+  const { setUser } = useUser();
   const [alert, dispatchAlert] = useAlert();
-  const { setFriendRequestCount } = useOutletContext<any>();
-
-  useEffect(() => {
-    async function getFriendRequests() {
-      if (currentUser) {
-        const { data } = await getPendingFriendRequest(currentUser.id);
-        setFriendRequests(data);
-      }
-    }
-    getFriendRequests();
-  }, []);
-
-  useEffect(() => {
-    setFriendRequestCount(friendRequests.length);
-  }, [friendRequests]);
 
   const handleDelete = (request: FriendRequestEntity) => {
     deleteFriendRequest(request);

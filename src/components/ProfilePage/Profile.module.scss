@@ -19,6 +19,8 @@
 
 .background-image__container {
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .background-image {
@@ -43,7 +45,9 @@
 
 .profile-user {
   display: flex;
-  padding-left: 2rem;
+  padding-left: 4rem;
+  padding-bottom: 2rem;
+  width: 100%;
 }
 
 .profile-user__image {
@@ -144,6 +148,14 @@
 
 .profile-content-container {
   margin: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+
+  &.show {
+    display: flex;
+  }
 }
 
 @include mixins.whenDarkModule {

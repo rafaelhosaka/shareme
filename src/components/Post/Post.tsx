@@ -126,7 +126,7 @@ function Post(props: PostProps) {
       post.fileName && (
         <Spinner
           show={!postImage}
-          sizeClass="size--680"
+          sizeClass="size--840"
           fragment={<img className={css["post__image"]} src={postImage} />}
         />
       )
@@ -153,7 +153,9 @@ function Post(props: PostProps) {
       <div className={css.post}>
         <header className={css["header"]}>
           <div className={css["user"]}>
-            <Link to={`/profile/${post.user.id}`}>{renderPostUserImage()}</Link>
+            <Link to={`/profile/${post.user.id}/posts`}>
+              {renderPostUserImage()}
+            </Link>
             <Link
               to={`/profile/${post.user.id}/posts`}
               className={css["user-name"]}

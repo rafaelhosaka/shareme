@@ -96,7 +96,7 @@ function PeopleResult({
     }
     if (ownSelf) {
       return (
-        <Link to={`/profile/${people.id}`}>
+        <Link to={`/profile/${people.id}/posts`}>
           <button className="btn btn--small btn--secondary">
             View profile
           </button>
@@ -116,7 +116,7 @@ function PeopleResult({
   return (
     <div className={css["people__container"]}>
       <div className={css["people__info"]}>
-        <Link to={`/profile/${people.id}`}>
+        <Link to={`/profile/${people.id}/posts`}>
           <Spinner
             show={!userImage}
             sizeClass="size--60"
@@ -128,7 +128,10 @@ function PeopleResult({
             }
           />
         </Link>
-        <Link to={`/profile/${people.id}`} className={css["people__name"]}>
+        <Link
+          to={`/profile/${people.id}/posts`}
+          className={css["people__name"]}
+        >
           {people.fullName}
         </Link>
       </div>

@@ -120,7 +120,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
       </header>
       <form id="form-post" className="p2" onSubmit={(e) => handleSubmit(e)}>
         <div className={css.user}>
-          <Link to={`/profile/${currentUser?.id}`}>
+          <Link to={`/profile/${currentUser?.id}/posts`}>
             <Spinner
               show={!userImage}
               sizeClass="size--60"

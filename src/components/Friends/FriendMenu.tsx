@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from "react-router";
+import { useLocation } from "react-router";
 
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -7,6 +7,7 @@ import { getPendingFriendRequest } from "../../services/friendService";
 import MenuList from "../MenuList/MenuList";
 import MenuItem from "../MenuList/MenuItem";
 import css from "./FriendMenu.module.scss";
+import FriendMenuContent from "./FriendMenuContent";
 
 function FriendMenu() {
   const { user: currentUser } = useUser();
@@ -26,15 +27,18 @@ function FriendMenu() {
   return (
     <>
       <main className="container right m2">
-        <Outlet context={{ setFriendRequestCount }} />
+        <FriendMenuContent setRequestCount={setFriendRequestCount} />
       </main>
       <div className="left-content">
         <MenuList title="Friends">
           <MenuItem active={pathname === "/friends/all"}>
-            <NavLink to={"all"}>All friends</NavLink>
+            <NavLink to={"/friends/all"}>All friends</NavLink>
           </MenuItem>
           <MenuItem active={pathname === "/friends/request"}>
-            <NavLink className={css["friend-request-link"]} to={"request"}>
+            <NavLink
+              className={css["friend-request-link"]}
+              to={"/friends/request"}
+            >
               Friend Requests
               {friendRequestCount !== 0 && (
                 <span className={css["friend-request-count"]}>
