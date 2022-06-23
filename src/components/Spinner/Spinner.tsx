@@ -10,7 +10,9 @@ function Spinner({ fragment, sizeClass, show = true }: SpinnerProps) {
   return (
     <>
       {show ? (
-        <div className={`${css.loader} ${css[sizeClass]} ${sizeClass}`}></div>
+        <div className={`${css.loader} `}>
+          <div className={`${css[sizeClass]}`}></div>
+        </div>
       ) : (
         fragment
       )}

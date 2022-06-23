@@ -4,16 +4,21 @@
 @use "../../styles/abstracts/mixins" as mixins;
 
 .loader {
-  border: 1rem solid v.$secondary-color;
-  border-top: 1rem solid v.$primary-color;
-  border-radius: 50%;
-  animation: spin 2s linear infinite;
-  background-color: v.$background-color;
+  width: 100%;
+  aspect-ratio: 1/1;
 
-  @each $size, $value in s.$sizes {
-    &.size--#{$size} {
-      border: calc($value * 0.2) solid v.$secondary-color;
-      border-top: calc($value * 0.2) solid v.$primary-color;
+  & > div {
+    border-radius: 50%;
+    animation: spin 2s linear infinite;
+    background-color: v.$background-color;
+    max-width: 100%;
+    max-height: 100%;
+
+    @each $size, $value in s.$sizes {
+      &.size--#{$size} {
+        border: calc($value * 0.1) solid v.$secondary-color;
+        border-top: calc($value * 0.1) solid v.$primary-color;
+      }
     }
   }
 }
@@ -29,14 +34,14 @@
 
 @include mixins.whenDarkModule {
   .loader {
-    border: 1rem solid t.$dark-primary-color;
-    border-top: 1rem solid t.$dark-accent-color;
-    background-color: t.$dark-secondary-bgcolor;
+    & > div {
+      background-color: t.$dark-secondary-bgcolor;
 
-    @each $size, $value in s.$sizes {
-      &.size--#{$size} {
-        border: calc($value * 0.2) solid t.$dark-secondary-color;
-        border-top: calc($value * 0.2) solid t.$dark-accent-color;
+      @each $size, $value in s.$sizes {
+        &.size--#{$size} {
+          border: calc($value * 0.1) solid t.$dark-secondary-color;
+          border-top: calc($value * 0.1) solid t.$dark-accent-color;
+        }
       }
     }
   }
