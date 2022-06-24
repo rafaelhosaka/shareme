@@ -16,7 +16,6 @@ const PostList = ({ posts }: PostListProps) => {
 
   const PAGE_SIZE = 10;
   const MAX_PAGE = calculateMaxPage(posts.length, PAGE_SIZE);
-  console.log(MAX_PAGE);
 
   useEffect(() => {
     function getPosts() {

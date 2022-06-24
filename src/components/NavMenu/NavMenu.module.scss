@@ -5,7 +5,7 @@
 .menu-list-container {
   border: 1px solid white;
   height: auto;
-  width: 300px;
+  min-width: 300px;
   background-color: v.$background-color;
   border-radius: 10px;
   box-shadow: v.$box-shadow;

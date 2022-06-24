@@ -10,6 +10,10 @@
   cursor: pointer;
   border: 0;
 
+  & > i {
+    margin-right: 0.5rem;
+  }
+
   &:hover {
     filter: brightness(90%);
   }
@@ -78,6 +82,9 @@ a.btn--secondary,
   a.btn--primary,
   .btn--primary {
     background-color: theme.$dark-primary-color;
+    &:hover {
+      background-color: theme.$dark-secondary-bgcolor;
+    }
   }
 
   a.btn--secondary,

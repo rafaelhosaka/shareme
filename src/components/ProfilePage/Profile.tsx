@@ -20,11 +20,15 @@ import UserProfileEntity from "../../models/userProfile";
 import css from "./Profile.module.scss";
 import _ from "lodash";
 import ProfileContent from "./ProfileContent";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import { useToggle } from "../../hook/useToggle";
+import DropdownItem from "../DropdownMenu/DropdownItem";
 
 function Profile() {
   const { id } = useParams();
   const [user, setUser] = useState<UserProfileEntity>();
   const { user: currentUser, setUser: setCurrentUser } = useUser();
+  const [showDropdownMenu, toggleDropdownMenu] = useToggle(false);
 
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
@@ -104,10 +108,27 @@ function Profile() {
     }
   };
 
+  const handleUnfriend = () => {
+    console.log("unfriend");
+  };
+
   const renderButton = () => {
     if (currentUser?.id === id) return;
     if (user && currentUser?.friends.includes(user.id)) {
-      return <button className="btn btn--primary">Friend</button>;
+      return (
+        <div className={css["dropdown-menu"]}>
+          <button onClick={toggleDropdownMenu} className="btn btn--primary">
+            <i className="fa-solid fa-user-check"></i>Friend
+          </button>
+          {showDropdownMenu && (
+            <DropdownMenu>
+              <DropdownItem onClick={handleUnfriend} label="Unfriend">
+                <i className="fa-solid fa-user-xmark"></i>
+              </DropdownItem>
+            </DropdownMenu>
+          )}
+        </div>
+      );
     }
     if (requested) {
       return (
