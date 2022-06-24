@@ -4,8 +4,8 @@ import PostEntity from "../../models/post";
 import UserProfileEntity from "../../models/userProfile";
 import { getPostsByUsersId } from "../../services/postService";
 import { getUserById, getUsersFromIds } from "../../services/userService";
-import FriendList from "../Friends/FriendList/FriendList";
-import PostList from "../Post/PostList";
+import FriendList from "../../components/Friends/FriendList/FriendList";
+import PostList from "../../components/Post/PostList";
 import css from "./Profile.module.scss";
 
 const ProfileContent = () => {

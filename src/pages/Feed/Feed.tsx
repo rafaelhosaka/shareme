@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import * as postService from "../../services/postService";
 import _ from "lodash";
-import PostForm from "../Form/PostForm/PostForm";
+import PostForm from "../../components/PostForm/PostForm";
 import PostEntity from "../../models/post";
 import { useUser } from "../../context/userContext";
-import PostList from "../Post/PostList";
+import PostList from "../../components/Post/PostList";
 
 const Feed = () => {
   const { user: currentUser } = useUser();

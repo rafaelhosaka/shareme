@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useInput } from "../../../hook/useInput";
-import AlertEntity, { LocationProps } from "../../../models/alert";
-import authService from "../../../services/authService";
-import { useAlert } from "../../Alert/Alert";
+import { useInput } from "../../hook/useInput";
+import AlertEntity, { LocationProps } from "../../models/alert";
+import authService from "../../services/authService";
+import { useAlert } from "../../components/Alert/Alert";
 
 import css from "./LoginForm.module.scss";
-import { useUser } from "../../../context/userContext";
-import { getUserByEmail } from "../../../services/userService";
+import { useUser } from "../../context/userContext";
+import { getUserByEmail } from "../../services/userService";
 import { useNavigate } from "react-router";
 
 function LoginForm() {

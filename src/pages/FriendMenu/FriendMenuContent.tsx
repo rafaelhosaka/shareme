@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import FriendList from "./FriendList/FriendList";
+import FriendList from "../../components/Friends/FriendList/FriendList";
 import UserProfileEntity from "../../models/userProfile";
 import { getUsersFromIds } from "../../services/userService";
 import { useUser } from "../../context/userContext";
 import { useParams } from "react-router";
-import FriendRequestList from "./FriendRequest/FriendRequestList";
+import FriendRequestList from "../../components/Friends/FriendRequest/FriendRequestList";
 import FriendRequestEntity from "../../models/friendRequest";
 import { getPendingFriendRequest } from "../../services/friendService";
 

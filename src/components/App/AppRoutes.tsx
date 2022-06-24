@@ -1,15 +1,15 @@
 import { Routes, Route, Navigate } from "react-router";
 import Navbar from "../NavBar/NavBar";
-import LoginForm from "../Form/LoginForm/LoginForm";
-import Feed from "../Feed/Feed";
-import FriendMenu from "../Friends/FriendMenu";
-import Profile from "../ProfilePage/Profile";
-import NotFound from "../NotFound/NotFound";
-import Logout from "../Form/LoginForm/Logout";
-import RegisterForm from "../Form/RegisterForm/RegisterForm";
-import SearchMenu from "../SearchMenu/SearchMenu";
+import LoginForm from "../../pages/LoginPage/LoginForm";
+import Feed from "../../pages/Feed/Feed";
+import FriendMenu from "../../pages/FriendMenu/FriendMenu";
+import Profile from "../../pages/ProfilePage/Profile";
+import NotFound from "../../pages/NotFound/NotFound";
+import Logout from "../../pages/LoginPage/Logout";
+import RegisterForm from "../../pages/RegisterPage/RegisterForm";
+import SearchMenu from "../../pages/SearchMenu/SearchMenu";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
-import Unauthorized from "../Unauthorized/Unauthorized";
+import Unauthorized from "../../pages/Unauthorized/Unauthorized";
 import UserProfileEntity from "../../models/userProfile";
 import ChatMenu from "../Chat/ChatMenu";
 

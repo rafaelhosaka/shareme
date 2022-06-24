@@ -1,15 +1,15 @@
 import React, { useCallback, useState } from "react";
-import { useInput } from "../../../hook/useInput";
-import { savePostWithImage } from "../../../services/postService";
+import { useInput } from "../../hook/useInput";
+import { savePostWithImage } from "../../services/postService";
 import { FileRejection, useDropzone } from "react-dropzone";
-import { useUser, useUserImage } from "../../../context/userContext";
-import { useAlert } from "../../Alert/Alert";
+import { useUser, useUserImage } from "../../context/userContext";
+import { useAlert } from "../Alert/Alert";
 import { Link } from "react-router-dom";
-import Spinner from "../../Spinner/Spinner";
-import PostEntity from "../../../models/post";
+import Spinner from "../Spinner/Spinner";
+import PostEntity from "../../models/post";
 
 import css from "./PostForm.module.scss";
-import UserProfileEntity, { UserProfileDTO } from "../../../models/userProfile";
+import UserProfileEntity, { UserProfileDTO } from "../../models/userProfile";
 
 interface PostFormProps {
   handleNewPost: (post: PostEntity) => void;

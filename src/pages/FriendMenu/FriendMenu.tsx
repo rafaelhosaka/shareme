@@ -4,8 +4,8 @@ import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/userContext";
 import { getPendingFriendRequest } from "../../services/friendService";
-import MenuList from "../MenuList/MenuList";
-import MenuItem from "../MenuList/MenuItem";
+import MenuList from "../../components/MenuList/MenuList";
+import MenuItem from "../../components/MenuList/MenuItem";
 import css from "./FriendMenu.module.scss";
 import FriendMenuContent from "./FriendMenuContent";
 

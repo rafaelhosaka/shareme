@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useSearchParams } from "react-router-dom";
 import { searchUsersContainsName } from "../../services/userService";
-import PeopleResult from "./People/PeopleResult";
+import PeopleResult from "../../components/SearchResult/People/PeopleResult";
 import {
   getPendingFriendRequest,
   getRequestedUsers,
@@ -11,8 +11,8 @@ import _ from "lodash";
 import UserProfileEntity from "../../models/userProfile";
 import css from "./SearchMenu.module.scss";
 import { useUser } from "../../context/userContext";
-import MenuList from "../MenuList/MenuList";
-import MenuItem from "../MenuList/MenuItem";
+import MenuList from "../../components/MenuList/MenuList";
+import MenuItem from "../../components/MenuList/MenuItem";
 
 function SearchMenu() {
   const { filter } = useParams();

@@ -1,6 +1,6 @@
-@use "../../../styles/abstracts/variables" as v;
-@use "../../../styles/abstracts/theme" as t;
-@use "../../../styles/abstracts/mixins" as mixins;
+@use "../../styles/abstracts/variables" as v;
+@use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .form-register-container {
   box-shadow: v.$box-shadow;

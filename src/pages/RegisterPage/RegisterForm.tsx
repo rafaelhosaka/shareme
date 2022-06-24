@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useInput } from "../../../hook/useInput";
-import authService from "../../../services/authService";
-import { saveUser } from "../../../services/userService";
-import { useAlert } from "../../Alert/Alert";
+import { useInput } from "../../hook/useInput";
+import authService from "../../services/authService";
+import { saveUser } from "../../services/userService";
+import { useAlert } from "../../components/Alert/Alert";
 import { Link, useNavigate } from "react-router-dom";
-import AlertEntity from "../../../models/alert";
-import UserProfileEntity from "../../../models/userProfile";
+import AlertEntity from "../../models/alert";
+import UserProfileEntity from "../../models/userProfile";
 
 import css from "./RegisterForm.module.scss";
 

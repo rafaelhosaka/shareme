@@ -6,7 +6,7 @@ import {
   userImageUpload,
 } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
-import Spinner from "../Spinner/Spinner";
+import Spinner from "../../components/Spinner/Spinner";
 import { useUser } from "../../context/userContext";
 import {
   acceptFriendRequest,
@@ -20,9 +20,9 @@ import UserProfileEntity from "../../models/userProfile";
 import css from "./Profile.module.scss";
 import _ from "lodash";
 import ProfileContent from "./ProfileContent";
-import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import { useToggle } from "../../hook/useToggle";
-import DropdownItem from "../DropdownMenu/DropdownItem";
+import DropdownItem from "../../components/DropdownMenu/DropdownItem";
 
 function Profile() {
   const { id } = useParams();
