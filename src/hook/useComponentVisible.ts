@@ -9,7 +9,7 @@ export default function useComponentVisible(initialIsVisible: boolean) {
     let visible = false;
 
     refs?.current.map((element: any) => {
-      if (element.contains(event.target)) {
+      if (element?.contains(event.target)) {
         visible = true;
       }
     });

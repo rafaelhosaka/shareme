@@ -1,5 +1,6 @@
 import httpService from "./httpService";
 import FriendRequestEntity from "../models/friendRequest";
+import UserProfileEntity, { UserProfileDTO } from "../models/userProfile";
 
 const apiEndPoint = "/friend";
 
@@ -55,5 +56,20 @@ export async function acceptFriendRequest(friendRequest: FriendRequestEntity) {
     `${apiEndPoint}/acceptRequest`,
     friendRequest
   );
-  return modifiedUsers; //[0] requestingUser [1] targetUser
+  return modifiedUsers; //[0] = requestingUser, [1] = targetUser
+}
+
+export async function unfriend(
+  currentUser: UserProfileEntity,
+  targetUser: UserProfileEntity
+) {
+  const formData = new FormData();
+  formData.append("user1", JSON.stringify(new UserProfileDTO(currentUser)));
+  formData.append("user2", JSON.stringify(new UserProfileDTO(targetUser)));
+  const { data: modifiedUsers } = await httpService.put(
+    `${apiEndPoint}/unfriend`,
+    formData
+  );
+
+  return modifiedUsers; //[0] = currentUser, [1] = targetUser
 }

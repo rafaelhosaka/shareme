@@ -15,6 +15,7 @@ import {
   getFriendRequestFromIds,
   isPending,
   isRequested,
+  unfriend,
 } from "../../services/friendService";
 import UserProfileEntity from "../../models/userProfile";
 import css from "./Profile.module.scss";
@@ -108,14 +109,18 @@ function Profile() {
     }
   };
 
-  const handleUnfriend = () => {
-    console.log("unfriend");
+  const handleUnfriend = async () => {
+    if (currentUser && user && setCurrentUser) {
+      const modifieUsers = await unfriend(currentUser, user);
+      setCurrentUser(new UserProfileEntity(modifieUsers[0]));
+      setUser(new UserProfileEntity(modifieUsers[1]));
+    }
   };
 
   const renderUserImageSection = () => {
     return (
       <Spinner
-        show={true}
+        show={!userImage}
         sizeClass="size--168"
         fragment={
           <>
