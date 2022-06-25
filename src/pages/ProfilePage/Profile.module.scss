@@ -45,9 +45,12 @@
 
 .profile-user {
   display: flex;
+  align-items: flex-end;
+  flex-direction: row;
   padding-left: 4rem;
   padding-bottom: 2rem;
   width: 100%;
+  //flex-grow: 1;
 }
 
 .profile-user__image {

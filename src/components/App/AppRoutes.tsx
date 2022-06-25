@@ -11,7 +11,7 @@ import SearchMenu from "../../pages/SearchMenu/SearchMenu";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Unauthorized from "../../pages/Unauthorized/Unauthorized";
 import UserProfileEntity from "../../models/userProfile";
-import ChatMenu from "../Chat/ChatMenu";
+import ChatMenu from "../../pages/ChatMenu/ChatMenu";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];

@@ -23,13 +23,14 @@ const NavRight = () => {
     isComponentVisible: isMenuVisible,
     setIsComponentVisible: setMenuVisible,
   } = useComponentVisible(false);
-  const [menuId, setMenuId] = useState("1");
 
   const {
     refs: centerMenuRefs,
     isComponentVisible: isCenterMenuVisible,
     setIsComponentVisible: setCenterMenuVisible,
   } = useComponentVisible(false);
+
+  const [menuId, setMenuId] = useState("1");
 
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
@@ -51,7 +52,10 @@ const NavRight = () => {
     return (
       <NavMenu currentMenuId={menuId} mainMenuId="1">
         <NavMenuList id="1">
-          <Link to={`/profile/${currentUser?.id}/posts`}>
+          <Link
+            to={`/profile/${currentUser?.id}/posts`}
+            onClick={() => setMenuVisible(false)}
+          >
             <NavMenuItem
               label={`${currentUser?.fullName}`}
               active={_.startsWith(pathname, `/profile/${currentUser?.id}`)}

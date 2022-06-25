@@ -1,5 +1,5 @@
-import MenuList from "../MenuList/MenuList";
-import MenuItem from "../MenuList/MenuItem";
+import MenuList from "../../components/MenuList/MenuList";
+import MenuItem from "../../components/MenuList/MenuItem";
 import { NavLink } from "react-router-dom";
 
 const ChatMenu = () => {

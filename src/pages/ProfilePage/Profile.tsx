@@ -112,6 +112,41 @@ function Profile() {
     console.log("unfriend");
   };
 
+  const renderUserImageSection = () => {
+    return (
+      <Spinner
+        show={true}
+        sizeClass="size--168"
+        fragment={
+          <>
+            <img
+              className={css["profile-user__image"]}
+              src={user && userImage}
+            />
+            {currentUser?.id === user?.id && (
+              <div className={css["change-icon__container"]}>
+                <label htmlFor="upload-image">
+                  <div className={css["change-icon"]}>
+                    <i className="fa-solid fa-camera fa-xl"></i>
+                  </div>
+                  <input
+                    id="upload-image"
+                    type="file"
+                    accept=".png,.jpeg,.jpg"
+                    onChange={(e) => {
+                      setService(null);
+                      handleUploadImage(e);
+                    }}
+                  />
+                </label>
+              </div>
+            )}
+          </>
+        }
+      />
+    );
+  };
+
   const renderButton = () => {
     if (currentUser?.id === id) return;
     if (user && currentUser?.friends.includes(user.id)) {
@@ -186,37 +221,7 @@ function Profile() {
           </div>
           <div className={css["profile__header"]}>
             <div className={css["profile-user"]}>
-              <Spinner
-                show={!userImage}
-                sizeClass="size--168"
-                fragment={
-                  <>
-                    <img
-                      className={css["profile-user__image"]}
-                      src={user && userImage}
-                    />
-                    {currentUser?.id === user?.id && (
-                      <div className={css["change-icon__container"]}>
-                        <label htmlFor="upload-image">
-                          <div className={css["change-icon"]}>
-                            <i className="fa-solid fa-camera fa-xl"></i>
-                          </div>
-                          <input
-                            id="upload-image"
-                            type="file"
-                            accept=".png,.jpeg,.jpg"
-                            onChange={(e) => {
-                              setService(null);
-                              handleUploadImage(e);
-                            }}
-                          />
-                        </label>
-                      </div>
-                    )}
-                  </>
-                }
-              />
-
+              {renderUserImageSection()}
               <div className={css["profile-user__details"]}>
                 <div className={css["profile-user__info"]}>
                   <span className={css["profile-user__name"]}>

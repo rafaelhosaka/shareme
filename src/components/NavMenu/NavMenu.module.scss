@@ -64,6 +64,7 @@
 .menu-item {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .menu-item-icon {
@@ -72,7 +73,6 @@
   justify-content: center;
   background-color: v.$web-background-color;
   border-radius: 30px;
-  margin-right: 1rem;
 
   padding: 1rem;
 }

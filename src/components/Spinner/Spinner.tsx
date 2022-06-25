@@ -7,6 +7,7 @@ interface SpinnerProps {
 }
 
 function Spinner({ fragment, sizeClass, show = true }: SpinnerProps) {
+  show = true;
   return (
     <>
       {show ? (

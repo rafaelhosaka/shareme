@@ -4,7 +4,6 @@
 @use "../../styles/abstracts/mixins" as mixins;
 
 .loader {
-  width: 100%;
   aspect-ratio: 1/1;
 
   & > div {
