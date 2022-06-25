@@ -20,10 +20,11 @@
 .background-image__container {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .background-image {
+  background-color: v.$secondary-color;
   z-index: -1;
   position: absolute;
   max-width: 100%;
@@ -31,6 +32,17 @@
   height: 45rem;
   object-fit: cover;
   border-radius: 0 0 10px 10px;
+}
+
+.edit-bg__container {
+  position: absolute;
+  top: 380px;
+  right: 25px;
+
+  & > div {
+    position: relative;
+    left: 70px;
+  }
 }
 
 .profile__header {
@@ -160,7 +172,7 @@
   }
 }
 
-.dropdown-menu {
+.dropdown-friend-menu {
   display: flex;
   flex-direction: column;
 }
@@ -170,6 +182,7 @@
     background: t.$dark-primary-bgcolor;
     box-shadow: t.$dark-box-shadow;
   }
+
   .change-icon {
     color: t.$dark-primary-color;
   }

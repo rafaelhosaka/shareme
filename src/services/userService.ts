@@ -29,6 +29,10 @@ export function userImageDownload(userId: string) {
   return httpService.get(apiEndPoint + "/download/" + userId);
 }
 
+export function userCoverImageDownload(userId: string) {
+  return httpService.get(apiEndPoint + "/downloadCoverImage/" + userId);
+}
+
 export async function userImageUpload(
   formData: FormData
 ): Promise<UserProfileEntity> {

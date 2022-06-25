@@ -6,6 +6,7 @@ export default class UserProfileEntity {
   birthDate: Date;
   gender: string;
   fileName: string;
+  coverFileName: string;
   friends: string[];
   themePreference: string;
   roles: string[];
@@ -16,6 +17,7 @@ export default class UserProfileEntity {
     this.lastName = data.lastName;
     this.email = data.email;
     this.fileName = data.fileName;
+    this.coverFileName = data.coverFileName;
     this.birthDate = data.birthDate;
     this.gender = data.gender;
     this.friends = data.friends;

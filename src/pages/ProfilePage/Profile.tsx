@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink, Link, useParams, useNavigate } from "react-router-dom";
 import {
   getUserById,
+  userCoverImageDownload,
   userImageDownload,
   userImageUpload,
 } from "../../services/userService";
@@ -22,19 +23,33 @@ import css from "./Profile.module.scss";
 import _ from "lodash";
 import ProfileContent from "./ProfileContent";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
-import { useToggle } from "../../hook/useToggle";
 import DropdownItem from "../../components/DropdownMenu/DropdownItem";
+import useComponentVisible from "../../hook/useComponentVisible";
 
 function Profile() {
   const { id } = useParams();
   const [user, setUser] = useState<UserProfileEntity>();
   const { user: currentUser, setUser: setCurrentUser } = useUser();
-  const [showDropdownMenu, toggleDropdownMenu] = useToggle(false);
+
+  const {
+    refs: dropFriendRefs,
+    isComponentVisible: isDropFriendVisible,
+    setIsComponentVisible: setDropFriendVisible,
+  } = useComponentVisible(false);
+
+  const {
+    refs: dropCoverRefs,
+    isComponentVisible: isDropCoverVisible,
+    setIsComponentVisible: setDropCoverVisible,
+  } = useComponentVisible(false);
 
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
 
-  const { image: userImage, setService } = useBase64Image(null);
+  const { image: userImage, setService: setImageService } =
+    useBase64Image(null);
+  const { image: userCoverImage, setService: setCoverImageService } =
+    useBase64Image(null);
 
   const menu = [
     { key: "posts", value: "Posts" },
@@ -51,7 +66,8 @@ function Profile() {
         if (currentUser) {
           const data = await getUserById(id);
           setUser(data);
-          setService(userImageDownload(data.id));
+          setImageService(userImageDownload(data.id));
+          setCoverImageService(userCoverImageDownload(data.id));
           setRequested(await isRequested(currentUser.id, id));
           setPending(await isPending(id, currentUser.id));
         }
@@ -75,7 +91,7 @@ function Profile() {
           formData.append("userId", user.id);
           const data = await userImageUpload(formData);
           setUser(data);
-          setService(userImageDownload(data.id));
+          setImageService(userImageDownload(data.id));
           setCurrentUser(data);
         }
     }
@@ -139,7 +155,7 @@ function Profile() {
                     type="file"
                     accept=".png,.jpeg,.jpg"
                     onChange={(e) => {
-                      setService(null);
+                      setImageService(null);
                       handleUploadImage(e);
                     }}
                   />
@@ -156,11 +172,15 @@ function Profile() {
     if (currentUser?.id === id) return;
     if (user && currentUser?.friends.includes(user.id)) {
       return (
-        <div className={css["dropdown-menu"]}>
-          <button onClick={toggleDropdownMenu} className="btn btn--primary">
+        <div className={css["dropdown-friend-menu"]}>
+          <button
+            ref={(element) => (dropFriendRefs.current[0] = element)}
+            onClick={() => setDropFriendVisible((prev) => !prev)}
+            className="btn btn--primary"
+          >
             <i className="fa-solid fa-user-check"></i>Friend
           </button>
-          {showDropdownMenu && (
+          {isDropFriendVisible && (
             <DropdownMenu>
               <DropdownItem onClick={handleUnfriend} label="Unfriend">
                 <i className="fa-solid fa-user-xmark"></i>
@@ -219,10 +239,27 @@ function Profile() {
       <main className="container full">
         <div className={css["profile__container"]}>
           <div className={css["background-image__container"]}>
-            <img
-              className={css["background-image"]}
-              src={process.env.PUBLIC_URL + "/images/bg.jpeg"}
-            />
+            {user?.coverFileName ? (
+              <img className={css["background-image"]} src={userCoverImage} />
+            ) : (
+              <div className={css["background-image"]} />
+            )}
+            <div className={css["edit-bg__container"]}>
+              <button
+                ref={(element) => (dropCoverRefs.current[0] = element)}
+                onClick={() => setDropCoverVisible((prev) => !prev)}
+                className="btn btn--primary"
+              >
+                <i className="fa-solid fa-camera"></i>Edit cover photo
+              </button>
+              {isDropCoverVisible && (
+                <DropdownMenu>
+                  <DropdownItem label="Upload Photo">
+                    <i className="fa-solid fa-file-arrow-up"></i>
+                  </DropdownItem>
+                </DropdownMenu>
+              )}
+            </div>
           </div>
           <div className={css["profile__header"]}>
             <div className={css["profile-user"]}>
