@@ -7,6 +7,7 @@ import { getUserById, getUsersFromIds } from "../../services/userService";
 import FriendList from "../../components/Friends/FriendList/FriendList";
 import PostList from "../../components/Post/PostList";
 import css from "./Profile.module.scss";
+import PhotoList from "../../components/Photo/PhotoList";
 
 const ProfileContent = () => {
   const { id } = useParams();
@@ -74,6 +75,15 @@ const ProfileContent = () => {
         }
       >
         <FriendList friends={friends} />
+      </div>
+      <div
+        className={
+          option === "photos"
+            ? `${css["profile-content-container"]} ${css["show"]}`
+            : `${css["profile-content-container"]}`
+        }
+      >
+        <PhotoList items={posts} />
       </div>
     </>
   );

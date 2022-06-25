@@ -1,0 +1,47 @@
+@use "../../styles/abstracts/variables" as v;
+@use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
+
+.photo-list__container {
+  background-color: v.$background-color;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: v.$box-shadow;
+}
+
+.photo-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  padding-top: 2rem;
+}
+
+.photo__container {
+  width: 100%;
+  width: 18.7rem;
+  height: 18.7rem;
+}
+
+.photo {
+  object-fit: cover;
+  width: 18.7rem;
+  height: 18.7rem;
+  border-radius: 10px;
+}
+
+.result {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 2rem;
+  padding-top: 1.5rem;
+}
+
+@include mixins.whenDarkModule {
+  .photo-list__container {
+    background-color: t.$dark-secondary-bgcolor;
+
+    box-shadow: v.$box-shadow;
+  }
+}

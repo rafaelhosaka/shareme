@@ -233,7 +233,7 @@ function Profile() {
                     {user?.fullName}
                   </span>
                   <Link
-                    to="friends"
+                    to={`/profile/${id}/friends`}
                     className={css["profile-user__friends-qty"]}
                   >
                     {user && user.friendCount <= 1
