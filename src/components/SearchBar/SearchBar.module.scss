@@ -1,10 +1,9 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
 .search-container {
   border-radius: 30px;
-  background: v.$secondary-color;
+  background: t.$light-secondary-color;
   width: 4.5rem;
   height: 4.5rem;
   display: flex;
@@ -32,7 +31,7 @@
 }
 
 .search-icon {
-  color: rgba($color: v.$nav-link-color, $alpha: 0.7);
+  color: rgba($color: t.$light-accent-color, $alpha: 0.7);
 }
 
 .search-container.expanded {

@@ -1,6 +1,5 @@
-@use "../abstracts/variables" as v;
 @use "../abstracts/colors" as c;
-@use "../abstracts/theme" as theme;
+@use "../abstracts/theme" as t;
 @use "../abstracts/mixins" as mixins;
 
 .btn {
@@ -31,8 +30,8 @@ a.btn {
 
 a.btn--primary,
 .btn--primary {
-  background: v.$primary-color;
-  color: v.$background-color;
+  background: t.$light-primary-color;
+  color: t.$light-secondary-bgcolor;
   &:hover {
     filter: brightness(120%);
   }
@@ -40,7 +39,7 @@ a.btn--primary,
 
 a.btn--secondary,
 .btn--secondary {
-  background: v.$secondary-color;
+  background: t.$light-secondary-color;
   color: c.$dark-900;
 }
 
@@ -60,7 +59,7 @@ a.btn--secondary,
 }
 
 .btn:hover.btn:disabled {
-  background: v.$primary-color;
+  background: t.$light-primary-color;
 }
 
 .btn--stretched {
@@ -76,19 +75,19 @@ a.btn--secondary,
 
 @include mixins.whenDark {
   .btn {
-    border: 1px solid theme.$dark-accent-color;
+    border: 1px solid t.$dark-accent-color;
   }
 
   a.btn--primary,
   .btn--primary {
-    background-color: theme.$dark-primary-color;
+    background-color: t.$dark-primary-color;
     &:hover {
-      background-color: theme.$dark-secondary-bgcolor;
+      background-color: t.$dark-secondary-bgcolor;
     }
   }
 
   a.btn--secondary,
   .btn--secondary {
-    background: theme.$dark-accent-color;
+    background: t.$dark-accent-color;
   }
 }

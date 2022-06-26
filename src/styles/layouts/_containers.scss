@@ -14,6 +14,10 @@
 
   .container {
     grid-area: main-content;
+
+    &.full {
+      grid-area: 2/1/-2/4;
+    }
   }
 
   .left-content {
@@ -42,10 +46,6 @@
 
     &.right {
       grid-area: 2/2/2/4;
-    }
-
-    &.full {
-      grid-area: 2/1/-2/4;
     }
   }
 }

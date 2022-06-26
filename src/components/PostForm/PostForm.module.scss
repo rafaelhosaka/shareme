@@ -1,12 +1,11 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
 .form-post__container {
-  background: v.$background-color;
+  background: t.$light-secondary-bgcolor;
   width: 100%;
   border-radius: 10px;
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
 }
 
 .heading {
@@ -46,7 +45,7 @@
 .dropzone {
   border: 1px solid black;
   border-radius: 10px;
-  background: v.$background-color;
+  background: t.$light-secondary-bgcolor;
   text-align: center;
   cursor: pointer;
   height: 160px;
@@ -55,7 +54,7 @@
   justify-content: center;
 
   &:hover {
-    background-color: v.$secondary-color;
+    background-color: t.$light-secondary-color;
   }
 }
 
@@ -77,16 +76,16 @@
   justify-self: end;
   position: absolute;
   cursor: pointer;
-  background: v.$background-color;
+  background: t.$light-secondary-bgcolor;
 
   &:hover {
-    background: v.$secondary-color;
+    background: t.$light-secondary-color;
   }
 }
 
 .close__icon {
   font-size: 30px;
-  color: v.$nav-link-color;
+  color: t.$light-accent-color;
 }
 
 .thumbnail__image {

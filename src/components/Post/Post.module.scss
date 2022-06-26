@@ -1,4 +1,3 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
@@ -7,7 +6,7 @@
   max-width: 840px;
   width: 100vw;
   border-radius: 10px;
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
   margin-bottom: 2rem;
 }
 
@@ -88,7 +87,7 @@
   }
 
   &:hover {
-    background: v.$secondary-color;
+    background: t.$light-secondary-color;
     background-size: cover;
     border-radius: 10px;
   }

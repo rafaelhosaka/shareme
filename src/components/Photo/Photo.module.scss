@@ -1,13 +1,12 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
 .photo-list__container {
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-bgcolor;
   width: 100%;
   padding: 2rem;
   border-radius: 10px;
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
 }
 
 .photo-list {
@@ -41,7 +40,5 @@
 @include mixins.whenDarkModule {
   .photo-list__container {
     background-color: t.$dark-secondary-bgcolor;
-
-    box-shadow: v.$box-shadow;
   }
 }

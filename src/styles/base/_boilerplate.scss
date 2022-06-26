@@ -1,7 +1,6 @@
-@use "./typography" as t;
-@use "../abstracts/variables" as v;
+@use "./typography" as typh;
 @use "../abstracts/colors" as c;
-@use "../abstracts/theme" as theme;
+@use "../abstracts/theme" as t;
 @use "../abstracts/mixins" as mixins;
 
 html {
@@ -10,9 +9,9 @@ html {
 }
 
 body {
-  font-family: t.$font-family;
+  font-family: typh.$font-family;
   font-size: 1.6rem;
-  background-color: v.$web-background-color;
+  background-color: t.$light-primary-bgcolor;
 }
 
 a,
@@ -24,14 +23,14 @@ a:visited {
 
 @include mixins.whenDark {
   body {
-    color: theme.$dark-accent-color;
+    color: t.$dark-accent-color;
     background-color: black;
   }
 
   input,
   select,
   textarea {
-    color: theme.$dark-accent-color;
-    background-color: theme.$dark-primary-color;
+    color: t.$dark-accent-color;
+    background-color: t.$dark-primary-color;
   }
 }

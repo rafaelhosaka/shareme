@@ -12,7 +12,6 @@ import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Unauthorized from "../../pages/Unauthorized/Unauthorized";
 import UserProfileEntity from "../../models/userProfile";
 import ChatMenu from "../../pages/ChatMenu/ChatMenu";
-import { useEffect } from "react";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -22,12 +21,6 @@ interface AppRoutesProps {
 }
 
 function AppRoutes({ currentUser }: AppRoutesProps) {
-  useEffect(() => {
-    window.onbeforeunload = function () {
-      return "Leave this page ?";
-    };
-  }, []);
-
   return (
     <div className="template">
       <header className="header">{currentUser && <Navbar />}</header>

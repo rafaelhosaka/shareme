@@ -1,4 +1,3 @@
-@use "../../../styles/abstracts/variables" as v;
 @use "../../../styles/abstracts/theme" as t;
 @use "../../../styles/abstracts/mixins" as mixins;
 
@@ -13,13 +12,13 @@
 .friend-request__container {
   max-width: 20rem;
   flex-direction: column;
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
   border-radius: 10px;
 }
 
 .friend-request__user-image {
   display: flex;
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-color;
   border-radius: 10px 10px 0 0;
   border-bottom: 1px solid lightgray;
   width: 100%;
@@ -28,7 +27,7 @@
 .friend-request__body {
   display: flex;
   flex-direction: column;
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-bgcolor;
   border-radius: 0 0 10px 10px;
   padding: 1rem;
 }

@@ -1,14 +1,13 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
 .menu__container {
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-bgcolor;
   padding: 0.7rem;
   position: sticky;
   top: 70px;
   width: 100vw;
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
 }
 
 .menu__heading {
@@ -44,21 +43,21 @@
   align-items: center;
 
   &:hover {
-    background-color: v.$web-background-color;
+    background-color: t.$light-primary-bgcolor;
     border-radius: 10px;
     cursor: pointer;
   }
 
   &.active {
-    background-color: v.$web-background-color;
+    background-color: t.$light-primary-bgcolor;
     border-radius: 10px;
     font-weight: 700;
-    color: v.$primary-color;
+    color: t.$light-primary-color;
   }
 
   & > span {
     padding: 1rem 2rem;
-    background-color: v.$secondary-color;
+    background-color: t.$light-secondary-color;
     border-radius: 50px;
     font-weight: 800;
   }
@@ -77,7 +76,7 @@
 
   &:hover {
     border-radius: 10px;
-    background-color: v.$web-background-color;
+    background-color: t.$light-primary-bgcolor;
     cursor: pointer;
   }
 }

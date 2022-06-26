@@ -1,9 +1,8 @@
-@use "../../../styles/abstracts/variables" as v;
 @use "../../../styles/abstracts/theme" as t;
 @use "../../../styles/abstracts/mixins" as mixins;
 
 .people__container {
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-bgcolor;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -12,7 +11,7 @@
   padding: 1.5rem;
   border-radius: 10px;
   justify-content: space-between;
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
 }
 
 .people__info {

@@ -1,13 +1,12 @@
-@use "../../styles/abstracts/variables" as v;
-@use "../../styles/abstracts/" as t;
+@use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
 .navbar {
   display: flex;
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-bgcolor;
   height: 70px;
   align-items: center;
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
 }
 
 .logo-container {
@@ -23,7 +22,7 @@
 
 .search-container {
   border-radius: 30px;
-  background: v.$secondary-color;
+  background: t.$light-secondary-color;
   width: 4.5rem;
   height: 4.5rem;
   display: flex;
@@ -50,11 +49,11 @@
   transition: transform 0.3s;
 
   & > i {
-    color: rgba($color: v.$nav-link-color, $alpha: 0.7);
+    color: rgba($color: t.$light-accent-color, $alpha: 0.7);
   }
 
   &:hover {
-    background-color: v.$secondary-color;
+    background-color: t.$light-secondary-color;
     background-size: cover;
     border-radius: 10px;
     padding: 2rem;
@@ -62,9 +61,9 @@
   }
 
   &.active {
-    border-bottom: 5px solid v.$primary-color;
+    border-bottom: 5px solid t.$light-primary-color;
     & > i {
-      color: v.$primary-color;
+      color: t.$light-primary-color;
     }
 
     &:hover {

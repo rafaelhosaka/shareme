@@ -1,4 +1,3 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/utils/sizing" as s;
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
@@ -9,14 +8,14 @@
   & > div {
     border-radius: 50%;
     animation: spin 2s linear infinite;
-    background-color: v.$background-color;
+    background-color: t.$light-secondary-bgcolor;
     max-width: 100%;
     max-height: 100%;
 
     @each $size, $value in s.$sizes {
       &.size--#{$size} {
-        border: calc($value * 0.1) solid v.$secondary-color;
-        border-top: calc($value * 0.1) solid v.$primary-color;
+        border: calc($value * 0.1) solid t.$light-secondary-color;
+        border-top: calc($value * 0.1) solid t.$light-primary-color;
       }
     }
   }

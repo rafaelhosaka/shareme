@@ -1,5 +1,20 @@
 @use "../abstracts/colors" as c;
 
+//LIGHT
+$light-primary-color: c.$green-900;
+$light-secondary-color: c.$gray-200;
+$light-accent-color: c.$gray-700;
+$light-primary-bgcolor: c.$green-100;
+$light-secondary-bgcolor: c.$white;
+$light-gradient-color: linear-gradient(
+  180deg,
+  hsla(260, 75%, 95%, 1) 0%,
+  hsla(125, 86%, 83%, 1) 0%,
+  hsla(0, 0%, 100%, 1) 60%
+);
+$light-box-shadow: 0px 0px 10px 1px rgba(83, 83, 83, 0.363);
+
+//DARK
 $dark-primary-color: c.$dark-900;
 $dark-secondary-color: c.$dark-400;
 $dark-accent-color: c.$white;

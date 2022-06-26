@@ -1,4 +1,4 @@
-@use "../../styles/abstracts/variables" as v;
+@use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
 .form-radio {
@@ -15,7 +15,7 @@
 
     cursor: pointer;
     outline: auto;
-    outline-color: v.$primary-color;
+    outline-color: t.$light-primary-color;
   }
 }
 

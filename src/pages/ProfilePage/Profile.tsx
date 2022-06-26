@@ -20,7 +20,6 @@ import {
 } from "../../services/friendService";
 import UserProfileEntity from "../../models/userProfile";
 import css from "./Profile.module.scss";
-import _ from "lodash";
 import ProfileContent from "./ProfileContent";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import DropdownItem from "../../components/DropdownMenu/DropdownItem";

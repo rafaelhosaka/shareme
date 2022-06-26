@@ -1,11 +1,10 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
 .form-register-container {
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
   border-radius: 20px;
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-bgcolor;
   width: 380px;
 }
 

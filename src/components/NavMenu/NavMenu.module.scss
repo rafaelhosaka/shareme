@@ -1,4 +1,3 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/mixins" as mixins;
 @use "../../styles/abstracts/theme" as t;
 
@@ -6,9 +5,9 @@
   border: 1px solid white;
   height: auto;
   min-width: 300px;
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-bgcolor;
   border-radius: 10px;
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
 }
 
 .menu-heading {
@@ -22,7 +21,7 @@
   padding: 1rem;
   &:hover {
     cursor: pointer;
-    background-color: v.$secondary-color;
+    background-color: t.$light-secondary-color;
     border-radius: 30px;
   }
 }
@@ -47,17 +46,17 @@
   height: 60px;
 
   &.active {
-    background-color: v.$web-background-color;
-    color: v.$primary-color;
+    background-color: t.$light-primary-bgcolor;
+    color: t.$light-primary-color;
 
     &:hover {
-      background-color: v.$web-background-color;
+      background-color: t.$light-primary-bgcolor;
     }
   }
 
   &:hover {
     cursor: pointer;
-    background-color: v.$secondary-color;
+    background-color: t.$light-secondary-color;
   }
 }
 
@@ -71,7 +70,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: v.$web-background-color;
+  background-color: t.$light-primary-bgcolor;
   border-radius: 30px;
   padding: 1rem;
 }

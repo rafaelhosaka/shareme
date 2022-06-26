@@ -1,4 +1,3 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
@@ -38,7 +37,7 @@
 }
 
 .comment__body {
-  background: v.$secondary-color;
+  background: t.$light-secondary-color;
   border-radius: 20px;
   display: flex;
   flex-direction: column;

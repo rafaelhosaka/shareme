@@ -1,21 +1,20 @@
-@use "../abstracts/variables" as v;
 @use "../abstracts/theme" as t;
 @use "../abstracts/mixins" as mixins;
 
 .form-input {
   padding: 1.5rem 2rem;
   border-radius: 10px;
-  outline-color: v.$primary-color;
+  outline-color: t.$light-primary-color;
   border: 1px solid #dddfe2;
   margin: 1rem;
   &:hover {
     outline: auto;
-    outline-color: v.$primary-color;
+    outline-color: t.$light-primary-color;
   }
 }
 
 .form-input--gray {
-  background-color: v.$secondary-color;
+  background-color: t.$light-secondary-color;
 }
 
 @include mixins.tablet {

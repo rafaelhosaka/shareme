@@ -1,11 +1,10 @@
-@use "../../../styles/abstracts/variables" as v;
 @use "../../../styles/abstracts/theme" as t;
 @use "../../../styles/abstracts/mixins" as mixins;
 
 .friend-list__container {
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-bgcolor;
   border-radius: 10px;
-  box-shadow: v.$box-shadow;
+  box-shadow: t.$light-box-shadow;
   width: 100%;
 }
 
@@ -26,7 +25,7 @@
   align-items: center;
   border: 1px solid rgb(231, 230, 230);
   border-radius: 10px;
-  background-color: v.$background-color;
+  background-color: t.$light-secondary-bgcolor;
 }
 
 .friend-image {

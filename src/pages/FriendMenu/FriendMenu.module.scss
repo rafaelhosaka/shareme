@@ -1,4 +1,3 @@
-@use "../../styles/abstracts/variables" as v;
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
@@ -9,15 +8,15 @@
 
   &:global(.active) {
     & > .friend-request-count {
-      background-color: v.$primary-color;
-      color: v.$secondary-color;
+      background-color: t.$light-primary-color;
+      color: t.$light-secondary-color;
     }
   }
 }
 
 .friend-request-count {
   padding: 0.5rem 1.2rem;
-  background-color: v.$secondary-color;
+  background-color: t.$light-secondary-color;
   border-radius: 50px;
   font-weight: 800;
 }
