@@ -1,8 +1,9 @@
 .template {
   display: grid;
-  grid-template-rows: 70px auto;
+  grid-template-rows: 70px auto 1fr;
   grid-template-areas:
     "header"
+    "left-content"
     "main-content";
 
   .header {
@@ -13,20 +14,6 @@
 
   .container {
     grid-area: main-content;
-
-    &.center {
-      display: flex;
-      align-items: center;
-      flex-direction: column;
-    }
-
-    &.right {
-      grid-area: 2/2/2/4;
-    }
-
-    &.full {
-      grid-area: 2/1/-2/4;
-    }
   }
 
   .left-content {
@@ -44,6 +31,22 @@
     grid-template-areas:
       "header header"
       "left-content main-content";
+  }
+
+  .container {
+    &.center {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    &.right {
+      grid-area: 2/2/2/4;
+    }
+
+    &.full {
+      grid-area: 2/1/-2/4;
+    }
   }
 }
 

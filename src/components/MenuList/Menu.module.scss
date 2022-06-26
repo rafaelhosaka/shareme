@@ -7,7 +7,7 @@
   padding: 0.7rem;
   position: sticky;
   top: 70px;
-  height: calc(100vh - 70px);
+  width: 100vw;
   box-shadow: v.$box-shadow;
 }
 
@@ -17,11 +17,23 @@
   font-size: 2.4rem;
 }
 
+.menu__container.expanded {
+  .menu__list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    opacity: 1;
+    max-height: 100vh;
+  }
+}
+
 .menu__list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+  opacity: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: all 0.3s;
 }
 
 .menu__item {
@@ -57,6 +69,35 @@
   }
 }
 
+.toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+
+  &:hover {
+    border-radius: 10px;
+    background-color: v.$web-background-color;
+    cursor: pointer;
+  }
+}
+
+@include mixins.tablet {
+  .menu__container {
+    width: auto;
+    height: calc(100vh - 70px);
+  }
+
+  .menu__list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+    max-height: 100vh;
+  }
+}
+
 @include mixins.whenDarkModule {
   .menu__container {
     background-color: t.$dark-secondary-bgcolor;
@@ -79,6 +120,13 @@
     }
 
     & > span {
+      color: t.$dark-primary-color;
+    }
+  }
+
+  .toggle-btn {
+    &:hover {
+      background-color: t.$dark-accent-color;
       color: t.$dark-primary-color;
     }
   }
