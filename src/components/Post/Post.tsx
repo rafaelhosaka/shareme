@@ -124,27 +124,18 @@ function Post(props: PostProps) {
   const renderPostImage = () => {
     return (
       post.fileName && (
-        <Spinner
-          show={!postImage}
-          sizeClass="size--840"
-          fragment={<img className={css["post__image"]} src={postImage} />}
-        />
+        <Spinner show={!postImage} sizeClass="size--840">
+          <img className={css["post__image"]} src={postImage} />
+        </Spinner>
       )
     );
   };
 
   const renderPostUserImage = () => {
     return (
-      <Spinner
-        show={!postUserImage}
-        sizeClass="size--60"
-        fragment={
-          <img
-            className={`${css["user-image"]} size--60`}
-            src={postUserImage}
-          />
-        }
-      />
+      <Spinner show={!postUserImage} sizeClass="size--60">
+        <img className={`${css["user-image"]} size--60`} src={postUserImage} />
+      </Spinner>
     );
   };
 

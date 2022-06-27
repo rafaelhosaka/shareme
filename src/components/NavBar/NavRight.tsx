@@ -60,16 +60,12 @@ const NavRight = () => {
               label={`${currentUser?.fullName}`}
               active={_.startsWith(pathname, `/profile/${currentUser?.id}`)}
             >
-              <Spinner
-                show={!userImage}
-                sizeClass="size--40"
-                fragment={
-                  <img
-                    className={`${css["user-image"]} size--40`}
-                    src={userImage}
-                  />
-                }
-              />
+              <Spinner show={!userImage} sizeClass="size--40">
+                <img
+                  className={`${css["user-image"]} size--40`}
+                  src={userImage}
+                />
+              </Spinner>
             </NavMenuItem>
           </Link>
           <NavMenuItem
@@ -222,16 +218,9 @@ const NavRight = () => {
           onClick={() => setMenuVisible((prev) => !prev)}
           className={css["user"]}
         >
-          <Spinner
-            show={!userImage}
-            sizeClass="size--40"
-            fragment={
-              <img
-                className={`${css["user-image"]} size--40`}
-                src={userImage}
-              />
-            }
-          />
+          <Spinner show={!userImage} sizeClass="size--40">
+            <img className={`${css["user-image"]} size--40`} src={userImage} />
+          </Spinner>
         </div>
       </DivWithToolTip>
 

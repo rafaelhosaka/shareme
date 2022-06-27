@@ -20,16 +20,9 @@ function Friend({ friend }: FriendProps) {
   return (
     <div className={`${css["friend__container"]} p2 m1`}>
       <Link to={`/profile/${friend.id}/posts`}>
-        <Spinner
-          show={!userImage}
-          sizeClass="size--80"
-          fragment={
-            <img
-              className={`${css["friend-image"]} size--80`}
-              src={userImage}
-            />
-          }
-        />
+        <Spinner show={!userImage} sizeClass="size--80">
+          <img className={`${css["friend-image"]} size--80`} src={userImage} />
+        </Spinner>
       </Link>
       <Link to={`/profile/${friend.id}/posts`}>
         <span className={css["friend-name"]}>{friend.fullName}</span>

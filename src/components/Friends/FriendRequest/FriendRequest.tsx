@@ -33,13 +33,9 @@ function FriendRequest({
   return (
     <div className={`${css["friend-request__container"]} m2`}>
       <Link to={`/profile/${request.requestingUserId}/posts`}>
-        <Spinner
-          show={!image}
-          sizeClass="size--200"
-          fragment={
-            <img src={image} className={css["friend-request__user-image"]} />
-          }
-        />
+        <Spinner show={!image} sizeClass="size--200">
+          <img src={image} className={css["friend-request__user-image"]} />
+        </Spinner>
       </Link>
       <div className={css["friend-request__body"]}>
         <Link

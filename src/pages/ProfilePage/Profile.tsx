@@ -152,36 +152,29 @@ function Profile() {
 
   const renderUserImageSection = () => {
     return (
-      <Spinner
-        show={!userImage}
-        sizeClass="size--168"
-        fragment={
-          <>
-            <img
-              className={css["profile-user__image"]}
-              src={user && userImage}
-            />
-            {currentUser?.id === user?.id && (
-              <div className={css["change-icon__container"]}>
-                <label htmlFor="upload-image">
-                  <div className={css["change-icon"]}>
-                    <i className="fa-solid fa-camera fa-xl"></i>
-                  </div>
-                  <input
-                    id="upload-image"
-                    type="file"
-                    accept=".png,.jpeg,.jpg"
-                    onChange={(e) => {
-                      setImageService(null);
-                      handleUploadImage(e);
-                    }}
-                  />
-                </label>
-              </div>
-            )}
-          </>
-        }
-      />
+      <Spinner show={!userImage} sizeClass="size--168">
+        <>
+          <img className={css["profile-user__image"]} src={user && userImage} />
+          {currentUser?.id === user?.id && (
+            <div className={css["change-icon__container"]}>
+              <label htmlFor="upload-image">
+                <div className={css["change-icon"]}>
+                  <i className="fa-solid fa-camera fa-xl"></i>
+                </div>
+                <input
+                  id="upload-image"
+                  type="file"
+                  accept=".png,.jpeg,.jpg"
+                  onChange={(e) => {
+                    setImageService(null);
+                    handleUploadImage(e);
+                  }}
+                />
+              </label>
+            </div>
+          )}
+        </>
+      </Spinner>
     );
   };
 
@@ -295,17 +288,13 @@ function Profile() {
         <div className={css["profile__container"]}>
           <div className={css["cover-image__container"]}>
             <div className={css["cover-image"]}>
-              <Spinner
-                show={!userCoverImage}
-                sizeClass="size--400"
-                fragment={
-                  user?.coverFileName ? (
-                    <img className={css["cover-image"]} src={userCoverImage} />
-                  ) : (
-                    <div className={css["cover-image"]} />
-                  )
-                }
-              />
+              <Spinner show={!userCoverImage} sizeClass="size--400">
+                {user?.coverFileName ? (
+                  <img className={css["cover-image"]} src={userCoverImage} />
+                ) : (
+                  <div className={css["cover-image"]} />
+                )}
+              </Spinner>
             </div>
             {renderEditCoverButton()}
           </div>

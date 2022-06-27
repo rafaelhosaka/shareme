@@ -117,16 +117,12 @@ function PeopleResult({
     <div className={css["people__container"]}>
       <div className={css["people__info"]}>
         <Link to={`/profile/${people.id}/posts`}>
-          <Spinner
-            show={!userImage}
-            sizeClass="size--60"
-            fragment={
-              <img
-                className={`${css["people__user-image"]} size--60`}
-                src={userImage}
-              />
-            }
-          />
+          <Spinner show={!userImage} sizeClass="size--60">
+            <img
+              className={`${css["people__user-image"]} size--60`}
+              src={userImage}
+            />
+          </Spinner>
         </Link>
         <Link
           to={`/profile/${people.id}/posts`}

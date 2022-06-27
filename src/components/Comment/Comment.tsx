@@ -29,16 +29,12 @@ function Comment({ comment }: CommentProps) {
     <div className={css["comment__container"]}>
       <div className={css["comment"]}>
         <Link to={`/profile/${user?.id}/posts`}>
-          <Spinner
-            show={!commentUserImage}
-            sizeClass="size--40"
-            fragment={
-              <img
-                className={`${css["comment__user"]} size--40`}
-                src={commentUserImage}
-              />
-            }
-          />
+          <Spinner show={!commentUserImage} sizeClass="size--40">
+            <img
+              className={`${css["comment__user"]} size--40`}
+              src={commentUserImage}
+            />
+          </Spinner>
         </Link>
         <div className={`${css["comment__body"]} p1`}>
           <Link

@@ -121,16 +121,12 @@ function PostForm({ handleNewPost }: PostFormProps) {
       <form id="form-post" className="p2" onSubmit={(e) => handleSubmit(e)}>
         <div className={css.user}>
           <Link to={`/profile/${currentUser?.id}/posts`}>
-            <Spinner
-              show={!userImage}
-              sizeClass="size--60"
-              fragment={
-                <img
-                  className={`${css["user-image"]} size--60`}
-                  src={userImage}
-                />
-              }
-            />
+            <Spinner show={!userImage} sizeClass="size--60">
+              <img
+                className={`${css["user-image"]} size--60`}
+                src={userImage}
+              />
+            </Spinner>
           </Link>
           <Link
             className={css["user-name"]}

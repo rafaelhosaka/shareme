@@ -1,12 +1,13 @@
 import css from "./Spinner.module.scss";
+import { ReactElement } from "react";
 
 interface SpinnerProps {
-  fragment: JSX.Element;
   sizeClass: string;
   show: boolean;
+  children: ReactElement | ReactElement[];
 }
 
-function Spinner({ fragment, sizeClass, show = true }: SpinnerProps) {
+function Spinner({ children, sizeClass, show = true }: SpinnerProps) {
   return (
     <>
       {show ? (
@@ -14,7 +15,7 @@ function Spinner({ fragment, sizeClass, show = true }: SpinnerProps) {
           <div className={`${css[sizeClass]}`}></div>
         </div>
       ) : (
-        fragment
+        children
       )}
     </>
   );
