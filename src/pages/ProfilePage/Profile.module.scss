@@ -16,14 +16,19 @@
   z-index: -1;
 }
 
-.background-image__container {
+.cover-image__container {
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
-.background-image {
-  background-color: t.$light-secondary-color;
+.cover-image {
+  background-color: t.$light-secondary-bgcolor;
+  border: 1px solid t.$light-secondary-color;
+  border-top: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   z-index: -1;
   position: absolute;
   max-width: 100%;
@@ -41,6 +46,12 @@
   & > div {
     position: relative;
     left: 70px;
+  }
+
+  [id="upload-cover-image"] {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
   }
 }
 
@@ -180,6 +191,12 @@
   .profile__background {
     background: t.$dark-primary-bgcolor;
     box-shadow: t.$dark-box-shadow;
+  }
+
+  .cover-image {
+    background-color: t.$dark-primary-bgcolor;
+    border: 1px solid t.$dark-accent-color;
+    border-top: transparent;
   }
 
   .change-icon {

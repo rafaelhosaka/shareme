@@ -3,6 +3,7 @@ import { NavLink, Link, useParams, useNavigate } from "react-router-dom";
 import {
   getUserById,
   userCoverImageDownload,
+  userCoverImageUpload,
   userImageDownload,
   userImageUpload,
 } from "../../services/userService";
@@ -91,6 +92,23 @@ function Profile() {
           const data = await userImageUpload(formData);
           setUser(data);
           setImageService(userImageDownload(data.id));
+          setCurrentUser(data);
+        }
+    }
+  };
+
+  const handleUploadCoverImage = async (e: React.FormEvent) => {
+    console.log(e);
+
+    if (user) {
+      const formData = new FormData();
+      if (e.target instanceof HTMLInputElement)
+        if (e?.target?.files && setCurrentUser) {
+          formData.append("file", e.target.files[0]);
+          formData.append("userId", user.id);
+          const data = await userCoverImageUpload(formData);
+          setUser(data);
+          setCoverImageService(userCoverImageDownload(data.id));
           setCurrentUser(data);
         }
     }
@@ -232,33 +250,64 @@ function Profile() {
     });
   };
 
+  const renderEditCoverButton = () => {
+    if (currentUser?.id !== id) return;
+
+    return (
+      <div className={css["edit-bg__container"]}>
+        <button
+          ref={(element) => (dropCoverRefs.current[0] = element)}
+          onClick={() => setDropCoverVisible((prev) => !prev)}
+          className="btn btn--primary"
+        >
+          <i className="fa-solid fa-camera"></i>Edit cover photo
+        </button>
+        {isDropCoverVisible && (
+          <DropdownMenu>
+            <label
+              ref={(element) => (dropCoverRefs.current[1] = element)}
+              htmlFor="upload-cover-image"
+            >
+              <DropdownItem label="Upload Photo">
+                <i className="fa-solid fa-file-arrow-up"></i>
+              </DropdownItem>
+              <input
+                id="upload-cover-image"
+                type="file"
+                accept=".png,.jpeg,.jpg"
+                onChange={(e) => {
+                  setCoverImageService(null);
+                  handleUploadCoverImage(e);
+                  setDropCoverVisible(false);
+                }}
+              />
+            </label>
+          </DropdownMenu>
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
       <div className={css["profile__background"]}></div>
       <main className="container full">
         <div className={css["profile__container"]}>
-          <div className={css["background-image__container"]}>
-            {user?.coverFileName ? (
-              <img className={css["background-image"]} src={userCoverImage} />
-            ) : (
-              <div className={css["background-image"]} />
-            )}
-            <div className={css["edit-bg__container"]}>
-              <button
-                ref={(element) => (dropCoverRefs.current[0] = element)}
-                onClick={() => setDropCoverVisible((prev) => !prev)}
-                className="btn btn--primary"
-              >
-                <i className="fa-solid fa-camera"></i>Edit cover photo
-              </button>
-              {isDropCoverVisible && (
-                <DropdownMenu>
-                  <DropdownItem label="Upload Photo">
-                    <i className="fa-solid fa-file-arrow-up"></i>
-                  </DropdownItem>
-                </DropdownMenu>
-              )}
+          <div className={css["cover-image__container"]}>
+            <div className={css["cover-image"]}>
+              <Spinner
+                show={!userCoverImage}
+                sizeClass="size--400"
+                fragment={
+                  user?.coverFileName ? (
+                    <img className={css["cover-image"]} src={userCoverImage} />
+                  ) : (
+                    <div className={css["cover-image"]} />
+                  )
+                }
+              />
             </div>
+            {renderEditCoverButton()}
           </div>
           <div className={css["profile__header"]}>
             <div className={css["profile-user"]}>

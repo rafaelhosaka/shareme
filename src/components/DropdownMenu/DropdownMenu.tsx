@@ -2,7 +2,7 @@ import { ReactElement } from "react";
 import css from "./DropdownMenu.module.scss";
 
 interface DropdownMenuProps {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
 }
 
 function DropdownMenu({ children }: DropdownMenuProps) {

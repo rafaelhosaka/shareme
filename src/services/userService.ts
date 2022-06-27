@@ -42,6 +42,19 @@ export async function userImageUpload(
   return new UserProfileEntity(data);
 }
 
+export async function userCoverImageUpload(
+  formData: FormData
+): Promise<UserProfileEntity> {
+  const { data } = await httpService.put(
+    `${apiEndPoint}/uploadCoverImage`,
+    formData,
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+    }
+  );
+  return new UserProfileEntity(data);
+}
+
 export async function getUsersFromIds(ids: string[]) {
   const { data } = await httpService.post(
     `${apiEndPoint}/getUsersFromIds`,
