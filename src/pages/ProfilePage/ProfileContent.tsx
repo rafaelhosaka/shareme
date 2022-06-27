@@ -3,26 +3,28 @@ import { useParams } from "react-router";
 import PostEntity from "../../models/post";
 import UserProfileEntity from "../../models/userProfile";
 import { getPostsByUsersId } from "../../services/postService";
-import { getUserById, getUsersFromIds } from "../../services/userService";
+import { getUsersFromIds } from "../../services/userService";
 import FriendList from "../../components/Friends/FriendList/FriendList";
 import PostList from "../../components/Post/PostList";
 import css from "./Profile.module.scss";
 import PhotoList from "../../components/Photo/PhotoList";
 
-const ProfileContent = () => {
-  const { id } = useParams();
+interface ProfileContentProps {
+  user: UserProfileEntity;
+}
+
+const ProfileContent = ({ user }: ProfileContentProps) => {
   const { option } = useParams();
 
   const [posts, setPosts] = useState<PostEntity[]>([]);
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
 
-  async function getPosts(id: string) {
-    const { data } = await getPostsByUsersId([id]);
+  async function getPosts() {
+    const { data } = await getPostsByUsersId([user.id]);
     setPosts(data);
   }
 
-  async function getFriends(id: string) {
-    const user = await getUserById(id);
+  async function getFriends() {
     const data = await getUsersFromIds(user.friends);
     setFriends(data);
   }
@@ -31,28 +33,24 @@ const ProfileContent = () => {
     setPosts([]);
     setFriends([]);
 
-    if (id) {
-      switch (option) {
-        case "posts":
-          getPosts(id);
-          break;
-        case "friends":
-          getFriends(id);
-          break;
-      }
+    switch (option) {
+      case "posts":
+        getPosts();
+        break;
+      case "friends":
+        getFriends();
+        break;
     }
-  }, [id]);
+  }, [user]);
 
   useEffect(() => {
-    if (id) {
-      switch (option) {
-        case "posts":
-          if (posts.length === 0) getPosts(id);
-          break;
-        case "friends":
-          if (friends.length === 0) getFriends(id);
-          break;
-      }
+    switch (option) {
+      case "posts":
+        if (posts.length === 0) getPosts();
+        break;
+      case "friends":
+        if (friends.length === 0) getFriends();
+        break;
     }
   }, [option]);
 
