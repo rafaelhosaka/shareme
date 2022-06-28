@@ -25,7 +25,8 @@
 }
 
 .user-name {
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.5rem;
   padding-top: 0.5rem;
   padding-left: 0.7rem;
   height: 50%;
@@ -33,6 +34,49 @@
   &:hover {
     text-decoration: underline;
   }
+}
+
+.post__past-time {
+  padding-left: 0.7rem;
+  font-size: 1.3rem;
+  font-weight: 400;
+  filter: brightness(70%);
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+
+    & .post-date {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.post-date {
+  position: absolute;
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem;
+  border-radius: 5px;
+  visibility: hidden;
+  display: block;
+  opacity: 0;
+  font-weight: 400;
+  transition: opacity 0.5s;
+  width: max-content;
+}
+
+.post-menu__container {
+  position: relative;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.post-menu {
+  position: absolute;
+  right: 105px;
 }
 
 .description {

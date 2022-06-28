@@ -1,15 +1,22 @@
+const defaultOptions = {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+} as Intl.DateTimeFormatOptions;
+
 //for now it's not flexible
-export function formatDate(date: Date | string) {
+export function formatDate(
+  date: Date | string,
+  format?: Intl.DateTimeFormatOptions
+) {
   const d = new Date(date);
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-  } as Intl.DateTimeFormatOptions;
-  return d.toLocaleDateString("en-US", options);
+  if (format) {
+    return d.toLocaleDateString("en-US", format);
+  }
+  return d.toLocaleDateString("en-US", defaultOptions);
 }
 
 //return the higher unit from minute to days
@@ -22,6 +29,16 @@ export function pastTimeFromDate(date: Date | string) {
   );
   const diffHours = Math.floor(diffMinutes / 60);
   const diffDays = Math.floor(diffHours / 24);
+  const diffWeeks = Math.floor(diffDays / 7);
+  const diffYears = Math.floor(diffDays / 365);
+
+  if (diffYears > 0) {
+    return diffYears + "y";
+  }
+
+  if (diffWeeks > 0) {
+    return diffWeeks + "w";
+  }
 
   if (diffDays > 0) {
     return diffDays + "d";

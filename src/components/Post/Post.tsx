@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { formatDate } from "../../utils/formatDate";
+import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
 import { postImageDownload } from "../../services/postService";
 import { userImageDownload } from "../../services/userService";
 import { useBase64Image } from "../../hook/useBase64Image";
@@ -7,7 +7,7 @@ import { useUser } from "../../context/userContext";
 import NewComment from "../Comment/NewComment";
 import Comment from "../Comment/Comment";
 import { likePost } from "../../services/likeService";
-import { paginate } from "../../utils/paginate";
+import { calculateMaxPage, paginate } from "../../utils/paginate";
 import { Link } from "react-router-dom";
 
 import Spinner from "../Spinner/Spinner";
@@ -15,7 +15,9 @@ import PostEntity from "../../models/post";
 import CommentEntity from "../../models/comment";
 
 import css from "./Post.module.scss";
-import PageInfoEntity from "../../models/pageInfo";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import DropdownItem from "../DropdownMenu/DropdownItem";
+import useComponentVisible from "../../hook/useComponentVisible";
 
 interface PostProps {
   post: PostEntity;
@@ -31,12 +33,18 @@ function Post(props: PostProps) {
   const inputNewCommentRef = useRef<HTMLInputElement>(null);
   const [showComments, setShowComments] = useState(false);
 
+  const {
+    refs: dropPostRefs,
+    isComponentVisible: isDropPostVisible,
+    setIsComponentVisible: setDropPostVisible,
+  } = useComponentVisible(false);
+
   const [pagedComments, setPagedComments] = useState<CommentEntity[]>([]);
   const [commentCount, setCommentCount] = useState(post.comments.length);
-  const [pageInfo, setPageInfo] = useState<PageInfoEntity>({
-    currentPage: 1,
-    pageSize: 5,
-  });
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const PAGE_SIZE = 10;
+  const MAX_PAGE = calculateMaxPage(post.comments.length, PAGE_SIZE);
 
   useEffect(() => {
     setPostUserService(userImageDownload(post.user.id));
@@ -48,17 +56,13 @@ function Post(props: PostProps) {
   }, [showComments]);
 
   useEffect(() => {
-    const paged = paginate(
-      post.comments,
-      pageInfo.currentPage,
-      pageInfo.pageSize
-    );
+    const paged = paginate(post.comments, currentPage, PAGE_SIZE);
     const concatPages = [...pagedComments, ...paged];
     setPagedComments(concatPages);
-  }, [pageInfo]);
+  }, [currentPage]);
 
   const loadMoreComments = () => {
-    setPageInfo((prev) => ({ ...prev, currentPage: prev.currentPage + 1 }));
+    setCurrentPage((prev) => prev + 1);
   };
 
   const handleLike = async () => {
@@ -105,9 +109,9 @@ function Post(props: PostProps) {
         {pagedComments.map((comment) => (
           <Comment key={comment.id} comment={comment} />
         ))}
-        {post.commentCount > pageInfo.pageSize && (
+        {post.commentCount > PAGE_SIZE && (
           <>
-            {pageInfo.currentPage * pageInfo.pageSize < post.commentCount && (
+            {currentPage < MAX_PAGE && (
               <div onClick={loadMoreComments} className={css["more-comment"]}>
                 View more comments
               </div>
@@ -147,14 +151,42 @@ function Post(props: PostProps) {
             <Link to={`/profile/${post.user.id}/posts`}>
               {renderPostUserImage()}
             </Link>
-            <Link
-              to={`/profile/${post.user.id}/posts`}
-              className={css["user-name"]}
-            >
-              {post.user.fullName}
-            </Link>
+            <div>
+              <Link
+                to={`/profile/${post.user.id}/posts`}
+                className={css["user-name"]}
+              >
+                {post.user.fullName}
+              </Link>
+              <p className={css["post__past-time"]}>
+                {pastTimeFromDate(post.dateCreated).endsWith("y")
+                  ? formatDate(post.dateCreated, {
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : pastTimeFromDate(post.dateCreated)}
+                <span className={css["post-date"]}>
+                  {formatDate(post.dateCreated)}
+                </span>
+              </p>
+            </div>
           </div>
-          <p>{formatDate(post.dateCreated)}</p>
+          <div
+            ref={(element) => (dropPostRefs.current[0] = element)}
+            onClick={() => setDropPostVisible((prev) => !prev)}
+            className={css["post-menu__container"]}
+          >
+            <i className="fa-solid fa-ellipsis"></i>
+            <div className={css["post-menu"]}>
+              {isDropPostVisible && (
+                <DropdownMenu>
+                  <DropdownItem label="Delete post">
+                    <i className="fa-solid fa-trash"></i>
+                  </DropdownItem>
+                </DropdownMenu>
+              )}
+            </div>
+          </div>
         </header>
         <p className={css["description"]}>{post.description}</p>
         {renderPostImage()}
