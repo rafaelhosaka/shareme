@@ -2,14 +2,14 @@ import { useState, useEffect } from "react";
 import css from "./Alert.module.scss";
 
 const ALERT = {
-  SUCESS: "success",
+  SUCCESS: "success",
   WARNING: "warning",
   DANGER: "danger",
 };
 
 export function useAlert(): [
   JSX.Element,
-  (message: string, type: string) => void
+  (message: string, type: "info" | "success" | "warning" | "danger") => void
 ] {
   const [alert, setAlert] = useState<JSX.Element>(<></>);
   const [showAlert, setShowAlert] = useState(false);
@@ -24,7 +24,10 @@ export function useAlert(): [
     setShowAlert(false);
   }
 
-  function dispatchAlert(message: string, type: string) {
+  function dispatchAlert(
+    message: string,
+    type: "info" | "success" | "warning" | "danger"
+  ) {
     setShowAlert(true);
     setAlert(<Alert type={type} message={message} closeAlert={closeAlert} />);
   }
@@ -55,20 +58,20 @@ function Alert({ message, type, closeAlert }: AlertProps) {
 
 function getLabel(type: string) {
   switch (type) {
-    case ALERT.SUCESS:
+    case ALERT.SUCCESS:
       return "Success! ";
     case ALERT.DANGER:
       return "Error! ";
     case ALERT.WARNING:
       return "Warning! ";
     default:
-      return "";
+      return "Info! ";
   }
 }
 
 function getClass(type: string) {
   switch (type) {
-    case ALERT.SUCESS:
+    case ALERT.SUCCESS:
       return `${css["alert--success"]}`;
     case ALERT.DANGER:
       return `${css["alert--danger"]}`;

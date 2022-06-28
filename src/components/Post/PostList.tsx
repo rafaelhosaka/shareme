@@ -2,7 +2,9 @@ import _ from "lodash";
 import { useEffect, useState } from "react";
 import { useStateRef } from "../../hook/useStateRef";
 import PostEntity from "../../models/post";
+import { deletePost } from "../../services/postService";
 import { calculateMaxPage, paginate } from "../../utils/paginate";
+import { useAlert } from "../Alert/Alert";
 import Post from "./Post";
 
 interface PostListProps {
@@ -13,6 +15,7 @@ const PostList = ({ posts }: PostListProps) => {
   const [pagedPosts, setPagedPosts] = useState<PostEntity[]>([]);
   const [sortedPosts, setSortedPosts] = useState<PostEntity[]>([]);
   const [currentPage, setCurrentValue, currentRef] = useStateRef(1);
+  const [alert, dispatchAlert] = useAlert();
 
   const PAGE_SIZE = 10;
   const MAX_PAGE = calculateMaxPage(posts.length, PAGE_SIZE);
@@ -41,6 +44,12 @@ const PostList = ({ posts }: PostListProps) => {
     setPagedPosts(concatPages);
   }, [currentPage]);
 
+  const handleDelete = (post: PostEntity) => {
+    deletePost(post);
+    setPagedPosts(pagedPosts.filter((p) => p.id !== post.id));
+    dispatchAlert("Post deleted successfully", "success");
+  };
+
   const onScroll = () => {
     if (window.scrollY + window.innerHeight >= document.body.offsetHeight) {
       if (currentRef.current < MAX_PAGE) {
@@ -51,8 +60,13 @@ const PostList = ({ posts }: PostListProps) => {
 
   return (
     <div>
+      {alert}
       {pagedPosts.map((post) => (
-        <Post key={post.id} post={new PostEntity(post)} />
+        <Post
+          key={post.id}
+          post={new PostEntity(post)}
+          onDelete={handleDelete}
+        />
       ))}
     </div>
   );

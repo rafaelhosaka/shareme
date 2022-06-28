@@ -21,6 +21,7 @@ import useComponentVisible from "../../hook/useComponentVisible";
 
 interface PostProps {
   post: PostEntity;
+  onDelete: (post: PostEntity) => void;
 }
 
 function Post(props: PostProps) {
@@ -180,7 +181,10 @@ function Post(props: PostProps) {
             <div className={css["post-menu"]}>
               {isDropPostVisible && (
                 <DropdownMenu>
-                  <DropdownItem label="Delete post">
+                  <DropdownItem
+                    onClick={() => props.onDelete(post)}
+                    label="Delete post"
+                  >
                     <i className="fa-solid fa-trash"></i>
                   </DropdownItem>
                 </DropdownMenu>

@@ -1,6 +1,6 @@
 export default interface AlertEntity {
   message: string;
-  type: string;
+  type: "info" | "success" | "warning" | "danger";
 }
 
 export type LocationProps = {

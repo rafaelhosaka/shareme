@@ -1,4 +1,5 @@
 import httpService from "./httpService";
+import PostEntity from "../models/post";
 
 const apiEndPoint = "/post";
 
@@ -22,4 +23,10 @@ export function savePostWithImage(formData: FormData) {
 
 export function postImageDownload(postId: string) {
   return httpService.get(apiEndPoint + "/download/" + postId);
+}
+
+export function deletePost(post: PostEntity) {
+  httpService.delete(apiEndPoint + "/delete", {
+    data: post,
+  });
 }
