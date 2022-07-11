@@ -52,7 +52,7 @@ function LoginForm() {
         alt="Logo of the Shareme"
       />
       <div className={css["form-login-container"]}>
-        <h1 className={css["heading"]}>Log Into Shareme</h1>
+        <h1 className={css["heading"]}>Log Into ShareMe</h1>
         <form className={css["form"]} onSubmit={(e) => handleSubmit(e)}>
           <div className="form-group">
             <input
@@ -83,9 +83,6 @@ function LoginForm() {
         >
           Create Account
         </Link>
-      </div>
-      <div className={`${css.copyright} my-2`}>
-        Copyright 2022 Rafael Hideki Hosaka
       </div>
     </main>
   );
