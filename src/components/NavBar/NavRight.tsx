@@ -73,6 +73,11 @@ const NavRight = () => {
             label={`Theme: ${currentUser?.themePreference}`}
             toMenuId="2"
           />
+          <NavMenuItem
+            iconClass="fa-solid fa-gear fa-xl"
+            label="Settings"
+            toMenuId="3"
+          />
           <Link to="/logout">
             <NavMenuItem
               iconClass="fa-solid fa-right-from-bracket fa-xl"
@@ -102,6 +107,15 @@ const NavRight = () => {
               label="Device"
             />
           </div>
+        </NavMenuList>
+        <NavMenuList id="3" title="Settings">
+          <Link to="/settings/general">
+            <NavMenuItem
+              active={pathname === `/settings/general`}
+              iconClass="fa-solid fa-gear fa-xl"
+              label="General"
+            />
+          </Link>
         </NavMenuList>
       </NavMenu>
     );

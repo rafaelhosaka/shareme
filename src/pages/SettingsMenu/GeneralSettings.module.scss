@@ -1,0 +1,42 @@
+@use "../../styles/abstracts/theme" as t;
+
+.general-settings__container {
+  background-color: t.$light-secondary-bgcolor;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: t.$light-box-shadow;
+}
+
+.setting-list {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid t.$light-secondary-color;
+  display: flex;
+}
+
+.setting-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  min-height: 50px;
+
+  & span {
+    font-weight: 700;
+  }
+
+  & button {
+    padding: 0 2rem;
+  }
+}
+
+.name {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-area {
+  display: flex;
+  gap: 10px;
+}

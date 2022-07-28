@@ -1,0 +1,35 @@
+@use "../../styles/abstracts/theme" as t;
+
+.editable-text__container {
+  height: inherit;
+
+  .editable {
+    outline: 0;
+    color: black;
+    background-color: t.$light-secondary-bgcolor;
+    border: 3px solid black;
+    border-radius: 10px;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    height: inherit;
+  }
+
+  span.editable {
+    width: 100%;
+    min-width: 100px;
+    height: 100%;
+    padding: 0.5rem;
+    &[data-placeholder]:empty::before {
+      color: lightgray;
+      content: attr(data-placeholder);
+    }
+  }
+
+  .uneditable {
+    white-space: pre-wrap;
+    height: inherit;
+  }
+}

@@ -12,6 +12,8 @@ import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Unauthorized from "../../pages/Unauthorized/Unauthorized";
 import UserProfileEntity from "../../models/userProfile";
 import ChatMenu from "../../pages/ChatMenu/ChatMenu";
+import SettingsMenu from "../../pages/SettingsMenu/SettingsMenu";
+import GeneralSettings from "../../pages/SettingsMenu/GeneralSettings";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -54,6 +56,10 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
             <Route path="/profile/:id/:option" element={<Profile />} />
 
             <Route path="/search/:filter" element={<SearchMenu />} />
+
+            <Route path="/settings" element={<SettingsMenu />}>
+              <Route path="general" element={<GeneralSettings />} />
+            </Route>
 
             <Route path="/logout" element={<Logout />} />
           </Route>
