@@ -6,7 +6,7 @@ import { useBase64Image } from "../../hook/useBase64Image";
 import { useUser } from "../../context/userContext";
 import NewComment from "../Comment/NewComment";
 import Comment from "../Comment/Comment";
-import { likePost } from "../../services/likeService";
+import { likeUnlikePost } from "../../services/likeService";
 import { calculateMaxPage, paginate } from "../../utils/paginate";
 import { Link } from "react-router-dom";
 
@@ -66,15 +66,11 @@ function Post(props: PostProps) {
     setCurrentPage((prev) => prev + 1);
   };
 
-  const handleLike = async () => {
+  const handleLikePost = async () => {
     if (currentUser) {
-      const { data } = await likePost(currentUser.id, post.id);
+      const { data } = await likeUnlikePost(currentUser.id, post.id);
       setPost(new PostEntity(data));
-      if (!liked) {
-        setLiked(true);
-      } else {
-        setLiked(false);
-      }
+      setLiked((prev) => !prev);
     }
   };
 
@@ -214,7 +210,7 @@ function Post(props: PostProps) {
             </div>
           </div>
           <div className={css["action"]}>
-            <div onClick={handleLike} className={css["icon"]}>
+            <div onClick={handleLikePost} className={css["icon"]}>
               <i
                 className={liked ? "fa-solid fa-heart" : "fa-regular fa-heart"}
               ></i>

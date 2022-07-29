@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import CommentEntity from "../../models/comment";
 import UserProfileEntity from "../../models/userProfile";
+import { likeUnlikeComment } from "../../services/likeService";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
 import Spinner from "../Spinner/Spinner";
@@ -16,6 +18,14 @@ interface CommentProps {
 function Comment({ comment }: CommentProps) {
   const [user, setUser] = useState<UserProfileEntity>();
   const { image: commentUserImage, setService } = useBase64Image(null);
+  const { user: currentUser } = useUser();
+
+  const isLiked = comment.likes.some((like) => {
+    if (currentUser) return like.userId === currentUser.id;
+    return;
+  });
+
+  const [liked, setLiked] = useState(isLiked);
 
   useEffect(() => {
     async function getUser() {
@@ -24,6 +34,13 @@ function Comment({ comment }: CommentProps) {
     getUser();
     setService(userImageDownload(comment.userId));
   }, []);
+
+  const handleLikeComment = async () => {
+    if (currentUser) {
+      await likeUnlikeComment(currentUser.id, comment.id);
+      setLiked((prev) => !prev);
+    }
+  };
 
   return (
     <div className={css["comment__container"]}>
@@ -49,12 +66,15 @@ function Comment({ comment }: CommentProps) {
         </div>
       </div>
       <div className={css["comment-action"]}>
-        <a className={css["comment-action__item"]} href="#">
+        <div
+          onClick={handleLikeComment}
+          className={`${css["comment-action__like"]} ${
+            liked ? css["liked"] : ""
+          }`}
+        >
           Like
-        </a>
-        <a className={css["comment-action__item"]} href="#">
-          Reply
-        </a>
+        </div>
+        <div className={css["comment-action__reply"]}>Reply</div>
         <span className={css["comment__past-time"]}>
           {pastTimeFromDate(comment.dateCreated)}
           <span className={css["comment__date"]}>

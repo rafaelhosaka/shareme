@@ -62,14 +62,20 @@
   margin-left: 5rem;
 }
 
-.comment-action__item {
+.comment-action__like,
+.comment-action__reply {
   font-size: 1.2rem;
-  font-weight: 700;
+  font-weight: 800;
   margin: 0.5rem;
+
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
 }
 
-.comment-action__item:hover {
-  text-decoration: underline;
+.comment-action__like.liked {
+  color: t.$light-primary-color;
 }
 
 .comment__past-time {

@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .general-settings__container {
   background-color: t.$light-secondary-bgcolor;
@@ -39,4 +40,15 @@
 .btn-area {
   display: flex;
   gap: 10px;
+}
+
+@include mixins.whenDarkModule {
+  .general-settings__container {
+    background-color: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .setting-list {
+    border-top: 1px solid t.$dark-secondary-color;
+  }
 }
