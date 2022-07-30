@@ -3,16 +3,14 @@ import { Link } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/userContext";
 import { useInput } from "../../hook/useInput";
 import CommentEntity from "../../models/comment";
-import { newComment } from "../../services/commentService";
 import css from "./Comment.module.scss";
 
 interface NewCommentProps {
-  postId: string;
   handleNewComment: (comment: CommentEntity) => void;
   elementRef: React.RefObject<HTMLInputElement> | null;
 }
 
-function NewComment({ postId, handleNewComment, elementRef }: NewCommentProps) {
+function NewComment({ handleNewComment, elementRef }: NewCommentProps) {
   const userImage = useUserImage();
   const { user: currentUser } = useUser();
   const {
@@ -23,12 +21,8 @@ function NewComment({ postId, handleNewComment, elementRef }: NewCommentProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (description.trim() !== "") {
-      const { data } = await newComment(
-        JSON.stringify({ description, userId: currentUser?.id }),
-        postId
-      );
-      handleNewComment(data);
+    if (description.trim() !== "" && currentUser) {
+      handleNewComment({ userId: currentUser.id, description });
       resetDescription();
     }
   };

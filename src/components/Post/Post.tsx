@@ -18,6 +18,7 @@ import css from "./Post.module.scss";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import DropdownItem from "../DropdownMenu/DropdownItem";
 import useComponentVisible from "../../hook/useComponentVisible";
+import { newComment } from "../../services/commentService";
 
 interface PostProps {
   post: PostEntity;
@@ -53,11 +54,12 @@ function Post(props: PostProps) {
   }, []);
 
   useEffect(() => {
-    if (showComments) focus();
+    if (showComments) focusOnNewComment();
   }, [showComments]);
 
   useEffect(() => {
     const paged = paginate(post.comments, currentPage, PAGE_SIZE);
+
     const concatPages = [...pagedComments, ...paged];
     setPagedComments(concatPages);
   }, [currentPage]);
@@ -74,8 +76,9 @@ function Post(props: PostProps) {
     }
   };
 
-  const handleNewComment = (comment: CommentEntity) => {
-    setPagedComments([comment, ...pagedComments]);
+  const handleNewComment = async (comment: CommentEntity) => {
+    const { data } = await newComment(JSON.stringify(comment), post.id);
+    setPagedComments([data, ...pagedComments]);
     setCommentCount((prev) => prev + 1);
   };
 
@@ -86,7 +89,7 @@ function Post(props: PostProps) {
 
   const [liked, setLiked] = useState(isLiked);
 
-  const focus = () => {
+  const focusOnNewComment = () => {
     inputNewCommentRef?.current?.focus({ preventScroll: true });
     inputNewCommentRef?.current?.scrollIntoView({
       behavior: "smooth",
@@ -101,7 +104,6 @@ function Post(props: PostProps) {
         <NewComment
           elementRef={inputNewCommentRef}
           handleNewComment={handleNewComment}
-          postId={post.id}
         />
         {pagedComments.map((comment) => (
           <Comment key={comment.id} comment={comment} />
@@ -113,7 +115,7 @@ function Post(props: PostProps) {
                 View more comments
               </div>
             )}
-            <div onClick={focus} className={css["write-comment"]}>
+            <div onClick={focusOnNewComment} className={css["write-comment"]}>
               Write a comment...
             </div>
           </>
@@ -219,7 +221,7 @@ function Post(props: PostProps) {
             <div
               onClick={() => {
                 setShowComments(true);
-                showComments && focus();
+                showComments && focusOnNewComment();
               }}
               className={css["icon"]}
             >
