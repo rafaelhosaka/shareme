@@ -170,25 +170,27 @@ function Post(props: PostProps) {
               </p>
             </div>
           </div>
-          <div
-            ref={(element) => (dropPostRefs.current[0] = element)}
-            onClick={() => setDropPostVisible((prev) => !prev)}
-            className={css["post-menu__container"]}
-          >
-            <i className="fa-solid fa-ellipsis"></i>
-            <div className={css["post-menu"]}>
-              {isDropPostVisible && (
-                <DropdownMenu>
-                  <DropdownItem
-                    onClick={() => props.onDelete(post)}
-                    label="Delete post"
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                  </DropdownItem>
-                </DropdownMenu>
-              )}
+          {currentUser?.id === post.user.id && (
+            <div
+              ref={(element) => (dropPostRefs.current[0] = element)}
+              onClick={() => setDropPostVisible((prev) => !prev)}
+              className={css["post-menu__container"]}
+            >
+              <i className="fa-solid fa-ellipsis"></i>
+              <div className={css["post-menu"]}>
+                {isDropPostVisible && (
+                  <DropdownMenu>
+                    <DropdownItem
+                      onClick={() => props.onDelete(post)}
+                      label="Delete post"
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </DropdownItem>
+                  </DropdownMenu>
+                )}
+              </div>
             </div>
-          </div>
+          )}
         </header>
         <p className={css["description"]}>{post.description}</p>
         {renderPostImage()}

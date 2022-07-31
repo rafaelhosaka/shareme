@@ -107,6 +107,20 @@
   transition: opacity 0.5s;
 }
 
+.reply-icon__container {
+  margin: 0.5rem 1rem;
+  width: fit-content;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+
+.reply-icon {
+  transform: rotate(90deg);
+  margin-right: 1rem;
+}
+
 @include mixins.whenDarkModule {
   .comment__body {
     background: t.$dark-secondary-color;

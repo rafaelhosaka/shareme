@@ -24,6 +24,7 @@ function Comment({ comment }: CommentProps) {
   const { user: currentUser } = useUser();
   const newCommentRef = useRef<HTMLInputElement>(null);
   const [showNewComment, setShowNewComment] = useState(false);
+  const [showSubComments, setShowSubComments] = useState(false);
 
   const isLiked = commentState.likes?.some((like) => {
     if (currentUser) return like.userId === currentUser.id;
@@ -119,9 +120,23 @@ function Comment({ comment }: CommentProps) {
             </span>
           </span>
         </div>
-        {commentState.subComments?.map((subComment) => (
-          <Comment key={subComment.id} comment={subComment} />
-        ))}
+        {showSubComments
+          ? commentState.subComments?.map((subComment) => (
+              <Comment key={subComment.id} comment={subComment} />
+            ))
+          : commentState.subComments &&
+            commentState.subComments.length !== 0 && (
+              <div
+                className={css["reply-icon__container"]}
+                onClick={() => setShowSubComments(true)}
+              >
+                <i
+                  className={`${css["reply-icon"]} fa-solid fa-arrow-turn-up`}
+                ></i>
+                {commentState.subComments?.length}
+                {commentState.subComments.length === 1 ? ` Reply` : ` Replies`}
+              </div>
+            )}
         {commentState.subComments && showNewComment && (
           <NewComment
             handleNewComment={handleNewComment}
