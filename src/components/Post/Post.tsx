@@ -18,7 +18,11 @@ import css from "./Post.module.scss";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import DropdownItem from "../DropdownMenu/DropdownItem";
 import useComponentVisible from "../../hook/useComponentVisible";
-import { newComment } from "../../services/commentService";
+import {
+  deleteComment,
+  newComment,
+  replyComment,
+} from "../../services/commentService";
 
 interface PostProps {
   post: PostEntity;
@@ -42,7 +46,12 @@ function Post(props: PostProps) {
   } = useComponentVisible(false);
 
   const [pagedComments, setPagedComments] = useState<CommentEntity[]>([]);
-  const [commentCount, setCommentCount] = useState(post.comments.length);
+  const [commentCount, setCommentCount] = useState(
+    post.comments.reduce(
+      (result, comment) => result + (comment.subComments?.length ?? 0) + 1,
+      0
+    )
+  );
   const [currentPage, setCurrentPage] = useState(1);
 
   const PAGE_SIZE = 10;
@@ -82,6 +91,40 @@ function Post(props: PostProps) {
     setCommentCount((prev) => prev + 1);
   };
 
+  const handleReplyComment = async (
+    newComment: CommentEntity,
+    parentCommentId: string
+  ) => {
+    const { data } = await replyComment(
+      JSON.stringify(newComment),
+      parentCommentId
+    );
+
+    const index = pagedComments.findIndex((c) => data.id === c.id);
+    const copy = [...pagedComments];
+    copy[index] = data;
+
+    setPagedComments(copy);
+    setCommentCount((prev) => prev + 1);
+  };
+
+  const handleDeleteComment = (comment: CommentEntity) => {
+    if (comment.id) {
+      if (comment.parentId) {
+        pagedComments.forEach((parent) => {
+          parent.subComments = parent.subComments?.filter(
+            (child) => child.id != comment.id
+          );
+        });
+        setPagedComments(pagedComments);
+      } else {
+        setPagedComments((prev) => prev.filter((c) => c.id !== comment.id));
+      }
+      setCommentCount((prev) => prev - 1);
+      deleteComment(comment.id, post.id);
+    }
+  };
+
   const isLiked = post.likes.some((like) => {
     if (currentUser) return like.userId === currentUser.id;
     return;
@@ -106,7 +149,12 @@ function Post(props: PostProps) {
           handleNewComment={handleNewComment}
         />
         {pagedComments.map((comment) => (
-          <Comment key={comment.id} comment={comment} />
+          <Comment
+            key={comment.id}
+            comment={comment}
+            onDelete={handleDeleteComment}
+            replyComment={handleReplyComment}
+          />
         ))}
         {post.commentCount > PAGE_SIZE && (
           <>
@@ -176,7 +224,7 @@ function Post(props: PostProps) {
               onClick={() => setDropPostVisible((prev) => !prev)}
               className={css["post-menu__container"]}
             >
-              <i className="fa-solid fa-ellipsis"></i>
+              <i className={`${css["menu-icon"]} fa-solid fa-ellipsis`}></i>
               <div className={css["post-menu"]}>
                 {isDropPostVisible && (
                   <DropdownMenu>
@@ -210,7 +258,7 @@ function Post(props: PostProps) {
                   ? `${commentCount} Comments`
                   : `${commentCount} Comment`}
               </span>
-              <span className={css["details-share"]}>10 Shares</span>
+              <span className={css["details-share"]}>0 Share</span>
             </div>
           </div>
           <div className={css["action"]}>

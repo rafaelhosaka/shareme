@@ -68,15 +68,26 @@
 
 .post-menu__container {
   position: relative;
+  height: fit-content;
+}
+
+.menu-icon {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
     cursor: pointer;
+    background: t.$light-secondary-color;
+    border-radius: 50%;
   }
 }
 
 .post-menu {
   position: absolute;
-  right: 105px;
+  top: 20px;
+  right: 117px;
 }
 
 .description {

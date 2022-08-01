@@ -15,3 +15,10 @@ export function replyComment(commentJSON: string, parentComemntId: string) {
   formData.append("parentCommentId", parentComemntId);
   return httpService.put(`${apiEndPoint}/reply`, formData);
 }
+
+export function deleteComment(commentId: string, postId: string) {
+  const formData = new FormData();
+  formData.append("commentId", commentId);
+  formData.append("postId", postId);
+  httpService.delete(`${apiEndPoint}/delete`, { data: formData });
+}

@@ -7,4 +7,5 @@ export default interface CommentEntity {
   dateCreated?: Date;
   likes?: LikeEntity[];
   subComments?: CommentEntity[];
+  parentId?: string;
 }

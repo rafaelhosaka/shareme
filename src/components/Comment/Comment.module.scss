@@ -26,15 +26,18 @@
 
 .comment__container {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto 1fr auto;
   gap: 10px;
-  align-items: flex-start;
   flex-direction: row;
 }
 
 .comment {
   display: flex;
   flex-direction: row;
+
+  &:hover .comment-menu__container {
+    visibility: visible;
+  }
 }
 
 .comment__body {
@@ -42,6 +45,7 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
+  margin-right: 0.5rem;
 }
 
 .comment__user-name {
@@ -59,7 +63,6 @@
 .comment-action {
   display: flex;
   align-items: center;
-  margin: 0.5rem 0;
 }
 
 .comment-action__like,
@@ -108,8 +111,11 @@
 }
 
 .reply-icon__container {
-  margin: 0.5rem 1rem;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
   width: fit-content;
+  font-size: 1.5rem;
+  font-weight: 600;
   &:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -119,6 +125,30 @@
 .reply-icon {
   transform: rotate(90deg);
   margin-right: 1rem;
+}
+
+.comment-menu__container {
+  position: relative;
+  align-self: center;
+  visibility: hidden;
+}
+
+.menu-icon {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+    background: t.$light-secondary-color;
+    border-radius: 50%;
+  }
+}
+
+.comment-menu {
+  position: absolute;
+  top: 20px;
+  right: 117px;
 }
 
 @include mixins.whenDarkModule {
