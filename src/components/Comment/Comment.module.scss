@@ -155,4 +155,10 @@
   .comment__body {
     background: t.$dark-secondary-color;
   }
+
+  .menu-icon {
+    &:hover {
+      background: t.$dark-secondary-color;
+    }
+  }
 }

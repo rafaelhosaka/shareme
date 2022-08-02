@@ -262,7 +262,12 @@ function Post(props: PostProps) {
             </div>
           </div>
           <div className={css["action"]}>
-            <div onClick={handleLikePost} className={css["icon"]}>
+            <div
+              onClick={handleLikePost}
+              className={
+                liked ? `${css["liked"]} ${css["icon"]}` : `${css["icon"]}`
+              }
+            >
               <i
                 className={liked ? "fa-solid fa-heart" : "fa-regular fa-heart"}
               ></i>

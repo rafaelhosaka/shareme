@@ -10,6 +10,7 @@ import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
 import DropdownItem from "../DropdownMenu/DropdownItem";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import Modal from "../Modal/Modal";
 import Spinner from "../Spinner/Spinner";
 
 import css from "./Comment.module.scss";
@@ -28,6 +29,7 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
   const newCommentRef = useRef<HTMLInputElement>(null);
   const [showNewComment, setShowNewComment] = useState(false);
   const [showSubComments, setShowSubComments] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const isLiked = comment.likes?.some((like) => {
     if (currentUser) return like.userId === currentUser.id;
@@ -75,6 +77,16 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
 
   return (
     <div className={css["comment__container"]}>
+      <Modal
+        show={showModal}
+        title="Delete comment?"
+        description="Are you sure you want to delete this comment?"
+        onReject={() => setShowModal(false)}
+        onAccept={() => {
+          onDelete(comment);
+          setShowModal(false);
+        }}
+      />
       <Link to={`/profile/${user?.id}/posts`}>
         <Spinner show={!commentUserImage} sizeClass="size--40">
           <img
@@ -106,7 +118,7 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
               {isDropCommentVisible && (
                 <DropdownMenu>
                   <DropdownItem
-                    onClick={() => onDelete(comment)}
+                    onClick={() => setShowModal(true)}
                     label="Delete comment"
                   >
                     <i className="fa-solid fa-trash"></i>

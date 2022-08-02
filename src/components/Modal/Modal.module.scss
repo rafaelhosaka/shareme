@@ -1,0 +1,48 @@
+@use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
+
+.modal__container {
+  position: fixed;
+  background: rgba($color: #000000, $alpha: 0.5);
+  z-index: 1;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: t.$light-secondary-bgcolor;
+  border-radius: 10px;
+  width: 700px;
+  padding-top: 1rem;
+  padding-bottom: 3rem;
+}
+
+.header {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.body {
+  border-top: 1px solid t.$light-secondary-color;
+  padding: 1rem;
+}
+
+.btn-area {
+  display: flex;
+  justify-content: flex-end;
+
+  & button {
+    padding: 1rem 3rem;
+  }
+}
+
+@include mixins.whenDarkModule() {
+  .modal {
+    background: t.$dark-secondary-bgcolor;
+  }
+}
