@@ -37,7 +37,7 @@ function Post(props: PostProps) {
   const { image: postUserImage, setService: setPostUserService } =
     useBase64Image(null);
   const { user: currentUser } = useUser();
-  const inputNewCommentRef = useRef<HTMLInputElement>(null);
+  const inputNewCommentRef = useRef<HTMLTextAreaElement>(null);
   const [showComments, setShowComments] = useState(false);
   const [showModal, setShowModal] = useState(false);
 

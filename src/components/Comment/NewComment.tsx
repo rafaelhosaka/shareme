@@ -7,7 +7,7 @@ import css from "./Comment.module.scss";
 
 interface NewCommentProps {
   handleNewComment: (comment: CommentEntity) => void;
-  elementRef: React.RefObject<HTMLInputElement> | null;
+  elementRef: React.RefObject<HTMLTextAreaElement> | null;
 }
 
 function NewComment({ handleNewComment, elementRef }: NewCommentProps) {
@@ -27,19 +27,32 @@ function NewComment({ handleNewComment, elementRef }: NewCommentProps) {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (elementRef?.current) {
+      textAreaAdjust(elementRef.current);
+    }
+    if (e.key === "Enter" && e.shiftKey == false) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
+  };
+
+  function textAreaAdjust(element: HTMLTextAreaElement) {
+    element.style.height = "1px";
+    element.style.height = 25 + element.scrollHeight + "px";
+  }
+
   return (
     <div className={css["new-comment__container"]}>
       <Link to={`/profile/${currentUser?.id}/posts`}>
         <img className={`${css["comment__user"]} size--40`} src={userImage} />
       </Link>
-      <form
-        className={css["new-comment__form"]}
-        onSubmit={(e) => handleSubmit(e)}
-      >
-        <input
+      <form className={css["new-comment__form"]}>
+        <textarea
           ref={elementRef}
           className={`${css["new-comment__description"]} form-input--gray`}
           placeholder="Write a comment..."
+          onKeyDown={handleKeyDown}
           {...bindDescription}
         />
       </form>

@@ -26,7 +26,7 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
   const [user, setUser] = useState<UserProfileEntity>();
   const { image: commentUserImage, setService } = useBase64Image(null);
   const { user: currentUser } = useUser();
-  const newCommentRef = useRef<HTMLInputElement>(null);
+  const newCommentRef = useRef<HTMLTextAreaElement>(null);
   const [showNewComment, setShowNewComment] = useState(false);
   const [showSubComments, setShowSubComments] = useState(false);
   const [showModal, setShowModal] = useState(false);
