@@ -44,9 +44,9 @@ const PostList = ({ posts }: PostListProps) => {
     setPagedPosts(concatPages);
   }, [currentPage]);
 
-  const handleDelete = (post: PostEntity) => {
-    deletePost(post);
-    setPagedPosts(pagedPosts.filter((p) => p.id !== post.id));
+  const handleDelete = (postId: string) => {
+    deletePost(postId);
+    setPagedPosts(pagedPosts.filter((p) => p.id !== postId));
     dispatchAlert("Post deleted successfully", "success");
   };
 

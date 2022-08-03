@@ -23,10 +23,11 @@ import {
   newComment,
   replyComment,
 } from "../../services/commentService";
+import Modal from "../Modal/Modal";
 
 interface PostProps {
   post: PostEntity;
-  onDelete: (post: PostEntity) => void;
+  onDelete: (postId: string) => void;
 }
 
 function Post(props: PostProps) {
@@ -38,6 +39,7 @@ function Post(props: PostProps) {
   const { user: currentUser } = useUser();
   const inputNewCommentRef = useRef<HTMLInputElement>(null);
   const [showComments, setShowComments] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const {
     refs: dropPostRefs,
@@ -193,6 +195,16 @@ function Post(props: PostProps) {
   return (
     <>
       <div className={css.post}>
+        <Modal
+          show={showModal}
+          title="Delete post?"
+          description="Are you sure you want to delete this post?"
+          onReject={() => setShowModal(false)}
+          onAccept={() => {
+            props.onDelete(post.id);
+            setShowModal(false);
+          }}
+        />
         <header className={css["header"]}>
           <div className={css["user"]}>
             <Link to={`/profile/${post.user.id}/posts`}>
@@ -229,7 +241,7 @@ function Post(props: PostProps) {
                 {isDropPostVisible && (
                   <DropdownMenu>
                     <DropdownItem
-                      onClick={() => props.onDelete(post)}
+                      onClick={() => setShowModal(true)}
                       label="Delete post"
                     >
                       <i className="fa-solid fa-trash"></i>
