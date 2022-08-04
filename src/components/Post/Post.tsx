@@ -1,37 +1,36 @@
-import { useRef, useState, useEffect } from "react";
-import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
-import { postImageDownload } from "../../services/postService";
-import { userImageDownload } from "../../services/userService";
-import { useBase64Image } from "../../hook/useBase64Image";
-import { useUser } from "../../context/userContext";
-import NewComment from "../Comment/NewComment";
-import Comment from "../Comment/Comment";
-import { likeUnlikePost } from "../../services/likeService";
-import { calculateMaxPage, paginate } from "../../utils/paginate";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-
-import Spinner from "../Spinner/Spinner";
-import PostEntity from "../../models/post";
-import CommentEntity from "../../models/comment";
-
-import css from "./Post.module.scss";
-import DropdownMenu from "../DropdownMenu/DropdownMenu";
-import DropdownItem from "../DropdownMenu/DropdownItem";
+import { useUser } from "../../context/userContext";
+import { useBase64Image } from "../../hook/useBase64Image";
 import useComponentVisible from "../../hook/useComponentVisible";
+import CommentEntity from "../../models/comment";
+import PostEntity, { SharedPostEntity } from "../../models/post";
 import {
   deleteComment,
   newComment,
   replyComment,
 } from "../../services/commentService";
+import { likeUnlikePost } from "../../services/likeService";
+import { postImageDownload } from "../../services/postService";
+import { sharePost } from "../../services/shareService";
+import { userImageDownload } from "../../services/userService";
+import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
+import { calculateMaxPage, paginate } from "../../utils/paginate";
+import Comment from "../Comment/Comment";
+import NewComment from "../Comment/NewComment";
+import DropdownItem from "../DropdownMenu/DropdownItem";
+import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import Modal from "../Modal/Modal";
+import Spinner from "../Spinner/Spinner";
+import css from "./Post.module.scss";
 
 interface PostProps {
-  post: PostEntity;
+  data: PostEntity | SharedPostEntity;
   onDelete: (postId: string) => void;
 }
 
-function Post(props: PostProps) {
-  const [post, setPost] = useState(props.post);
+const Post = ({ data, onDelete }: PostProps) => {
+  const [post, setPost] = useState(data);
   const { image: postImage, setService: setPostImageService } =
     useBase64Image(null);
   const { image: postUserImage, setService: setPostUserService } =
@@ -61,7 +60,11 @@ function Post(props: PostProps) {
 
   useEffect(() => {
     setPostUserService(userImageDownload(post.user.id));
-    setPostImageService(postImageDownload(post.id));
+    setPostImageService(
+      postImageDownload(
+        post instanceof PostEntity ? post.id : post.sharedPost.id
+      )
+    );
   }, []);
 
   useEffect(() => {
@@ -127,6 +130,13 @@ function Post(props: PostProps) {
     }
   };
 
+  const handleSharePost = async () => {
+    if (currentUser) {
+      const { data } = await sharePost(currentUser.id, post.id);
+      setPost(new PostEntity(data));
+    }
+  };
+
   const isLiked = post.likes.some((like) => {
     if (currentUser) return like.userId === currentUser.id;
     return;
@@ -175,13 +185,16 @@ function Post(props: PostProps) {
   };
 
   const renderPostImage = () => {
-    return (
-      post.fileName && (
-        <Spinner show={!postImage} sizeClass="size--840">
-          <img className={css["post__image"]} src={postImage} />
-        </Spinner>
-      )
+    const jsx = (
+      <Spinner show={!postImage} sizeClass="size--840">
+        <img className={css["post__image"]} src={postImage} />
+      </Spinner>
     );
+    if (post instanceof PostEntity) {
+      return post.fileName ? jsx : <></>;
+    } else {
+      return post.sharedPost.fileName ? jsx : <></>;
+    }
   };
 
   const renderPostUserImage = () => {
@@ -201,7 +214,7 @@ function Post(props: PostProps) {
           description="Are you sure you want to delete this post?"
           onReject={() => setShowModal(false)}
           onAccept={() => {
-            props.onDelete(post.id);
+            onDelete(post.id);
             setShowModal(false);
           }}
         />
@@ -261,17 +274,23 @@ function Post(props: PostProps) {
                 ? `${post.likeCount} likes`
                 : `${post.likeCount} like`}
             </span>
-            <div>
-              <span
-                onClick={() => setShowComments(true)}
-                className={`${css["details-comment"]} mx-2`}
-              >
-                {post.commentCount > 1
-                  ? `${commentCount} Comments`
-                  : `${commentCount} Comment`}
-              </span>
-              <span className={css["details-share"]}>0 Share</span>
-            </div>
+            {post instanceof PostEntity && (
+              <div>
+                <span
+                  onClick={() => setShowComments(true)}
+                  className={`${css["details-comment"]} mx-2`}
+                >
+                  {post.commentCount > 1
+                    ? `${commentCount} Comments`
+                    : `${commentCount} Comment`}
+                </span>
+                <span className={css["details-share"]}>
+                  {`${post.sharedCount} ${
+                    post.sharedCount < 2 ? "Share" : "Shares"
+                  }`}
+                </span>
+              </div>
+            )}
           </div>
           <div className={css["action"]}>
             <div
@@ -295,7 +314,7 @@ function Post(props: PostProps) {
               <i className="fa-regular fa-comment"></i>
               <span>Comment</span>
             </div>
-            <div className={css["icon"]}>
+            <div onClick={handleSharePost} className={css["icon"]}>
               <i className="fa-solid fa-share-from-square"></i>
               <span>Share</span>
             </div>
@@ -305,6 +324,6 @@ function Post(props: PostProps) {
       </div>
     </>
   );
-}
+};
 
 export default Post;

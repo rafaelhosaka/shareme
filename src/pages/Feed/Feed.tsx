@@ -2,21 +2,34 @@ import { useState, useEffect } from "react";
 import * as postService from "../../services/postService";
 import _ from "lodash";
 import PostForm from "../../components/PostForm/PostForm";
-import PostEntity from "../../models/post";
+import PostEntity, { SharedPostEntity } from "../../models/post";
 import { useUser } from "../../context/userContext";
 import PostList from "../../components/Post/PostList";
+import { getSharedPostByUsersId } from "../../services/shareService";
 
 const Feed = () => {
   const { user: currentUser } = useUser();
-  const [posts, setPosts] = useState<PostEntity[]>([]);
+  const [posts, setPosts] = useState<(PostEntity | SharedPostEntity)[]>([]);
 
   useEffect(() => {
     async function getPosts() {
       if (currentUser) {
-        const { data } = await postService.getPostsByUsersId(
-          _.concat(currentUser.friends, currentUser.id)
+        let { data: posts }: { data: PostEntity[] } =
+          await postService.getPostsByUsersId(
+            _.concat(currentUser.friends, currentUser.id)
+          );
+
+        let { data: sharedPosts }: { data: SharedPostEntity[] } =
+          await getSharedPostByUsersId(
+            _.concat(currentUser.friends, currentUser.id)
+          );
+
+        posts = posts.map((post) => (post = new PostEntity(post)));
+        sharedPosts = sharedPosts.map(
+          (post) => (post = new SharedPostEntity(post))
         );
-        setPosts(data);
+
+        setPosts([...posts, ...sharedPosts]);
       }
     }
     getPosts();

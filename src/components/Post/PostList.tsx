@@ -1,19 +1,23 @@
 import _ from "lodash";
 import { useEffect, useState } from "react";
 import { useStateRef } from "../../hook/useStateRef";
-import PostEntity from "../../models/post";
+import PostEntity, { SharedPostEntity } from "../../models/post";
 import { deletePost } from "../../services/postService";
 import { calculateMaxPage, paginate } from "../../utils/paginate";
 import { useAlert } from "../Alert/Alert";
 import Post from "./Post";
 
 interface PostListProps {
-  posts: PostEntity[];
+  posts: (PostEntity | SharedPostEntity)[];
 }
 
 const PostList = ({ posts }: PostListProps) => {
-  const [pagedPosts, setPagedPosts] = useState<PostEntity[]>([]);
-  const [sortedPosts, setSortedPosts] = useState<PostEntity[]>([]);
+  const [pagedPosts, setPagedPosts] = useState<
+    (PostEntity | SharedPostEntity)[]
+  >([]);
+  const [sortedPosts, setSortedPosts] = useState<
+    (PostEntity | SharedPostEntity)[]
+  >([]);
   const [currentPage, setCurrentValue, currentRef] = useStateRef(1);
   const [alert, dispatchAlert] = useAlert();
 
@@ -22,10 +26,16 @@ const PostList = ({ posts }: PostListProps) => {
 
   useEffect(() => {
     function getPosts() {
-      const sorted: PostEntity[] = _.orderBy(posts, "dateCreated", "desc");
+      const sorted = posts.sort(function (a, b) {
+        const dateA = new Date(a.dateCreated);
+        const dateB = new Date(b.dateCreated);
+
+        return dateB.getTime() - dateA.getTime();
+      });
+
       setSortedPosts(sorted);
 
-      const paged: PostEntity[] = paginate(sorted, currentPage, PAGE_SIZE);
+      const paged = paginate(sorted, currentPage, PAGE_SIZE);
 
       setPagedPosts(paged);
       window.addEventListener("scroll", onScroll, true);
@@ -62,11 +72,7 @@ const PostList = ({ posts }: PostListProps) => {
     <div>
       {alert}
       {pagedPosts.map((post) => (
-        <Post
-          key={post.id}
-          post={new PostEntity(post)}
-          onDelete={handleDelete}
-        />
+        <Post key={post.id} data={post} onDelete={handleDelete}></Post>
       ))}
     </div>
   );
