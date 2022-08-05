@@ -14,19 +14,12 @@ const Feed = () => {
   useEffect(() => {
     async function getPosts() {
       if (currentUser) {
-        let { data: posts }: { data: PostEntity[] } =
-          await postService.getPostsByUsersId(
-            _.concat(currentUser.friends, currentUser.id)
-          );
+        const posts = await postService.getPostsByUsersId(
+          _.concat(currentUser.friends, currentUser.id)
+        );
 
-        let { data: sharedPosts }: { data: SharedPostEntity[] } =
-          await getSharedPostByUsersId(
-            _.concat(currentUser.friends, currentUser.id)
-          );
-
-        posts = posts.map((post) => (post = new PostEntity(post)));
-        sharedPosts = sharedPosts.map(
-          (post) => (post = new SharedPostEntity(post))
+        const sharedPosts = await getSharedPostByUsersId(
+          _.concat(currentUser.friends, currentUser.id)
         );
 
         setPosts([...posts, ...sharedPosts]);

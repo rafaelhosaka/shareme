@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import PostEntity from "../../models/post";
+import PostEntity, { SharedPostEntity } from "../../models/post";
 import UserProfileEntity from "../../models/userProfile";
 import { getPostsByUsersId } from "../../services/postService";
 import { getUsersFromIds } from "../../services/userService";
@@ -8,6 +8,7 @@ import FriendList from "../../components/Friends/FriendList/FriendList";
 import PostList from "../../components/Post/PostList";
 import css from "./Profile.module.scss";
 import PhotoList from "../../components/Photo/PhotoList";
+import { getSharedPostByUsersId } from "../../services/shareService";
 
 interface ProfileContentProps {
   user: UserProfileEntity;
@@ -16,12 +17,14 @@ interface ProfileContentProps {
 const ProfileContent = ({ user }: ProfileContentProps) => {
   const { option } = useParams();
 
-  const [posts, setPosts] = useState<PostEntity[]>([]);
+  const [posts, setPosts] = useState<(PostEntity | SharedPostEntity)[]>([]);
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
 
   async function getPosts() {
-    const { data } = await getPostsByUsersId([user.id]);
-    setPosts(data);
+    const posts = await getPostsByUsersId([user.id]);
+
+    const sharedPosts = await getSharedPostByUsersId([user.id]);
+    setPosts([...posts, ...sharedPosts]);
   }
 
   async function getFriends() {
@@ -54,6 +57,16 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
     }
   }, [option]);
 
+  const getMyPosts = () => {
+    let myPosts: PostEntity[] = [];
+    posts.forEach((post) => {
+      if (post instanceof PostEntity) {
+        myPosts.push(post);
+      }
+    });
+    return myPosts;
+  };
+
   return (
     <>
       <div
@@ -81,7 +94,7 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
             : `${css["profile-content-container"]}`
         }
       >
-        <PhotoList items={posts} />
+        <PhotoList items={getMyPosts()} />
       </div>
     </>
   );

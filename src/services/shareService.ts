@@ -1,3 +1,4 @@
+import { SharedPostEntity } from "./../models/post";
 import httpService from "./httpService";
 
 const apiEndPoint = "/share";
@@ -13,6 +14,10 @@ export function getSharedPostByUserId(userId: string) {
   return httpService.get(`${apiEndPoint}/post/${userId}`);
 }
 
-export function getSharedPostByUsersId(usersId: string[]) {
-  return httpService.post(`${apiEndPoint}/post/getPostsByUsersId`, usersId);
+export async function getSharedPostByUsersId(usersId: string[]) {
+  const { data }: { data: SharedPostEntity[] } = await httpService.post(
+    `${apiEndPoint}/post/getPostsByUsersId`,
+    usersId
+  );
+  return data.map((post) => (post = new SharedPostEntity(post)));
 }
