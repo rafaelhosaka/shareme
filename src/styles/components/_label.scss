@@ -8,6 +8,10 @@
   margin: 0 2rem;
 }
 
+.label {
+  color: rgb(96, 103, 112);
+}
+
 @include mixins.tablet {
   .form-label {
     font-size: 2rem;

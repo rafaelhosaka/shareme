@@ -11,8 +11,7 @@ import {
   replyComment,
 } from "../../services/commentService";
 import { likeUnlikePost } from "../../services/likeService";
-import { postImageDownload } from "../../services/postService";
-import { sharePost } from "../../services/shareService";
+import { postImageDownload, sharePost } from "../../services/postService";
 import { userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
 import { calculateMaxPage, paginate } from "../../utils/paginate";
@@ -27,9 +26,10 @@ import css from "./Post.module.scss";
 interface PostProps {
   data: PostEntity | SharedPostEntity;
   onDelete: (postId: string) => void;
+  onShare: (sharedPost: SharedPostEntity) => void;
 }
 
-const Post = ({ data, onDelete }: PostProps) => {
+const Post = ({ data, onDelete, onShare }: PostProps) => {
   const [post, setPost] = useState(data);
   const { image: postImage, setService: setPostImageService } =
     useBase64Image(null);
@@ -133,7 +133,8 @@ const Post = ({ data, onDelete }: PostProps) => {
   const handleSharePost = async () => {
     if (currentUser) {
       const { data } = await sharePost(currentUser.id, post.id);
-      setPost(new PostEntity(data));
+      setPost(new PostEntity(data[1]));
+      onShare(new SharedPostEntity(data[0]));
     }
   };
 
@@ -168,7 +169,7 @@ const Post = ({ data, onDelete }: PostProps) => {
             replyComment={handleReplyComment}
           />
         ))}
-        {post.commentCount > PAGE_SIZE && (
+        {post.comments.length > PAGE_SIZE && (
           <>
             {currentPage < MAX_PAGE && (
               <div onClick={loadMoreComments} className={css["more-comment"]}>
@@ -230,6 +231,18 @@ const Post = ({ data, onDelete }: PostProps) => {
               >
                 {post.user.fullName}
               </Link>
+              {post instanceof SharedPostEntity && (
+                <>
+                  <span className="label">shared post from</span>
+                  <Link
+                    to={`/profile/${post.sharedPost.user.id}/posts`}
+                    className={css["user-name"]}
+                  >
+                    {post.sharedPost.user.fullName}
+                  </Link>
+                </>
+              )}
+
               <p className={css["post__past-time"]}>
                 {pastTimeFromDate(post.dateCreated).endsWith("y")
                   ? formatDate(post.dateCreated, {
@@ -270,9 +283,8 @@ const Post = ({ data, onDelete }: PostProps) => {
         <footer className={css["footer"]}>
           <div className={css["details"]}>
             <span className={`${css["details-like"]} mx-2`}>
-              {post.likeCount > 1
-                ? `${post.likeCount} likes`
-                : `${post.likeCount} like`}
+              {post.likes.length}
+              {post.likes.length > 1 ? ` likes` : ` like`}
             </span>
             {post instanceof PostEntity && (
               <div>
@@ -280,13 +292,12 @@ const Post = ({ data, onDelete }: PostProps) => {
                   onClick={() => setShowComments(true)}
                   className={`${css["details-comment"]} mx-2`}
                 >
-                  {post.commentCount > 1
-                    ? `${commentCount} Comments`
-                    : `${commentCount} Comment`}
+                  {commentCount}
+                  {commentCount > 1 ? ` Comments` : ` Comment`}
                 </span>
                 <span className={css["details-share"]}>
-                  {`${post.sharedCount} ${
-                    post.sharedCount < 2 ? "Share" : "Shares"
+                  {`${post.sharedUsersId.length} ${
+                    post.sharedUsersId.length < 2 ? "Share" : "Shares"
                   }`}
                 </span>
               </div>

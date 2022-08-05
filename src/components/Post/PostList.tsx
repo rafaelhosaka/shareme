@@ -68,11 +68,20 @@ const PostList = ({ posts }: PostListProps) => {
     }
   };
 
+  const handleSharePost = async (sharedPost: SharedPostEntity) => {
+    setPagedPosts([sharedPost, ...pagedPosts]);
+  };
+
   return (
     <div>
       {alert}
       {pagedPosts.map((post) => (
-        <Post key={post.id} data={post} onDelete={handleDelete}></Post>
+        <Post
+          key={post.id}
+          data={post}
+          onDelete={handleDelete}
+          onShare={handleSharePost}
+        ></Post>
       ))}
     </div>
   );

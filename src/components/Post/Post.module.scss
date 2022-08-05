@@ -29,6 +29,7 @@
   font-size: 1.5rem;
   padding-top: 0.5rem;
   padding-left: 0.7rem;
+  padding-right: 0.7rem;
   height: 50%;
 
   &:hover {
@@ -37,6 +38,7 @@
 }
 
 .post__past-time {
+  width: fit-content;
   padding-left: 0.7rem;
   font-size: 1.3rem;
   font-weight: 400;

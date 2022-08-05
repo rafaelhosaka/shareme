@@ -8,7 +8,6 @@ import FriendList from "../../components/Friends/FriendList/FriendList";
 import PostList from "../../components/Post/PostList";
 import css from "./Profile.module.scss";
 import PhotoList from "../../components/Photo/PhotoList";
-import { getSharedPostByUsersId } from "../../services/shareService";
 
 interface ProfileContentProps {
   user: UserProfileEntity;
@@ -23,8 +22,7 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
   async function getPosts() {
     const posts = await getPostsByUsersId([user.id]);
 
-    const sharedPosts = await getSharedPostByUsersId([user.id]);
-    setPosts([...posts, ...sharedPosts]);
+    setPosts(posts);
   }
 
   async function getFriends() {

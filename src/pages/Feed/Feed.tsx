@@ -5,7 +5,6 @@ import PostForm from "../../components/PostForm/PostForm";
 import PostEntity, { SharedPostEntity } from "../../models/post";
 import { useUser } from "../../context/userContext";
 import PostList from "../../components/Post/PostList";
-import { getSharedPostByUsersId } from "../../services/shareService";
 
 const Feed = () => {
   const { user: currentUser } = useUser();
@@ -18,11 +17,7 @@ const Feed = () => {
           _.concat(currentUser.friends, currentUser.id)
         );
 
-        const sharedPosts = await getSharedPostByUsersId(
-          _.concat(currentUser.friends, currentUser.id)
-        );
-
-        setPosts([...posts, ...sharedPosts]);
+        setPosts([...posts]);
       }
     }
     getPosts();

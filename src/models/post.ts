@@ -2,7 +2,7 @@ import CommentEntity from "./comment";
 import UserProfileEntity from "./userProfile";
 import LikeEntity from "./like";
 
-class BasePostEntity {
+export class BasePostEntity {
   id: string;
   description: string;
   dateCreated: Date;
@@ -18,14 +18,6 @@ class BasePostEntity {
     this.likes = data.likes;
     this.comments = data.comments;
   }
-
-  get likeCount(): number {
-    return this.likes?.length ?? 0;
-  }
-
-  get commentCount(): number {
-    return this.comments?.length ?? 0;
-  }
 }
 
 export default class PostEntity extends BasePostEntity {
@@ -37,10 +29,6 @@ export default class PostEntity extends BasePostEntity {
     this.fileName = data.fileName;
     this.sharedUsersId = data.sharedUsersId;
   }
-
-  get sharedCount(): number {
-    return this.sharedUsersId?.length ?? 0;
-  }
 }
 
 export class SharedPostEntity extends BasePostEntity {
@@ -48,6 +36,6 @@ export class SharedPostEntity extends BasePostEntity {
 
   constructor(data: SharedPostEntity) {
     super(data);
-    this.sharedPost = data.sharedPost;
+    this.sharedPost = new PostEntity(data.sharedPost);
   }
 }
