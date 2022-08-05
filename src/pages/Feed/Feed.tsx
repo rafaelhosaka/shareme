@@ -33,10 +33,15 @@ const Feed = () => {
   };
 
   return (
-    <main className="container center">
-      <PostForm handleNewPost={handleNewPost} />
-      <PostList posts={posts} />
-    </main>
+    <>
+      <main className="container center">
+        <PostForm handleNewPost={handleNewPost} />
+        <PostList posts={posts} />
+      </main>
+      <div className="footer">
+        Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
+      </div>
+    </>
   );
 };
 

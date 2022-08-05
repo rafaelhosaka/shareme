@@ -72,9 +72,6 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      <div className="footer">
-        Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
-      </div>
     </>
   );
 }

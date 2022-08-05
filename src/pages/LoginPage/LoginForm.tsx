@@ -44,47 +44,52 @@ function LoginForm() {
   };
 
   return (
-    <main className="container full center">
-      <>{alert}</>
-      <img
-        className={css["login-logo"]}
-        src={"./images/logo-full.png"}
-        alt="Logo of the Shareme"
-      />
-      <div className={css["form-login-container"]}>
-        <h1 className={css["heading"]}>Log Into ShareMe</h1>
-        <form className={css["form"]} onSubmit={(e) => handleSubmit(e)}>
-          <div className="form-group">
-            <input
-              placeholder="Email"
-              type="email"
-              className="form-input"
-              {...bindEmail}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <input
-              placeholder="Password"
-              type="password"
-              className="form-input"
-              {...bindPassword}
-              required
-            />
-          </div>
+    <>
+      <main className="container full center">
+        <>{alert}</>
+        <img
+          className={css["login-logo"]}
+          src={"./images/logo-full.png"}
+          alt="Logo of the Shareme"
+        />
+        <div className={css["form-login-container"]}>
+          <h1 className={css["heading"]}>Log Into ShareMe</h1>
+          <form className={css["form"]} onSubmit={(e) => handleSubmit(e)}>
+            <div className="form-group">
+              <input
+                placeholder="Email"
+                type="email"
+                className="form-input"
+                {...bindEmail}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <input
+                placeholder="Password"
+                type="password"
+                className="form-input"
+                {...bindPassword}
+                required
+              />
+            </div>
 
-          <button className="btn btn--small my-2 btn--primary btn--stretched">
-            Log In
-          </button>
-        </form>
-        <Link
-          className="btn btn--small my-2 btn--secondary btn--stretched"
-          to="/register"
-        >
-          Create Account
-        </Link>
+            <button className="btn btn--small my-2 btn--primary btn--stretched">
+              Log In
+            </button>
+          </form>
+          <Link
+            className="btn btn--small my-2 btn--secondary btn--stretched"
+            to="/register"
+          >
+            Create Account
+          </Link>
+        </div>
+      </main>
+      <div className="footer">
+        Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
       </div>
-    </main>
+    </>
   );
 }
 

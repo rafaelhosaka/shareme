@@ -84,114 +84,119 @@ function RegisterForm() {
   };
 
   return (
-    <main className="container full center">
-      {alert}
+    <>
+      <main className="container full center">
+        {alert}
 
-      <div className={`${css["form-register-container"]}`}>
-        <div className={`${css.header} p2`}>
-          <h1>Sign Up</h1>
-        </div>
-        <form className={`p1`} onSubmit={(e) => handleSubmit(e)}>
-          <div className={css["register-fields"]}>
-            <input
-              className="form-input form-input--gray"
-              type="text"
-              placeholder="First name"
-              {...bindFirstName}
-              required
-            />
-            <input
-              className="form-input form-input--gray"
-              type="text"
-              placeholder="Last name"
-              {...bindLastName}
-              required
-            />
-
-            <input
-              className="form-input form-input--gray"
-              type="email"
-              placeholder="Email"
-              {...bindEmail}
-              required
-            />
-
-            <input
-              className="form-input form-input--gray"
-              type="password"
-              placeholder="New Password"
-              {...bindPassword}
-              required
-            />
+        <div className={`${css["form-register-container"]}`}>
+          <div className={`${css.header} p2`}>
+            <h1>Sign Up</h1>
           </div>
-          <span className="form-label">Birthday</span>
-          <div className="grid--3x1">
-            <select className="form-select" {...bindMonth}>
-              {MONTHS.map((m, i) => (
-                <option key={m} value={i}>
-                  {m}
-                </option>
-              ))}
-            </select>
-
-            <select className="form-select" {...bindDay}>
-              {[...Array(31).keys()].map((x) => (
-                <option key={x + 1} value={x + 1}>
-                  {x + 1}
-                </option>
-              ))}
-            </select>
-            <select className="form-select" {...bindYear}>
-              {[...Array(118).keys()].map((x) => (
-                <option key={currentYear - x} value={currentYear - x}>
-                  {currentYear - x}
-                </option>
-              ))}
-            </select>
-          </div>
-          <span className="form-label">Gender</span>
-          <div className="grid--2x1">
-            <div onClick={() => setGender("female")} className="form-radio">
-              <label htmlFor="female">Female</label>
+          <form className={`p1`} onSubmit={(e) => handleSubmit(e)}>
+            <div className={css["register-fields"]}>
               <input
-                className="radio-btn"
-                type="radio"
-                id="female"
-                name="gender"
-                value="female"
-                checked={gender === "female"}
-                onChange={(e) => setGender(e.target.value)}
+                className="form-input form-input--gray"
+                type="text"
+                placeholder="First name"
+                {...bindFirstName}
+                required
+              />
+              <input
+                className="form-input form-input--gray"
+                type="text"
+                placeholder="Last name"
+                {...bindLastName}
+                required
+              />
+
+              <input
+                className="form-input form-input--gray"
+                type="email"
+                placeholder="Email"
+                {...bindEmail}
+                required
+              />
+
+              <input
+                className="form-input form-input--gray"
+                type="password"
+                placeholder="New Password"
+                {...bindPassword}
                 required
               />
             </div>
+            <span className="form-label">Birthday</span>
+            <div className="grid--3x1">
+              <select className="form-select" {...bindMonth}>
+                {MONTHS.map((m, i) => (
+                  <option key={m} value={i}>
+                    {m}
+                  </option>
+                ))}
+              </select>
 
-            <div onClick={() => setGender("male")} className="form-radio">
-              <label htmlFor="male">Male</label>
-              <input
-                className="radio-btn"
-                type="radio"
-                id="male"
-                name="gender"
-                value="male"
-                checked={gender === "male"}
-                onChange={(e) => setGender(e.target.value)}
-              />
+              <select className="form-select" {...bindDay}>
+                {[...Array(31).keys()].map((x) => (
+                  <option key={x + 1} value={x + 1}>
+                    {x + 1}
+                  </option>
+                ))}
+              </select>
+              <select className="form-select" {...bindYear}>
+                {[...Array(118).keys()].map((x) => (
+                  <option key={currentYear - x} value={currentYear - x}>
+                    {currentYear - x}
+                  </option>
+                ))}
+              </select>
             </div>
-          </div>
-          <div className="form-group">
-            <button className="btn btn--small my-2 btn--primary btn--stretched">
-              Sign Up
-            </button>
-            <Link
-              to="/login"
-              className="btn btn--small my-2 btn--secondary btn--stretched"
-            >
-              Back
-            </Link>
-          </div>
-        </form>
+            <span className="form-label">Gender</span>
+            <div className="grid--2x1">
+              <div onClick={() => setGender("female")} className="form-radio">
+                <label htmlFor="female">Female</label>
+                <input
+                  className="radio-btn"
+                  type="radio"
+                  id="female"
+                  name="gender"
+                  value="female"
+                  checked={gender === "female"}
+                  onChange={(e) => setGender(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div onClick={() => setGender("male")} className="form-radio">
+                <label htmlFor="male">Male</label>
+                <input
+                  className="radio-btn"
+                  type="radio"
+                  id="male"
+                  name="gender"
+                  value="male"
+                  checked={gender === "male"}
+                  onChange={(e) => setGender(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="form-group">
+              <button className="btn btn--small my-2 btn--primary btn--stretched">
+                Sign Up
+              </button>
+              <Link
+                to="/login"
+                className="btn btn--small my-2 btn--secondary btn--stretched"
+              >
+                Back
+              </Link>
+            </div>
+          </form>
+        </div>
+      </main>
+      <div className="footer">
+        Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
       </div>
-    </main>
+    </>
   );
 }
 
