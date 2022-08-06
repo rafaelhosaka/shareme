@@ -26,6 +26,10 @@ a.btn {
 
 .btn:disabled {
   opacity: 0.5;
+
+  &:hover {
+    filter: brightness(90%);
+  }
 }
 
 a.btn--primary,
@@ -79,10 +83,11 @@ a.btn--secondary,
   }
 
   a.btn--primary,
-  .btn--primary {
-    background-color: t.$dark-primary-color;
+  .btn--primary,
+  .btn:disabled {
+    background: t.$dark-primary-color;
     &:hover {
-      background-color: t.$dark-secondary-bgcolor;
+      background: t.$dark-secondary-bgcolor;
     }
   }
 

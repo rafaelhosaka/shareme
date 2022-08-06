@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAlert } from "../../components/Alert/Alert";
 import { useUser } from "../../context/userContext";
 import { useEditableText } from "../../hook/useEditableText";
 import { updateUser } from "../../services/userService";
@@ -6,6 +7,7 @@ import css from "./GeneralSettings.module.scss";
 
 const GeneralSettings = () => {
   const { user, setUser } = useUser();
+  const [alert, dispatchAlert] = useAlert();
 
   const [editableFirstName, firstName, resetFirstName] = useEditableText(
     user?.firstName ?? ""
@@ -20,6 +22,7 @@ const GeneralSettings = () => {
       updateUser(user);
       setUser(user);
       setEditting(false);
+      dispatchAlert("Change saved successfully", "success");
     }
   };
 
@@ -32,6 +35,7 @@ const GeneralSettings = () => {
   if (user) {
     return (
       <div className={`${css["general-settings__container"]} p2`}>
+        {alert}
         <h2>General Account Settings</h2>
         <div className={css["setting-list"]}>
           <div className={css["setting-item"]}>

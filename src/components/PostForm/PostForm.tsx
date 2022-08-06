@@ -16,6 +16,8 @@ interface PostFormProps {
 }
 
 function PostForm({ handleNewPost }: PostFormProps) {
+  const [submitting, setSubmmiting] = useState(false);
+
   const onDrop = useCallback(
     (acceptedFiles: File[], fileRejections: FileRejection[]) => {
       if (fileRejections.length !== 0) {
@@ -95,16 +97,20 @@ function PostForm({ handleNewPost }: PostFormProps) {
     );
     formData.append("file", files[0]); //for now accept only one image
     const { data } = await savePostWithImage(formData);
+
     return data;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     try {
+      setSubmmiting(true);
       e.preventDefault();
       if (currentUser) {
-        handleNewPost(await createPost(currentUser));
+        const newPost = await createPost(currentUser);
+        handleNewPost(new PostEntity(newPost));
         handleClose();
         resetDescription();
+        setSubmmiting(false);
       }
     } catch (ex) {
       console.log(ex);
@@ -118,7 +124,14 @@ function PostForm({ handleNewPost }: PostFormProps) {
       <header>
         <h1 className={`${css.heading} my-2`}>Create Post</h1>
       </header>
-      <form id="form-post" className="p2" onSubmit={(e) => handleSubmit(e)}>
+      <form
+        id="form-post"
+        className="p2"
+        onSubmit={(e) => {
+          setSubmmiting(true);
+          handleSubmit(e);
+        }}
+      >
         <div className={css.user}>
           <Link to={`/profile/${currentUser?.id}/posts`}>
             <Spinner show={!userImage} sizeClass="size--60">
@@ -145,7 +158,12 @@ function PostForm({ handleNewPost }: PostFormProps) {
         </div>
 
         {renderPreview()}
-        <button className="btn my-2 btn--primary btn--stretched">Post</button>
+        <button
+          disabled={submitting}
+          className="btn my-2 btn--primary btn--stretched"
+        >
+          Post
+        </button>
       </form>
     </div>
   );

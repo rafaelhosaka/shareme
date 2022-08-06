@@ -62,7 +62,7 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
     setPostUserService(userImageDownload(post.user.id));
     setPostImageService(
       postImageDownload(
-        post instanceof PostEntity ? post.id : post.sharedPost.id
+        post instanceof PostEntity ? post?.id : post.sharedPost?.id
       )
     );
   }, []);
@@ -194,7 +194,7 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
     if (post instanceof PostEntity) {
       return post.fileName ? jsx : <></>;
     } else {
-      return post.sharedPost.fileName ? jsx : <></>;
+      return post.sharedPost?.fileName ? jsx : <></>;
     }
   };
 

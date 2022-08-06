@@ -2,16 +2,16 @@ import _ from "lodash";
 import { useEffect, useState } from "react";
 import { useStateRef } from "../../hook/useStateRef";
 import PostEntity, { SharedPostEntity } from "../../models/post";
-import { deletePost } from "../../services/postService";
 import { calculateMaxPage, paginate } from "../../utils/paginate";
 import { useAlert } from "../Alert/Alert";
 import Post from "./Post";
 
 interface PostListProps {
   posts: (PostEntity | SharedPostEntity)[];
+  onDelete?: (postId: string) => void;
 }
 
-const PostList = ({ posts }: PostListProps) => {
+const PostList = ({ posts, onDelete }: PostListProps) => {
   const [pagedPosts, setPagedPosts] = useState<
     (PostEntity | SharedPostEntity)[]
   >([]);
@@ -55,9 +55,10 @@ const PostList = ({ posts }: PostListProps) => {
   }, [currentPage]);
 
   const handleDelete = (postId: string) => {
-    deletePost(postId);
-    setPagedPosts(pagedPosts.filter((p) => p.id !== postId));
-    dispatchAlert("Post deleted successfully", "success");
+    if (onDelete) {
+      onDelete(postId);
+      dispatchAlert("Post deleted successfully", "success");
+    }
   };
 
   const onScroll = () => {

@@ -24,14 +24,19 @@ const Feed = () => {
   }, []);
 
   const handleNewPost = (post: PostEntity) => {
-    setPosts([post, ...posts]);
+    setPosts((prev) => [post, ...prev]);
+  };
+
+  const handleDeletePost = (postId: string) => {
+    postService.deletePost(postId);
+    setPosts(posts.filter((p) => p.id !== postId));
   };
 
   return (
     <>
       <main className="container center">
         <PostForm handleNewPost={handleNewPost} />
-        <PostList posts={posts} />
+        <PostList posts={posts} onDelete={handleDeletePost} />
       </main>
       <div className="footer">
         Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
