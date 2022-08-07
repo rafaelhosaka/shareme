@@ -72,8 +72,9 @@ function RegisterForm() {
         navigate("/login", {
           state: {
             alert: {
-              message: "Account created, please login",
-              type: "success",
+              message:
+                "We sent you a e-mail for verification, please verify your email",
+              type: "info",
             } as AlertEntity,
           },
         });

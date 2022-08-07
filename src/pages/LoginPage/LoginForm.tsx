@@ -38,7 +38,16 @@ function LoginForm() {
       }
     } catch (ex: any) {
       if (ex.response && ex.response.status === 400) {
-        dispatchAlert("Username/Password incorrect", "danger");
+        switch (ex.response.data) {
+          case "User is disabled":
+            dispatchAlert(
+              "Your account is disabled, please verify your email",
+              "danger"
+            );
+            break;
+          default:
+            dispatchAlert("Username/Password incorrect", "danger");
+        }
       }
     }
   };
