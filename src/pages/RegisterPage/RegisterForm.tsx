@@ -73,7 +73,7 @@ function RegisterForm() {
           state: {
             alert: {
               message:
-                "We sent you a e-mail for verification, please verify your email",
+                "We sent you an e-mail for verification, please verify your email",
               type: "info",
             } as AlertEntity,
           },

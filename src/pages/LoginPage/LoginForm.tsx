@@ -93,6 +93,9 @@ function LoginForm() {
           >
             Create Account
           </Link>
+          <Link className={css["link"]} to="/resend">
+            Send new e-mail verification
+          </Link>
         </div>
       </main>
       <div className="footer">

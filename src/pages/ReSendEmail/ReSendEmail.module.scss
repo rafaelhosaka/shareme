@@ -6,31 +6,12 @@
   margin: 3rem;
 }
 
-.form-login-container {
+.resend__container {
   border-radius: 10px;
   padding: 2rem 1rem;
   width: 350px;
   box-shadow: t.$light-box-shadow;
   background-color: t.$light-secondary-bgcolor;
-}
-
-.heading {
-  text-align: center;
-  font-size: 2rem;
-}
-
-.form {
-  border-bottom: 1px solid lightgray;
-}
-
-.link {
-  display: flex;
-  justify-content: center;
-
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
 }
 
 @include mixins.tablet {
@@ -42,16 +23,13 @@
     font-size: 3rem;
   }
 
-  .form-login-container {
+  .resend__container {
     width: 600px;
   }
 }
 
-@include mixins.desktop {
-}
-
 @include mixins.whenDarkModule {
-  .form-login-container {
+  .resend__container {
     background-color: t.$dark-secondary-bgcolor;
     box-shadow: t.$dark-box-shadow;
   }

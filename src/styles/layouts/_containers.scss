@@ -18,6 +18,12 @@
     &.full {
       grid-area: 2/1/-2/4;
     }
+
+    &.center {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
   }
 
   .left-content {

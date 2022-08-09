@@ -14,6 +14,7 @@ import UserProfileEntity from "../../models/userProfile";
 import ChatMenu from "../../pages/ChatMenu/ChatMenu";
 import SettingsMenu from "../../pages/SettingsMenu/SettingsMenu";
 import GeneralSettings from "../../pages/SettingsMenu/GeneralSettings";
+import ReSendEmail from "../../pages/ReSendEmail/ReSendEmail";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -37,6 +38,10 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           <Route
             path="/register"
             element={currentUser ? <Navigate to="/home" /> : <RegisterForm />}
+          />
+          <Route
+            path="/resend"
+            element={currentUser ? <Navigate to="/home" /> : <ReSendEmail />}
           />
 
           {/* USER and ADMIN */}
