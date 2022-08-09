@@ -1,0 +1,19 @@
+@use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  padding: 0 3rem;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+  min-width: 350px;
+  box-shadow: t.$light-box-shadow;
+  background-color: t.$light-secondary-bgcolor;
+}
+
+.header {
+  margin: 2rem 0;
+}

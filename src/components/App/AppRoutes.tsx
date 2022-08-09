@@ -15,6 +15,7 @@ import ChatMenu from "../../pages/ChatMenu/ChatMenu";
 import SettingsMenu from "../../pages/SettingsMenu/SettingsMenu";
 import GeneralSettings from "../../pages/SettingsMenu/GeneralSettings";
 import ReSendEmail from "../../pages/ReSendEmail/ReSendEmail";
+import VerifyEmailPage from "../../pages/VerifyEmailPage/VerifyEmailPage";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -42,6 +43,12 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           <Route
             path="/resend"
             element={currentUser ? <Navigate to="/home" /> : <ReSendEmail />}
+          />
+          <Route
+            path="/verify"
+            element={
+              currentUser ? <Navigate to="/home" /> : <VerifyEmailPage />
+            }
           />
 
           {/* USER and ADMIN */}
