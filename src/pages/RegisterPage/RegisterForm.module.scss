@@ -21,6 +21,14 @@
   border-bottom: 1px solid #ccd0d4;
 }
 
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  height: 616px;
+}
+
 @include mixins.tablet {
   .register-fields {
     display: grid;

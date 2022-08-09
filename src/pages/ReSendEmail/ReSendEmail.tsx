@@ -20,7 +20,7 @@ const ReSendEmail = () => {
           "info"
         );
       } catch (ex: any) {
-        dispatchAlert("We could not find this e-mail", "warning");
+        dispatchAlert("We could not find this email", "warning");
       }
     }
   };
@@ -39,13 +39,13 @@ const ReSendEmail = () => {
             <input
               required
               className="form-input"
-              placeholder="Type your e-mail here..."
+              placeholder="Type your email here..."
               type="email"
               {...bindEmail}
             />
           </div>
           <button className="btn btn--small btn--primary btn--stretched">
-            Send new verification e-mail
+            Send new verification email
           </button>
 
           <Link

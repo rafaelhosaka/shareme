@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useInput } from "../../hook/useInput";
-import AlertEntity, { LocationProps } from "../../models/alert";
 import authService from "../../services/authService";
 import { useAlert } from "../../components/Alert/Alert";
 
@@ -15,15 +14,7 @@ function LoginForm() {
   const { value: email, bind: bindEmail } = useInput("");
   const { value: password, bind: bindPassword } = useInput("");
   const [alert, dispatchAlert] = useAlert();
-  const location = useLocation() as LocationProps;
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (location?.state?.alert as AlertEntity) {
-      const alert = location.state.alert;
-      dispatchAlert(alert.message, alert.type);
-    }
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     try {

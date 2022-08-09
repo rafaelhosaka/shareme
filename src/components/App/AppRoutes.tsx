@@ -16,6 +16,7 @@ import SettingsMenu from "../../pages/SettingsMenu/SettingsMenu";
 import GeneralSettings from "../../pages/SettingsMenu/GeneralSettings";
 import ReSendEmail from "../../pages/ReSendEmail/ReSendEmail";
 import VerifyEmailPage from "../../pages/VerifyEmailPage/VerifyEmailPage";
+import NotifyEmailPage from "../../pages/VerifyEmailPage/NotifyEmailPage";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -48,6 +49,12 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
             path="/verify"
             element={
               currentUser ? <Navigate to="/home" /> : <VerifyEmailPage />
+            }
+          />
+          <Route
+            path="/notify"
+            element={
+              currentUser ? <Navigate to="/home" /> : <NotifyEmailPage />
             }
           />
 
