@@ -19,7 +19,7 @@ const NotifyEmailPage = () => {
           <strong className={css["link"]}>
             <Link to="/resend">Click here </Link>
           </strong>
-          if you did not receive an email
+          if you did not receive an email or want to reset password
         </p>
       </div>
     </main>

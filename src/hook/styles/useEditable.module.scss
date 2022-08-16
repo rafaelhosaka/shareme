@@ -1,11 +1,11 @@
 @use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .editable-text__container {
   height: inherit;
 
   .editable {
     outline: 0;
-    color: black;
     background-color: t.$light-secondary-bgcolor;
     border: 3px solid black;
     border-radius: 10px;
@@ -20,7 +20,7 @@
   span.editable {
     width: 100%;
     min-width: 100px;
-    height: 100%;
+    min-height: 40px;
     padding: 0.5rem;
     &[data-placeholder]:empty::before {
       color: lightgray;
@@ -31,5 +31,14 @@
   .uneditable {
     white-space: pre-wrap;
     height: inherit;
+  }
+}
+
+@include mixins.whenDarkModule {
+  .editable {
+    outline: 0;
+    background-color: t.$dark-primary-color;
+    border: 3px solid black;
+    border-radius: 10px;
   }
 }

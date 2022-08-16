@@ -1,0 +1,39 @@
+.setting-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  width: 100%;
+  min-height: 50px;
+
+  & span {
+    font-weight: 700;
+  }
+
+  & button {
+    padding: 0 2rem;
+  }
+}
+
+.field {
+  display: flex;
+  gap: 10px;
+}
+
+.field-passwords {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  & > input {
+    border-radius: 10px;
+    outline: 0;
+    border: 0;
+    padding: 0.5rem;
+  }
+}
+
+.btn-area {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}

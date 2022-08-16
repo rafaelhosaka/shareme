@@ -84,8 +84,11 @@ function LoginForm() {
           >
             Create Account
           </Link>
+          <Link className={css["link"]} to="/recover">
+            Recover password
+          </Link>
           <Link className={css["link"]} to="/resend">
-            Send new e-mail verification
+            Send new email verification
           </Link>
         </div>
       </main>

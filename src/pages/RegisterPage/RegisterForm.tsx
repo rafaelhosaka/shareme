@@ -88,7 +88,7 @@ function RegisterForm() {
             <h1>Sign Up</h1>
           </div>
           <form
-            className={loading ? css["form"] : ""}
+            className={loading ? css["loading"] : ""}
             onSubmit={(e) => handleSubmit(e)}
           >
             <Spinner show={loading} sizeClass="size--400">
