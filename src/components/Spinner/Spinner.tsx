@@ -2,12 +2,16 @@ import css from "./Spinner.module.scss";
 import { ReactElement } from "react";
 
 interface SpinnerProps {
-  sizeClass: string;
+  sizeClass?: string;
   show: boolean;
   children: ReactElement | ReactElement[];
 }
 
-function Spinner({ children, sizeClass, show = true }: SpinnerProps) {
+function Spinner({
+  children,
+  sizeClass = "size--200",
+  show = true,
+}: SpinnerProps) {
   return (
     <>
       {show ? (

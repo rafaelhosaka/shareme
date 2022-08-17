@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useInput } from "../../hook/useInput";
 import authService from "../../services/authService";
@@ -8,6 +8,7 @@ import css from "./LoginForm.module.scss";
 import { useUser } from "../../context/userContext";
 import { getUserByEmail } from "../../services/userService";
 import { useNavigate } from "react-router";
+import Spinner from "../../components/Spinner/Spinner";
 
 function LoginForm() {
   const { setUser } = useUser();
@@ -15,8 +16,10 @@ function LoginForm() {
   const { value: password, bind: bindPassword } = useInput("");
   const [alert, dispatchAlert] = useAlert();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
+    setLoading(true);
     try {
       e.preventDefault();
       if (setUser) {
@@ -41,6 +44,7 @@ function LoginForm() {
         }
       }
     }
+    setLoading(false);
   };
 
   return (
@@ -52,41 +56,50 @@ function LoginForm() {
           src={"./images/logo-full.png"}
           alt="Logo of the Shareme"
         />
-        <div className={css["form-login-container"]}>
-          <h1 className={css["heading"]}>Log Into ShareMe</h1>
-          <form className={css["form"]} onSubmit={(e) => handleSubmit(e)}>
-            <div className="form-group">
-              <input
-                placeholder="Email"
-                type="email"
-                className="form-input"
-                {...bindEmail}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <input
-                placeholder="Password"
-                type="password"
-                className="form-input"
-                {...bindPassword}
-                required
-              />
-            </div>
+        <div
+          className={`${css["form-login-container"]} ${
+            loading ? css["loading"] : ""
+          }`}
+        >
+          <Spinner show={loading} sizeClass={"size--400"}>
+            <h1 className={css["heading"]}>Log Into ShareMe</h1>
+            <form className={css["form"]} onSubmit={(e) => handleSubmit(e)}>
+              <div className="form-group">
+                <input
+                  placeholder="Email"
+                  type="email"
+                  className="form-input"
+                  {...bindEmail}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  placeholder="Password"
+                  type="password"
+                  className="form-input"
+                  {...bindPassword}
+                  required
+                />
+              </div>
 
-            <button className="btn btn--small my-2 btn--primary btn--stretched">
-              Log In
-            </button>
-          </form>
-          <Link
-            className="btn btn--small my-2 btn--secondary btn--stretched"
-            to="/register"
-          >
-            Create Account
-          </Link>
-          <Link className={css["link"]} to="/resend">
-            Send new e-mail verification
-          </Link>
+              <button className="btn btn--small my-2 btn--primary btn--stretched">
+                Log In
+              </button>
+            </form>
+            <Link
+              className="btn btn--small my-2 btn--secondary btn--stretched"
+              to="/register"
+            >
+              Create Account
+            </Link>
+            <Link className={css["link"]} to="/recover">
+              Recover password
+            </Link>
+            <Link className={css["link"]} to="/resend">
+              Send new email verification
+            </Link>
+          </Spinner>
         </div>
       </main>
       <div className="footer">

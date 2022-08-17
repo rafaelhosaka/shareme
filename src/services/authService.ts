@@ -68,6 +68,28 @@ export async function refresh() {
   localStorage.setItem(refreshToken, jwt.refresh_token);
 }
 
+export async function changePasswordByUsername(
+  username: string,
+  currentPassword: string,
+  newPassword: string
+) {
+  const formData = new FormData();
+  formData.append("username", username);
+  formData.append("currentPassword", currentPassword);
+  formData.append("newPassword", newPassword);
+  return httpService.put(`${apiEndPoint}/password/username`, formData);
+}
+
+export async function changePasswordByToken(
+  token: string,
+  newPassword: string
+) {
+  const formData = new FormData();
+  formData.append("token", token);
+  formData.append("newPassword", newPassword);
+  return httpService.put(`${apiEndPoint}/password/token`, formData);
+}
+
 export default {
   login,
   logout,

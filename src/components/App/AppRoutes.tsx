@@ -17,6 +17,8 @@ import GeneralSettings from "../../pages/SettingsMenu/GeneralSettings";
 import ReSendEmail from "../../pages/ReSendEmail/ReSendEmail";
 import VerifyEmailPage from "../../pages/VerifyEmailPage/VerifyEmailPage";
 import NotifyEmailPage from "../../pages/VerifyEmailPage/NotifyEmailPage";
+import RecoverPassword from "../../pages/RecoverPassword/RecoverPassword";
+import ResetPasswordForm from "../../pages/RecoverPassword/ResetPasswordForm";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -44,6 +46,18 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           <Route
             path="/resend"
             element={currentUser ? <Navigate to="/home" /> : <ReSendEmail />}
+          />
+          <Route
+            path="/recover"
+            element={
+              currentUser ? <Navigate to="/home" /> : <RecoverPassword />
+            }
+          />
+          <Route
+            path="/resetPassword"
+            element={
+              currentUser ? <Navigate to="/home" /> : <ResetPasswordForm />
+            }
           />
           <Route
             path="/verify"

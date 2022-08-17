@@ -12,14 +12,14 @@ export function useEditableText(
   const ref = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (value && ref.current?.innerText != undefined) {
+    if (value && ref.current?.innerText !== undefined) {
       ref.current.innerText = value;
     }
   }, []);
 
   const reset = () => {
     setText(value ? value : "");
-    if (value && ref.current?.innerText != undefined) {
+    if (value && ref.current?.innerText !== undefined) {
       ref.current.innerText = value;
     }
   };
