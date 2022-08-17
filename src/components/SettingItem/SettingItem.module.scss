@@ -1,3 +1,5 @@
+@use "../../styles/abstracts/theme" as t;
+
 .setting-item {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -28,6 +30,7 @@
     border-radius: 10px;
     outline: 0;
     border: 0;
+    border: 3px solid t.$dark-primary-color;
     padding: 0.5rem;
   }
 }
