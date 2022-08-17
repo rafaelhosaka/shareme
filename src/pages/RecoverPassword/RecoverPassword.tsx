@@ -18,7 +18,10 @@ const RecoverPassword = () => {
       try {
         await sendPasswordRecoveryEmail(email);
         resetEmail();
-        dispatchAlert("We sent you an e-mail for resetting your email", "info");
+        dispatchAlert(
+          "We sent you an e-mail for resetting your password",
+          "info"
+        );
       } catch (ex: any) {
         dispatchAlert("We could not find this email", "warning");
       }
