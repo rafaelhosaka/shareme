@@ -5,6 +5,7 @@ import PostForm from "../../components/PostForm/PostForm";
 import PostEntity, { SharedPostEntity } from "../../models/post";
 import { useUser } from "../../context/userContext";
 import PostList from "../../components/Post/PostList";
+import ChatMenu from "../ChatMenu/ChatMenu";
 
 const Feed = () => {
   const { user: currentUser } = useUser();
@@ -38,6 +39,9 @@ const Feed = () => {
         <PostForm handleNewPost={handleNewPost} />
         <PostList posts={posts} onDelete={handleDeletePost} />
       </main>
+      <div className="right-content">
+        <ChatMenu />
+      </div>
       <div className="footer">
         Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
       </div>

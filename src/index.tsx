@@ -5,6 +5,7 @@ import { createRoot } from "react-dom/client";
 import "./styles/_main.scss";
 import { UserProvider } from "./context/userContext";
 import { ThemeProvider } from "./context/themeContext";
+import { ChatProvider } from "./context/chatContext";
 
 document.title = process.env.REACT_APP_NAME as string;
 
@@ -15,7 +16,9 @@ root.render(
     <BrowserRouter>
       <UserProvider>
         <ThemeProvider>
-          <App />
+          <ChatProvider>
+            <App />
+          </ChatProvider>
         </ThemeProvider>
       </UserProvider>
     </BrowserRouter>

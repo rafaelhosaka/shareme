@@ -34,8 +34,6 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
   }, [user]);
 
   const handleUploadCoverImage = async (e: React.FormEvent) => {
-    console.log(e);
-
     if (user) {
       const formData = new FormData();
       if (e.target instanceof HTMLInputElement)

@@ -171,13 +171,6 @@ const NavRight = () => {
   const getRightMenu = () => {
     return (
       <>
-        <Link to="/chat">
-          <NavMenuItem
-            iconClass="fa-solid fa-message fa-xl"
-            label="Chat"
-            active={pathname === "/chat"}
-          />
-        </Link>
         <Link to="/notifications">
           <NavMenuItem
             iconClass="fa-solid fa-bell fa-xl"
@@ -208,14 +201,6 @@ const NavRight = () => {
       )}
       {isDesktop && (
         <>
-          <NavLinkWithToolTip
-            activeClass={css.active}
-            className={css["nav-link"]}
-            to="/chat"
-            tooltipLabel="Chat"
-          >
-            <i className="fa-solid fa-message fa-xl"></i>
-          </NavLinkWithToolTip>
           <NavLinkWithToolTip
             activeClass={css.active}
             className={css["nav-link"]}

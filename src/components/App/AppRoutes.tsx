@@ -11,7 +11,6 @@ import SearchMenu from "../../pages/SearchMenu/SearchMenu";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Unauthorized from "../../pages/Unauthorized/Unauthorized";
 import UserProfileEntity from "../../models/userProfile";
-import ChatMenu from "../../pages/ChatMenu/ChatMenu";
 import SettingsMenu from "../../pages/SettingsMenu/SettingsMenu";
 import GeneralSettings from "../../pages/SettingsMenu/GeneralSettings";
 import ReSendEmail from "../../pages/ReSendEmail/ReSendEmail";
@@ -19,6 +18,7 @@ import VerifyEmailPage from "../../pages/VerifyEmailPage/VerifyEmailPage";
 import NotifyEmailPage from "../../pages/VerifyEmailPage/NotifyEmailPage";
 import RecoverPassword from "../../pages/RecoverPassword/RecoverPassword";
 import ResetPasswordForm from "../../pages/RecoverPassword/ResetPasswordForm";
+import MessagePanelList from "../MessagePanel/MessagePanelList";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -82,10 +82,6 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
 
             <Route path="/friends/:option" element={<FriendMenu />} />
 
-            <Route path="/chat" element={<ChatMenu />}>
-              <Route path="all" element={<NotFound />} />
-            </Route>
-
             <Route path="/profile/:id/:option" element={<Profile />} />
 
             <Route path="/search/:filter" element={<SearchMenu />} />
@@ -104,6 +100,7 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <footer>{currentUser && <MessagePanelList />}</footer>
       </div>
     </>
   );

@@ -1,0 +1,143 @@
+@use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
+
+.container {
+  bottom: 0;
+  right: 0;
+}
+
+.message-panel-list__container {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+.minimized-panels__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 1rem;
+}
+
+.message-panel {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr auto;
+  position: relative;
+  background: t.$light-secondary-bgcolor;
+  border-radius: 10px 10px 0 0;
+  margin-right: 2rem;
+  width: 338px;
+  height: 455px;
+  box-shadow: t.$light-box-shadow;
+}
+
+.header {
+  padding: 1rem;
+  border-radius: 10px 10px 0 0;
+  box-shadow: t.$light-box-shadow;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.minimized-user-image {
+  width: 48px;
+  height: 48px;
+  box-shadow: t.$light-box-shadow;
+  border-radius: 50%;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.user-name {
+  font-weight: 700;
+  margin-left: 1rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.btn-area {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 2rem;
+  &:hover {
+    background: t.$light-secondary-color;
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+
+.body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+.message {
+  max-width: 200px;
+  background-color: t.$light-secondary-color;
+  padding: 1rem;
+  border-radius: 20px;
+  margin-top: 0.3rem;
+  align-self: flex-start;
+
+  &.mine {
+    background-color: t.$light-primary-color;
+    color: t.$light-secondary-bgcolor;
+    align-self: flex-end;
+  }
+}
+
+.footer {
+  padding: 1rem;
+  width: 338px;
+
+  & > input {
+    outline: 0;
+    border: 0;
+    background: t.$light-secondary-color;
+    border-radius: 20px;
+    padding: 0.8rem;
+    width: 100%;
+  }
+}
+
+@include mixins.whenDarkModule {
+  .message-panel {
+    background: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .header {
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .icon {
+    &:hover {
+      background: t.$dark-secondary-color;
+    }
+  }
+}

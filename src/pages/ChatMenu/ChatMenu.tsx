@@ -1,15 +1,42 @@
-import MenuList from "../../components/MenuList/MenuList";
-import MenuItem from "../../components/MenuList/MenuItem";
-import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useChat } from "../../context/chatContext";
+
+import { useUser } from "../../context/userContext";
+import UserProfileEntity from "../../models/userProfile";
+import { getUsersFromIds } from "../../services/userService";
+import css from "./ChatMenu.module.scss";
+import ChatUser from "./ChatUser";
 
 const ChatMenu = () => {
+  const { user: currentUser } = useUser();
+  const { open } = useChat();
+  const [friends, setFriends] = useState<UserProfileEntity[]>([]);
+
+  async function getFriends() {
+    if (currentUser) {
+      const data = await getUsersFromIds(currentUser.friends);
+      setFriends(data);
+    }
+  }
+
+  useEffect(() => {
+    getFriends();
+  }, []);
+
+  const handleOpenPanel = (friend: UserProfileEntity) => {
+    if (open) {
+      open({ minimized: false, userId: friend.id, imageUrl: undefined });
+    }
+  };
+
   return (
-    <div className="left-content">
-      <MenuList title="Chat">
-        <MenuItem>
-          <NavLink to={"all"}>All friends</NavLink>
-        </MenuItem>
-      </MenuList>
+    <div className={css["container"]}>
+      <span className={css["header"]}>Contacts</span>
+      {friends.map((friend) => (
+        <div key={friend.id} onClick={() => handleOpenPanel(friend)}>
+          <ChatUser user={new UserProfileEntity(friend)} />
+        </div>
+      ))}
     </div>
   );
 };
