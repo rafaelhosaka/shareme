@@ -29,10 +29,25 @@
   justify-content: space-between;
 }
 
+.user-image__container {
+  position: relative;
+}
+
 .user-image {
   width: 32px;
   height: 32px;
   border-radius: 50%;
+}
+
+.online {
+  position: absolute;
+  background-color: t.$light-primary-color;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  border: 1px solid t.$light-secondary-bgcolor;
+  right: 0;
+  bottom: 0;
 }
 
 .minimized-panels__container {

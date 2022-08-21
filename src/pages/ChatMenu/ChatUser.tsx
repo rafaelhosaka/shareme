@@ -18,7 +18,10 @@ const ChatUser = ({ user }: ChatUserProps) => {
 
   return (
     <div className={css["user__container"]}>
-      <img key={user.id} className={css["user-image"]} src={userImage} />
+      <div className={css["user-image__container"]}>
+        <img key={user.id} className={css["user-image"]} src={userImage} />
+        {user.online && <div className={css["online"]}></div>}
+      </div>
       <span className={css["user-name"]}>{user.fullName}</span>
     </div>
   );

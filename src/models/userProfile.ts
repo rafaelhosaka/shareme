@@ -9,6 +9,7 @@ export default class UserProfileEntity {
   coverFileName: string;
   friends: string[];
   themePreference: string;
+  online: boolean;
   roles: string[];
 
   constructor(data: UserProfileEntity) {
@@ -22,6 +23,7 @@ export default class UserProfileEntity {
     this.gender = data.gender;
     this.friends = data.friends;
     this.themePreference = data.themePreference;
+    this.online = data.online;
     this.roles = [];
   }
 

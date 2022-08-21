@@ -19,6 +19,7 @@
   margin: 1rem;
   padding: 1rem;
   border-radius: 10px;
+  align-items: center;
 
   &:hover {
     background: t.$light-secondary-bgcolor;
@@ -26,14 +27,29 @@
   }
 }
 
+.user-image__container {
+  position: relative;
+}
+
 .user-image {
-  width: 24px;
-  height: 24px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 }
 
 .user-name {
   font-size: 1.5rem;
+}
+
+.online {
+  position: absolute;
+  background-color: t.$light-primary-color;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  right: 0;
+  bottom: 0;
+  border: 1px solid t.$light-secondary-bgcolor;
 }
 
 @include mixins.whenDarkModule {

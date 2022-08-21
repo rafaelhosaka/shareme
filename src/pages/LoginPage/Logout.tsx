@@ -1,11 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useUser } from "../../context/userContext";
 import authService from "../../services/authService";
 
 const Logout = () => {
+  const { setStatus } = useUser();
+  const [finished, setFinished] = useState(false);
+
   useEffect(() => {
-    authService.logout();
-    window.location.href = "/";
+    if (setStatus) {
+      setStatus(false);
+      setFinished(true);
+    }
   }, []);
+
+  useEffect(() => {
+    if (finished) {
+      authService.logout();
+      window.location.href = "/";
+    }
+  }, [finished]);
 
   return <></>;
 };

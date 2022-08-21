@@ -84,19 +84,16 @@ const MessagePanel = ({
     }
   };
 
-  const mouseOut = (id: string) => {
-    const tooltip = document.getElementById(`date-sent-${id}`);
-    if (tooltip) {
-    }
-  };
-
   return (
     <>
       {!minimized && (
         <div className={`${css["message-panel"]}`}>
           <div className={css["header"]}>
             <div className={css["user-info"]}>
-              <img className={css["user-image"]} src={userImage} />
+              <div className={css["user-image__container"]}>
+                <img className={css["user-image"]} src={userImage} />
+                {chattingUser?.online && <div className={css["online"]} />}
+              </div>
               <span className={css["user-name"]}>{chattingUser?.fullName}</span>
             </div>
             <div className={css["btn-area"]}>
@@ -118,7 +115,6 @@ const MessagePanel = ({
               <div key={message.id} className={css["message__container"]}>
                 <div
                   onMouseOver={(e) => mouseOver(e, message.id)}
-                  onMouseOut={() => mouseOut(message.id)}
                   className={`${css["message"]} ${
                     message.sender.id === currentUser?.id ? css["mine"] : ""
                   }`}
