@@ -6,6 +6,7 @@ import { MessageEntity } from "../../models/message";
 import UserProfileEntity from "../../models/userProfile";
 import { getMessages, sendMessage } from "../../services/messageService";
 import { getUserById, userImageDownload } from "../../services/userService";
+import { formatDate } from "../../utils/formatDate";
 import css from "./MessagePanel.module.scss";
 
 interface MessagePanelProps {
@@ -30,8 +31,6 @@ const MessagePanel = ({
   const bottomRef = useRef<HTMLDivElement>(null);
 
   async function updateMessages() {
-    console.log("?");
-
     if (currentUser && chattingUser) {
       const { data } = await getMessages(currentUser.id, chattingUser.id);
 
@@ -66,7 +65,7 @@ const MessagePanel = ({
     bottomRef.current?.scrollIntoView({
       behavior: "auto",
     });
-  }, [messages]);
+  }, [messages, minimized]);
 
   const handleSendMessage = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,8 +75,23 @@ const MessagePanel = ({
     resetText();
   };
 
+  const mouseOver = (e: React.MouseEvent, id: string) => {
+    const tooltip = document.getElementById(`date-sent-${id}`);
+    if (tooltip && e.currentTarget instanceof HTMLDivElement) {
+      let msgDivOffset = e.currentTarget.getBoundingClientRect();
+      tooltip.style.top = msgDivOffset.top + "px";
+      tooltip.style.left = msgDivOffset.left - 300 + "px";
+    }
+  };
+
+  const mouseOut = (id: string) => {
+    const tooltip = document.getElementById(`date-sent-${id}`);
+    if (tooltip) {
+    }
+  };
+
   return (
-    <div className={css["container"]}>
+    <>
       {!minimized && (
         <div className={`${css["message-panel"]}`}>
           <div className={css["header"]}>
@@ -101,14 +115,23 @@ const MessagePanel = ({
 
           <div className={css["body"]}>
             {messages.map((message) => (
-              <span
-                key={message.id}
-                className={`${css["message"]} ${
-                  message.sender.id === currentUser?.id ? css["mine"] : ""
-                }`}
-              >
-                {message.content}
-              </span>
+              <div key={message.id} className={css["message__container"]}>
+                <div
+                  onMouseOver={(e) => mouseOver(e, message.id)}
+                  onMouseOut={() => mouseOut(message.id)}
+                  className={`${css["message"]} ${
+                    message.sender.id === currentUser?.id ? css["mine"] : ""
+                  }`}
+                >
+                  <span>{message.content}</span>
+                </div>
+                <div
+                  id={`date-sent-${message.id}`}
+                  className={css["date-sent"]}
+                >
+                  {formatDate(message.dateSent!)}
+                </div>
+              </div>
             ))}
             <div ref={bottomRef} />
           </div>
@@ -119,7 +142,7 @@ const MessagePanel = ({
           </form>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

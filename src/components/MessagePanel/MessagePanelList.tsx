@@ -6,6 +6,7 @@ import css from "./MessagePanel.module.scss";
 export interface Panel {
   minimized: boolean;
   userId: string;
+  userName: string;
   imageUrl: string | undefined;
 }
 
@@ -44,14 +45,18 @@ function MessagePanelList() {
         {panels.map(
           (panel) =>
             panel.minimized && (
-              <img
-                key={panel.userId}
-                onClick={() => {
-                  if (maximize) maximize(panel.userId);
-                }}
-                className={css["minimized-user-image"]}
-                src={panel.imageUrl}
-              />
+              <div key={panel.userId} className={css["minimized-panel"]}>
+                <div className={css["minimized-user-name"]}>
+                  <div className={"tooltip-text left"}>{panel.userName}</div>
+                </div>
+                <img
+                  onClick={() => {
+                    if (maximize) maximize(panel.userId);
+                  }}
+                  className={css["minimized-user-image"]}
+                  src={panel.imageUrl}
+                />
+              </div>
             )
         )}
       </div>

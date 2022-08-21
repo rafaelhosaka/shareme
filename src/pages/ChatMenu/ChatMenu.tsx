@@ -25,7 +25,12 @@ const ChatMenu = () => {
 
   const handleOpenPanel = (friend: UserProfileEntity) => {
     if (open) {
-      open({ minimized: false, userId: friend.id, imageUrl: undefined });
+      open({
+        minimized: false,
+        userId: friend.id,
+        userName: friend.fullName,
+        imageUrl: undefined,
+      });
     }
   };
 
@@ -33,7 +38,10 @@ const ChatMenu = () => {
     <div className={css["container"]}>
       <span className={css["header"]}>Contacts</span>
       {friends.map((friend) => (
-        <div key={friend.id} onClick={() => handleOpenPanel(friend)}>
+        <div
+          key={friend.id}
+          onClick={() => handleOpenPanel(new UserProfileEntity(friend))}
+        >
           <ChatUser user={new UserProfileEntity(friend)} />
         </div>
       ))}

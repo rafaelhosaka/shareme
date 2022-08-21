@@ -1,24 +1,11 @@
 @use "../../styles/abstracts/theme" as t;
 @use "../../styles/abstracts/mixins" as mixins;
 
-.container {
-  bottom: 0;
-  right: 0;
-}
-
 .message-panel-list__container {
   display: flex;
   position: fixed;
   bottom: 0;
   right: 0;
-}
-
-.minimized-panels__container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 10px;
-  margin: 1rem;
 }
 
 .message-panel {
@@ -48,15 +35,38 @@
   border-radius: 50%;
 }
 
+.minimized-panels__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+  margin: 1rem;
+}
+
+.minimized-panel {
+  display: flex;
+  align-items: center;
+
+  &:hover .minimized-user-name {
+    opacity: 1;
+  }
+}
+
 .minimized-user-image {
   width: 48px;
   height: 48px;
   box-shadow: t.$light-box-shadow;
   border-radius: 50%;
+  animation: popup 0.3s;
 
   &:hover {
     cursor: pointer;
   }
+}
+
+.minimized-user-name {
+  position: relative;
+  opacity: 0;
 }
 
 .user-name {
@@ -91,24 +101,51 @@
 
 .body {
   padding: 1rem;
-  display: flex;
-  flex-direction: column;
   overflow-y: scroll;
 }
 
+.message__container {
+  display: flex;
+  flex-direction: column;
+}
+
 .message {
+  display: flex;
+  flex-direction: column;
   max-width: 200px;
   background-color: t.$light-secondary-color;
-  padding: 1rem;
+  padding: 1rem 2rem;
   border-radius: 20px;
   margin-top: 0.3rem;
   align-self: flex-start;
+  z-index: 1;
 
   &.mine {
     background-color: t.$light-primary-color;
     color: t.$light-secondary-bgcolor;
     align-self: flex-end;
   }
+}
+
+.message:hover + .date-sent {
+  opacity: 1;
+  height: auto;
+  padding: 1rem;
+  visibility: visible;
+}
+
+.date-sent {
+  position: fixed;
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  font-weight: 400;
+  transition: opacity 0.5s;
+  width: max-content;
+  visibility: hidden;
+  opacity: 0;
+  height: 0;
+  z-index: 2;
 }
 
 .footer {
@@ -125,6 +162,15 @@
   }
 }
 
+@keyframes popup {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @include mixins.whenDarkModule {
   .message-panel {
     background: t.$dark-secondary-bgcolor;
@@ -133,6 +179,15 @@
 
   .header {
     box-shadow: t.$dark-box-shadow;
+  }
+
+  .message {
+    background-color: t.$dark-secondary-color;
+
+    &.mine {
+      background-color: t.$light-primary-color;
+      color: t.$light-secondary-bgcolor;
+    }
   }
 
   .icon {

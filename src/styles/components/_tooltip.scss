@@ -13,4 +13,10 @@
   font-size: 2rem;
   padding: 0.3rem;
   border-radius: 5px;
+  width: max-content;
+
+  &.left {
+    top: -20px;
+    right: 5px;
+  }
 }

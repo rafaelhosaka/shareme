@@ -100,7 +100,7 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <footer>{currentUser && <MessagePanelList />}</footer>
+        <>{currentUser && <MessagePanelList />}</>
       </div>
     </>
   );
