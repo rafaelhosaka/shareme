@@ -2,7 +2,7 @@ import httpService from "./httpService";
 
 const apiEndPoint = "/message";
 
-export function sendMessage(
+export function saveMessage(
   senderId: string,
   receiverId: string,
   content: string

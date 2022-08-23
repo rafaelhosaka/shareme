@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
+import { useChat } from "../../context/chatContext";
 import { useUser } from "../../context/userContext";
 import authService from "../../services/authService";
 
 const Logout = () => {
-  const { setStatus } = useUser();
   const [finished, setFinished] = useState(false);
+  const { user } = useUser();
+  const { changeStatus } = useChat();
 
   useEffect(() => {
-    if (setStatus) {
-      setStatus(false);
+    if (changeStatus && user) {
+      changeStatus(user.id, false);
       setFinished(true);
     }
   }, []);

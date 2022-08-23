@@ -1,10 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import authService from "../services/authService";
-import {
-  getUserByEmail,
-  userImageDownload,
-  updateUser as update,
-} from "../services/userService";
+import { getUserByEmail, userImageDownload } from "../services/userService";
 import { useBase64Image } from "../hook/useBase64Image";
 import UserProfileEntity from "../models/userProfile";
 
@@ -52,8 +48,6 @@ export function UserProvider({ children }: UserProviderProps) {
   useEffect(() => {
     if (user) {
       setService(userImageDownload(user.id));
-      setStatus(true);
-      window.addEventListener("beforeunload", () => setStatus(false), false);
     }
   }, [user]);
 
@@ -64,16 +58,9 @@ export function UserProvider({ children }: UserProviderProps) {
     setUser(user);
   };
 
-  const setStatus = (online: boolean) => {
-    if (user) {
-      user.online = online;
-      update(user);
-    }
-  };
-
   return (
     <UserContext.Provider
-      value={{ user, setUser: updateUser, setStatus } as UserContextInterface}
+      value={{ user, setUser: updateUser } as UserContextInterface}
     >
       <UserImageContext.Provider value={userImage}>
         {children}

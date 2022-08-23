@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useChat } from "../../context/chatContext";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { useInput } from "../../hook/useInput";
 import { MessageEntity } from "../../models/message";
 import UserProfileEntity from "../../models/userProfile";
-import { getMessages, sendMessage } from "../../services/messageService";
+import { getMessages, saveMessage } from "../../services/messageService";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate } from "../../utils/formatDate";
 import css from "./MessagePanel.module.scss";
@@ -12,6 +13,7 @@ import css from "./MessagePanel.module.scss";
 interface MessagePanelProps {
   chattingUserId: string;
   minimized: boolean;
+  online: boolean;
   onMinimized: (userId: string, imageUrl: string | undefined) => void;
   onClose: (userId: string) => void;
 }
@@ -19,6 +21,7 @@ interface MessagePanelProps {
 const MessagePanel = ({
   chattingUserId,
   minimized,
+  online,
   onMinimized,
   onClose,
 }: MessagePanelProps) => {
@@ -29,16 +32,13 @@ const MessagePanel = ({
   const { image: userImage, setService: setUserImageService } =
     useBase64Image(null);
   const bottomRef = useRef<HTMLDivElement>(null);
+  const { sendMessage, receivedMessage } = useChat();
 
-  async function updateMessages() {
-    if (currentUser && chattingUser) {
-      const { data } = await getMessages(currentUser.id, chattingUser.id);
-
-      if (messages.length !== data.length) {
-        setMessages(data);
-      }
+  useEffect(() => {
+    if (receivedMessage) {
+      setMessages([...messages, receivedMessage]);
     }
-  }
+  }, [receivedMessage]);
 
   useEffect(() => {
     async function getUserMessages() {
@@ -55,24 +55,19 @@ const MessagePanel = ({
   }, [currentUser]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      updateMessages();
-    }, 1000);
-    return () => clearInterval(interval);
-  });
-
-  useEffect(() => {
     bottomRef.current?.scrollIntoView({
       behavior: "auto",
     });
   }, [messages, minimized]);
 
-  const handleSendMessage = (e: React.FormEvent) => {
+  const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (currentUser) {
-      sendMessage(currentUser.id, chattingUserId, text);
+    if (currentUser && sendMessage) {
+      const { data } = await saveMessage(currentUser.id, chattingUserId, text);
+      sendMessage(data);
+      setMessages([...messages, data]);
+      resetText();
     }
-    resetText();
   };
 
   const mouseOver = (e: React.MouseEvent, id: string) => {
@@ -92,7 +87,7 @@ const MessagePanel = ({
             <div className={css["user-info"]}>
               <div className={css["user-image__container"]}>
                 <img className={css["user-image"]} src={userImage} />
-                {chattingUser?.online && <div className={css["online"]} />}
+                {online && <div className={css["online"]} />}
               </div>
               <span className={css["user-name"]}>{chattingUser?.fullName}</span>
             </div>

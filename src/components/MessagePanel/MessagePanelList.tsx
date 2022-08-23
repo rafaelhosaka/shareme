@@ -8,6 +8,7 @@ export interface Panel {
   userId: string;
   userName: string;
   imageUrl: string | undefined;
+  online: boolean;
 }
 
 function MessagePanelList() {
@@ -37,6 +38,7 @@ function MessagePanelList() {
           key={panel.userId}
           minimized={panel.minimized}
           chattingUserId={panel.userId}
+          online={panel.online}
           onMinimized={handleMinimize}
           onClose={handleClose}
         />

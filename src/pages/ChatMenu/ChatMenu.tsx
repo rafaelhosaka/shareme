@@ -9,7 +9,7 @@ import ChatUser from "./ChatUser";
 
 const ChatMenu = () => {
   const { user: currentUser } = useUser();
-  const { open } = useChat();
+  const { open, statusChangedUser } = useChat();
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
 
   async function getFriends() {
@@ -18,6 +18,17 @@ const ChatMenu = () => {
       setFriends(data);
     }
   }
+
+  useEffect(() => {
+    const newFriends = friends.map((friend) => {
+      if (friend.id === statusChangedUser?.id) {
+        friend.online = statusChangedUser.online;
+        return friend;
+      }
+      return friend;
+    });
+    setFriends(newFriends);
+  }, [statusChangedUser]);
 
   useEffect(() => {
     getFriends();
@@ -30,6 +41,7 @@ const ChatMenu = () => {
         userId: friend.id,
         userName: friend.fullName,
         imageUrl: undefined,
+        online: friend.online,
       });
     }
   };
