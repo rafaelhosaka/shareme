@@ -39,13 +39,18 @@ export const useStomp = (): [
 
   const onConnected = () => {
     if (stompClient) {
-      stompClient.subscribe("/chat/status", onStatusUpdated);
+      user?.friends.map((friendId) => {
+        stompClient.subscribe(`/user/${friendId}/status`, onStatusUpdated);
+      });
+
       stompClient.subscribe(`/user/${user?.id}/private`, onMessageReceived);
       setConnected(true);
     }
   };
 
   const onStatusUpdated = (payload: any) => {
+    console.log("statusupdated");
+
     const payloadData = JSON.parse(payload.body);
     setStatusChangedUser(payloadData);
   };

@@ -104,9 +104,11 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
     if (currentUser?.id === user.id) return;
     if (user && currentUser?.friends.includes(user.id)) {
       return (
-        <div className={css["dropdown-friend-menu"]}>
+        <div
+          ref={(element) => (dropFriendRefs.current[0] = element)}
+          className={css["dropdown-friend-menu"]}
+        >
           <button
-            ref={(element) => (dropFriendRefs.current[0] = element)}
             onClick={() => setDropFriendVisible((prev) => !prev)}
             className="btn btn--primary"
           >
@@ -114,7 +116,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
           </button>
           {isDropFriendVisible && (
             <DropdownMenu>
-              <DropdownItem onClick={handleUnfriend} label="Unfriend">
+              <DropdownItem onClick={() => handleUnfriend()} label="Unfriend">
                 <i className="fa-solid fa-user-xmark"></i>
               </DropdownItem>
             </DropdownMenu>
