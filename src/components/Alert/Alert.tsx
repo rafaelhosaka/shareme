@@ -45,7 +45,6 @@ function Alert({ message, type, closeAlert }: AlertProps) {
   return (
     <div id="alert" className={`${css.alert} ${getClass(type)}`}>
       <div>
-        <span className={css["label"]}>{getLabel(type)}</span>
         <span className={css["message"]}>{message}</span>
       </div>
       <i
@@ -54,19 +53,6 @@ function Alert({ message, type, closeAlert }: AlertProps) {
       ></i>
     </div>
   );
-}
-
-function getLabel(type: string) {
-  switch (type) {
-    case ALERT.SUCCESS:
-      return "Success! ";
-    case ALERT.DANGER:
-      return "Error! ";
-    case ALERT.WARNING:
-      return "Warning! ";
-    default:
-      return "Info! ";
-  }
 }
 
 function getClass(type: string) {
