@@ -42,9 +42,6 @@ const Feed = () => {
       <div className="right-content">
         <ChatMenu />
       </div>
-      <div className="footer">
-        Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
-      </div>
     </>
   );
 };

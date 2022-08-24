@@ -9,6 +9,11 @@
     outline: auto;
     outline-color: t.$light-primary-color;
   }
+
+  &.small {
+    padding: 0.5rem;
+    font-size: 1.5rem;
+  }
 }
 
 @include mixins.tablet {

@@ -1,0 +1,18 @@
+@use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
+
+.footer {
+  position: fixed;
+  width: 100%;
+  padding: 0.2rem;
+  text-align: center;
+  bottom: 0;
+  font-weight: 600;
+  background: t.$light-secondary-bgcolor;
+}
+
+@include mixins.whenDarkModule {
+  .footer {
+    background: t.$dark-secondary-bgcolor;
+  }
+}

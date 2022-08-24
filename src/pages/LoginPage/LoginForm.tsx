@@ -9,8 +9,10 @@ import { useUser } from "../../context/userContext";
 import { getUserByEmail } from "../../services/userService";
 import { useNavigate } from "react-router";
 import Spinner from "../../components/Spinner/Spinner";
+import { useTranslation } from "react-i18next";
 
 function LoginForm() {
+  const { t } = useTranslation();
   const { setUser } = useUser();
   const { value: email, bind: bindEmail } = useInput("");
   const { value: password, bind: bindPassword } = useInput("");
@@ -34,13 +36,13 @@ function LoginForm() {
       if (ex.response && ex.response.status === 400) {
         switch (ex.response.data) {
           case "User is disabled":
-            dispatchAlert(
-              "Your account is disabled, please verify your email",
-              "danger"
-            );
+            dispatchAlert(t("LOGIN_PAGE.alertAccountDisabled"), "danger");
             break;
           default:
-            dispatchAlert("Username/Password incorrect", "danger");
+            dispatchAlert(
+              t("LOGIN_PAGE.alertEmailPasswordIncorrect"),
+              "danger"
+            );
         }
       }
     }
@@ -56,17 +58,18 @@ function LoginForm() {
           src={"./images/logo-full.png"}
           alt="Logo of the Shareme"
         />
+
         <div
           className={`${css["form-login-container"]} ${
             loading ? css["loading"] : ""
           }`}
         >
           <Spinner show={loading} sizeClass={"size--400"}>
-            <h1 className={css["heading"]}>Log Into ShareMe</h1>
+            <h1 className={css["heading"]}>{t("LOGIN_PAGE.heading")}</h1>
             <form className={css["form"]} onSubmit={(e) => handleSubmit(e)}>
               <div className="form-group">
                 <input
-                  placeholder="Email"
+                  placeholder={t("LOGIN_PAGE.email")}
                   type="email"
                   className="form-input"
                   {...bindEmail}
@@ -75,7 +78,7 @@ function LoginForm() {
               </div>
               <div className="form-group">
                 <input
-                  placeholder="Password"
+                  placeholder={t("LOGIN_PAGE.password")}
                   type="password"
                   className="form-input"
                   {...bindPassword}
@@ -84,27 +87,24 @@ function LoginForm() {
               </div>
 
               <button className="btn btn--small my-2 btn--primary btn--stretched">
-                Log In
+                {t("LOGIN_PAGE.login")}
               </button>
             </form>
             <Link
               className="btn btn--small my-2 btn--secondary btn--stretched"
               to="/register"
             >
-              Create Account
+              {t("LOGIN_PAGE.createAccount")}
             </Link>
             <Link className={css["link"]} to="/recover">
-              Recover password
+              {t("LOGIN_PAGE.recoverPassword")}
             </Link>
             <Link className={css["link"]} to="/resend">
-              Send new email verification
+              {t("LOGIN_PAGE.sendNewEmailVerification")}
             </Link>
           </Spinner>
         </div>
       </main>
-      <div className="footer">
-        Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
-      </div>
     </>
   );
 }

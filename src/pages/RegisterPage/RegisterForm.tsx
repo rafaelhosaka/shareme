@@ -193,9 +193,6 @@ function RegisterForm() {
           </form>
         </div>
       </main>
-      <div className="footer">
-        Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
-      </div>
     </>
   );
 }

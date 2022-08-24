@@ -19,6 +19,7 @@ import NotifyEmailPage from "../../pages/VerifyEmailPage/NotifyEmailPage";
 import RecoverPassword from "../../pages/RecoverPassword/RecoverPassword";
 import ResetPasswordForm from "../../pages/RecoverPassword/ResetPasswordForm";
 import MessagePanelList from "../MessagePanel/MessagePanelList";
+import Footer from "../../pages/Footer/Footer";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -101,6 +102,7 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           <Route path="*" element={<NotFound />} />
         </Routes>
         <>{currentUser && <MessagePanelList />}</>
+        <Footer />
       </div>
     </>
   );

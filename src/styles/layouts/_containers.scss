@@ -36,13 +36,6 @@
   }
 }
 
-.footer {
-  position: fixed;
-  margin: 1rem;
-  bottom: 0;
-  font-weight: 600;
-}
-
 @media screen and (min-width: 768px) {
   .template {
     grid-template: 70px auto/ 25fr 50fr;
