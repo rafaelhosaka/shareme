@@ -36,11 +36,11 @@ function LoginForm() {
       if (ex.response && ex.response.status === 400) {
         switch (ex.response.data) {
           case "User is disabled":
-            dispatchAlert(t("LOGIN_PAGE.alertAccountDisabled"), "danger");
+            dispatchAlert(t("LOGIN_FORM.alertAccountDisabled"), "danger");
             break;
           default:
             dispatchAlert(
-              t("LOGIN_PAGE.alertEmailPasswordIncorrect"),
+              t("LOGIN_FORM.alertEmailPasswordIncorrect"),
               "danger"
             );
         }
@@ -65,11 +65,11 @@ function LoginForm() {
           }`}
         >
           <Spinner show={loading} sizeClass={"size--400"}>
-            <h1 className={css["heading"]}>{t("LOGIN_PAGE.heading")}</h1>
+            <h1 className={css["heading"]}>{t("LOGIN_FORM.heading")}</h1>
             <form className={css["form"]} onSubmit={(e) => handleSubmit(e)}>
               <div className="form-group">
                 <input
-                  placeholder={t("LOGIN_PAGE.email")}
+                  placeholder={t("LOGIN_FORM.email")}
                   type="email"
                   className="form-input"
                   {...bindEmail}
@@ -78,7 +78,7 @@ function LoginForm() {
               </div>
               <div className="form-group">
                 <input
-                  placeholder={t("LOGIN_PAGE.password")}
+                  placeholder={t("LOGIN_FORM.password")}
                   type="password"
                   className="form-input"
                   {...bindPassword}
@@ -87,20 +87,20 @@ function LoginForm() {
               </div>
 
               <button className="btn btn--small my-2 btn--primary btn--stretched">
-                {t("LOGIN_PAGE.login")}
+                {t("LOGIN_FORM.login")}
               </button>
             </form>
             <Link
               className="btn btn--small my-2 btn--secondary btn--stretched"
               to="/register"
             >
-              {t("LOGIN_PAGE.createAccount")}
+              {t("LOGIN_FORM.createAccount")}
             </Link>
             <Link className={css["link"]} to="/recover">
-              {t("LOGIN_PAGE.recoverPassword")}
+              {t("LOGIN_FORM.recoverPassword")}
             </Link>
             <Link className={css["link"]} to="/resend">
-              {t("LOGIN_PAGE.sendNewEmailVerification")}
+              {t("LOGIN_FORM.sendNewEmailVerification")}
             </Link>
           </Spinner>
         </div>

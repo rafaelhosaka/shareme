@@ -1,4 +1,4 @@
-export const LOGIN_PAGE = {
+export const LOGIN_FORM = {
   heading: "ShareMeにログイン",
   login: "ログイン",
   email: "メールアドレス",

@@ -1,5 +1,5 @@
-import { LOGIN_PAGE } from "./LoginForm";
+import { LOGIN_FORM } from "./LoginForm";
 
 export const TRANSLATIONS_JP = {
-  LOGIN_PAGE,
+  LOGIN_FORM,
 };
