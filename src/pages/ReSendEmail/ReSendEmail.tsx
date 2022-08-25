@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useAlert } from "../../components/Alert/Alert";
 import Spinner from "../../components/Spinner/Spinner";
@@ -7,6 +8,7 @@ import { resendEmail } from "../../services/emailService";
 import css from "./ReSendEmail.module.scss";
 
 const ReSendEmail = () => {
+  const { t } = useTranslation();
   const { value: email, bind: bindEmail, reset: resetEmail } = useInput("");
   const [alert, dispatchAlert] = useAlert();
   const [loading, setLoading] = useState(false);
@@ -18,12 +20,9 @@ const ReSendEmail = () => {
       try {
         await resendEmail(email);
         resetEmail();
-        dispatchAlert(
-          "We sent you an e-mail for verification, please verify your email",
-          "info"
-        );
+        dispatchAlert(t("RESEND_EMAIL.alertSentEmail"), "info");
       } catch (ex: any) {
-        dispatchAlert("We could not find this email", "warning");
+        dispatchAlert(t("RESEND_EMAIL.alertEmailNotFound"), "warning");
       }
     }
     setLoading(false);
@@ -48,21 +47,21 @@ const ReSendEmail = () => {
               <input
                 required
                 className="form-input"
-                placeholder="Type your email here..."
+                placeholder={t("RESEND_EMAIL.placeHolderEmail")}
                 type="email"
                 {...bindEmail}
               />
             </div>
 
             <button className="btn btn--small btn--primary btn--stretched">
-              Send new verification email
+              {t("RESEND_EMAIL.sendNewEmail")}
             </button>
 
             <Link
               to="/login"
               className="btn btn--small my-2 btn--secondary btn--stretched"
             >
-              Back
+              {t("RESEND_EMAIL.back")}
             </Link>
           </form>
         </Spinner>

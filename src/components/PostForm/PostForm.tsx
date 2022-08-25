@@ -10,18 +10,20 @@ import PostEntity from "../../models/post";
 
 import css from "./PostForm.module.scss";
 import UserProfileEntity, { UserProfileDTO } from "../../models/userProfile";
+import { useTranslation } from "react-i18next";
 
 interface PostFormProps {
   handleNewPost: (post: PostEntity) => void;
 }
 
 function PostForm({ handleNewPost }: PostFormProps) {
+  const { t } = useTranslation();
   const [submitting, setSubmmiting] = useState(false);
 
   const onDrop = useCallback(
     (acceptedFiles: File[], fileRejections: FileRejection[]) => {
       if (fileRejections.length !== 0) {
-        dispatchAlert("Invalid file type!", "danger");
+        dispatchAlert(t("POST_FORM.alertInvalidFileType"), "danger");
         fileRejections = [];
       } else {
         setFiles(acceptedFiles);
@@ -60,8 +62,10 @@ function PostForm({ handleNewPost }: PostFormProps) {
     return (
       <div {...getRootProps({ className: css.dropzone })}>
         <input {...getInputProps()} />
-        <div className={css["dropzone__label"]}>Add Photos</div>
-        <div className={css["dropzone__sublabel"]}>or drag and drop</div>
+        <div className={css["dropzone__label"]}>{t("POST_FORM.addPhotos")}</div>
+        <div className={css["dropzone__sublabel"]}>
+          {t("POST_FORM.dragDrop")}
+        </div>
       </div>
     );
   };
@@ -122,7 +126,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
       {alert}
 
       <header>
-        <h1 className={`${css.heading} my-2`}>Create Post</h1>
+        <h1 className={`${css.heading} my-2`}>{t("POST_FORM.createPost")}</h1>
       </header>
       <form
         id="form-post"
@@ -152,7 +156,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
         <div className="form-group">
           <textarea
             className={css.description}
-            placeholder="Let's Share your ideias?"
+            placeholder={t("POST_FORM.placeHolderDescription")}
             {...bindDescription}
           />
         </div>
@@ -162,7 +166,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
           disabled={submitting}
           className="btn my-2 btn--primary btn--stretched"
         >
-          Post
+          {t("POST_FORM.post")}
         </button>
       </form>
     </div>
