@@ -15,6 +15,9 @@ const SettingsMenu = () => {
           <MenuItem active={pathname === "/settings/general"}>
             <NavLink to={"general"}>General</NavLink>
           </MenuItem>
+          <MenuItem active={pathname === "/settings/language"}>
+            <NavLink to={"language"}>Language</NavLink>
+          </MenuItem>
         </MenuList>
       </div>
     </>

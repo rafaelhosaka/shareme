@@ -6,6 +6,7 @@ import "./styles/_main.scss";
 import { UserProvider } from "./context/userContext";
 import { ThemeProvider } from "./context/themeContext";
 import { ChatProvider } from "./context/chatContext";
+import { LanguageProvider } from "./context/languageContext";
 
 document.title = process.env.REACT_APP_NAME as string;
 
@@ -15,11 +16,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <UserProvider>
-        <ThemeProvider>
-          <ChatProvider>
-            <App />
-          </ChatProvider>
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            <ChatProvider>
+              <App />
+            </ChatProvider>
+          </ThemeProvider>
+        </LanguageProvider>
       </UserProvider>
     </BrowserRouter>
   </React.StrictMode>

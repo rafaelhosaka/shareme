@@ -2,7 +2,7 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
-import { TRANSLATIONS_JP } from "./jp/translations";
+import { TRANSLATIONS_JA } from "./ja/translations";
 import { TRANSLATIONS_EN } from "./en/translations";
 
 i18n
@@ -13,8 +13,8 @@ i18n
       en: {
         translation: TRANSLATIONS_EN,
       },
-      jp: {
-        translation: TRANSLATIONS_JP,
+      ja: {
+        translation: TRANSLATIONS_JA,
       },
     },
     fallbackLng: "en",

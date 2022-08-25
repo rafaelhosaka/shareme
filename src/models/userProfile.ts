@@ -1,3 +1,5 @@
+import { LanguageEntity } from "./language";
+
 export default class UserProfileEntity {
   id: string;
   firstName: string;
@@ -9,6 +11,7 @@ export default class UserProfileEntity {
   coverFileName: string;
   friends: string[];
   themePreference: string;
+  languagePreference: LanguageEntity;
   online: boolean;
   roles: string[];
 
@@ -23,6 +26,7 @@ export default class UserProfileEntity {
     this.gender = data.gender;
     this.friends = data.friends;
     this.themePreference = data.themePreference;
+    this.languagePreference = data.languagePreference;
     this.online = data.online;
     this.roles = [];
   }

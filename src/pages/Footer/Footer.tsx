@@ -1,20 +1,26 @@
-import { useEffect } from "react";
-import { useInput } from "../../hook/useInput";
-import { changeLanguage } from "../../translations/i18n";
+import { useLanguage } from "../../context/languageContext";
+import { getLanguageByShortName, getLanguageList } from "../../models/language";
 import css from "./Footer.module.scss";
 
 const Footer = () => {
-  const { value: language, bind: bindLanguage } = useInput("en");
-
-  useEffect(() => {
-    changeLanguage(language);
-  }, [language]);
+  const { language, changeLanguage } = useLanguage();
 
   return (
     <div className={css["footer"]}>
-      <select className="form-select small" {...bindLanguage}>
-        <option value="en">English</option>
-        <option value="jp">日本語</option>
+      <select
+        className="form-select small"
+        value={language?.shortName}
+        onChange={(e) => {
+          if (changeLanguage) {
+            changeLanguage(getLanguageByShortName(e.currentTarget.value));
+          }
+        }}
+      >
+        {getLanguageList().map((item) => (
+          <option key={item.shortName} value={item.shortName}>
+            {item.longName}
+          </option>
+        ))}
       </select>
       Rafael Hideki Hosaka © 2022 ShareMe {process.env.REACT_APP_VERSION}
     </div>

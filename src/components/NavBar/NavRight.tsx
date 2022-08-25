@@ -116,6 +116,13 @@ const NavRight = () => {
               label="General"
             />
           </Link>
+          <Link to="/settings/language">
+            <NavMenuItem
+              active={pathname === `/settings/language`}
+              iconClass="fa-solid fa-language fa-xl"
+              label="Language"
+            />
+          </Link>
         </NavMenuList>
       </NavMenu>
     );

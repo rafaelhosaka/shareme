@@ -35,6 +35,26 @@
   }
 }
 
+.field-select {
+  display: flex;
+  align-items: flex-start;
+}
+
+.select:disabled {
+  border: 0;
+  color: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+  width: 100%;
+}
+
+.select-editting {
+  outline: 0;
+  border-radius: 10px;
+}
+
 .btn-area {
   display: flex;
   align-items: flex-start;

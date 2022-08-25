@@ -20,6 +20,7 @@ import RecoverPassword from "../../pages/RecoverPassword/RecoverPassword";
 import ResetPasswordForm from "../../pages/RecoverPassword/ResetPasswordForm";
 import MessagePanelList from "../MessagePanel/MessagePanelList";
 import Footer from "../../pages/Footer/Footer";
+import LanguageSettings from "../../pages/SettingsMenu/LanguageSettings";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -89,6 +90,7 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
 
             <Route path="/settings" element={<SettingsMenu />}>
               <Route path="general" element={<GeneralSettings />} />
+              <Route path="language" element={<LanguageSettings />} />
             </Route>
 
             <Route path="/logout" element={<Logout />} />
@@ -102,7 +104,7 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           <Route path="*" element={<NotFound />} />
         </Routes>
         <>{currentUser && <MessagePanelList />}</>
-        <Footer />
+        {!currentUser && <Footer />}
       </div>
     </>
   );
