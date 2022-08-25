@@ -8,8 +8,10 @@ import UserProfileEntity from "../../models/userProfile";
 
 import css from "./RegisterForm.module.scss";
 import Spinner from "../../components/Spinner/Spinner";
+import { useTranslation } from "react-i18next";
 
 function RegisterForm() {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const { value: firstName, bind: bindFirstName } = useInput("");
   const { value: lastName, bind: bindLastName } = useInput("");
@@ -30,18 +32,18 @@ function RegisterForm() {
   const navigate = useNavigate();
 
   const MONTHS = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
+    t("REGISTER_FORM.jan"),
+    t("REGISTER_FORM.feb"),
+    t("REGISTER_FORM.mar"),
+    t("REGISTER_FORM.apr"),
+    t("REGISTER_FORM.may"),
+    t("REGISTER_FORM.jun"),
+    t("REGISTER_FORM.jul"),
+    t("REGISTER_FORM.aug"),
+    t("REGISTER_FORM.sep"),
+    t("REGISTER_FORM.oct"),
+    t("REGISTER_FORM.nov"),
+    t("REGISTER_FORM.dec"),
   ];
 
   const currentYear = new Date().getFullYear();
@@ -85,7 +87,7 @@ function RegisterForm() {
 
         <div className={`${css["form-register-container"]}`}>
           <div className={`${css.header} p2`}>
-            <h1>Sign Up</h1>
+            <h1>{t("REGISTER_FORM.signUp")}</h1>
           </div>
           <form
             className={loading ? css["loading"] : ""}
@@ -96,14 +98,14 @@ function RegisterForm() {
                 <input
                   className="form-input form-input--gray"
                   type="text"
-                  placeholder="First name"
+                  placeholder={t("REGISTER_FORM.firstName")}
                   {...bindFirstName}
                   required
                 />
                 <input
                   className="form-input form-input--gray"
                   type="text"
-                  placeholder="Last name"
+                  placeholder={t("REGISTER_FORM.lastName")}
                   {...bindLastName}
                   required
                 />
@@ -111,7 +113,7 @@ function RegisterForm() {
                 <input
                   className="form-input form-input--gray"
                   type="email"
-                  placeholder="Email"
+                  placeholder={t("REGISTER_FORM.email")}
                   {...bindEmail}
                   required
                 />
@@ -119,12 +121,12 @@ function RegisterForm() {
                 <input
                   className="form-input form-input--gray"
                   type="password"
-                  placeholder="New Password"
+                  placeholder={t("REGISTER_FORM.newPassword")}
                   {...bindPassword}
                   required
                 />
               </div>
-              <span className="form-label">Birthday</span>
+              <span className="form-label">{t("REGISTER_FORM.birthday")}</span>
               <div className="grid--3x1">
                 <select className="form-select" {...bindMonth}>
                   {MONTHS.map((m, i) => (
@@ -149,10 +151,10 @@ function RegisterForm() {
                   ))}
                 </select>
               </div>
-              <span className="form-label">Gender</span>
+              <span className="form-label">{t("REGISTER_FORM.gender")}</span>
               <div className="grid--2x1">
                 <div onClick={() => setGender("female")} className="form-radio">
-                  <label htmlFor="female">Female</label>
+                  <label htmlFor="female">{t("REGISTER_FORM.female")}</label>
                   <input
                     className="radio-btn"
                     type="radio"
@@ -166,7 +168,7 @@ function RegisterForm() {
                 </div>
 
                 <div onClick={() => setGender("male")} className="form-radio">
-                  <label htmlFor="male">Male</label>
+                  <label htmlFor="male">{t("REGISTER_FORM.male")}</label>
                   <input
                     className="radio-btn"
                     type="radio"
@@ -180,13 +182,13 @@ function RegisterForm() {
               </div>
               <div className="form-group">
                 <button className="btn btn--small my-2 btn--primary btn--stretched">
-                  Sign Up
+                  {t("REGISTER_FORM.signUp")}
                 </button>
                 <Link
                   to="/login"
                   className="btn btn--small my-2 btn--secondary btn--stretched"
                 >
-                  Back
+                  {t("REGISTER_FORM.back")}
                 </Link>
               </div>
             </Spinner>
