@@ -4,12 +4,14 @@ import Friend from "./Friend";
 import css from "./Friend.module.scss";
 import { useEffect, useState } from "react";
 import UserProfileEntity from "../../../models/userProfile";
+import { useTranslation } from "react-i18next";
 
 interface FriendListProps {
   friends: UserProfileEntity[];
 }
 
 function FriendList({ friends }: FriendListProps) {
+  const { t } = useTranslation();
   const [filteredFriends, setFilteredFriends] = useState<UserProfileEntity[]>(
     []
   );
@@ -27,13 +29,13 @@ function FriendList({ friends }: FriendListProps) {
 
   const renderFriends = () => {
     if (friends?.length === 0) {
-      return (
-        <div className={css["result"]}>You do not have any friends yet</div>
-      );
+      return <div className={css["result"]}>{t("FRIENDS.noFriend")}</div>;
     }
 
     return filteredFriends.length === 0 ? (
-      <div className={css["result"]}>No result for : {searchQuery}</div>
+      <div className={css["result"]}>
+        {t("FRIENDS.noResult")} : {searchQuery}
+      </div>
     ) : (
       <div className={css["friend-list"]}>
         {filteredFriends.map((friend) => (
@@ -59,8 +61,8 @@ function FriendList({ friends }: FriendListProps) {
   return (
     <div className={`${css["friend-list__container"]} p2`}>
       <header className={css["heading"]}>
-        <h2>Friends</h2>
-        <SearchBar placeHolder="Search" onChange={handleChange} />
+        <h2>{t("FRIENDS.friends")}</h2>
+        <SearchBar placeHolder={t("FRIENDS.search")} onChange={handleChange} />
       </header>
       {renderFriends()}
     </div>

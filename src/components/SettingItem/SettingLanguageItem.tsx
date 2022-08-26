@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { LanguageEntity } from "../../models/language";
 import css from "./SettingItem.module.scss";
 
@@ -16,6 +17,7 @@ const SettingLanguageItem = ({
   items,
   onSave,
 }: SettingLanguageItemProps) => {
+  const { t } = useTranslation();
   const [editting, setEditting] = useState(false);
   const [selectedValue, setSelectedValue] = useState(value);
 
@@ -53,10 +55,10 @@ const SettingLanguageItem = ({
               }}
               className="btn btn--primary"
             >
-              Save
+              {t("SETTINGS.save")}
             </button>
             <button onClick={handleCancel} className="btn btn--secondary">
-              Cancel
+              {t("SETTINGS.cancel")}
             </button>
           </>
         ) : (
@@ -64,7 +66,7 @@ const SettingLanguageItem = ({
             onClick={() => setEditting(true)}
             className="btn btn--primary"
           >
-            Edit
+            {t("SETTINGS.edit")}
           </button>
         )}
       </div>

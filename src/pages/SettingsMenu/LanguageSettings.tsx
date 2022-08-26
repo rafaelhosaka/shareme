@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useAlert } from "../../components/Alert/Alert";
 import SettingSelectItem from "../../components/SettingItem/SettingLanguageItem";
 import { useLanguage } from "../../context/languageContext";
@@ -7,6 +8,7 @@ import { updateUser } from "../../services/userService";
 import css from "./GeneralSettings.module.scss";
 
 const LanguageSettings = () => {
+  const { t } = useTranslation();
   const { user, setUser } = useUser();
   const [alert, dispatchAlert] = useAlert();
   const { changeLanguage } = useLanguage();
@@ -25,10 +27,10 @@ const LanguageSettings = () => {
     return (
       <div className={`${css["general-settings__container"]} p2`}>
         {alert}
-        <h2>Language Settings</h2>
+        <h2>{t("SETTINGS.languageSettingHeader")}</h2>
         <div className={css["setting-list"]}>
           <SettingSelectItem
-            label="Language"
+            label={t("SETTINGS.language")}
             value={user.languagePreference?.shortName}
             items={getLanguageList()}
             onSave={handleSaveLanguage}

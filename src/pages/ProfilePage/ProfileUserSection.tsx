@@ -19,6 +19,7 @@ import {
 } from "../../services/friendService";
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import DropdownItem from "../../components/DropdownMenu/DropdownItem";
+import { useTranslation } from "react-i18next";
 
 interface ProfileUserSectionProps {
   user: UserProfileEntity;
@@ -26,6 +27,7 @@ interface ProfileUserSectionProps {
 }
 
 const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
+  const { t } = useTranslation();
   const { user: currentUser, setUser: setCurrentUser } = useUser();
   const { image: userImage, setService: setImageService } =
     useBase64Image(null);
@@ -130,21 +132,21 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
           onClick={() => handleCancelRequest()}
           className="btn btn--primary"
         >
-          Cancel request
+          {t("PROFILE.cancelRequest")}
         </button>
       );
     }
     if (pending) {
       return (
         <button onClick={() => handleConfirm()} className="btn btn--primary">
-          Confirm request
+          {t("PROFILE.confirmRequest")}
         </button>
       );
     }
 
     return (
       <button onClick={() => handleAddFriend()} className="btn btn--primary">
-        Add Friend
+        {t("PROFILE.addFriend")}
       </button>
     );
   };
@@ -188,8 +190,8 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
             className={css["profile-user__friends-qty"]}
           >
             {user && user.friendCount <= 1
-              ? `${user?.friendCount} friend`
-              : `${user?.friendCount} friends`}
+              ? t("PROFILE.friend_singular", { count: user.friendCount })
+              : t("PROFILE.friend_plural", { count: user.friendCount })}
           </Link>
         </div>
         <div className={css["profile-user__buttons-area"]}>

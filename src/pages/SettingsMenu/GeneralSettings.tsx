@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useAlert } from "../../components/Alert/Alert";
 import SettingItem from "../../components/SettingItem/SettingItem";
 import SettingPasswordItem from "../../components/SettingItem/SettingPasswordItem";
@@ -6,6 +7,7 @@ import { updateUser } from "../../services/userService";
 import css from "./GeneralSettings.module.scss";
 
 const GeneralSettings = () => {
+  const { t } = useTranslation();
   const { user, setUser } = useUser();
   const [alert, dispatchAlert] = useAlert();
 
@@ -23,14 +25,17 @@ const GeneralSettings = () => {
     return (
       <div className={`${css["general-settings__container"]} p2`}>
         {alert}
-        <h2>General Account Settings</h2>
+        <h2>{t("SETTINGS.generalSettingHeader")}</h2>
         <div className={css["setting-list"]}>
           <SettingItem
-            label="Name"
+            label={t("SETTINGS.name")}
             value={[user.firstName, user.lastName]}
             onSave={handleSaveName}
           />
-          <SettingPasswordItem label="Password" username={user.email} />
+          <SettingPasswordItem
+            label={t("SETTINGS.password")}
+            username={user.email}
+          />
         </div>
       </div>
     );

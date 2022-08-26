@@ -12,6 +12,7 @@ import {
   userCoverImageUpload,
 } from "../../services/userService";
 import { useUser } from "../../context/userContext";
+import { useTranslation } from "react-i18next";
 
 interface ProfileCoverSectionProps {
   user: UserProfileEntity;
@@ -19,6 +20,7 @@ interface ProfileCoverSectionProps {
 }
 
 const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
+  const { t } = useTranslation();
   const { user: currentUser, setUser: setCurrentUser } = useUser();
   const { image: userCoverImage, setService: setCoverImageService } =
     useBase64Image(null);
@@ -58,7 +60,8 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
           onClick={() => setDropCoverVisible((prev) => !prev)}
           className="btn btn--primary"
         >
-          <i className="fa-solid fa-camera"></i>Edit cover photo
+          <i className="fa-solid fa-camera"></i>
+          {t("PROFILE.editCoverPhoto")}
         </button>
         {isDropCoverVisible && (
           <DropdownMenu>

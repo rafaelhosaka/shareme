@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useInput } from "../../hook/useInput";
 import { changePasswordByUsername } from "../../services/authService";
 import { useAlert } from "../Alert/Alert";
@@ -10,6 +11,7 @@ interface SettingPasswordItemProps {
 }
 
 const SettingPasswordItem = ({ label, username }: SettingPasswordItemProps) => {
+  const { t } = useTranslation();
   const {
     value: currentPW,
     bind: bindCurrentPW,
@@ -58,13 +60,13 @@ const SettingPasswordItem = ({ label, username }: SettingPasswordItemProps) => {
       <div className={css["field-passwords"]}>
         {editting ? (
           <>
-            <span>Current</span>
+            <span>{t("SETTINGS.current")}</span>
             <input type="password" {...bindCurrentPW} required />
 
-            <span>New</span>
+            <span>{t("SETTINGS.new")}</span>
             <input type="password" {...bindNewPW} required />
 
-            <span>Re-type new</span>
+            <span>{t("SETTINGS.reType")}</span>
             <input type="password" {...bindConfirmPW} required />
           </>
         ) : (
@@ -80,10 +82,10 @@ const SettingPasswordItem = ({ label, username }: SettingPasswordItemProps) => {
               }}
               className="btn btn--primary"
             >
-              Save
+              {t("SETTINGS.save")}
             </button>
             <button onClick={handleCancel} className="btn btn--secondary">
-              Cancel
+              {t("SETTINGS.cancel")}
             </button>
           </>
         ) : (
@@ -91,7 +93,7 @@ const SettingPasswordItem = ({ label, username }: SettingPasswordItemProps) => {
             onClick={() => setEditting(true)}
             className="btn btn--primary"
           >
-            Edit
+            {t("SETTINGS.edit")}
           </button>
         )}
       </div>

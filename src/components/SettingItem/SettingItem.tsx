@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useEditableText } from "../../hook/useEditableText";
 import css from "./SettingItem.module.scss";
 
@@ -15,6 +16,7 @@ const SettingItem = ({
   onSave,
   placeHolder,
 }: SettingItemProps) => {
+  const { t } = useTranslation();
   const [editableMainField, mainField, resetMainField] = useEditableText(
     Array.isArray(value) ? value[0] : value
   );
@@ -48,10 +50,10 @@ const SettingItem = ({
               }}
               className="btn btn--primary"
             >
-              Save
+              {t("SETTINGS.save")}
             </button>
             <button onClick={handleCancel} className="btn btn--secondary">
-              Cancel
+              {t("SETTINGS.cancel")}
             </button>
           </>
         ) : (
@@ -59,7 +61,7 @@ const SettingItem = ({
             onClick={() => setEditting(true)}
             className="btn btn--primary"
           >
-            Edit
+            {t("SETTINGS.edit")}
           </button>
         )}
       </div>

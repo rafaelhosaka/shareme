@@ -6,16 +6,18 @@ import css from "./Profile.module.scss";
 import ProfileContent from "./ProfileContent";
 import ProfileCoverSection from "./ProfileCoverSection";
 import ProfileUserSection from "./ProfileUserSection";
+import { useTranslation } from "react-i18next";
 
 function Profile() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const [user, setUser] = useState<UserProfileEntity>();
 
   const menu = [
-    { key: "posts", value: "Posts" },
-    { key: "friends", value: "Friends" },
-    { key: "photos", value: "Photos" },
-    { key: "videos", value: "Videos" },
+    { key: "posts", value: t("PROFILE.posts") },
+    { key: "friends", value: t("PROFILE.friends") },
+    { key: "photos", value: t("PROFILE.photos") },
+    { key: "videos", value: t("PROFILE.videos") },
   ];
 
   const navigate = useNavigate();

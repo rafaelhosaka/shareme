@@ -8,8 +8,10 @@ import MenuList from "../../components/MenuList/MenuList";
 import MenuItem from "../../components/MenuList/MenuItem";
 import css from "./FriendMenu.module.scss";
 import FriendMenuContent from "./FriendMenuContent";
+import { useTranslation } from "react-i18next";
 
 function FriendMenu() {
+  const { t } = useTranslation();
   const { user: currentUser } = useUser();
   const [friendRequestCount, setFriendRequestCount] = useState(0);
   const { pathname } = useLocation();
@@ -30,16 +32,16 @@ function FriendMenu() {
         <FriendMenuContent setRequestCount={setFriendRequestCount} />
       </main>
       <div className="left-content">
-        <MenuList title="Friends">
+        <MenuList title={t("FRIENDS.friends")}>
           <MenuItem active={pathname === "/friends/all"}>
-            <NavLink to={"/friends/all"}>All friends</NavLink>
+            <NavLink to={"/friends/all"}>{t("FRIENDS.allFriends")}</NavLink>
           </MenuItem>
           <MenuItem active={pathname === "/friends/request"}>
             <NavLink
               className={css["friend-request-link"]}
               to={"/friends/request"}
             >
-              Friend Requests
+              <span>{t("FRIENDS.friendRequests")}</span>
               {friendRequestCount !== 0 && (
                 <span className={css["friend-request-count"]}>
                   {friendRequestCount}

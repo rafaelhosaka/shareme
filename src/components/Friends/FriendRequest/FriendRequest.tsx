@@ -7,6 +7,7 @@ import FriendRequestEntity from "../../../models/friendRequest";
 import UserProfileEntity from "../../../models/userProfile";
 
 import css from "./FriendRequest.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface FriendRequestProps {
   request: FriendRequestEntity;
@@ -19,6 +20,7 @@ function FriendRequest({
   handleDelete,
   handleConfirm,
 }: FriendRequestProps) {
+  const { t } = useTranslation();
   const { image, setService } = useBase64Image(null);
   const [user, setUser] = useState<UserProfileEntity>();
 
@@ -48,10 +50,10 @@ function FriendRequest({
           onClick={() => handleConfirm(request)}
           className="btn my-1 btn--primary"
         >
-          Confirm
+          {t("FRIENDS.confirm")}
         </button>
         <button onClick={() => handleDelete(request)} className="btn">
-          Delete
+          {t("FRIENDS.delete")}
         </button>
       </div>
     </div>

@@ -7,6 +7,10 @@ import { POST } from "./Post";
 import { MODAL } from "./Modal";
 import { NEW_COMMENT } from "./NewComment";
 import { NAVBAR } from "./NavBar";
+import { FRIENDS } from "./Friends";
+import { PROFILE } from "./Profile";
+import { PHOTO } from "./Photo";
+import { SETTINGS } from "./Settings";
 
 export const TRANSLATIONS_JA = {
   LOGIN_FORM,
@@ -18,4 +22,8 @@ export const TRANSLATIONS_JA = {
   MODAL,
   NEW_COMMENT,
   NAVBAR,
+  FRIENDS,
+  PROFILE,
+  PHOTO,
+  SETTINGS,
 };

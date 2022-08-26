@@ -8,6 +8,7 @@ import { useAlert } from "../../Alert/Alert";
 import FriendRequest from "./FriendRequest";
 import css from "./FriendRequest.module.scss";
 import UserProfileEntity from "../../../models/userProfile";
+import { useTranslation } from "react-i18next";
 
 interface FriendRequestListProps {
   friendRequests: FriendRequestEntity[];
@@ -20,6 +21,7 @@ function FriendRequestList({
   friendRequests,
   setFriendRequests,
 }: FriendRequestListProps) {
+  const { t } = useTranslation();
   const { setUser } = useUser();
   const [alert, dispatchAlert] = useAlert();
 
@@ -32,7 +34,7 @@ function FriendRequestList({
     if (setUser) {
       const modifiedUsers = await acceptFriendRequest(request);
       setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
-      dispatchAlert("Friend request accepted", "success");
+      dispatchAlert(t("FRIENDS.alertFriendAccepted"), "success");
       setUser(new UserProfileEntity(modifiedUsers[1]));
     }
   };
@@ -40,7 +42,7 @@ function FriendRequestList({
   return (
     <div className={css["friend-request-list__container"]}>
       {alert}
-      <h2>Friend Requests</h2>
+      <h2>{t("FRIENDS.friendRequests")}</h2>
       <div className={css["friend-requests"]}>
         {friendRequests.map((request) => (
           <FriendRequest
