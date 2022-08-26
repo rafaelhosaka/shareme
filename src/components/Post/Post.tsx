@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
@@ -30,6 +31,7 @@ interface PostProps {
 }
 
 const Post = ({ data, onDelete, onShare }: PostProps) => {
+  const { t } = useTranslation();
   const [post, setPost] = useState(data);
   const { image: postImage, setService: setPostImageService } =
     useBase64Image(null);
@@ -55,7 +57,7 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
   );
   const [currentPage, setCurrentPage] = useState(1);
 
-  const PAGE_SIZE = 10;
+  const PAGE_SIZE = 5;
   const MAX_PAGE = calculateMaxPage(post.comments.length, PAGE_SIZE);
 
   useEffect(() => {
@@ -173,11 +175,11 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
           <>
             {currentPage < MAX_PAGE && (
               <div onClick={loadMoreComments} className={css["more-comment"]}>
-                View more comments
+                {t("POST.viewMoreComments")}
               </div>
             )}
             <div onClick={focusOnNewComment} className={css["write-comment"]}>
-              Write a comment...
+              {t("POST.writeComment")}
             </div>
           </>
         )}
@@ -211,8 +213,8 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
       <div className={css.post}>
         <Modal
           show={showModal}
-          title="Delete post?"
-          description="Are you sure you want to delete this post?"
+          title={`${t("POST.deletePost")}?`}
+          description={t("POST.deleteConfirmation")}
           onReject={() => setShowModal(false)}
           onAccept={() => {
             onDelete(post.id);
@@ -233,7 +235,7 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
               </Link>
               {post instanceof SharedPostEntity && (
                 <>
-                  <span className="label">shared post from</span>
+                  <span className="label">{t("POST.sharedPostFrom")}</span>
                   <Link
                     to={`/profile/${post.sharedPost.user.id}/posts`}
                     className={css["user-name"]}
@@ -268,7 +270,7 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
                   <DropdownMenu>
                     <DropdownItem
                       onClick={() => setShowModal(true)}
-                      label="Delete post"
+                      label={t("POST.deletePost")}
                     >
                       <i className="fa-solid fa-trash"></i>
                     </DropdownItem>
@@ -284,7 +286,9 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
           <div className={css["details"]}>
             <span className={`${css["details-like"]} mx-2`}>
               {post.likes.length}
-              {post.likes.length > 1 ? ` likes` : ` like`}
+              {post.likes.length > 1
+                ? ` ${t("POST.like_plural")}`
+                : ` ${t("POST.like")}`}
             </span>
             {post instanceof PostEntity && (
               <div>
@@ -292,12 +296,19 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
                   onClick={() => setShowComments(true)}
                   className={`${css["details-comment"]} mx-2`}
                 >
-                  {commentCount}
-                  {commentCount > 1 ? ` Comments` : ` Comment`}
+                  {commentCount > 1
+                    ? ` ${t("POST.comment_plural", { count: commentCount })}`
+                    : ` ${t("POST.comment_singular", { count: commentCount })}`}
                 </span>
                 <span className={css["details-share"]}>
-                  {`${post.sharedUsersId.length} ${
-                    post.sharedUsersId.length < 2 ? "Share" : "Shares"
+                  {`${
+                    post.sharedUsersId.length < 2
+                      ? t("POST.share_singular", {
+                          count: post.sharedUsersId.length,
+                        })
+                      : t("POST.share_plural", {
+                          count: post.sharedUsersId.length,
+                        })
                   }`}
                 </span>
               </div>
@@ -313,7 +324,7 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
               <i
                 className={liked ? "fa-solid fa-heart" : "fa-regular fa-heart"}
               ></i>
-              <span>Like</span>
+              <span>{t("POST.like")}</span>
             </div>
             <div
               onClick={() => {
@@ -323,11 +334,11 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
               className={css["icon"]}
             >
               <i className="fa-regular fa-comment"></i>
-              <span>Comment</span>
+              <span>{t("POST.comment")}</span>
             </div>
             <div onClick={handleSharePost} className={css["icon"]}>
               <i className="fa-solid fa-share-from-square"></i>
-              <span>Share</span>
+              <span>{t("POST.share")}</span>
             </div>
           </div>
           {showComments && renderComments()}

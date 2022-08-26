@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/userContext";
 import { useInput } from "../../hook/useInput";
@@ -11,6 +12,7 @@ interface NewCommentProps {
 }
 
 function NewComment({ handleNewComment, elementRef }: NewCommentProps) {
+  const { t } = useTranslation();
   const userImage = useUserImage();
   const { user: currentUser } = useUser();
   const {
@@ -51,7 +53,7 @@ function NewComment({ handleNewComment, elementRef }: NewCommentProps) {
         <textarea
           ref={elementRef}
           className={`${css["new-comment__description"]} form-input--gray`}
-          placeholder="Write a comment..."
+          placeholder={t("NEW_COMMENT.writeComment")}
           onKeyDown={handleKeyDown}
           {...bindDescription}
         />

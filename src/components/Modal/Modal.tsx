@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import css from "./Modal.module.scss";
 
 interface ModalProps {
@@ -15,6 +16,8 @@ const Modal = ({
   onReject,
   onAccept,
 }: ModalProps) => {
+  const { t } = useTranslation();
+
   return show ? (
     <div className={css["modal__container"]}>
       <div className={css["modal"]}>
@@ -22,10 +25,10 @@ const Modal = ({
         <div className={css["body"]}>{description}</div>
         <div className={css["btn-area"]}>
           <button onClick={onReject} className="btn">
-            No
+            {t("MODAL.no")}
           </button>
           <button onClick={onAccept} className="btn btn--primary mx-1">
-            Delete
+            {t("MODAL.yes")}
           </button>
         </div>
       </div>

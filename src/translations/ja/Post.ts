@@ -1,0 +1,15 @@
+export const POST = {
+  comment: "コメント",
+  comment_singular: "コメント{{count}}件",
+  comment_plural: "コメント{{count}}件",
+  share: "シェア",
+  share_singular: "シェア{{count}}件",
+  share_plural: "シェア{{count}}件",
+  like: "いいね！",
+  like_plural: "いいね！",
+  viewMoreComments: "他のコメントを見る",
+  writeComment: "コメントする...",
+  deletePost: "投稿を削除する",
+  deleteConfirmation: "この投稿を削除してもよろしいでしょうか？",
+  sharedPostFrom: "この投稿は他のユーザーからシェアされたものです",
+};
