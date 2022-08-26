@@ -6,6 +6,7 @@ import { POST_FORM } from "./PostForm";
 import { POST } from "./Post";
 import { MODAL } from "./Modal";
 import { NEW_COMMENT } from "./NewComment";
+import { NAVBAR } from "./NavBar";
 
 export const TRANSLATIONS_EN = {
   LOGIN_FORM,
@@ -16,4 +17,5 @@ export const TRANSLATIONS_EN = {
   POST,
   MODAL,
   NEW_COMMENT,
+  NAVBAR,
 };

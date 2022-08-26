@@ -1,0 +1,18 @@
+export const NAVBAR = {
+  searchShareme: "Sharemeで検索する",
+  home: "ホーム",
+  friends: "友達",
+  group: "グループ",
+  marketplace: "マーケット",
+  profile: "プロフィール",
+  notifications: "通知",
+  menu: "メニュー",
+  settings: "設定",
+  logout: "ログアウト",
+  theme: "テーマ",
+  light: "ライト",
+  dark: "ダーク",
+  device: "デバイス",
+  general: "一般",
+  language: "言語",
+};

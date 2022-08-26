@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useStateRef } from "../../hook/useStateRef";
 import PostEntity, { SharedPostEntity } from "../../models/post";
 import { calculateMaxPage, paginate } from "../../utils/paginate";
@@ -12,6 +13,7 @@ interface PostListProps {
 }
 
 const PostList = ({ posts, onDelete }: PostListProps) => {
+  const { t } = useTranslation();
   const [pagedPosts, setPagedPosts] = useState<
     (PostEntity | SharedPostEntity)[]
   >([]);
@@ -57,7 +59,7 @@ const PostList = ({ posts, onDelete }: PostListProps) => {
   const handleDelete = (postId: string) => {
     if (onDelete) {
       onDelete(postId);
-      dispatchAlert("Post deleted successfully", "success");
+      dispatchAlert(t("POST.alertPostDeleted"), "success");
     }
   };
 

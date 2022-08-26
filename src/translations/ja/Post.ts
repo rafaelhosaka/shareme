@@ -12,4 +12,5 @@ export const POST = {
   deletePost: "投稿を削除する",
   deleteConfirmation: "この投稿を削除してもよろしいでしょうか？",
   sharedPostFrom: "この投稿は他のユーザーからシェアされたものです",
+  alertPostDeleted: "投稿を削除しました",
 };

@@ -12,8 +12,10 @@ import { updateUser } from "../../services/userService";
 import _ from "lodash";
 import DivWithToolTip from "../ToolTip/DivWithToolTip";
 import { useMediaQuery } from "react-responsive";
+import { useTranslation } from "react-i18next";
 
 const NavRight = () => {
+  const { t } = useTranslation();
   const { user: currentUser, setUser } = useUser();
   const userImage = useUserImage();
   const { pathname } = useLocation();
@@ -48,6 +50,17 @@ const NavRight = () => {
     }
   };
 
+  const getThemeLabel = (theme: string | undefined) => {
+    switch (theme) {
+      case "light":
+        return t("NAVBAR.light");
+      case "dark":
+        return t("NAVBAR.dark");
+      default:
+        return t("NAVBAR.device");
+    }
+  };
+
   const getProfileMenu = () => {
     return (
       <NavMenu currentMenuId={menuId} mainMenuId="1">
@@ -70,57 +83,59 @@ const NavRight = () => {
           </Link>
           <NavMenuItem
             iconClass="fa-solid fa-palette fa-xl"
-            label={`Theme: ${currentUser?.themePreference}`}
+            label={`${t("NAVBAR.theme")}: ${getThemeLabel(
+              currentUser?.themePreference
+            )}`}
             toMenuId="2"
           />
           <NavMenuItem
             iconClass="fa-solid fa-gear fa-xl"
-            label="Settings"
+            label={t("NAVBAR.settings")}
             toMenuId="3"
           />
           <Link to="/logout">
             <NavMenuItem
               iconClass="fa-solid fa-right-from-bracket fa-xl"
-              label="Logout"
+              label={t("NAVBAR.logout")}
             />
           </Link>
         </NavMenuList>
-        <NavMenuList id="2" title="Theme">
+        <NavMenuList id="2" title={t("NAVBAR.theme")}>
           <div onClick={() => handleThemeChange("light")}>
             <NavMenuItem
               iconClass="fa-solid fa-sun fa-xl"
               active={currentUser?.themePreference === "light"}
-              label="Light"
+              label={t("NAVBAR.light")}
             />
           </div>
           <div onClick={() => handleThemeChange("dark")}>
             <NavMenuItem
               iconClass="fa-solid fa-moon fa-xl"
               active={currentUser?.themePreference === "dark"}
-              label="Dark"
+              label={t("NAVBAR.dark")}
             />
           </div>
           <div onClick={() => handleThemeChange("device")}>
             <NavMenuItem
               iconClass="fa-solid fa-desktop fa-xl"
               active={currentUser?.themePreference === "device"}
-              label="Device"
+              label={t("NAVBAR.device")}
             />
           </div>
         </NavMenuList>
-        <NavMenuList id="3" title="Settings">
+        <NavMenuList id="3" title={t("NAVBAR.settings")}>
           <Link to="/settings/general">
             <NavMenuItem
               active={pathname === `/settings/general`}
               iconClass="fa-solid fa-gear fa-xl"
-              label="General"
+              label={t("NAVBAR.general")}
             />
           </Link>
           <Link to="/settings/language">
             <NavMenuItem
               active={pathname === `/settings/language`}
               iconClass="fa-solid fa-language fa-xl"
-              label="Language"
+              label={t("NAVBAR.language")}
             />
           </Link>
         </NavMenuList>
@@ -146,28 +161,28 @@ const NavRight = () => {
         <Link to="/home">
           <NavMenuItem
             iconClass="fa-solid fa-house fa-xl"
-            label="Home"
+            label={t("NAVBAR.home")}
             active={pathname === "/home"}
           />
         </Link>
         <Link to="/friends/all">
           <NavMenuItem
             iconClass="fa-solid fa-user-group fa-xl"
-            label="Frinds"
+            label={t("NAVBAR.friends")}
             active={_.startsWith(pathname, "/friends")}
           />
         </Link>
         <Link to="/group">
           <NavMenuItem
             iconClass="fa-solid fa-users-line fa-xl"
-            label="Group"
+            label={t("NAVBAR.group")}
             active={pathname === "/group"}
           />
         </Link>
         <Link to="/market">
           <NavMenuItem
             iconClass="fa-solid fa-store fa-xl"
-            label="MarketPlace"
+            label={t("NAVBAR.marketplace")}
             active={pathname === "/market"}
           />
         </Link>
@@ -181,7 +196,7 @@ const NavRight = () => {
         <Link to="/notifications">
           <NavMenuItem
             iconClass="fa-solid fa-bell fa-xl"
-            label="Notifications"
+            label={t("NAVBAR.notifications")}
             active={pathname === "/notifications"}
           />
         </Link>
@@ -192,7 +207,7 @@ const NavRight = () => {
   return (
     <>
       {!isDesktop && (
-        <DivWithToolTip tooltipLabel="Menu">
+        <DivWithToolTip tooltipLabel={t("NAVBAR.menu")}>
           <div
             ref={(element) => (centerMenuRefs.current[1] = element)}
             onClick={() => setCenterMenuVisible((prev) => !prev)}
@@ -212,13 +227,13 @@ const NavRight = () => {
             activeClass={css.active}
             className={css["nav-link"]}
             to="/notifications"
-            tooltipLabel="Notifications"
+            tooltipLabel={t("NAVBAR.notifications")}
           >
             <i className="fa-solid fa-bell fa-xl"></i>
           </NavLinkWithToolTip>
         </>
       )}
-      <DivWithToolTip tooltipLabel="Profile">
+      <DivWithToolTip tooltipLabel={t("NAVBAR.profile")}>
         <div
           ref={(element) => (menuRefs.current[1] = element)}
           onClick={() => setMenuVisible((prev) => !prev)}
