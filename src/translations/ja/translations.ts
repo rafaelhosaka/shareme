@@ -1,3 +1,4 @@
+import { VERIFY_EMAIL } from "./VerifyEmail";
 import { NOTIFY_EMAIL } from "./NotifyEmail";
 import { LOGIN_FORM } from "./LoginForm";
 import { REGISTER_FORM } from "./RegisterForm";
@@ -28,4 +29,5 @@ export const TRANSLATIONS_JA = {
   PHOTO,
   SETTINGS,
   NOTIFY_EMAIL,
+  VERIFY_EMAIL,
 };
