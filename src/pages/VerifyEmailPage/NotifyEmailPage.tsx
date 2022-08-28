@@ -23,7 +23,17 @@ const NotifyEmailPage = () => {
           <strong className={css["link"]}>
             <Link to="/resend">{t("NOTIFY_EMAIL.clickHere")}</Link>
           </strong>
-          <span className={css["link-body"]}>{t("NOTIFY_EMAIL.linkBody")}</span>
+          <span className={css["link-body"]}>
+            {t("NOTIFY_EMAIL.notReceiveEmail")}
+          </span>
+        </p>
+        <p className={language.shortName === "ja" ? css["invert"] : ""}>
+          <strong className={css["link"]}>
+            <Link to="/recover">{t("NOTIFY_EMAIL.clickHere")}</Link>
+          </strong>
+          <span className={css["link-body"]}>
+            {t("NOTIFY_EMAIL.wantChangePassword")}
+          </span>
         </p>
       </div>
     </main>
