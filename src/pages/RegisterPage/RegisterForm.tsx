@@ -3,7 +3,7 @@ import { useInput } from "../../hook/useInput";
 import authService from "../../services/authService";
 import { saveUser } from "../../services/userService";
 import { useAlert } from "../../components/Alert/Alert";
-import { Link, useNavigate } from "react-router-dom";
+import { createSearchParams, Link, useNavigate } from "react-router-dom";
 import UserProfileEntity from "../../models/userProfile";
 
 import css from "./RegisterForm.module.scss";
@@ -73,7 +73,12 @@ function RegisterForm() {
       if (response.status === 201) {
         await createUser();
       }
-      navigate("/notify");
+      navigate({
+        pathname: "/notify",
+        search: createSearchParams({
+          email,
+        }).toString(),
+      });
     } catch (ex: any) {
       setLoading(false);
       dispatchAlert(ex.response.data, "danger");
