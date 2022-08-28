@@ -12,4 +12,7 @@ export const SETTINGS = {
   edit: "Edit",
   save: "Save",
   cancel: "Cancel",
+  alertChangeSaved: "Change saved successfully",
+  alertIncorrectPassword: "Incorrect password",
+  alertPasswordNotMatch: "Passwords does not match",
 };

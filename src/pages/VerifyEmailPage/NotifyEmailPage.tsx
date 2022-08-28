@@ -1,7 +1,11 @@
+import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
+import { useLanguage } from "../../context/languageContext";
 import css from "./VerifyEmailPage.module.scss";
 
 const NotifyEmailPage = () => {
+  const { t } = useTranslation();
+  const { language } = useLanguage();
   const [searchParam] = useSearchParams();
   const email = searchParam.get("email");
 
@@ -9,17 +13,17 @@ const NotifyEmailPage = () => {
     <main className="container full center">
       <div className={css["container"]}>
         <i className="fa-solid fa-envelope-open-text fa-10x"></i>
-        <h1 className={css["header"]}>Verify your email</h1>
+        <h1 className={css["header"]}>{t("NOTIFY_EMAIL.header")}</h1>
         <p>
-          We have sent an email to <strong>{email}</strong> to verify your email
-          address and activate your account. The link in the email will expire
-          in 24 hours.
+          {t("NOTIFY_EMAIL.bodyFirst")}
+          <strong>{email}</strong>
+          {t("NOTIFY_EMAIL.bodySecond")}
         </p>
-        <p>
+        <p className={language.shortName === "ja" ? css["invert"] : ""}>
           <strong className={css["link"]}>
-            <Link to="/resend">Click here </Link>
+            <Link to="/resend">{t("NOTIFY_EMAIL.clickHere")}</Link>
           </strong>
-          if you did not receive an email or want to reset password
+          <span className={css["link-body"]}>{t("NOTIFY_EMAIL.linkBody")}</span>
         </p>
       </div>
     </main>

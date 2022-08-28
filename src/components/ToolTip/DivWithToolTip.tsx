@@ -17,7 +17,8 @@ function DivWithToolTip({
 }: DivWithToolTipProps) {
   useEffect(() => {
     initializeToolTipText(tooltipLabel);
-  }, []);
+  }, [tooltipLabel]);
+
   return <div className={className}>{children}</div>;
 }
 

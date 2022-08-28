@@ -38,19 +38,23 @@ const SettingPasswordItem = ({ label, username }: SettingPasswordItemProps) => {
   };
 
   const handleSave = async () => {
-    if (newPW !== confirmPW) {
-      return dispatchAlert("Passwords does not match", "warning");
-    }
-    try {
-      await changePasswordByUsername(username, currentPW, newPW);
-    } catch (ex: any) {
-      if (ex.response.data === "Wrong password") {
-        return dispatchAlert("Incorrect password", "danger");
+    if (currentPW && newPW && confirmPW) {
+      if (newPW !== confirmPW) {
+        return dispatchAlert(t("SETTINGS.alertPasswordNotMatch"), "warning");
       }
+      try {
+        await changePasswordByUsername(username, currentPW, newPW);
+      } catch (ex: any) {
+        if (ex.response.data === "Wrong password") {
+          return dispatchAlert(t("SETTINGS.alertIncorrectPassword"), "danger");
+        }
+      }
+      reset();
+      setEditting(false);
+      dispatchAlert(t("SETTINGS.alertChangeSaved"), "success");
+    } else {
+      return;
     }
-    reset();
-    setEditting(false);
-    dispatchAlert("Change saved successfully", "success");
   };
 
   return (

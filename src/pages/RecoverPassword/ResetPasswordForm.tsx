@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAlert } from "../../components/Alert/Alert";
 import Spinner from "../../components/Spinner/Spinner";
@@ -7,6 +8,7 @@ import { changePasswordByToken } from "../../services/authService";
 import css from "./RecoverPassword.module.scss";
 
 const ResetPasswordForm = () => {
+  const { t } = useTranslation();
   const {
     value: newPassword,
     bind: bindNewPassword,
@@ -29,22 +31,19 @@ const ResetPasswordForm = () => {
     setLoading(true);
     e.preventDefault();
     if (newPassword !== confirmPassword) {
-      dispatchAlert("Passwords does not match", "warning");
+      dispatchAlert(t("RECOVER_PASSWORD.alertPasswordNotMatch"), "warning");
     } else {
       try {
         await changePasswordByToken(token, newPassword);
         resetNewPassword();
         resetConfirmPassword();
-        dispatchAlert(
-          "Your password has been updated, please login",
-          "success"
-        );
+        dispatchAlert(t("RECOVER_PASSWORD.alertPasswordUpdated"), "success");
       } catch (ex: any) {
         if (ex.response.data === "Token does not exist") {
-          dispatchAlert("Invalid token", "danger");
+          dispatchAlert(t("RECOVER_PASSWORD.alertInvalidToken"), "danger");
         }
         if (ex.response.data === "Token expired") {
-          dispatchAlert("Token expired", "danger");
+          dispatchAlert(t("RECOVER_PASSWORD.alertExpiredToken"), "danger");
         }
       }
     }
@@ -60,25 +59,25 @@ const ResetPasswordForm = () => {
             <div className="form-group">
               <input
                 className="form-input"
-                placeholder="New password"
+                placeholder={t("RECOVER_PASSWORD.newPassword")}
                 type="password"
                 {...bindNewPassword}
               />
               <input
                 className="form-input"
-                placeholder="Confirm new password"
+                placeholder={t("RECOVER_PASSWORD.confirmNewPassword")}
                 type="password"
                 {...bindConfirmPassword}
               />
             </div>
             <button className="btn btn--small btn--primary btn--stretched">
-              Change password
+              {t("RECOVER_PASSWORD.changePassword")}
             </button>
             <Link
               to="/login"
               className="btn btn--small my-2 btn--secondary btn--stretched"
             >
-              Back
+              {t("RECOVER_PASSWORD.back")}
             </Link>
           </form>
         </Spinner>

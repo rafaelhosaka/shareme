@@ -11,6 +11,7 @@ import { FRIENDS } from "./Friends";
 import { PROFILE } from "./Profile";
 import { PHOTO } from "./Photo";
 import { SETTINGS } from "./Settings";
+import { NOTIFY_EMAIL } from "./NotifyEmail";
 
 export const TRANSLATIONS_EN = {
   LOGIN_FORM,
@@ -26,4 +27,5 @@ export const TRANSLATIONS_EN = {
   PROFILE,
   PHOTO,
   SETTINGS,
+  NOTIFY_EMAIL,
 };

@@ -1,3 +1,4 @@
+import { NOTIFY_EMAIL } from "./NotifyEmail";
 import { LOGIN_FORM } from "./LoginForm";
 import { REGISTER_FORM } from "./RegisterForm";
 import { RECOVER_PASSWORD } from "./RecoverPassword";
@@ -26,4 +27,5 @@ export const TRANSLATIONS_JA = {
   PROFILE,
   PHOTO,
   SETTINGS,
+  NOTIFY_EMAIL,
 };

@@ -29,6 +29,16 @@
   }
 }
 
+.link-body {
+  margin: 0.5rem;
+}
+
+.invert {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+}
+
 @include mixins.whenDarkModule {
   .container {
     box-shadow: t.$dark-box-shadow;

@@ -12,4 +12,7 @@ export const SETTINGS = {
   edit: "編集",
   save: "保存",
   cancel: "キャンセル",
+  alertChangeSaved: "変更した情報を保存しました",
+  alertIncorrectPassword: "現在のパスワードで入力したパスワードが違います",
+  alertPasswordNotMatch: "新しいパスワードが一致しません",
 };

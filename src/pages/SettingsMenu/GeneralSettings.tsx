@@ -17,7 +17,7 @@ const GeneralSettings = () => {
       user.lastName = values[1];
       updateUser(user);
       setUser(user);
-      dispatchAlert("Change saved successfully", "success");
+      dispatchAlert(t("SETTINGS.alertChangeSaved"), "success");
     }
   };
 
