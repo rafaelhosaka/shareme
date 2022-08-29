@@ -213,8 +213,8 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
       <div className={css.post}>
         <Modal
           show={showModal}
-          title={`${t("POST.deletePost")}?`}
-          description={t("POST.deleteConfirmation")}
+          title={`${t("POST.modalDeletePostTitle")}`}
+          description={t("POST.modalDeletePostDescription")}
           onReject={() => setShowModal(false)}
           onAccept={() => {
             onDelete(post.id);

@@ -20,6 +20,7 @@ import {
 import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import DropdownItem from "../../components/DropdownMenu/DropdownItem";
 import { useTranslation } from "react-i18next";
+import Modal from "../../components/Modal/Modal";
 
 interface ProfileUserSectionProps {
   user: UserProfileEntity;
@@ -33,6 +34,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
     useBase64Image(null);
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const {
     refs: dropFriendRefs,
@@ -120,7 +122,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
           {isDropFriendVisible && (
             <DropdownMenu>
               <DropdownItem
-                onClick={() => handleUnfriend()}
+                onClick={() => setShowModal(true)}
                 label={t("PROFILE.unfriend")}
               >
                 <i className="fa-solid fa-user-xmark"></i>
@@ -159,6 +161,16 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
     return (
       <Spinner show={!userImage} sizeClass="size--168">
         <>
+          <Modal
+            show={showModal}
+            title={`${t("PROFILE.modalUnfriendTitle")}`}
+            description={t("PROFILE.modalUnfriendDescription")}
+            onReject={() => setShowModal(false)}
+            onAccept={() => {
+              handleUnfriend();
+              setShowModal(false);
+            }}
+          />
           <img className={css["profile-user__image"]} src={user && userImage} />
           {currentUser?.id === user?.id && (
             <div className={css["change-icon__container"]}>

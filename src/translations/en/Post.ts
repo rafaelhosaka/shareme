@@ -10,8 +10,9 @@ export const POST = {
   viewMoreComments: "View more comments",
   writeComment: "Write a comment...",
   deletePost: "Delete post",
-  deleteConfirmation: "Are you sure you want to delete this post?",
   sharedPostFirstPart: "shared post from",
   sharedPostSecondPart: "",
   alertPostDeleted: "Post deleted successfully",
+  modalDeletePostTitle: "Delete Post",
+  modalDeletePostDescription: "Are you sure you want to delete this post?",
 };

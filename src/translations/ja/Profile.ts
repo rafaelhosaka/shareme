@@ -11,4 +11,7 @@ export const PROFILE = {
   cancelRequest: "リクエストをキャンセル",
   addFriend: "友達を追加",
   editCoverPhoto: "カバー写真を編集",
+  modalUnfriendTitle: "友達から削除する",
+  modalUnfriendDescription:
+    "このプロフィールを友達から削除してもよろしいでしょうか？",
 };

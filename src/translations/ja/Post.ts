@@ -10,8 +10,9 @@ export const POST = {
   viewMoreComments: "他のコメントを見る",
   writeComment: "コメントする...",
   deletePost: "投稿を削除する",
-  deleteConfirmation: "この投稿を削除してもよろしいでしょうか？",
   sharedPostFirstPart: "この投稿は",
   sharedPostSecondPart: "からシェアされたものです",
   alertPostDeleted: "投稿を削除しました",
+  modalDeletePostTitle: "投稿を削除",
+  modalDeletePostDescription: "この投稿を削除してもよろしいでしょうか？",
 };
