@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useChat } from "../../context/chatContext";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
@@ -25,6 +26,7 @@ const MessagePanel = ({
   onMinimized,
   onClose,
 }: MessagePanelProps) => {
+  const { t } = useTranslation();
   const { user: currentUser } = useUser();
   const [chattingUser, setChattingUser] = useState<UserProfileEntity>();
   const [messages, setMessages] = useState<MessageEntity[]>([]);
@@ -120,7 +122,7 @@ const MessagePanel = ({
                   id={`date-sent-${message.id}`}
                   className={css["date-sent"]}
                 >
-                  {formatDate(message.dateSent!)}
+                  {formatDate(message.dateSent!, t("DATE.bcp47"))}
                 </div>
               </div>
             ))}

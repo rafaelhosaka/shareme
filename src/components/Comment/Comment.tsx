@@ -152,9 +152,9 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
             </div>
           )}
           <span className={css["comment__past-time"]}>
-            {pastTimeFromDate(comment.dateCreated!)}
+            {pastTimeFromDate(comment.dateCreated!, t)}
             <span className={css["comment__date"]}>
-              {formatDate(comment.dateCreated!)}
+              {formatDate(comment.dateCreated!, t("DATE.bcp47"))}
             </span>
           </span>
         </div>

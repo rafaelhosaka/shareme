@@ -1,3 +1,4 @@
+import { DATE } from "./Date";
 import { COMMENT } from "./Comment";
 import { SEARCH } from "./Search";
 import { CHAT_MENU } from "./ChatMenu";
@@ -18,6 +19,7 @@ import { PHOTO } from "./Photo";
 import { SETTINGS } from "./Settings";
 
 export const TRANSLATIONS_JA = {
+  DATE,
   LOGIN_FORM,
   REGISTER_FORM,
   RECOVER_PASSWORD,

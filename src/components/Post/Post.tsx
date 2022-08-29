@@ -249,14 +249,14 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
               )}
 
               <p className={css["post__past-time"]}>
-                {pastTimeFromDate(post.dateCreated).endsWith("y")
-                  ? formatDate(post.dateCreated, {
+                {pastTimeFromDate(post.dateCreated, t).endsWith("y")
+                  ? formatDate(post.dateCreated, t("DATE.bcp47"), {
                       month: "long",
                       day: "numeric",
                     })
-                  : pastTimeFromDate(post.dateCreated)}
+                  : pastTimeFromDate(post.dateCreated, t)}
                 <span className={css["post-date"]}>
-                  {formatDate(post.dateCreated)}
+                  {formatDate(post.dateCreated, t("DATE.bcp47"))}
                 </span>
               </p>
             </div>
