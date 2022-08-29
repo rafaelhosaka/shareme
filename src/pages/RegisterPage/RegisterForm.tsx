@@ -9,9 +9,11 @@ import UserProfileEntity from "../../models/userProfile";
 import css from "./RegisterForm.module.scss";
 import Spinner from "../../components/Spinner/Spinner";
 import { useTranslation } from "react-i18next";
+import { useLanguage } from "../../context/languageContext";
 
 function RegisterForm() {
   const { t } = useTranslation();
+  const { language } = useLanguage();
   const [loading, setLoading] = useState(false);
   const { value: firstName, bind: bindFirstName } = useInput("");
   const { value: lastName, bind: bindLastName } = useInput("");
@@ -85,6 +87,128 @@ function RegisterForm() {
     }
   };
 
+  const firstNameLastNameFormatField = () => {
+    return (
+      <>
+        <input
+          className="form-input form-input--gray"
+          type="text"
+          placeholder={t("REGISTER_FORM.firstName")}
+          {...bindFirstName}
+          required
+        />
+        <input
+          className="form-input form-input--gray"
+          type="text"
+          placeholder={t("REGISTER_FORM.lastName")}
+          {...bindLastName}
+          required
+        />
+      </>
+    );
+  };
+
+  const lastNamefirstNameFormatField = () => {
+    return (
+      <>
+        <input
+          className="form-input form-input--gray"
+          type="text"
+          placeholder={t("REGISTER_FORM.lastName")}
+          {...bindLastName}
+          required
+        />
+        <input
+          className="form-input form-input--gray"
+          type="text"
+          placeholder={t("REGISTER_FORM.firstName")}
+          {...bindFirstName}
+          required
+        />
+      </>
+    );
+  };
+
+  const yearMonthDayFormatField = () => {
+    return (
+      <>
+        <select className="form-select" {...bindYear}>
+          {[...Array(118).keys()].map((x) => (
+            <option key={currentYear - x} value={currentYear - x}>
+              {currentYear - x}
+            </option>
+          ))}
+        </select>
+        <select className="form-select" {...bindMonth}>
+          {MONTHS.map((m, i) => (
+            <option key={m} value={i}>
+              {m}
+            </option>
+          ))}
+        </select>
+
+        <select className="form-select" {...bindDay}>
+          {[...Array(31).keys()].map((x) => (
+            <option key={x + 1} value={x + 1}>
+              {x + 1}
+            </option>
+          ))}
+        </select>
+      </>
+    );
+  };
+
+  const monthDayYearFormatField = () => {
+    return (
+      <>
+        <select className="form-select" {...bindMonth}>
+          {MONTHS.map((m, i) => (
+            <option key={m} value={i}>
+              {m}
+            </option>
+          ))}
+        </select>
+
+        <select className="form-select" {...bindDay}>
+          {[...Array(31).keys()].map((x) => (
+            <option key={x + 1} value={x + 1}>
+              {x + 1}
+            </option>
+          ))}
+        </select>
+        <select className="form-select" {...bindYear}>
+          {[...Array(118).keys()].map((x) => (
+            <option key={currentYear - x} value={currentYear - x}>
+              {currentYear - x}
+            </option>
+          ))}
+        </select>
+      </>
+    );
+  };
+
+  const getNameFields = () => {
+    switch (language.shortName) {
+      case "en":
+        return firstNameLastNameFormatField();
+      case "ja":
+        return lastNamefirstNameFormatField();
+      default:
+        return firstNameLastNameFormatField();
+    }
+  };
+
+  const getDateFields = () => {
+    switch (language.shortName) {
+      case "en":
+        return monthDayYearFormatField();
+      case "ja":
+        return yearMonthDayFormatField();
+      default:
+        return monthDayYearFormatField();
+    }
+  };
+
   return (
     <>
       <main className="container full center">
@@ -100,21 +224,7 @@ function RegisterForm() {
           >
             <Spinner show={loading} sizeClass="size--400">
               <div className={css["register-fields"]}>
-                <input
-                  className="form-input form-input--gray"
-                  type="text"
-                  placeholder={t("REGISTER_FORM.firstName")}
-                  {...bindFirstName}
-                  required
-                />
-                <input
-                  className="form-input form-input--gray"
-                  type="text"
-                  placeholder={t("REGISTER_FORM.lastName")}
-                  {...bindLastName}
-                  required
-                />
-
+                {getNameFields()}
                 <input
                   className="form-input form-input--gray"
                   type="email"
@@ -122,7 +232,6 @@ function RegisterForm() {
                   {...bindEmail}
                   required
                 />
-
                 <input
                   className="form-input form-input--gray"
                   type="password"
@@ -132,30 +241,7 @@ function RegisterForm() {
                 />
               </div>
               <span className="form-label">{t("REGISTER_FORM.birthday")}</span>
-              <div className="grid--3x1">
-                <select className="form-select" {...bindMonth}>
-                  {MONTHS.map((m, i) => (
-                    <option key={m} value={i}>
-                      {m}
-                    </option>
-                  ))}
-                </select>
-
-                <select className="form-select" {...bindDay}>
-                  {[...Array(31).keys()].map((x) => (
-                    <option key={x + 1} value={x + 1}>
-                      {x + 1}
-                    </option>
-                  ))}
-                </select>
-                <select className="form-select" {...bindYear}>
-                  {[...Array(118).keys()].map((x) => (
-                    <option key={currentYear - x} value={currentYear - x}>
-                      {currentYear - x}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <div className="grid--3x1">{getDateFields()}</div>
               <span className="form-label">{t("REGISTER_FORM.gender")}</span>
               <div className="grid--2x1">
                 <div onClick={() => setGender("female")} className="form-radio">

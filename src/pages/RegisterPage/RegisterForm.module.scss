@@ -29,6 +29,11 @@
   height: 616px;
 }
 
+.invert {
+  display: flex;
+  flex-direction: row;
+}
+
 @include mixins.tablet {
   .register-fields {
     display: grid;
