@@ -1,3 +1,4 @@
+import { COMMENT } from "./Comment";
 import { SEARCH } from "./Search";
 import { CHAT_MENU } from "./ChatMenu";
 import { VERIFY_EMAIL } from "./VerifyEmail";
@@ -34,4 +35,5 @@ export const TRANSLATIONS_JA = {
   VERIFY_EMAIL,
   CHAT_MENU,
   SEARCH,
+  COMMENT,
 };

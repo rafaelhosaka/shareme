@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
@@ -23,6 +24,7 @@ interface CommentProps {
 }
 
 function Comment({ comment, onDelete, replyComment }: CommentProps) {
+  const { t } = useTranslation();
   const [user, setUser] = useState<UserProfileEntity>();
   const { image: commentUserImage, setService } = useBase64Image(null);
   const { user: currentUser } = useUser();
@@ -79,8 +81,8 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
     <div className={css["comment__container"]}>
       <Modal
         show={showModal}
-        title="Delete comment?"
-        description="Are you sure you want to delete this comment?"
+        title={t("COMMENT.modalDeleteCommentTitle")}
+        description={t("COMMENT.modalDeleteCommentDescription")}
         onReject={() => setShowModal(false)}
         onAccept={() => {
           onDelete(comment);
@@ -119,7 +121,7 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
                 <DropdownMenu>
                   <DropdownItem
                     onClick={() => setShowModal(true)}
-                    label="Delete comment"
+                    label={t("COMMENT.deleteComment")}
                   >
                     <i className="fa-solid fa-trash"></i>
                   </DropdownItem>
@@ -135,7 +137,7 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
               liked ? css["liked"] : ""
             }`}
           >
-            Like
+            {t("COMMENT.like")}
           </div>
           {comment.subComments && (
             <div
@@ -146,7 +148,7 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
               }}
               className={css["comment-action__reply"]}
             >
-              Reply
+              {t("COMMENT.reply")}
             </div>
           )}
           <span className={css["comment__past-time"]}>
@@ -173,8 +175,13 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
                 <i
                   className={`${css["reply-icon"]} fa-solid fa-arrow-turn-up`}
                 ></i>
-                {comment.subComments?.length}
-                {comment.subComments.length === 1 ? ` Reply` : ` Replies`}
+                {comment.subComments.length === 1
+                  ? t("COMMENT.reply_single", {
+                      count: comment.subComments.length,
+                    })
+                  : t("COMMENT.reply_plural", {
+                      count: comment.subComments.length,
+                    })}
               </div>
             )}
         {comment.subComments && showNewComment && (

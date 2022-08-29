@@ -1,3 +1,4 @@
+import { COMMENT } from "./Comment";
 import { SEARCH } from "./Search";
 import { LOGIN_FORM } from "./LoginForm";
 import { REGISTER_FORM } from "./RegisterForm";
@@ -34,4 +35,5 @@ export const TRANSLATIONS_EN = {
   VERIFY_EMAIL,
   CHAT_MENU,
   SEARCH,
+  COMMENT,
 };
