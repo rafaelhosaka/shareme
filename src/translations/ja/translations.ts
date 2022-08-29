@@ -1,3 +1,4 @@
+import { SEARCH } from "./Search";
 import { CHAT_MENU } from "./ChatMenu";
 import { VERIFY_EMAIL } from "./VerifyEmail";
 import { NOTIFY_EMAIL } from "./NotifyEmail";
@@ -32,4 +33,5 @@ export const TRANSLATIONS_JA = {
   NOTIFY_EMAIL,
   VERIFY_EMAIL,
   CHAT_MENU,
+  SEARCH,
 };

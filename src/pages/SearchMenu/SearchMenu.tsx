@@ -13,8 +13,10 @@ import css from "./SearchMenu.module.scss";
 import { useUser } from "../../context/userContext";
 import MenuList from "../../components/MenuList/MenuList";
 import MenuItem from "../../components/MenuList/MenuItem";
+import { useTranslation } from "react-i18next";
 
 function SearchMenu() {
+  const { t } = useTranslation();
   const { filter } = useParams();
   let [searchParams] = useSearchParams();
   let query = searchParams.get("q");
@@ -78,9 +80,7 @@ function SearchMenu() {
 
   const renderResult = () => {
     if (result.length === 0)
-      return (
-        <h1 className={css["no-result"]}>No result found for : {query}</h1>
-      );
+      return <h1 className={css["no-result"]}>{t("SEARCH.noResult")}</h1>;
     switch (filter) {
       case "people":
         return renderPeople();
@@ -106,9 +106,11 @@ function SearchMenu() {
       <main className="container right center m2">{renderResult()}</main>
       <div className="left-content">
         <MenuList title="Search Results">
-          <span className={css["search-filter"]}>Filters</span>
+          <span className={css["search-filter"]}>{t("SEARCH.filters")}</span>
           <MenuItem active={isActive("people")}>
-            <div onClick={() => handleFilterSelected("people")}>People</div>
+            <div onClick={() => handleFilterSelected("people")}>
+              {t("SEARCH.people")}
+            </div>
           </MenuItem>
         </MenuList>
       </div>

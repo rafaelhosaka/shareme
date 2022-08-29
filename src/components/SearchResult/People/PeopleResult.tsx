@@ -12,6 +12,7 @@ import {
 import { useUser } from "../../../context/userContext";
 import UserProfileEntity from "../../../models/userProfile";
 import css from "./PeopleResult.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface PeopleResultProps {
   people: UserProfileEntity;
@@ -26,6 +27,7 @@ function PeopleResult({
   pending,
   ownSelf,
 }: PeopleResultProps) {
+  const { t } = useTranslation();
   const { image: userImage, setService } = useBase64Image(null);
   const { user: currentUser, setUser } = useUser();
 
@@ -72,7 +74,11 @@ function PeopleResult({
 
   const renderButton = () => {
     if (currentUser?.friends.includes(people.id)) {
-      return <button className="btn btn--secondary btn--small">Friend</button>;
+      return (
+        <button className="btn btn--secondary btn--small">
+          {t("SEARCH.friend")}
+        </button>
+      );
     }
     if (req) {
       return (
@@ -80,7 +86,7 @@ function PeopleResult({
           onClick={() => handleCancelRequest()}
           className="btn btn--small btn--secondary"
         >
-          Cancel request
+          {t("SEARCH.cancelRequest")}
         </button>
       );
     }
@@ -90,7 +96,7 @@ function PeopleResult({
           onClick={() => handleConfirm()}
           className="btn btn--small btn--primary"
         >
-          Confirm request
+          {t("SEARCH.confirmRequest")}
         </button>
       );
     }
@@ -98,7 +104,7 @@ function PeopleResult({
       return (
         <Link to={`/profile/${people.id}/posts`}>
           <button className="btn btn--small btn--secondary">
-            View profile
+            {t("SEARCH.viewProfile")}
           </button>
         </Link>
       );
@@ -108,7 +114,7 @@ function PeopleResult({
         onClick={() => handleAddFriend()}
         className="btn btn--small btn--primary"
       >
-        Add friend
+        {t("SEARCH.addFriend")}
       </button>
     );
   };

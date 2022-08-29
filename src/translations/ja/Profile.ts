@@ -3,10 +3,12 @@ export const PROFILE = {
   friend_singular: "友達{{count}}人",
   friend_plural: "友達{{count}}人",
   friends: "友達",
+  friend: "友達",
+  unfriend: "友達から削除",
   photos: "写真",
   videos: "動画",
   confirmRequest: "承認する",
-  cancelRequest: "リクエストを削除",
+  cancelRequest: "リクエストをキャンセル",
   addFriend: "友達を追加",
   editCoverPhoto: "カバー写真を編集",
 };

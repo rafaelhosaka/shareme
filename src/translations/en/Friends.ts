@@ -3,7 +3,7 @@ export const FRIENDS = {
   allFriends: "All Friends",
   friendRequests: "Friend Requests",
   noFriend: "You do not have any friends yet",
-  noResult: "No result for",
+  noResult: "No result found",
   search: "Search",
   confirm: "Confirm",
   delete: "Delete",

@@ -114,11 +114,15 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
             onClick={() => setDropFriendVisible((prev) => !prev)}
             className="btn btn--primary"
           >
-            <i className="fa-solid fa-user-check"></i>Friend
+            <i className="fa-solid fa-user-check"></i>
+            {t("PROFILE.friend")}
           </button>
           {isDropFriendVisible && (
             <DropdownMenu>
-              <DropdownItem onClick={() => handleUnfriend()} label="Unfriend">
+              <DropdownItem
+                onClick={() => handleUnfriend()}
+                label={t("PROFILE.unfriend")}
+              >
                 <i className="fa-solid fa-user-xmark"></i>
               </DropdownItem>
             </DropdownMenu>
@@ -130,7 +134,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
       return (
         <button
           onClick={() => handleCancelRequest()}
-          className="btn btn--primary"
+          className="btn btn--secondary"
         >
           {t("PROFILE.cancelRequest")}
         </button>

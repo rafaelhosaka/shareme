@@ -3,6 +3,8 @@ export const PROFILE = {
   friend_singular: "{{count}} friend",
   friend_plural: "{{count}} friends",
   friends: "Friends",
+  friend: "Friend",
+  unfriend: "Unfriend",
   photos: "Photos",
   videos: "Videos",
   confirmRequest: "Confirm Request",

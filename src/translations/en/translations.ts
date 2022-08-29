@@ -1,3 +1,4 @@
+import { SEARCH } from "./Search";
 import { LOGIN_FORM } from "./LoginForm";
 import { REGISTER_FORM } from "./RegisterForm";
 import { RECOVER_PASSWORD } from "./RecoverPassword";
@@ -14,6 +15,7 @@ import { SETTINGS } from "./Settings";
 import { NOTIFY_EMAIL } from "./NotifyEmail";
 import { VERIFY_EMAIL } from "./VerifyEmail";
 import { CHAT_MENU } from "./ChatMenu";
+
 export const TRANSLATIONS_EN = {
   LOGIN_FORM,
   REGISTER_FORM,
@@ -31,4 +33,5 @@ export const TRANSLATIONS_EN = {
   NOTIFY_EMAIL,
   VERIFY_EMAIL,
   CHAT_MENU,
+  SEARCH,
 };
