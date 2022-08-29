@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 import { useChat } from "../../context/chatContext";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
@@ -87,11 +88,23 @@ const MessagePanel = ({
         <div className={`${css["message-panel"]}`}>
           <div className={css["header"]}>
             <div className={css["user-info"]}>
-              <div className={css["user-image__container"]}>
-                <img className={css["user-image"]} src={userImage} />
-                {online && <div className={css["online"]} />}
-              </div>
-              <span className={css["user-name"]}>{chattingUser?.fullName}</span>
+              <Link
+                to={`/profile/${chattingUserId}/posts`}
+                className={css["user-name"]}
+              >
+                <div className={css["user-image__container"]}>
+                  <img className={css["user-image"]} src={userImage} />
+                  {online && <div className={css["online"]} />}
+                </div>
+              </Link>
+              <Link
+                to={`/profile/${chattingUserId}/posts`}
+                className={css["user-name"]}
+              >
+                <span className={css["user-name"]}>
+                  {chattingUser?.fullName}
+                </span>
+              </Link>
             </div>
             <div className={css["btn-area"]}>
               <i

@@ -87,6 +87,9 @@
 .user-name {
   font-weight: 700;
   margin-left: 1rem;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 .user-info {
