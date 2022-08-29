@@ -11,6 +11,7 @@ export const POST = {
   writeComment: "Write a comment...",
   deletePost: "Delete post",
   deleteConfirmation: "Are you sure you want to delete this post?",
-  sharedPostFrom: "shared post from",
+  sharedPostFirstPart: "shared post from",
+  sharedPostSecondPart: "",
   alertPostDeleted: "Post deleted successfully",
 };

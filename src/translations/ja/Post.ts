@@ -11,6 +11,7 @@ export const POST = {
   writeComment: "コメントする...",
   deletePost: "投稿を削除する",
   deleteConfirmation: "この投稿を削除してもよろしいでしょうか？",
-  sharedPostFrom: "この投稿は他のユーザーからシェアされたものです",
+  sharedPostFirstPart: "この投稿は",
+  sharedPostSecondPart: "からシェアされたものです",
   alertPostDeleted: "投稿を削除しました",
 };

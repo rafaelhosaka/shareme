@@ -1,3 +1,4 @@
+import { CHAT_MENU } from "./ChatMenu";
 import { VERIFY_EMAIL } from "./VerifyEmail";
 import { NOTIFY_EMAIL } from "./NotifyEmail";
 import { LOGIN_FORM } from "./LoginForm";
@@ -30,4 +31,5 @@ export const TRANSLATIONS_JA = {
   SETTINGS,
   NOTIFY_EMAIL,
   VERIFY_EMAIL,
+  CHAT_MENU,
 };

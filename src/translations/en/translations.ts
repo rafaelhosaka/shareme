@@ -13,7 +13,7 @@ import { PHOTO } from "./Photo";
 import { SETTINGS } from "./Settings";
 import { NOTIFY_EMAIL } from "./NotifyEmail";
 import { VERIFY_EMAIL } from "./VerifyEmail";
-
+import { CHAT_MENU } from "./ChatMenu";
 export const TRANSLATIONS_EN = {
   LOGIN_FORM,
   REGISTER_FORM,
@@ -30,4 +30,5 @@ export const TRANSLATIONS_EN = {
   SETTINGS,
   NOTIFY_EMAIL,
   VERIFY_EMAIL,
+  CHAT_MENU,
 };

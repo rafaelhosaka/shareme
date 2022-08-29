@@ -15,7 +15,6 @@ function FriendList({ friends }: FriendListProps) {
   const [filteredFriends, setFilteredFriends] = useState<UserProfileEntity[]>(
     []
   );
-  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function getFriends() {
@@ -33,9 +32,7 @@ function FriendList({ friends }: FriendListProps) {
     }
 
     return filteredFriends.length === 0 ? (
-      <div className={css["result"]}>
-        {t("FRIENDS.noResult")} : {searchQuery}
-      </div>
+      <div className={css["result"]}>{t("FRIENDS.noResult")}</div>
     ) : (
       <div className={css["friend-list"]}>
         {filteredFriends.map((friend) => (
@@ -54,7 +51,6 @@ function FriendList({ friends }: FriendListProps) {
           f.firstName.toLowerCase().startsWith(searchQuery.toLowerCase())
         );
         setFilteredFriends(filtered);
-        setSearchQuery(searchQuery);
       }
   };
 

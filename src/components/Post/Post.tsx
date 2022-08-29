@@ -235,13 +235,16 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
               </Link>
               {post instanceof SharedPostEntity && (
                 <>
-                  <span className="label">{t("POST.sharedPostFrom")}</span>
+                  <span className="label">{t("POST.sharedPostFirstPart")}</span>
                   <Link
                     to={`/profile/${post.sharedPost.user.id}/posts`}
                     className={css["user-name"]}
                   >
                     {post.sharedPost.user.fullName}
                   </Link>
+                  <span className="label">
+                    {t("POST.sharedPostSecondPart")}
+                  </span>
                 </>
               )}
 

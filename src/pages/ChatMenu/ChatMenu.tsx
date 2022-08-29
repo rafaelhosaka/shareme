@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useChat } from "../../context/chatContext";
 
 import { useUser } from "../../context/userContext";
@@ -8,6 +9,7 @@ import css from "./ChatMenu.module.scss";
 import ChatUser from "./ChatUser";
 
 const ChatMenu = () => {
+  const { t } = useTranslation();
   const { user: currentUser } = useUser();
   const { open, statusChangedUser } = useChat();
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
@@ -48,7 +50,7 @@ const ChatMenu = () => {
 
   return (
     <div className={css["container"]}>
-      <span className={css["header"]}>Contacts</span>
+      <span className={css["header"]}>{t("CHAT_MENU.header")}</span>
       {friends.map((friend) => (
         <div
           key={friend.id}
