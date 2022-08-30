@@ -10,6 +10,7 @@ import css from "./RegisterForm.module.scss";
 import Spinner from "../../components/Spinner/Spinner";
 import { useTranslation } from "react-i18next";
 import { useLanguage } from "../../context/languageContext";
+import { getLanguageByShortName } from "../../models/language";
 
 function RegisterForm() {
   const { t } = useTranslation();
@@ -57,6 +58,7 @@ function RegisterForm() {
       email: email,
       birthDate: new Date(parseInt(year), parseInt(month), parseInt(day)),
       gender: gender,
+      languagePreference: getLanguageByShortName(language.shortName),
     } as UserProfileEntity);
   };
 
