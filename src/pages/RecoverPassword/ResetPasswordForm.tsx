@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 import { useAlert } from "../../components/Alert/Alert";
 import Spinner from "../../components/Spinner/Spinner";
+import { useLanguage } from "../../context/languageContext";
 import { useInput } from "../../hook/useInput";
+import { getLanguageByShortName } from "../../models/language";
 import { changePasswordByToken } from "../../services/authService";
 import css from "./RecoverPassword.module.scss";
 
@@ -22,7 +24,15 @@ const ResetPasswordForm = () => {
   const [alert, dispatchAlert] = useAlert();
   const [params] = useSearchParams();
   const token = params.get("token");
+  const language = params.get("lng");
+  const { changeLanguage } = useLanguage();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (changeLanguage) {
+      changeLanguage(getLanguageByShortName(language ?? "en"));
+    }
+  }, [changeLanguage]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     if (!token) {

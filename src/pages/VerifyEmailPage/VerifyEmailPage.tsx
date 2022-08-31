@@ -1,14 +1,18 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLanguage } from "../../context/languageContext";
+import { getLanguageByShortName } from "../../models/language";
 import { verifyEmail } from "../../services/emailService";
 import css from "./VerifyEmailPage.module.scss";
 
 const VerifyEmailPage = () => {
   const { t } = useTranslation();
+  const { changeLanguage } = useLanguage();
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const token = params.get("token");
+  const language = params.get("lng");
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
 
@@ -39,10 +43,17 @@ const VerifyEmailPage = () => {
       }
     }
     verify();
+
     setTimeout(() => {
       navigate("/login");
     }, 5000);
   }, []);
+
+  useEffect(() => {
+    if (changeLanguage) {
+      changeLanguage(getLanguageByShortName(language ?? "en"));
+    }
+  }, [changeLanguage]);
 
   return (
     <main className="container full center">
