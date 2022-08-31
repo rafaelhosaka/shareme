@@ -22,7 +22,16 @@ const ReSendEmail = () => {
         resetEmail();
         dispatchAlert(t("RESEND_EMAIL.alertSentEmail"), "info");
       } catch (ex: any) {
-        dispatchAlert(t("RESEND_EMAIL.alertEmailNotFound"), "warning");
+        switch (ex.response.data) {
+          case "This user account is already activated":
+            dispatchAlert(t("RESEND_EMAIL.alertAlreadyActivated"), "warning");
+            break;
+          case "User with " + email + " not found":
+            dispatchAlert(t("RESEND_EMAIL.alertEmailNotFound"), "warning");
+            break;
+          default:
+            dispatchAlert(ex.response.data, "danger");
+        }
       }
     }
     setLoading(false);

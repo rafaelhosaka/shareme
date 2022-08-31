@@ -5,4 +5,5 @@ export const RESEND_EMAIL = {
   alertSentEmail:
     "We sent you an e-mail for verification, please verify your email",
   alertEmailNotFound: "We could not find this email",
+  alertAlreadyActivated: "This email is already verified",
 };

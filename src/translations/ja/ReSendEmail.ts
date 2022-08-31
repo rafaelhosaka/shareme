@@ -5,4 +5,5 @@ export const RESEND_EMAIL = {
   alertSentEmail:
     "メールアドレス確認用のメールを送信しました、メールアドレスを確認してください",
   alertEmailNotFound: "先ほど入力したメールアドレスが見つかりませんでした",
+  alertAlreadyActivated: "このメールアドレスはもう確認済みです",
 };
