@@ -58,6 +58,7 @@
     border-radius: 10px;
     padding: 2rem;
     transform: scale(1.5);
+    cursor: pointer;
   }
 
   &.active {
@@ -112,6 +113,12 @@
   position: absolute;
   top: 70px;
   right: 0;
+}
+
+.notifications {
+  position: relative;
+  top: 35px;
+  right: 300px;
 }
 
 @include mixins.tablet {

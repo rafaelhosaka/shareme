@@ -4,7 +4,6 @@ import { useUser, useUserImage } from "../../context/userContext";
 import useComponentVisible from "../../hook/useComponentVisible";
 import NavMenuItem from "../NavMenu/NavMenuItem";
 import Spinner from "../Spinner/Spinner";
-import NavLinkWithToolTip from "../ToolTip/NavLinkWithToolTip";
 import css from "./Navbar.module.scss";
 import NavMenu from "../NavMenu/NavMenu";
 import NavMenuList from "../NavMenu/NavMenuList";
@@ -13,6 +12,7 @@ import _ from "lodash";
 import DivWithToolTip from "../ToolTip/DivWithToolTip";
 import { useMediaQuery } from "react-responsive";
 import { useTranslation } from "react-i18next";
+import NotificationList from "../Notification/NotificationList";
 
 const NavRight = () => {
   const { t } = useTranslation();
@@ -32,9 +32,14 @@ const NavRight = () => {
     setIsComponentVisible: setCenterMenuVisible,
   } = useComponentVisible(false);
 
+  const {
+    refs: notificationRefs,
+    isComponentVisible: isNotificationVisible,
+    setIsComponentVisible: setNotificationVisible,
+  } = useComponentVisible(false);
+
   const [menuId, setMenuId] = useState("1");
 
-  const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   useEffect(() => {
@@ -146,10 +151,7 @@ const NavRight = () => {
   const getMenu = () => {
     return (
       <NavMenu currentMenuId="1" mainMenuId="1">
-        <NavMenuList id="1">
-          {isMobile ? getCenterMenu() : <></>}
-          {!isDesktop ? getRightMenu() : <></>}
-        </NavMenuList>
+        <NavMenuList id="1">{getCenterMenu()}</NavMenuList>
         <NavMenuList id="2" />
       </NavMenu>
     );
@@ -186,27 +188,25 @@ const NavRight = () => {
             active={pathname === "/market"}
           />
         </Link>
-      </>
-    );
-  };
-
-  const getRightMenu = () => {
-    return (
-      <>
-        <Link to="/notifications">
+        <div
+          onClick={() => {
+            setNotificationVisible(true);
+            setCenterMenuVisible(false);
+          }}
+        >
           <NavMenuItem
             iconClass="fa-solid fa-bell fa-xl"
             label={t("NAVBAR.notifications")}
             active={pathname === "/notifications"}
           />
-        </Link>
+        </div>
       </>
     );
   };
 
   return (
     <>
-      {!isDesktop && (
+      {isMobile && (
         <DivWithToolTip tooltipLabel={t("NAVBAR.menu")}>
           <div
             ref={(element) => (centerMenuRefs.current[1] = element)}
@@ -221,17 +221,25 @@ const NavRight = () => {
           </div>
         </DivWithToolTip>
       )}
-      {isDesktop && (
+      {!isMobile && (
         <>
-          <NavLinkWithToolTip
-            activeClass={css.active}
-            className={css["nav-link"]}
-            to="/notifications"
-            tooltipLabel={t("NAVBAR.notifications")}
-          >
-            <i className="fa-solid fa-bell fa-xl"></i>
-          </NavLinkWithToolTip>
+          <DivWithToolTip tooltipLabel={t("NAVBAR.notifications")}>
+            <div
+              className={css["nav-link"]}
+              onClick={() => setNotificationVisible(true)}
+            >
+              <i className="fa-solid fa-bell fa-xl"></i>
+            </div>
+          </DivWithToolTip>
         </>
+      )}
+      {isNotificationVisible && (
+        <div
+          ref={(element) => (notificationRefs.current[0] = element)}
+          className={css["notifications"]}
+        >
+          <NotificationList />
+        </div>
       )}
       <DivWithToolTip tooltipLabel={t("NAVBAR.profile")}>
         <div

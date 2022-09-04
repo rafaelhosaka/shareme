@@ -1,0 +1,60 @@
+@use "../../styles/abstracts/theme" as t;
+
+.notification-list__container {
+  position: absolute;
+  background: t.$light-secondary-bgcolor;
+  width: 380px;
+  padding: 1rem;
+  box-shadow: t.$light-box-shadow;
+  border-radius: 10px;
+}
+
+.notification-list__header {
+  font-size: 2.4rem;
+}
+
+.notification__container {
+  display: flex;
+  padding: 1rem;
+  border-radius: 10px;
+  &:hover {
+    cursor: pointer;
+    background: t.$light-secondary-color;
+  }
+
+  &.active {
+    background: t.$light-primary-bgcolor;
+  }
+}
+
+.notification-image {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+.body {
+  margin-left: 1rem;
+}
+
+.user-name {
+  font-weight: 700;
+}
+
+.btn-area {
+  margin-top: 1rem;
+}
+
+.date {
+  font-size: 1.3rem;
+}
+
+.no-notifications {
+  font-weight: 600;
+  font-size: 2rem;
+  padding: 2rem;
+}
+
+.notification__container:hover .btn {
+  filter: brightness(80%);
+}
