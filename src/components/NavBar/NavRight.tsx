@@ -13,6 +13,7 @@ import DivWithToolTip from "../ToolTip/DivWithToolTip";
 import { useMediaQuery } from "react-responsive";
 import { useTranslation } from "react-i18next";
 import NotificationList from "../Notification/NotificationList";
+import { unreadCount } from "../../services/notificationService";
 
 const NavRight = () => {
   const { t } = useTranslation();
@@ -38,9 +39,25 @@ const NavRight = () => {
     setIsComponentVisible: setNotificationVisible,
   } = useComponentVisible(false);
 
+  const [counter, setCounter] = useState(0);
+
+  const updateUnreadCount = (count: number) => {
+    setCounter((prev) => prev + count);
+  };
+
   const [menuId, setMenuId] = useState("1");
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  useEffect(() => {
+    async function getUnreadCount() {
+      if (currentUser) {
+        const count = await unreadCount(currentUser.id);
+        setCounter(count);
+      }
+    }
+    getUnreadCount();
+  }, []);
 
   useEffect(() => {
     if (!isMenuVisible) setMenuId("1");
@@ -198,7 +215,7 @@ const NavRight = () => {
             iconClass="fa-solid fa-bell fa-xl"
             label={t("NAVBAR.notifications")}
             active={pathname === "/notifications"}
-          />
+          ></NavMenuItem>
         </div>
       </>
     );
@@ -229,6 +246,9 @@ const NavRight = () => {
               onClick={() => setNotificationVisible(true)}
             >
               <i className="fa-solid fa-bell fa-xl"></i>
+              {counter > 0 && (
+                <span className={css["notification-count"]}>{counter}</span>
+              )}
             </div>
           </DivWithToolTip>
         </>
@@ -238,7 +258,7 @@ const NavRight = () => {
           ref={(element) => (notificationRefs.current[0] = element)}
           className={css["notifications"]}
         >
-          <NotificationList />
+          <NotificationList updateCount={updateUnreadCount} />
         </div>
       )}
       <DivWithToolTip tooltipLabel={t("NAVBAR.profile")}>

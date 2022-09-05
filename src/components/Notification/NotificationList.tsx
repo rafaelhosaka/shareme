@@ -8,7 +8,11 @@ import {
 import Notification from "./Notification";
 import css from "./Notification.module.scss";
 
-function NotificationList() {
+interface NotificationListProps {
+  updateCount: (count: number) => void;
+}
+
+function NotificationList({ updateCount }: NotificationListProps) {
   const [notifications, setNotifications] = useState<NotificationEntity[]>([]);
   const { user } = useUser();
 
@@ -30,7 +34,7 @@ function NotificationList() {
       }
       return n;
     });
-
+    updateCount(-1);
     setNotifications(newNotifications);
   };
 

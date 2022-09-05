@@ -21,3 +21,10 @@ export function markAsRead(notificationId: string) {
     headers: { "Content-Type": "application/json" },
   });
 }
+
+export async function unreadCount(userId: string) {
+  const { data } = await httpService.get(
+    `${apiEndPoint}/${userId}/unreadCount`
+  );
+  return data;
+}

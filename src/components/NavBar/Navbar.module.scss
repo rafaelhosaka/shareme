@@ -121,6 +121,20 @@
   right: 300px;
 }
 
+.notification-count {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  background: t.$light-primary-color;
+  color: t.$light-secondary-bgcolor;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 2rem;
+  font-weight: 800;
+  text-align: center;
+}
+
 @include mixins.tablet {
   .nav-center {
     font-weight: bold;
