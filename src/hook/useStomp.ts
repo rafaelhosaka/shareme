@@ -1,16 +1,19 @@
+import { NotificationEntity } from "./../models/notification";
 import { MessageEntity } from "./../models/message";
 import { over, Client } from "stompjs";
 import SockJS from "sockjs-client";
 import { useEffect, useState } from "react";
 import { useUser } from "../context/userContext";
 
-export const useStomp = (): [
-  send: (message: MessageEntity) => void,
-  receivedMessage: MessageEntity | undefined,
-  changeStatus: (id: string, status: boolean) => void,
-  statusChangedUser: { id: string; online: boolean } | undefined,
-  isConnected: boolean
-] => {
+export const useStomp = (): {
+  sendMessage: (message: MessageEntity) => void;
+  receivedMessage: MessageEntity | undefined;
+  changeStatus: (id: string, status: boolean) => void;
+  statusChangedUser: { id: string; online: boolean } | undefined;
+  sendNotification: (notification: NotificationEntity) => void;
+  receivedNotification: NotificationEntity | undefined;
+  isConnected: boolean;
+} => {
   const { user } = useUser();
   const [receivedMessage, setReceivedMessage] = useState<MessageEntity>();
   const [stompClient, setStompClient] = useState<Client>();
@@ -18,6 +21,8 @@ export const useStomp = (): [
     id: string;
     online: boolean;
   }>();
+  const [receivedNotification, setReceivedNotification] =
+    useState<NotificationEntity>();
   const [isConnected, setConnected] = useState(false);
 
   useEffect(() => {
@@ -44,13 +49,15 @@ export const useStomp = (): [
       });
 
       stompClient.subscribe(`/user/${user?.id}/private`, onMessageReceived);
+      stompClient.subscribe(
+        `/user/${user?.id}/notification`,
+        onNotificationReceived
+      );
       setConnected(true);
     }
   };
 
   const onStatusUpdated = (payload: any) => {
-    console.log("statusupdated");
-
     const payloadData = JSON.parse(payload.body);
     setStatusChangedUser(payloadData);
   };
@@ -60,13 +67,19 @@ export const useStomp = (): [
     setReceivedMessage(payloadData);
   };
 
+  const onNotificationReceived = (payload: any) => {
+    const payloadData = JSON.parse(payload.body);
+
+    setReceivedNotification(payloadData);
+  };
+
   const onError = (err: any) => {
     console.log("onError : " + err);
   };
 
   const sendMessage = (message: MessageEntity) => {
     if (stompClient?.connected) {
-      stompClient?.send("/app/message", {}, JSON.stringify(message));
+      stompClient.send("/app/message", {}, JSON.stringify(message));
     }
   };
 
@@ -80,11 +93,19 @@ export const useStomp = (): [
     }
   };
 
-  return [
+  const sendNotification = (notification: NotificationEntity) => {
+    if (stompClient?.connected) {
+      stompClient.send("/app/notification", {}, notification.id);
+    }
+  };
+
+  return {
     sendMessage,
     receivedMessage,
     changeStatus,
     statusChangedUser,
+    sendNotification,
+    receivedNotification,
     isConnected,
-  ];
+  };
 };

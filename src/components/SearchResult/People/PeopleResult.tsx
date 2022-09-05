@@ -13,6 +13,7 @@ import { useUser } from "../../../context/userContext";
 import UserProfileEntity from "../../../models/userProfile";
 import css from "./PeopleResult.module.scss";
 import { useTranslation } from "react-i18next";
+import { useStomp } from "../../../hook/useStomp";
 
 interface PeopleResultProps {
   people: UserProfileEntity;
@@ -33,6 +34,7 @@ function PeopleResult({
 
   const [pend, setPend] = useState<boolean>();
   const [req, setReq] = useState<boolean>();
+  const { sendNotification } = useStomp();
 
   useEffect(() => {
     setService(userImageDownload(people.id));
@@ -45,10 +47,13 @@ function PeopleResult({
 
   const handleAddFriend = async () => {
     if (currentUser) {
-      await createFriendRequest({
+      const { data } = await createFriendRequest({
         requestingUserId: currentUser.id,
         targetUserId: people.id,
       });
+
+      sendNotification(data[1]);
+
       setReq(true);
     }
   };

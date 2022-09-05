@@ -12,6 +12,7 @@ export function getPendingFriendRequest(targetUserId: string) {
   return httpService.get(apiEndPoint + "/pending/" + targetUserId);
 }
 
+//return array/[0] = request/[1] = notification
 export function createFriendRequest(friendRequest: FriendRequestEntity) {
   return httpService.post(apiEndPoint + "/createRequest", friendRequest);
 }

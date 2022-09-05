@@ -21,6 +21,7 @@ import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import DropdownItem from "../../components/DropdownMenu/DropdownItem";
 import { useTranslation } from "react-i18next";
 import Modal from "../../components/Modal/Modal";
+import { useStomp } from "../../hook/useStomp";
 
 interface ProfileUserSectionProps {
   user: UserProfileEntity;
@@ -35,6 +36,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const { sendNotification } = useStomp();
 
   const {
     refs: dropFriendRefs,
@@ -63,10 +65,11 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
 
   const handleAddFriend = async () => {
     if (currentUser && user) {
-      await createFriendRequest({
+      const { data } = await createFriendRequest({
         requestingUserId: currentUser.id,
         targetUserId: user.id,
       });
+      sendNotification(data[1]);
       setRequested(true);
     }
   };

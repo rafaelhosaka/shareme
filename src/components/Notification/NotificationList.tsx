@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../../context/userContext";
+import { useStomp } from "../../hook/useStomp";
 import { NotificationEntity } from "../../models/notification";
 import {
   getNotificationsByUserId,
@@ -15,6 +16,7 @@ interface NotificationListProps {
 function NotificationList({ updateCount }: NotificationListProps) {
   const [notifications, setNotifications] = useState<NotificationEntity[]>([]);
   const { user } = useUser();
+  const { receivedNotification } = useStomp();
 
   useEffect(() => {
     async function getNotifications() {
@@ -25,6 +27,12 @@ function NotificationList({ updateCount }: NotificationListProps) {
     }
     getNotifications();
   }, []);
+
+  useEffect(() => {
+    if (receivedNotification) {
+      setNotifications([receivedNotification, ...notifications]);
+    }
+  }, [receivedNotification]);
 
   const handleMarkAsRead = (notificationId: string) => {
     markAsRead(notificationId);

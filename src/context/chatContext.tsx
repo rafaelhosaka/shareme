@@ -41,13 +41,13 @@ interface ChatProviderProps {
 export function ChatProvider({ children }: ChatProviderProps) {
   const { user } = useUser();
   const [panels, setPanels] = useState<Panel[]>([]);
-  const [
+  const {
     sendMessage,
     receivedMessage,
     changeStatus,
     statusChangedUser,
     isConnected,
-  ] = useStomp();
+  } = useStomp();
 
   useEffect(() => {
     if (changeStatus && user) {

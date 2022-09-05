@@ -14,6 +14,7 @@ import { useMediaQuery } from "react-responsive";
 import { useTranslation } from "react-i18next";
 import NotificationList from "../Notification/NotificationList";
 import { unreadCount } from "../../services/notificationService";
+import { useStomp } from "../../hook/useStomp";
 
 const NavRight = () => {
   const { t } = useTranslation();
@@ -40,6 +41,7 @@ const NavRight = () => {
   } = useComponentVisible(false);
 
   const [counter, setCounter] = useState(0);
+  const { receivedNotification } = useStomp();
 
   const updateUnreadCount = (count: number) => {
     setCounter((prev) => prev + count);
@@ -62,6 +64,10 @@ const NavRight = () => {
   useEffect(() => {
     if (!isMenuVisible) setMenuId("1");
   }, [isMenuVisible]);
+
+  useEffect(() => {
+    setCounter((prev) => prev + 1);
+  }, [receivedNotification]);
 
   const handleThemeChange = async (themeValue: "light" | "dark" | "device") => {
     if (currentUser && setUser) {
