@@ -23,6 +23,7 @@ export function formatDate(
 }
 
 //return the higher unit from minute to days
+//example : 1m, 1h, 1d, 1w, 1y
 //the minimum is 1 minute
 export function pastTimeFromDate(date: Date | string, t: TFunction) {
   const suffix = {

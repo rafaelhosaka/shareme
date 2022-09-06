@@ -1,3 +1,4 @@
+import { NOTIFICATION } from "./Notification";
 import { DATE } from "./Date";
 import { COMMENT } from "./Comment";
 import { SEARCH } from "./Search";
@@ -38,4 +39,5 @@ export const TRANSLATIONS_JA = {
   CHAT_MENU,
   SEARCH,
   COMMENT,
+  NOTIFICATION,
 };

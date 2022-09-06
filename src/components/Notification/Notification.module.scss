@@ -16,7 +16,8 @@
 }
 
 .notification__container {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   padding: 1rem;
   border-radius: 10px;
   &:hover {

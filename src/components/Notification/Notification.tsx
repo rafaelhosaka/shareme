@@ -1,10 +1,12 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { useBase64Image } from "../../hook/useBase64Image";
 import FriendRequestNotificationEntity, {
   NotificationEntity,
 } from "../../models/notification";
 import { userImageDownload } from "../../services/userService";
+import { pastTimeFromDate } from "../../utils/formatDate";
 import css from "./Notification.module.scss";
 
 interface NotificationProps {
@@ -13,6 +15,7 @@ interface NotificationProps {
 }
 
 const Notification = ({ notification, markAsRead }: NotificationProps) => {
+  const { t } = useTranslation();
   const { image, setService } = useBase64Image(null);
   const navigate = useNavigate();
 
@@ -41,9 +44,11 @@ const Notification = ({ notification, markAsRead }: NotificationProps) => {
           <div className={css["body"]}>
             <span
               className={css["user-name"]}
-            >{`${notification.friendRequesting.firstName} ${notification.friendRequesting.lastName} `}</span>
-            <span>sent you a friend request</span>
-            <div className={css["date"]}>a week ago</div>
+            >{`${notification.friendRequesting.firstName} ${notification.friendRequesting.lastName}`}</span>
+            <span>{t("NOTIFICATION.friendReqNotification")}</span>
+            <div className={css["date"]}>
+              {pastTimeFromDate(notification.dateCreated, t)}
+            </div>
           </div>
         </div>
       ) : (

@@ -5,7 +5,7 @@ export const NAVBAR = {
   group: "グループ",
   marketplace: "マーケット",
   profile: "プロフィール",
-  notifications: "通知",
+  notifications: "お知らせ",
   menu: "メニュー",
   settings: "設定",
   logout: "ログアウト",

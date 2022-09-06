@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useUser } from "../../context/userContext";
 import { useStomp } from "../../hook/useStomp";
 import { NotificationEntity } from "../../models/notification";
@@ -14,6 +15,7 @@ interface NotificationListProps {
 }
 
 function NotificationList({ updateCount }: NotificationListProps) {
+  const { t } = useTranslation();
   const [notifications, setNotifications] = useState<NotificationEntity[]>([]);
   const { user } = useUser();
   const { receivedNotification } = useStomp();
@@ -48,9 +50,13 @@ function NotificationList({ updateCount }: NotificationListProps) {
 
   return (
     <div className={css["notification-list__container"]}>
-      <h1 className={css["notification-list__header"]}>Notifications</h1>
+      <h1 className={css["notification-list__header"]}>
+        {t("NOTIFICATION.header")}
+      </h1>
       {notifications.length === 0 && (
-        <div className={css["no-notifications"]}>You have no notifications</div>
+        <div className={css["no-notifications"]}>
+          {t("NOTIFICATION.noNotifications")}
+        </div>
       )}
       {notifications.map((n) => (
         <Notification
