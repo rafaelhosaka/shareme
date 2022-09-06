@@ -24,16 +24,16 @@ function NotificationList({ updateCount }: NotificationListProps) {
     async function getNotifications() {
       if (user) {
         const notifications = await getNotificationsByUserId(user.id);
-        setNotifications(notifications);
+        const sorted = notifications.sort(function (a, b) {
+          const dateA = new Date(a.dateCreated);
+          const dateB = new Date(b.dateCreated);
+
+          return dateB.getTime() - dateA.getTime();
+        });
+        setNotifications(sorted);
       }
     }
     getNotifications();
-  }, []);
-
-  useEffect(() => {
-    if (receivedNotification) {
-      setNotifications([receivedNotification, ...notifications]);
-    }
   }, [receivedNotification]);
 
   const handleMarkAsRead = (notificationId: string) => {
