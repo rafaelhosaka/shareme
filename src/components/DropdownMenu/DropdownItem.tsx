@@ -1,10 +1,10 @@
-import { ReactElement } from "react";
+import { ReactElement, SyntheticEvent } from "react";
 import css from "./DropdownMenu.module.scss";
 
 interface DropdownItemProps {
   label: string;
   children?: ReactElement;
-  onClick?: () => void;
+  onClick?: (() => void) | ((e: SyntheticEvent) => void);
 }
 
 function DropdownItem({ label, children, onClick }: DropdownItemProps) {

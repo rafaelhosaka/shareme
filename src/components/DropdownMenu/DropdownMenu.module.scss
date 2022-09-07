@@ -9,9 +9,24 @@
   position: absolute;
   top: 10px;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
+}
+
+.center.dropdown-menu {
+  align-items: center;
+}
+
+.left.dropdown-menu {
+  align-items: flex-start;
+}
+
+.right.dropdown-menu {
+  align-items: flex-end;
+}
+
+.triangle__container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .triangle {
@@ -34,6 +49,10 @@
   border-bottom: 11px solid t.$dark-primary-bgcolor;
   right: -11px;
   top: 1px;
+}
+
+.filler {
+  margin: 0 1rem;
 }
 
 .dropdown-menu__list {

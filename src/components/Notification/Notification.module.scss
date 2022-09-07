@@ -58,6 +58,31 @@
   padding: 2rem;
 }
 
-.notification__container:hover .btn {
-  filter: brightness(80%);
+.notification__container:hover .menu {
+  visibility: visible;
+}
+
+.menu__container {
+  position: relative;
+}
+
+.menu {
+  position: absolute;
+  background-color: t.$light-secondary-bgcolor;
+  border-radius: 50%;
+  right: 0;
+  bottom: 15px;
+  padding: 0.5rem;
+  visibility: hidden;
+
+  &:hover {
+    filter: brightness(90%);
+  }
+}
+
+.notification-menu {
+  position: absolute;
+  left: 95px;
+  bottom: 30px;
+  z-index: 1;
 }

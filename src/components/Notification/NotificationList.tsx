@@ -4,6 +4,7 @@ import { useUser } from "../../context/userContext";
 import { useStomp } from "../../hook/useStomp";
 import { NotificationEntity } from "../../models/notification";
 import {
+  deleteNotification,
   getNotificationsByUserId,
   markAsRead,
 } from "../../services/notificationService";
@@ -40,10 +41,21 @@ function NotificationList({ updateCount }: NotificationListProps) {
     markAsRead(notificationId);
     const newNotifications = notifications.map((n) => {
       if (n.id === notificationId) {
-        n.read = true;
+        if (!n.read) {
+          n.read = true;
+          updateCount(-1);
+        }
       }
       return n;
     });
+    setNotifications(newNotifications);
+  };
+
+  const handleDeleteNotification = (notificationId: string) => {
+    deleteNotification(notificationId);
+    const newNotifications = notifications.filter(
+      (n) => n.id !== notificationId
+    );
     updateCount(-1);
     setNotifications(newNotifications);
   };
@@ -63,6 +75,7 @@ function NotificationList({ updateCount }: NotificationListProps) {
           key={n.id}
           notification={n}
           markAsRead={handleMarkAsRead}
+          onDelete={handleDeleteNotification}
         />
       ))}
     </div>

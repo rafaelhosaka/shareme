@@ -28,3 +28,7 @@ export async function unreadCount(userId: string) {
   );
   return data;
 }
+
+export function deleteNotification(notificationId: string) {
+  return httpService.delete(`${apiEndPoint}`, { data: notificationId });
+}
