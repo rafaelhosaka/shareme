@@ -1,3 +1,4 @@
+import CommentEntity from "../models/comment";
 import httpService from "./httpService";
 
 const apiEndPoint = "/comment";
@@ -14,6 +15,10 @@ export function replyComment(commentJSON: string, parentComemntId: string) {
   formData.append("comment", commentJSON);
   formData.append("parentCommentId", parentComemntId);
   return httpService.put(`${apiEndPoint}/reply`, formData);
+}
+
+export function updateComment(comment: CommentEntity) {
+  return httpService.put(`${apiEndPoint}/update`, comment);
 }
 
 export function deleteComment(commentId: string, postId: string) {

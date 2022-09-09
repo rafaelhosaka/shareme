@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import useComponentVisible from "../../hook/useComponentVisible";
+import { useEditableText } from "../../hook/useEditableText";
 import CommentEntity from "../../models/comment";
 import UserProfileEntity from "../../models/userProfile";
+import { updateComment } from "../../services/commentService";
 import { likeUnlikeComment } from "../../services/likeService";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
@@ -32,6 +34,10 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
   const [showNewComment, setShowNewComment] = useState(false);
   const [showSubComments, setShowSubComments] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [editting, setEditting] = useState(false);
+  const [editableDescription, description, resetDescription] = useEditableText(
+    comment.description
+  );
 
   const isLiked = comment.likes?.some((like) => {
     if (currentUser) return like.userId === currentUser.id;
@@ -77,6 +83,17 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
     if (replyComment && comment.id) replyComment(newComment, comment.id);
   };
 
+  const handleSaveEditting = () => {
+    comment.description = description;
+    updateComment(comment);
+    setEditting(false);
+  };
+
+  const handleCancelEditting = () => {
+    setEditting(false);
+    resetDescription();
+  };
+
   return (
     <div className={css["comment__container"]}>
       <Modal
@@ -107,28 +124,52 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
               {user && `${user.firstName} ${user.lastName}`}
             </Link>
             <span className={css["comment__description"]}>
-              {comment.description}
+              {editableDescription(editting)}
             </span>
           </div>
-          <div
-            ref={(element) => (dropCommentRefs.current[0] = element)}
-            onClick={() => setDropCommentVisible((prev) => !prev)}
-            className={css["comment-menu__container"]}
-          >
-            <i className={`${css["menu-icon"]} fa-solid fa-ellipsis`}></i>
-            <div className={css["comment-menu"]}>
-              {isDropCommentVisible && (
-                <DropdownMenu>
-                  <DropdownItem
-                    onClick={() => setShowModal(true)}
-                    label={t("COMMENT.deleteComment")}
-                  >
-                    <i className="fa-solid fa-trash"></i>
-                  </DropdownItem>
-                </DropdownMenu>
-              )}
+          {editting ? (
+            <div className={css["editting-btn"]}>
+              <button onClick={handleSaveEditting} className="btn btn--primary">
+                {t("COMMENT.save")}
+              </button>
+              <button
+                onClick={handleCancelEditting}
+                className="btn btn--secondary"
+              >
+                {t("COMMENT.cancel")}
+              </button>
             </div>
-          </div>
+          ) : (
+            <div
+              ref={(element) => (dropCommentRefs.current[0] = element)}
+              onClick={() => setDropCommentVisible((prev) => !prev)}
+              className={css["comment-menu__container"]}
+            >
+              <i className={`${css["menu-icon"]} fa-solid fa-ellipsis`}></i>
+              <div className={css["comment-menu"]}>
+                {isDropCommentVisible && (
+                  <DropdownMenu>
+                    <>
+                      {comment.userId === currentUser?.id && (
+                        <DropdownItem
+                          onClick={() => setEditting(true)}
+                          label={t("COMMENT.editComment")}
+                        >
+                          <i className="fa-solid fa-pen"></i>
+                        </DropdownItem>
+                      )}
+                    </>
+                    <DropdownItem
+                      onClick={() => setShowModal(true)}
+                      label={t("COMMENT.deleteComment")}
+                    >
+                      <i className="fa-solid fa-trash"></i>
+                    </DropdownItem>
+                  </DropdownMenu>
+                )}
+              </div>
+            </div>
+          )}
         </div>
         <div className={css["comment-action"]}>
           <div

@@ -283,7 +283,11 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
             </div>
           )}
         </header>
-        <p className={css["description"]}>{post.description}</p>
+        {post instanceof SharedPostEntity ? (
+          <p className={css["description"]}>{post.sharedPost.description}</p>
+        ) : (
+          <p className={css["description"]}>{post.description}</p>
+        )}
         {renderPostImage()}
         <footer className={css["footer"]}>
           <div className={css["details"]}>
@@ -293,16 +297,17 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
                 ? ` ${t("POST.like_plural")}`
                 : ` ${t("POST.like")}`}
             </span>
-            {post instanceof PostEntity && (
-              <div>
-                <span
-                  onClick={() => setShowComments(true)}
-                  className={`${css["details-comment"]} mx-2`}
-                >
-                  {commentCount > 1
-                    ? ` ${t("POST.comment_plural", { count: commentCount })}`
-                    : ` ${t("POST.comment_singular", { count: commentCount })}`}
-                </span>
+
+            <div>
+              <span
+                onClick={() => setShowComments(true)}
+                className={`${css["details-comment"]} mx-2`}
+              >
+                {commentCount > 1
+                  ? ` ${t("POST.comment_plural", { count: commentCount })}`
+                  : ` ${t("POST.comment_singular", { count: commentCount })}`}
+              </span>
+              {post instanceof PostEntity && (
                 <span className={css["details-share"]}>
                   {`${
                     post.sharedUsersId.length < 2
@@ -314,8 +319,8 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
                         })
                   }`}
                 </span>
-              </div>
-            )}
+              )}
+            </div>
           </div>
           <div className={css["action"]}>
             <div
