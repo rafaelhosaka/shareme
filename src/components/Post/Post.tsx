@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import useComponentVisible from "../../hook/useComponentVisible";
+import { useEditableTextArea } from "../../hook/useEditableTextArea";
 import CommentEntity from "../../models/comment";
 import PostEntity, { SharedPostEntity } from "../../models/post";
 import {
@@ -12,7 +13,11 @@ import {
   replyComment,
 } from "../../services/commentService";
 import { likeUnlikePost } from "../../services/likeService";
-import { postImageDownload, sharePost } from "../../services/postService";
+import {
+  postImageDownload,
+  sharePost,
+  updatePost,
+} from "../../services/postService";
 import { userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
 import { calculateMaxPage, paginate } from "../../utils/paginate";
@@ -41,6 +46,9 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
   const inputNewCommentRef = useRef<HTMLTextAreaElement>(null);
   const [showComments, setShowComments] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [editting, setEditting] = useState(false);
+  const [editableDescription, description, resetDescription] =
+    useEditableTextArea(post.description);
 
   const {
     refs: dropPostRefs,
@@ -154,6 +162,29 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
       block: "center",
       inline: "center",
     });
+  };
+
+  const handleSaveEditting = () => {
+    if (post instanceof PostEntity) {
+      post.description = description;
+      updatePost(post);
+      setEditting(false);
+    }
+  };
+
+  const handleCancelEditting = () => {
+    setEditting(false);
+    resetDescription();
+  };
+
+  const isPostEditable = () => {
+    if (!(post instanceof PostEntity)) {
+      return false;
+    }
+    if (post.user.id !== currentUser?.id) {
+      return false;
+    }
+    return true;
   };
 
   const renderComments = () => {
@@ -271,6 +302,16 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
               <div className={css["post-menu"]}>
                 {isDropPostVisible && (
                   <DropdownMenu>
+                    <>
+                      {isPostEditable() && (
+                        <DropdownItem
+                          onClick={() => setEditting(true)}
+                          label={t("POST.editPost")}
+                        >
+                          <i className="fa-solid fa-pen"></i>
+                        </DropdownItem>
+                      )}
+                    </>
                     <DropdownItem
                       onClick={() => setShowModal(true)}
                       label={t("POST.deletePost")}
@@ -286,7 +327,27 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
         {post instanceof SharedPostEntity ? (
           <p className={css["description"]}>{post.sharedPost.description}</p>
         ) : (
-          <p className={css["description"]}>{post.description}</p>
+          <>
+            <div className={css["description"]}>
+              {editableDescription(editting)}
+            </div>
+            {editting && (
+              <div className={css["btn-area"]}>
+                <button
+                  onClick={handleSaveEditting}
+                  className="btn btn--primary mx-1"
+                >
+                  {t("POST.save")}
+                </button>
+                <button
+                  onClick={handleCancelEditting}
+                  className="btn btn--secondary"
+                >
+                  {t("POST.cancel")}
+                </button>
+              </div>
+            )}
+          </>
         )}
         {renderPostImage()}
         <footer className={css["footer"]}>

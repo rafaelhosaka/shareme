@@ -28,6 +28,11 @@
     }
   }
 
+  textarea.editable {
+    resize: none;
+    width: 100%;
+  }
+
   .uneditable {
     white-space: pre-wrap;
     height: inherit;

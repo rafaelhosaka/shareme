@@ -49,3 +49,7 @@ export function sharePost(sharingUserId: string, sharingPostId: string) {
   //return array [0] = new sharedPost/ [1] = updated post
   return httpService.post(`${apiEndPoint}/share/post`, formData);
 }
+
+export function updatePost(post: PostEntity) {
+  return httpService.put(`${apiEndPoint}/update`, post);
+}
