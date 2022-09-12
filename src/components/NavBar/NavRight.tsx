@@ -204,7 +204,7 @@ const NavRight = () => {
             active={pathname === "/group"}
           />
         </Link>
-        <Link to="/market">
+        <Link to="/marketplace/all">
           <NavMenuItem
             iconClass="fa-solid fa-store fa-xl"
             label={t("NAVBAR.marketplace")}
