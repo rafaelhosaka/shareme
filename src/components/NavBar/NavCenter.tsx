@@ -36,7 +36,8 @@ const NavCenter = () => {
       <NavLinkWithToolTip
         activeClass={css.active}
         className={css["nav-link"]}
-        to="/marketplace"
+        to="/marketplace/all"
+        activeURLs={["/marketplace/all", "/marketplace/create"]}
         tooltipLabel={t("NAVBAR.marketplace")}
       >
         <i className="fa-solid fa-store fa-xl"></i>

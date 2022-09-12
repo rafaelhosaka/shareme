@@ -1,0 +1,128 @@
+@use "../../styles/abstracts/theme" as t;
+
+.form__container {
+  background: t.$light-secondary-bgcolor;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: t.$light-box-shadow;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  padding: 2rem;
+  border-bottom: 1px solid lightgrey;
+}
+
+.user {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.user-image {
+  border-radius: 3rem;
+}
+
+.user-name {
+  margin-left: 1rem;
+  font-weight: 700;
+  height: 50%;
+  padding-top: 1rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.price {
+  display: flex;
+  flex-direction: row;
+  margin: 1rem;
+
+  & > select.field {
+    border-radius: 10px 0 0 10px;
+    border-right: none;
+  }
+
+  & > input.field {
+    border-radius: 0 10px 10px 0;
+  }
+}
+
+textarea.field {
+  outline: 0;
+  resize: none;
+  font-weight: 400;
+  height: 50px;
+}
+
+.field {
+  border-radius: 10px;
+  padding: 1rem;
+  outline: 0;
+  font-size: 2rem;
+  border: 1px solid black;
+}
+
+.dropzone {
+  border: 1px solid black;
+  border-radius: 10px;
+  background: t.$light-secondary-bgcolor;
+  text-align: center;
+  cursor: pointer;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &:hover {
+    background-color: t.$light-secondary-color;
+  }
+}
+
+.dropzone__label {
+  font-weight: 600;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.dropzone__sublabel {
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+.close__icon {
+  font-size: 30px;
+  color: t.$light-accent-color;
+}
+
+.thumbnail {
+  border-radius: 10px;
+  border: 1px solid black;
+  text-align: center;
+  display: grid;
+  grid-template-columns: auto;
+
+  max-height: 450px;
+  overflow: scroll;
+}
+
+.thumbnail__image {
+  justify-self: center;
+  object-fit: cover;
+  width: 100%;
+}
+
+.thumbnail__close {
+  border: 1px solid black;
+  border-radius: 32px;
+  padding: 5px;
+  justify-self: end;
+  position: absolute;
+  cursor: pointer;
+  background: t.$light-secondary-bgcolor;
+
+  &:hover {
+    background: t.$light-secondary-color;
+  }
+}

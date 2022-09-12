@@ -1,6 +1,6 @@
 {
   "name": "shareme",
-  "version": "1.21.38",
+  "version": "1.22.38",
   "private": true,
   "engines": {
     "node": "17.x",
