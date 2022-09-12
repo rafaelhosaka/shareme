@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
 import { FileRejection, useDropzone } from "react-dropzone";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/userContext";
 import { useInput } from "../../hook/useInput";
+import { getTranslatedCategory } from "../../models/product";
 import { UserProfileDTO } from "../../models/userProfile";
 import {
   createProduct,
@@ -16,6 +18,7 @@ import css from "./ProductForm.module.scss";
 const ProductForm = () => {
   const { user: currentUser } = useUser();
   const userImage = useUserImage();
+  const { t } = useTranslation();
 
   const { value: title, bind: bindTitle, reset: resetTitle } = useInput("");
   const {
@@ -84,8 +87,12 @@ const ProductForm = () => {
     return (
       <div {...getRootProps({ className: css.dropzone })}>
         <input {...getInputProps()} />
-        <div className={css["dropzone__label"]}>Add photo</div>
-        <div className={css["dropzone__sublabel"]}>or drag and drop</div>
+        <div className={css["dropzone__label"]}>
+          {t("MARKETPLACE.addPhoto")}
+        </div>
+        <div className={css["dropzone__sublabel"]}>
+          {t("MARKETPLACE.dragDrop")}
+        </div>
       </div>
     );
   };
@@ -152,7 +159,9 @@ const ProductForm = () => {
     <div className={`${css["form__container"]} my-2`}>
       {alert}
       <header>
-        <h1 className={`${css.heading} my-2`}>Create new listing</h1>
+        <h1 className={`${css.heading} my-2`}>
+          {t("MARKETPLACE.createListing")}
+        </h1>
       </header>
       <form
         className="p2"
@@ -178,12 +187,12 @@ const ProductForm = () => {
           </Link>
         </div>
 
-        <span className="form-label">Title</span>
+        <span className="form-label">{t("MARKETPLACE.title")}</span>
         <div className="form-group">
           <input className={css.field} {...bindTitle} />
         </div>
 
-        <span className="form-label">Price</span>
+        <span className="form-label">{t("MARKETPLACE.price")}</span>
         <div className={`${css["price"]}`}>
           <select className={css.field} {...bindCurrency} required>
             <option value=""></option>
@@ -196,21 +205,21 @@ const ProductForm = () => {
           <input type="number" className={css.field} {...bindPrice} />
         </div>
 
-        <span className="form-label">Image</span>
+        <span className="form-label">{t("MARKETPLACE.image")}</span>
         <div className="form-group">{renderPreview()}</div>
 
-        <span className="form-label">Description</span>
+        <span className="form-label">{t("MARKETPLACE.description")}</span>
         <div className="form-group">
           <textarea className={css.field} {...bindDescription} />
         </div>
 
-        <span className="form-label">Category</span>
+        <span className="form-label">{t("MARKETPLACE.category")}</span>
         <div className="form-group">
           <select className={`${css.field}`} {...bindCategory}>
             <option value=""></option>
             {categories.map((c) => (
               <option key={c} value={c}>
-                {c}
+                {getTranslatedCategory(c, t)}
               </option>
             ))}
           </select>
@@ -220,7 +229,7 @@ const ProductForm = () => {
           disabled={submitting}
           className="btn my-2 btn--primary btn--stretched"
         >
-          Create
+          {t("MARKETPLACE.create")}
         </button>
       </form>
     </div>

@@ -1,3 +1,5 @@
+import { CATEGORY } from "./Category";
+import { MARKETPLACE } from "./Marketplace";
 import { NOTIFICATION } from "./Notification";
 import { DATE } from "./Date";
 import { COMMENT } from "./Comment";
@@ -40,4 +42,6 @@ export const TRANSLATIONS_EN = {
   SEARCH,
   COMMENT,
   NOTIFICATION,
+  MARKETPLACE,
+  CATEGORY,
 };

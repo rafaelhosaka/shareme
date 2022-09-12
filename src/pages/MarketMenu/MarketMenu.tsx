@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
 import MenuItem from "../../components/MenuList/MenuItem";
@@ -6,6 +7,7 @@ import MarketMenuContent from "./MarketMenuContent";
 
 const MarketMenu = () => {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -13,12 +15,14 @@ const MarketMenu = () => {
         <MarketMenuContent />
       </main>
       <div className="left-content">
-        <MenuList title={"Marketplace"}>
+        <MenuList title={t("MARKETPLACE.header")}>
           <MenuItem active={pathname === "/marketplace/all"}>
-            <NavLink to={"/marketplace/all"}>All</NavLink>
+            <NavLink to={"/marketplace/all"}>{t("MARKETPLACE.all")}</NavLink>
           </MenuItem>
           <MenuItem active={pathname === "/marketplace/listing"}>
-            <NavLink to={"/marketplace/listing"}>Create new listing</NavLink>
+            <NavLink to={"/marketplace/listing"}>
+              {t("MARKETPLACE.createListing")}
+            </NavLink>
           </MenuItem>
         </MenuList>
       </div>
