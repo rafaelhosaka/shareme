@@ -55,7 +55,7 @@ const ChatMenu = () => {
 
   return (
     <>
-      <main className="container right m2">
+      <main className="container right">
         <ChatMenuContent />
       </main>
       <div className="left-content">

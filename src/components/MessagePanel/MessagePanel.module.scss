@@ -19,6 +19,18 @@
   width: 338px;
   height: 455px;
   box-shadow: t.$light-box-shadow;
+  z-index: 1;
+}
+
+.chat-message-panel {
+  width: 100%;
+  height: calc(100vh - 70px);
+  z-index: 0;
+  border-radius: 0;
+
+  & > .header {
+    border-radius: 0;
+  }
 }
 
 .header {
@@ -130,13 +142,12 @@
 .message {
   display: flex;
   flex-direction: column;
-  max-width: 200px;
+  max-width: 50%;
   background-color: t.$light-secondary-color;
   padding: 1rem 2rem;
   border-radius: 20px;
   margin-top: 0.3rem;
   align-self: flex-start;
-  z-index: 1;
 
   &.mine {
     background-color: t.$light-primary-color;
@@ -168,7 +179,7 @@
 
 .footer {
   padding: 1rem;
-  width: 338px;
+  width: 100%;
 
   & > input {
     outline: 0;

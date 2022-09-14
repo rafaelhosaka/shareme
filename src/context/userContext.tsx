@@ -7,7 +7,6 @@ import UserProfileEntity from "../models/userProfile";
 interface UserContextInterface {
   user?: UserProfileEntity;
   setUser: (user: UserProfileEntity) => void;
-  setStatus: (online: boolean) => void;
 }
 
 const UserContext = React.createContext<Partial<UserContextInterface>>({});
