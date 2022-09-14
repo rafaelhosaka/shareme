@@ -34,7 +34,10 @@ export const Chat = ({ chat }: ChatProps) => {
   return (
     <NavLink className={css["chat__container"]} to={`/chat/${friend?.id}`}>
       <Spinner show={!friendImage} sizeClass="size--60">
-        <img className={`${css["user-image"]} size--60`} src={friendImage} />
+        <div className={css["image__container"]}>
+          <img className={`${css["user-image"]} size--60`} src={friendImage} />
+          {friend?.online && <div className={css["online"]}></div>}
+        </div>
       </Spinner>
       <div className={css["body"]}>
         <div>{friend?.firstName + " " + friend?.lastName}</div>

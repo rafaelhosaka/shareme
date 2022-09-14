@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router";
 import MenuItem from "../../components/MenuList/MenuItem";
 import MenuList from "../../components/MenuList/MenuList";
+import { useChat } from "../../context/chatContext";
 import { useUser } from "../../context/userContext";
 import { ChatEntity } from "../../models/chat";
 import { getChatByUserId } from "../../services/chatService";
@@ -15,6 +16,7 @@ const ChatMenu = () => {
   const { user: currentUser } = useUser();
   const { pathname } = useLocation();
   const navigate = useNavigate();
+  const { statusChangedUser } = useChat();
 
   useEffect(() => {
     async function getChats() {
@@ -25,6 +27,21 @@ const ChatMenu = () => {
     }
     getChats();
   }, []);
+
+  useEffect(() => {
+    const newChats = chats.map((chat) => {
+      if (chat.firstUser.id === statusChangedUser?.id) {
+        chat.firstUser.online = statusChangedUser.online;
+        return chat;
+      }
+      if (chat.secondUser.id === statusChangedUser?.id) {
+        chat.secondUser.online = statusChangedUser.online;
+        return chat;
+      }
+      return chat;
+    });
+    setChats(newChats);
+  }, [statusChangedUser]);
 
   useEffect(() => {
     if (chats[0]) {

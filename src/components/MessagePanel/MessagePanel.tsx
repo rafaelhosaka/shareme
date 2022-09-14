@@ -78,7 +78,7 @@ const MessagePanel = ({
     if (tooltip && e.currentTarget instanceof HTMLDivElement) {
       let msgDivOffset = e.currentTarget.getBoundingClientRect();
       tooltip.style.top = msgDivOffset.top + "px";
-      tooltip.style.left = msgDivOffset.left - 300 + "px";
+      tooltip.style.left = msgDivOffset.left - 230 + "px";
     }
   };
 

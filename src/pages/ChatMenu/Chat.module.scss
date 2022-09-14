@@ -1,12 +1,30 @@
+@use "../../styles/abstracts/theme" as t;
+
 .chat__container {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr;
   align-items: center;
   justify-content: center;
   gap: 10px;
 }
 
+.image__container {
+  position: relative;
+}
+
 .user-image {
   border-radius: 50%;
+}
+
+.online {
+  position: absolute;
+  background-color: t.$light-primary-color;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  right: 0;
+  bottom: 0;
+  border: 2px solid t.$light-secondary-bgcolor;
 }
 
 .body {
@@ -16,6 +34,7 @@
 .message__container {
   display: grid;
   grid-template-columns: auto 1fr;
+  gap: 10px;
 }
 
 .date {

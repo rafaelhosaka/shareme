@@ -10,7 +10,7 @@ const ProductList = ({ products }: ProductListProps) => {
   return (
     <div className={css["product-list__container"]}>
       {products.map((p) => (
-        <Product product={p} />
+        <Product key={p.id} product={p} />
       ))}
     </div>
   );
