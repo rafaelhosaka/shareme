@@ -1,65 +1,59 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useChat } from "../../context/chatContext";
-
+import { useLocation, useNavigate } from "react-router";
+import MenuItem from "../../components/MenuList/MenuItem";
+import MenuList from "../../components/MenuList/MenuList";
 import { useUser } from "../../context/userContext";
-import UserProfileEntity from "../../models/userProfile";
-import { getUsersFromIds } from "../../services/userService";
-import css from "./ChatMenu.module.scss";
-import ChatUser from "./ChatUser";
+import { ChatEntity } from "../../models/chat";
+import { getChatByUserId } from "../../services/chatService";
+import { Chat } from "./Chat";
+import ChatMenuContent from "./ChatMenuContent";
 
 const ChatMenu = () => {
   const { t } = useTranslation();
+  const [chats, setChats] = useState<ChatEntity[]>([]);
   const { user: currentUser } = useUser();
-  const { open, statusChangedUser } = useChat();
-  const [friends, setFriends] = useState<UserProfileEntity[]>([]);
-
-  async function getFriends() {
-    if (currentUser) {
-      const data = await getUsersFromIds(currentUser.friends);
-      setFriends(data);
-    }
-  }
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const newFriends = friends.map((friend) => {
-      if (friend.id === statusChangedUser?.id) {
-        friend.online = statusChangedUser.online;
-        return friend;
+    async function getChats() {
+      if (currentUser) {
+        const { data } = await getChatByUserId(currentUser.id);
+        setChats(data);
       }
-      return friend;
-    });
-    setFriends(newFriends);
-  }, [statusChangedUser]);
-
-  useEffect(() => {
-    getFriends();
+    }
+    getChats();
   }, []);
 
-  const handleOpenPanel = (friend: UserProfileEntity) => {
-    if (open) {
-      open({
-        minimized: false,
-        userId: friend.id,
-        userName: friend.fullName,
-        imageUrl: undefined,
-        online: friend.online,
-      });
+  useEffect(() => {
+    if (chats[0]) {
+      if (chats[0].firstUser.id === currentUser?.id) {
+        navigate(`/chat/${chats[0].secondUser.id}`);
+      } else {
+        navigate(`/chat/${chats[0].firstUser.id}`);
+      }
     }
-  };
+  }, [chats]);
 
   return (
-    <div className={css["container"]}>
-      <span className={css["header"]}>{t("CHAT_MENU.header")}</span>
-      {friends.map((friend) => (
-        <div
-          key={friend.id}
-          onClick={() => handleOpenPanel(new UserProfileEntity(friend))}
-        >
-          <ChatUser user={new UserProfileEntity(friend)} />
-        </div>
-      ))}
-    </div>
+    <>
+      <main className="container right m2">
+        <ChatMenuContent />
+      </main>
+      <div className="left-content">
+        <MenuList title={t("CHAT_MENU.chatMenuHeader")}>
+          {chats.map((chat) => (
+            <MenuItem
+              key={chat.id}
+              active={pathname === `/chat/${chat.secondUser.id}`}
+            >
+              <Chat chat={chat} />
+            </MenuItem>
+          ))}
+        </MenuList>
+      </div>
+    </>
   );
 };
 

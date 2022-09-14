@@ -5,7 +5,7 @@ import PostForm from "../../components/PostForm/PostForm";
 import PostEntity, { SharedPostEntity } from "../../models/post";
 import { useUser } from "../../context/userContext";
 import PostList from "../../components/Post/PostList";
-import ChatMenu from "../ChatMenu/ChatMenu";
+import Contacts from "../Contact/Contacts";
 
 const Feed = () => {
   const { user: currentUser } = useUser();
@@ -40,7 +40,7 @@ const Feed = () => {
         <PostList posts={posts} onDelete={handleDeletePost} />
       </main>
       <div className="right-content">
-        <ChatMenu />
+        <Contacts />
       </div>
     </>
   );

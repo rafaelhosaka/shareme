@@ -1,0 +1,35 @@
+.chat__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.user-image {
+  border-radius: 50%;
+}
+
+.body {
+  flex-grow: 1;
+}
+
+.message__container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+}
+
+.date {
+  width: max-content;
+}
+
+.message {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.message,
+.date {
+  font-size: 1.3rem;
+  font-weight: 300;
+}

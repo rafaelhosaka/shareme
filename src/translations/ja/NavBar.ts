@@ -4,6 +4,7 @@ export const NAVBAR = {
   friends: "友達",
   group: "グループ",
   marketplace: "マーケット",
+  chat: "チャット",
   profile: "プロフィール",
   notifications: "お知らせ",
   menu: "メニュー",

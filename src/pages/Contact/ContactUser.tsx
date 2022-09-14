@@ -2,13 +2,13 @@ import { useEffect } from "react";
 import { useBase64Image } from "../../hook/useBase64Image";
 import UserProfileEntity from "../../models/userProfile";
 import { userImageDownload } from "../../services/userService";
-import css from "./ChatMenu.module.scss";
+import css from "./Contact.module.scss";
 
 interface ChatUserProps {
   user: UserProfileEntity;
 }
 
-const ChatUser = ({ user }: ChatUserProps) => {
+const ContactUser = ({ user }: ChatUserProps) => {
   const { image: userImage, setService: setUserImageService } =
     useBase64Image(null);
 
@@ -27,4 +27,4 @@ const ChatUser = ({ user }: ChatUserProps) => {
   );
 };
 
-export default ChatUser;
+export default ContactUser;

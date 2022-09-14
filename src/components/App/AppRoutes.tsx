@@ -22,6 +22,7 @@ import MessagePanelList from "../MessagePanel/MessagePanelList";
 import Footer from "../../pages/Footer/Footer";
 import LanguageSettings from "../../pages/SettingsMenu/LanguageSettings";
 import MarketMenu from "../../pages/MarketMenu/MarketMenu";
+import ChatMenu from "../../pages/ChatMenu/ChatMenu";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -90,6 +91,9 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
             <Route path="/profile/:id/:option" element={<Profile />} />
 
             <Route path="/search/:filter" element={<SearchMenu />} />
+
+            <Route path="/chat/:id" element={<ChatMenu />} />
+            <Route path="/chat" element={<ChatMenu />} />
 
             <Route path="/settings" element={<SettingsMenu />}>
               <Route path="general" element={<GeneralSettings />} />

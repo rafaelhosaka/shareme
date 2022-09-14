@@ -15,6 +15,7 @@ import { useTranslation } from "react-i18next";
 import NotificationList from "../Notification/NotificationList";
 import { unreadCount } from "../../services/notificationService";
 import { useStomp } from "../../hook/useStomp";
+import NavLinkWithToolTip from "../ToolTip/NavLinkWithToolTip";
 
 const NavRight = () => {
   const { t } = useTranslation();
@@ -246,6 +247,14 @@ const NavRight = () => {
       )}
       {!isMobile && (
         <>
+          <NavLinkWithToolTip
+            activeClass={css.active}
+            className={css["nav-link"]}
+            to="/chat"
+            tooltipLabel={t("NAVBAR.chat")}
+          >
+            <i className="fas fa-comments fa-xl"></i>
+          </NavLinkWithToolTip>
           <DivWithToolTip tooltipLabel={t("NAVBAR.notifications")}>
             <div
               className={css["nav-link"]}

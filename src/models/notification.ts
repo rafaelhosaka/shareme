@@ -1,3 +1,5 @@
+import UserProfileEntity from "./userProfile";
+
 export class NotificationEntity {
   id: string;
   read: boolean;
@@ -13,16 +15,10 @@ export class NotificationEntity {
 }
 
 export default class FriendRequestNotificationEntity extends NotificationEntity {
-  friendRequesting: NotificationUserData;
+  friendRequesting: UserProfileEntity;
 
   constructor(data: FriendRequestNotificationEntity) {
     super(data);
     this.friendRequesting = data.friendRequesting;
   }
-}
-
-interface NotificationUserData {
-  id: string;
-  firstName: string;
-  lastName: string;
 }
