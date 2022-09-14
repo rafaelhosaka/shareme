@@ -74,10 +74,16 @@ const MessagePanel = ({
   };
 
   const mouseOver = (e: React.MouseEvent, id: string) => {
+    const body = document.getElementById(`body-${chattingUserId}`);
     const tooltip = document.getElementById(`date-sent-${id}`);
-    if (tooltip && e.currentTarget instanceof HTMLDivElement) {
+    if (tooltip && body && e.currentTarget instanceof HTMLDivElement) {
+      let bodyOffset = body.getBoundingClientRect();
       let msgDivOffset = e.currentTarget.getBoundingClientRect();
-      tooltip.style.top = msgDivOffset.top + "px";
+      if (msgDivOffset.top < bodyOffset.top) {
+        tooltip.style.top = bodyOffset.top + "px";
+      } else {
+        tooltip.style.top = msgDivOffset.top + "px";
+      }
       tooltip.style.left = msgDivOffset.left - 230 + "px";
     }
   };
@@ -120,7 +126,7 @@ const MessagePanel = ({
             </div>
           </div>
 
-          <div className={css["body"]}>
+          <div id={`body-${chattingUserId}`} className={css["body"]}>
             {messages.map((message) => (
               <div key={message.id} className={css["message__container"]}>
                 <div
