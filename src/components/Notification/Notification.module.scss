@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .notification-list__container {
   position: absolute;
@@ -37,6 +38,7 @@
 }
 
 .body {
+  position: relative;
   margin-left: 1rem;
 }
 
@@ -81,8 +83,34 @@
 }
 
 .notification-menu {
-  position: absolute;
-  left: 95px;
-  bottom: 30px;
+  position: fixed;
+  right: 200px;
   z-index: 1;
+}
+
+@include mixins.whenDarkModule {
+  .notification-list__container {
+    background: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .notification__container {
+    &:hover {
+      background: t.$dark-secondary-color;
+    }
+
+    &.active {
+      background: t.$dark-accent-color;
+      color: t.$dark-primary-color;
+    }
+  }
+
+  .menu {
+    background-color: t.$dark-secondary-bgcolor;
+    color: t.$dark-accent-color;
+
+    &:hover {
+      background-color: t.$dark-primary-color;
+    }
+  }
 }

@@ -60,6 +60,24 @@ const Notification = ({
               className={css["user-name"]}
             >{`${notification.friendRequesting.firstName} ${notification.friendRequesting.lastName}`}</span>
             <span>{t("NOTIFICATION.friendReqNotification")}</span>
+            <div
+              ref={(element) => (dropRefs.current[1] = element)}
+              className={css["notification-menu"]}
+            >
+              {isDropVisible && (
+                <DropdownMenu position="right">
+                  <DropdownItem
+                    onClick={(e: SyntheticEvent) => {
+                      e.stopPropagation();
+                      onDelete(notification.id);
+                    }}
+                    label={t("NOTIFICATION.deleteNotification")}
+                  >
+                    <i className="fa-solid fa-trash"></i>
+                  </DropdownItem>
+                </DropdownMenu>
+              )}
+            </div>
             <div className={css["date"]}>
               {pastTimeFromDate(notification.dateCreated, t)}
             </div>
@@ -75,24 +93,6 @@ const Notification = ({
                 <i
                   className={`${css["menu-icon"]} fa-solid fa-ellipsis fa-xl`}
                 ></i>
-              </div>
-              <div
-                ref={(element) => (dropRefs.current[1] = element)}
-                className={css["notification-menu"]}
-              >
-                {isDropVisible && (
-                  <DropdownMenu position="right">
-                    <DropdownItem
-                      onClick={(e: SyntheticEvent) => {
-                        e.stopPropagation();
-                        onDelete(notification.id);
-                      }}
-                      label={t("NOTIFICATION.deleteNotification")}
-                    >
-                      <i className="fa-solid fa-trash"></i>
-                    </DropdownItem>
-                  </DropdownMenu>
-                )}
               </div>
             </div>
           </div>
