@@ -20,7 +20,7 @@ const NavCenter = () => {
         activeClass={css.active}
         className={`${css["nav-link"]}`}
         to="/friends/all"
-        activeURLs={["/friends/all", "/friends/request"]}
+        startWith="/friends"
         tooltipLabel={t("NAVBAR.friends")}
       >
         <i className="fa-solid fa-user-group fa-xl"></i>
@@ -37,7 +37,7 @@ const NavCenter = () => {
         activeClass={css.active}
         className={css["nav-link"]}
         to="/marketplace/all"
-        activeURLs={["/marketplace/all", "/marketplace/create"]}
+        startWith="/marketplace"
         tooltipLabel={t("NAVBAR.marketplace")}
       >
         <i className="fa-solid fa-store fa-xl"></i>

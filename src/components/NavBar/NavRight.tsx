@@ -209,7 +209,14 @@ const NavRight = () => {
           <NavMenuItem
             iconClass="fa-solid fa-store fa-xl"
             label={t("NAVBAR.marketplace")}
-            active={pathname === "/market"}
+            active={_.startsWith(pathname, "/market")}
+          />
+        </Link>
+        <Link to="/chat">
+          <NavMenuItem
+            iconClass="fa-solid fa-comments fa-xl"
+            label={t("NAVBAR.chat")}
+            active={pathname.startsWith("/chat")}
           />
         </Link>
         <div
@@ -252,6 +259,7 @@ const NavRight = () => {
             className={css["nav-link"]}
             to="/chat"
             tooltipLabel={t("NAVBAR.chat")}
+            startWith="/chat"
           >
             <i className="fas fa-comments fa-xl"></i>
           </NavLinkWithToolTip>

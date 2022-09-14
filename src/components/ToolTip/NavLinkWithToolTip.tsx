@@ -1,6 +1,5 @@
 import withToolTip from "./withToolTip";
 import { NavLink, useLocation } from "react-router-dom";
-import _ from "lodash";
 import { useEffect } from "react";
 
 interface NavLinkWithToolTipProps {
@@ -12,7 +11,7 @@ interface NavLinkWithToolTipProps {
   initializeToolTipText: (text: string) => void;
   className: string;
   activeClass?: string;
-  activeURLs?: string[];
+  startWith?: string;
   [x: string]: any;
 }
 
@@ -24,13 +23,13 @@ function NavLinkWithToolTip({
   showToolTip,
   className,
   activeClass,
-  activeURLs,
+  startWith,
   ...props
 }: NavLinkWithToolTipProps) {
   const { pathname: currentURL } = useLocation();
   const isActive = () => {
-    if (activeURLs) {
-      return activeURLs?.includes(currentURL);
+    if (startWith) {
+      return currentURL.startsWith(startWith);
     } else {
       return to === currentURL;
     }
