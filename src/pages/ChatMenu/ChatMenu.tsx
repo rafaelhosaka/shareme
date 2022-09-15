@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import MenuItem from "../../components/MenuList/MenuItem";
 import MenuList from "../../components/MenuList/MenuList";
 import { useChat } from "../../context/chatContext";
 import { useUser } from "../../context/userContext";
 import { ChatEntity } from "../../models/chat";
-import { getChatByUserId } from "../../services/chatService";
+import { getChatByUserId, markAsRead } from "../../services/chatService";
 import { Chat } from "./Chat";
 import ChatMenuContent from "./ChatMenuContent";
 
@@ -15,27 +15,29 @@ const ChatMenu = () => {
   const [chats, setChats] = useState<ChatEntity[]>([]);
   const { user: currentUser } = useUser();
   const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const { statusChangedUser } = useChat();
+  const { statusChangedUser, receivedMessage } = useChat();
+
+  async function getChats() {
+    if (currentUser) {
+      const { data } = await getChatByUserId(currentUser.id);
+      setChats(data);
+    }
+  }
 
   useEffect(() => {
-    async function getChats() {
-      if (currentUser) {
-        const { data } = await getChatByUserId(currentUser.id);
-        setChats(data);
-      }
-    }
     getChats();
   }, []);
 
   useEffect(() => {
+    if (receivedMessage) {
+      getChats();
+    }
+  }, [receivedMessage]);
+
+  useEffect(() => {
     const newChats = chats.map((chat) => {
-      if (chat.firstUser.id === statusChangedUser?.id) {
-        chat.firstUser.online = statusChangedUser.online;
-        return chat;
-      }
-      if (chat.secondUser.id === statusChangedUser?.id) {
-        chat.secondUser.online = statusChangedUser.online;
+      if (chat.friend.id === statusChangedUser?.id) {
+        chat.friend.online = statusChangedUser.online;
         return chat;
       }
       return chat;
@@ -43,15 +45,17 @@ const ChatMenu = () => {
     setChats(newChats);
   }, [statusChangedUser]);
 
-  useEffect(() => {
-    if (chats[0]) {
-      if (chats[0].firstUser.id === currentUser?.id) {
-        navigate(`/chat/${chats[0].secondUser.id}`);
-      } else {
-        navigate(`/chat/${chats[0].firstUser.id}`);
+  const onRead = (chatId: string) => {
+    const newChats = chats.map((chat) => {
+      if (chat.id === chatId) {
+        markAsRead(chat);
+        chat.read = true;
+        return chat;
       }
-    }
-  }, [chats]);
+      return chat;
+    });
+    setChats(newChats);
+  };
 
   return (
     <>
@@ -63,9 +67,9 @@ const ChatMenu = () => {
           {chats.map((chat) => (
             <MenuItem
               key={chat.id}
-              active={pathname === `/chat/${chat.secondUser.id}`}
+              active={pathname === `/chat/${chat.friend.id}`}
             >
-              <Chat chat={chat} />
+              <Chat onRead={onRead} chat={chat} />
             </MenuItem>
           ))}
         </MenuList>

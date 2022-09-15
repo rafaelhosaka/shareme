@@ -32,6 +32,10 @@
   flex-grow: 1;
 }
 
+.unread {
+  font-weight: 900;
+}
+
 .message__container {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -46,6 +50,11 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.unread.message,
+.unread.date {
+  font-weight: 900;
 }
 
 .message,

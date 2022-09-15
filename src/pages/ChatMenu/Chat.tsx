@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
-import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { ChatEntity } from "../../models/chat";
 import UserProfileEntity from "../../models/userProfile";
@@ -12,38 +11,40 @@ import css from "./Chat.module.scss";
 
 interface ChatProps {
   chat: ChatEntity;
+  onRead: (chatId: string) => void;
 }
 
-export const Chat = ({ chat }: ChatProps) => {
+export const Chat = ({ chat, onRead }: ChatProps) => {
   const { t } = useTranslation();
-  const { user: currentUser } = useUser();
   const [friend, setFriend] = useState<UserProfileEntity>();
   const { image: friendImage, setService: setFriendImageService } =
     useBase64Image(null);
 
   useEffect(() => {
-    if (currentUser?.id === chat.firstUser.id) {
-      setFriend(chat.secondUser);
-      setFriendImageService(userImageDownload(chat.secondUser.id));
-    } else {
-      setFriend(chat.firstUser);
-      setFriendImageService(userImageDownload(chat.firstUser.id));
-    }
+    setFriend(chat.friend);
+    setFriendImageService(userImageDownload(chat.friend.id));
   }, []);
 
   return (
-    <NavLink className={css["chat__container"]} to={`/chat/${friend?.id}`}>
+    <NavLink
+      onClick={() => onRead(chat.id)}
+      className={css["chat__container"]}
+      to={`/chat/${friend?.id}`}
+    >
       <Spinner show={!friendImage} sizeClass="size--60">
         <div className={css["image__container"]}>
           <img className={`${css["user-image"]} size--60`} src={friendImage} />
           {friend?.online && <div className={css["online"]}></div>}
         </div>
       </Spinner>
-      <div className={css["body"]}>
+      <div className={`${css["body"]} ${!chat.read && css["unread"]}`}>
         <div>{friend?.firstName + " " + friend?.lastName}</div>
-        <div className={css["message__container"]}>
-          <div className={css["message"]}>{chat.lastMessage.content}</div>
-          <div className={css["date"]}>
+        <div className={`${css["message__container"]}`}>
+          <div className={`${css["message"]} ${!chat.read && css["unread"]}`}>
+            {chat.lastMessage.sender.id === chat.owner.id && "You: "}
+            {chat.lastMessage.content}
+          </div>
+          <div className={`${css["date"]} ${!chat.read && css["unread"]}`}>
             {pastTimeFromDate(chat.lastMessage.dateSent, t)}
           </div>
         </div>

@@ -3,7 +3,8 @@ import UserProfileEntity from "./userProfile";
 
 export interface ChatEntity {
   id: string;
-  firstUser: UserProfileEntity;
-  secondUser: UserProfileEntity;
+  owner: UserProfileEntity;
+  friend: UserProfileEntity;
   lastMessage: MessageEntity;
+  read: boolean;
 }
