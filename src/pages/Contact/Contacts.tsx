@@ -4,6 +4,7 @@ import { useChat } from "../../context/chatContext";
 
 import { useUser } from "../../context/userContext";
 import UserProfileEntity from "../../models/userProfile";
+import { markAsRead } from "../../services/chatService";
 import { getUsersFromIds } from "../../services/userService";
 import css from "./Contact.module.scss";
 import ContactUser from "./ContactUser";
@@ -37,7 +38,7 @@ const Contacts = () => {
   }, []);
 
   const handleOpenPanel = (friend: UserProfileEntity) => {
-    if (open) {
+    if (open && currentUser) {
       open({
         minimized: false,
         userId: friend.id,
@@ -45,6 +46,7 @@ const Contacts = () => {
         imageUrl: undefined,
         online: friend.online,
       });
+      markAsRead(currentUser.id, friend.id);
     }
   };
 

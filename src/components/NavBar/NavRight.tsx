@@ -13,9 +13,10 @@ import DivWithToolTip from "../ToolTip/DivWithToolTip";
 import { useMediaQuery } from "react-responsive";
 import { useTranslation } from "react-i18next";
 import NotificationList from "../Notification/NotificationList";
-import { unreadCount } from "../../services/notificationService";
+import { unreadCount as notificationUnreadCount } from "../../services/notificationService";
 import { useStomp } from "../../hook/useStomp";
 import NavLinkWithToolTip from "../ToolTip/NavLinkWithToolTip";
+import { useChat } from "../../context/chatContext";
 
 const NavRight = () => {
   const { t } = useTranslation();
@@ -41,25 +42,28 @@ const NavRight = () => {
     setIsComponentVisible: setNotificationVisible,
   } = useComponentVisible(false);
 
-  const [counter, setCounter] = useState(0);
-  const { receivedNotification } = useStomp();
+  const [notificationCounter, setNotificationCounter] = useState(0);
 
-  const updateUnreadCount = (count: number) => {
-    setCounter((prev) => prev + count);
+  const { receivedNotification, receivedMessage } = useStomp();
+  const { chatUnreadCount, updateCounter } = useChat();
+
+  const updateNotificationCounter = (count: number) => {
+    setNotificationCounter((prev) => prev + count);
   };
 
   const [menuId, setMenuId] = useState("1");
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
-  useEffect(() => {
-    async function getUnreadCount() {
-      if (currentUser) {
-        const count = await unreadCount(currentUser.id);
-        setCounter(count);
-      }
+  async function getNotificationUnreadCount() {
+    if (currentUser) {
+      const count = await notificationUnreadCount(currentUser.id);
+      setNotificationCounter(count);
     }
-    getUnreadCount();
+  }
+
+  useEffect(() => {
+    getNotificationUnreadCount();
   }, []);
 
   useEffect(() => {
@@ -67,7 +71,13 @@ const NavRight = () => {
   }, [isMenuVisible]);
 
   useEffect(() => {
-    setCounter((prev) => prev + 1);
+    if (updateCounter) {
+      updateCounter();
+    }
+  }, [receivedMessage]);
+
+  useEffect(() => {
+    setNotificationCounter((prev) => prev + 1);
   }, [receivedNotification]);
 
   const handleThemeChange = async (themeValue: "light" | "dark" | "device") => {
@@ -262,6 +272,9 @@ const NavRight = () => {
             startWith="/chat"
           >
             <i className="fas fa-comments fa-xl"></i>
+            {chatUnreadCount > 0 && (
+              <span className={css["count"]}>{chatUnreadCount}</span>
+            )}
           </NavLinkWithToolTip>
           <DivWithToolTip tooltipLabel={t("NAVBAR.notifications")}>
             <div
@@ -269,8 +282,8 @@ const NavRight = () => {
               onClick={() => setNotificationVisible(true)}
             >
               <i className="fa-solid fa-bell fa-xl"></i>
-              {counter > 0 && (
-                <span className={css["notification-count"]}>{counter}</span>
+              {notificationCounter > 0 && (
+                <span className={css["count"]}>{notificationCounter}</span>
               )}
             </div>
           </DivWithToolTip>
@@ -281,7 +294,7 @@ const NavRight = () => {
           ref={(element) => (notificationRefs.current[0] = element)}
           className={css["notifications"]}
         >
-          <NotificationList updateCount={updateUnreadCount} />
+          <NotificationList updateCount={updateNotificationCounter} />
         </div>
       )}
       <DivWithToolTip tooltipLabel={t("NAVBAR.profile")}>

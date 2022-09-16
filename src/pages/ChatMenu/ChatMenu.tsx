@@ -6,6 +6,7 @@ import MenuList from "../../components/MenuList/MenuList";
 import { useChat } from "../../context/chatContext";
 import { useUser } from "../../context/userContext";
 import { ChatEntity } from "../../models/chat";
+import { MessageEntity } from "../../models/message";
 import { getChatByUserId, markAsRead } from "../../services/chatService";
 import { Chat } from "./Chat";
 import ChatMenuContent from "./ChatMenuContent";
@@ -15,7 +16,7 @@ const ChatMenu = () => {
   const [chats, setChats] = useState<ChatEntity[]>([]);
   const { user: currentUser } = useUser();
   const { pathname } = useLocation();
-  const { statusChangedUser, receivedMessage } = useChat();
+  const { statusChangedUser, receivedMessage, updateCounter } = useChat();
 
   async function getChats() {
     if (currentUser) {
@@ -45,11 +46,26 @@ const ChatMenu = () => {
     setChats(newChats);
   }, [statusChangedUser]);
 
-  const onRead = (chatId: string) => {
+  const handleRead = (chatId: string) => {
     const newChats = chats.map((chat) => {
       if (chat.id === chatId) {
-        markAsRead(chat);
+        markAsRead(chat.owner.id, chat.friend.id);
+        if (!chat.read && updateCounter) {
+          updateCounter(-1);
+        }
         chat.read = true;
+        return chat;
+      }
+      return chat;
+    });
+
+    setChats(newChats);
+  };
+
+  const handleSendMessage = (message: MessageEntity, friendId: string) => {
+    const newChats = chats.map((chat) => {
+      if (chat.friend.id === friendId) {
+        chat.lastMessage = message;
         return chat;
       }
       return chat;
@@ -60,7 +76,7 @@ const ChatMenu = () => {
   return (
     <>
       <main className="container right">
-        <ChatMenuContent />
+        <ChatMenuContent onSend={handleSendMessage} />
       </main>
       <div className="left-content">
         <MenuList title={t("CHAT_MENU.chatMenuHeader")}>
@@ -69,7 +85,7 @@ const ChatMenu = () => {
               key={chat.id}
               active={pathname === `/chat/${chat.friend.id}`}
             >
-              <Chat onRead={onRead} chat={chat} />
+              <Chat onRead={handleRead} chat={chat} />
             </MenuItem>
           ))}
         </MenuList>

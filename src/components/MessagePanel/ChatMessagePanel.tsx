@@ -14,9 +14,13 @@ import css from "./MessagePanel.module.scss";
 
 interface ChatMessagePanelProps {
   chattingUserId: string;
+  onSend: (message: MessageEntity, friendId: string) => void;
 }
 
-const ChatMessagePanel = ({ chattingUserId }: ChatMessagePanelProps) => {
+const ChatMessagePanel = ({
+  chattingUserId,
+  onSend,
+}: ChatMessagePanelProps) => {
   const { t } = useTranslation();
   const { user: currentUser } = useUser();
   const [chattingUser, setChattingUser] = useState<UserProfileEntity>();
@@ -67,6 +71,7 @@ const ChatMessagePanel = ({ chattingUserId }: ChatMessagePanelProps) => {
       sendMessage(data);
       setMessages([...messages, data]);
       resetText();
+      onSend(data, chattingUserId);
     }
   };
 

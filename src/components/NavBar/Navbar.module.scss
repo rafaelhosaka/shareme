@@ -121,10 +121,10 @@
   right: 300px;
 }
 
-.notification-count {
+.count {
   position: absolute;
-  top: 0;
-  left: 5px;
+
+  left: -5px;
   background: t.$light-primary-color;
   color: t.$light-secondary-bgcolor;
   border-radius: 50%;

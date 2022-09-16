@@ -2,10 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { Panel } from "../components/MessagePanel/MessagePanelList";
 import { useStomp } from "../hook/useStomp";
 import { MessageEntity } from "../models/message";
+import { unreadCount } from "../services/chatService";
 import { useUser } from "./userContext";
 
 interface ChatContextInterface {
   panels: Panel[];
+  chatUnreadCount: number;
+  updateCounter: ((value?: -1 | 1) => void) | null;
   open: ((panel: Panel) => void) | null;
   close: ((id: string) => void) | null;
   minimize: ((id: string, imageUrl: string | undefined) => void) | null;
@@ -18,6 +21,8 @@ interface ChatContextInterface {
 
 const ChatContext = React.createContext<ChatContextInterface>({
   panels: [],
+  chatUnreadCount: 0,
+  updateCounter: null,
   open: null,
   close: null,
   minimize: null,
@@ -48,6 +53,18 @@ export function ChatProvider({ children }: ChatProviderProps) {
     statusChangedUser,
     isConnected,
   } = useStomp();
+  const [chatUnreadCount, setChatUnreadCount] = useState(0);
+
+  async function getChatUnreadCount() {
+    if (user) {
+      const chatCount = await unreadCount(user.id);
+      setChatUnreadCount(chatCount);
+    }
+  }
+
+  useEffect(() => {
+    getChatUnreadCount();
+  }, [user]);
 
   useEffect(() => {
     if (changeStatus && user) {
@@ -70,6 +87,14 @@ export function ChatProvider({ children }: ChatProviderProps) {
     });
     setPanels(newPanels);
   }, [statusChangedUser]);
+
+  const updateCounter = (value: -1 | 1 | undefined) => {
+    if (value) {
+      setChatUnreadCount((prev) => prev + value);
+    } else {
+      getChatUnreadCount();
+    }
+  };
 
   const open = (panel: Panel) => {
     if (panels.filter((p) => p.userId === panel.userId).length > 0) {
@@ -106,6 +131,8 @@ export function ChatProvider({ children }: ChatProviderProps) {
     <ChatContext.Provider
       value={{
         panels,
+        chatUnreadCount,
+        updateCounter,
         open,
         close,
         minimize,
