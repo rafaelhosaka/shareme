@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from "react-router";
+import { Routes, Route, Navigate, useLocation } from "react-router";
 import Navbar from "../NavBar/NavBar";
 import LoginForm from "../../pages/LoginPage/LoginForm";
 import Feed from "../../pages/Feed/Feed";
@@ -32,6 +32,8 @@ interface AppRoutesProps {
 }
 
 function AppRoutes({ currentUser }: AppRoutesProps) {
+  const { pathname } = useLocation();
+
   return (
     <>
       <div className="template">
@@ -110,7 +112,9 @@ function AppRoutes({ currentUser }: AppRoutesProps) {
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <>{currentUser && <MessagePanelList />}</>
+        <>
+          {currentUser && !pathname.startsWith("/chat") && <MessagePanelList />}
+        </>
         {!currentUser && <Footer />}
       </div>
     </>
