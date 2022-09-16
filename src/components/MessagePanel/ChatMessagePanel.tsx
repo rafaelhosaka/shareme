@@ -7,6 +7,7 @@ import { useBase64Image } from "../../hook/useBase64Image";
 import { useInput } from "../../hook/useInput";
 import { MessageEntity } from "../../models/message";
 import UserProfileEntity from "../../models/userProfile";
+import { markAsRead } from "../../services/chatService";
 import { getMessages, saveMessage } from "../../services/messageService";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate } from "../../utils/formatDate";
@@ -29,11 +30,20 @@ const ChatMessagePanel = ({
   const { image: userImage, setService: setUserImageService } =
     useBase64Image(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const { sendMessage, receivedMessage, statusChangedUser } = useChat();
+  const { sendMessage, receivedMessage, statusChangedUser, updateCounter } =
+    useChat();
+
+  async function markChatAsRead() {
+    if (updateCounter && currentUser) {
+      const { data } = await markAsRead(currentUser.id, chattingUserId);
+      updateCounter(data);
+    }
+  }
 
   useEffect(() => {
     if (receivedMessage) {
       setMessages([...messages, receivedMessage]);
+      markChatAsRead();
     }
   }, [receivedMessage]);
 

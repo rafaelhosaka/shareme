@@ -12,7 +12,7 @@ import ContactUser from "./ContactUser";
 const Contacts = () => {
   const { t } = useTranslation();
   const { user: currentUser } = useUser();
-  const { open, statusChangedUser } = useChat();
+  const { open, statusChangedUser, updateCounter } = useChat();
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
 
   async function getFriends() {
@@ -37,8 +37,8 @@ const Contacts = () => {
     getFriends();
   }, []);
 
-  const handleOpenPanel = (friend: UserProfileEntity) => {
-    if (open && currentUser) {
+  const handleOpenPanel = async (friend: UserProfileEntity) => {
+    if (open && currentUser && updateCounter) {
       open({
         minimized: false,
         userId: friend.id,
@@ -46,7 +46,8 @@ const Contacts = () => {
         imageUrl: undefined,
         online: friend.online,
       });
-      markAsRead(currentUser.id, friend.id);
+      const { data } = await markAsRead(currentUser.id, friend.id);
+      updateCounter(data);
     }
   };
 

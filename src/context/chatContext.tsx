@@ -8,7 +8,7 @@ import { useUser } from "./userContext";
 interface ChatContextInterface {
   panels: Panel[];
   chatUnreadCount: number;
-  updateCounter: ((value?: -1 | 1) => void) | null;
+  updateCounter: ((newValue?: number) => void) | null;
   open: ((panel: Panel) => void) | null;
   close: ((id: string) => void) | null;
   minimize: ((id: string, imageUrl: string | undefined) => void) | null;
@@ -88,9 +88,9 @@ export function ChatProvider({ children }: ChatProviderProps) {
     setPanels(newPanels);
   }, [statusChangedUser]);
 
-  const updateCounter = (value: -1 | 1 | undefined) => {
-    if (value) {
-      setChatUnreadCount((prev) => prev + value);
+  const updateCounter = (newValue?: number) => {
+    if (newValue) {
+      setChatUnreadCount(newValue);
     } else {
       getChatUnreadCount();
     }

@@ -18,10 +18,24 @@ const ChatMenu = () => {
   const { pathname } = useLocation();
   const { statusChangedUser, receivedMessage, updateCounter } = useChat();
 
-  async function getChats() {
+  async function getChats(receivedMessage?: MessageEntity) {
     if (currentUser) {
-      const { data } = await getChatByUserId(currentUser.id);
-      setChats(data);
+      const { data }: { data: ChatEntity[] } = await getChatByUserId(
+        currentUser.id
+      );
+
+      if (receivedMessage) {
+        const newChats = data.map((chat) => {
+          if (chat.friend.id === receivedMessage.sender.id) {
+            chat.read = true;
+            return chat;
+          }
+          return chat;
+        });
+        setChats(newChats);
+      } else {
+        setChats(data);
+      }
     }
   }
 
@@ -31,7 +45,7 @@ const ChatMenu = () => {
 
   useEffect(() => {
     if (receivedMessage) {
-      getChats();
+      getChats(receivedMessage);
     }
   }, [receivedMessage]);
 
@@ -46,12 +60,19 @@ const ChatMenu = () => {
     setChats(newChats);
   }, [statusChangedUser]);
 
+  async function markChatAsRead(chat: ChatEntity) {
+    const { data } = await markAsRead(chat.owner.id, chat.friend.id);
+
+    if (updateCounter) {
+      updateCounter(data);
+    }
+  }
+
   const handleRead = (chatId: string) => {
     const newChats = chats.map((chat) => {
       if (chat.id === chatId) {
-        markAsRead(chat.owner.id, chat.friend.id);
-        if (!chat.read && updateCounter) {
-          updateCounter(-1);
+        if (!chat.read) {
+          markChatAsRead(chat);
         }
         chat.read = true;
         return chat;

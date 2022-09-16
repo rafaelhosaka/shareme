@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import { useChat } from "../../context/chatContext";
+import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import UserProfileEntity from "../../models/userProfile";
+import { markAsRead } from "../../services/chatService";
 import { userImageDownload } from "../../services/userService";
 import css from "./Contact.module.scss";
 
@@ -11,10 +14,23 @@ interface ChatUserProps {
 const ContactUser = ({ user }: ChatUserProps) => {
   const { image: userImage, setService: setUserImageService } =
     useBase64Image(null);
+  const { receivedMessage, updateCounter } = useChat();
+  const { user: currentUser } = useUser();
 
   useEffect(() => {
     setUserImageService(userImageDownload(user.id));
   }, []);
+
+  async function markChatAsRead() {
+    if (updateCounter && currentUser) {
+      const { data } = await markAsRead(currentUser.id, user.id);
+      updateCounter(data);
+    }
+  }
+
+  useEffect(() => {
+    markChatAsRead();
+  }, [receivedMessage]);
 
   return (
     <div className={css["user__container"]}>
