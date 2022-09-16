@@ -10,15 +10,17 @@ import { getUserByEmail } from "../../services/userService";
 import { useNavigate } from "react-router";
 import Spinner from "../../components/Spinner/Spinner";
 import { useTranslation } from "react-i18next";
+import Modal from "../../components/Modal/Modal";
 
 function LoginForm() {
   const { t } = useTranslation();
   const { setUser } = useUser();
-  const { value: email, bind: bindEmail } = useInput("");
-  const { value: password, bind: bindPassword } = useInput("");
+  const { value: email, bind: bindEmail } = useInput("demo@shareme.com");
+  const { value: password, bind: bindPassword } = useInput("demo");
   const [alert, dispatchAlert] = useAlert();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   const handleSubmit = async (e: React.FormEvent) => {
     setLoading(true);
@@ -53,6 +55,13 @@ function LoginForm() {
     <>
       <main className="container full center">
         <>{alert}</>
+        <Modal
+          show={showModal}
+          title={t("DEMO.modalDemoTitle")}
+          description={t("DEMO.modalDemoDesc")}
+          showButtons={false}
+          onReject={() => setShowModal(false)}
+        />
         <img
           className={css["login-logo"]}
           src={"./images/logo-full.png"}

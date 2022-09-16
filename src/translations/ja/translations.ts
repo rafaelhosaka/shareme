@@ -1,3 +1,4 @@
+import { DEMO } from "./Demo";
 import { CATEGORY } from "./Category";
 import { MARKETPLACE } from "./Marketplace";
 import { NOTIFICATION } from "./Notification";
@@ -44,4 +45,5 @@ export const TRANSLATIONS_JA = {
   NOTIFICATION,
   MARKETPLACE,
   CATEGORY,
+  DEMO,
 };

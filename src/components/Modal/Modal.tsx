@@ -5,14 +5,16 @@ interface ModalProps {
   show?: boolean;
   title: string;
   description: string;
+  showButtons?: boolean;
   onReject: () => void;
-  onAccept: () => void;
+  onAccept?: () => void;
 }
 
 const Modal = ({
   show = false,
   title,
   description,
+  showButtons = true,
   onReject,
   onAccept,
 }: ModalProps) => {
@@ -31,14 +33,16 @@ const Modal = ({
           </div>
         </div>
         <div className={css["body"]}>{description}</div>
-        <div className={css["btn-area"]}>
-          <button onClick={onReject} className="btn">
-            {t("MODAL.no")}
-          </button>
-          <button onClick={onAccept} className="btn btn--primary mx-1">
-            {t("MODAL.yes")}
-          </button>
-        </div>
+        {showButtons && (
+          <div className={css["btn-area"]}>
+            <button onClick={onReject} className="btn">
+              {t("MODAL.no")}
+            </button>
+            <button onClick={onAccept} className="btn btn--primary mx-1">
+              {t("MODAL.yes")}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   ) : (
