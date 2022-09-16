@@ -1,21 +1,29 @@
 @use "../../../styles/abstracts/theme" as t;
+@use "../../../styles/abstracts/mixins" as mixins;
 
 .product-list__container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
 }
 
 .product__container {
   margin: 1rem;
 }
 
+.image__container {
+  display: flex;
+  justify-content: center;
+  max-width: 768px;
+}
+
 .product-image {
-  height: 340px;
-  width: 340px;
+  width: 100%;
+  max-width: 768px;
   box-shadow: t.$light-box-shadow;
   border-radius: 10px;
   margin-bottom: 1rem;
   background-color: t.$light-secondary-bgcolor;
+  display: flex;
 
   &:hover {
     cursor: pointer;
@@ -29,4 +37,10 @@
 
 .title {
   font-size: 2rem;
+}
+
+@include mixins.desktop {
+  .product-list__container {
+    grid-template-columns: 1fr 1fr;
+  }
 }

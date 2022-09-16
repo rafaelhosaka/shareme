@@ -21,7 +21,15 @@ const Modal = ({
   return show ? (
     <div className={css["modal__container"]}>
       <div className={css["modal"]}>
-        <h1 className={css["header"]}>{title}</h1>
+        <div className={css["header"]}>
+          <h1>{title}</h1>
+          <div
+            onClick={() => onReject()}
+            className={`${css["thumbnail__close"]} m1 size--40`}
+          >
+            <i className={`${css["close__icon"]} fa-solid fa-xmark`}></i>
+          </div>
+        </div>
         <div className={css["body"]}>{description}</div>
         <div className={css["btn-area"]}>
           <button onClick={onReject} className="btn">

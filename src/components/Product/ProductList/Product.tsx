@@ -1,7 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useBase64Image } from "../../../hook/useBase64Image";
 import { ProductEntity } from "../../../models/product";
 import { productImageDownload } from "../../../services/productService";
+import ProductModal from "../../Modal/ProductModal";
+import Spinner from "../../Spinner/Spinner";
 import css from "./Product.module.scss";
 
 interface ProductProps {
@@ -11,6 +13,7 @@ interface ProductProps {
 const Product = ({ product }: ProductProps) => {
   const { image: productImage, setService: setProductService } =
     useBase64Image(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     setProductService(productImageDownload(product.id));
@@ -18,7 +21,20 @@ const Product = ({ product }: ProductProps) => {
 
   return (
     <div className={css["product__container"]}>
-      <img className={css["product-image"]} src={productImage} />
+      <ProductModal
+        product={product}
+        show={showModal}
+        onReject={() => setShowModal(false)}
+      />
+      <div className={css["image__container"]}>
+        <Spinner show={!productImage} sizeClass="size--200">
+          <img
+            onClick={() => setShowModal(true)}
+            className={css["product-image"]}
+            src={productImage}
+          />
+        </Spinner>
+      </div>
       <div className={css["price"]}>
         {product.currency}
         {product.price}

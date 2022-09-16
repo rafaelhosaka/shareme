@@ -14,12 +14,26 @@
   justify-content: center;
 }
 
-.modal {
+.product-modal {
   background: t.$light-secondary-bgcolor;
   border-radius: 10px;
-  width: 700px;
-  padding-top: 1rem;
-  padding-bottom: 3rem;
+}
+
+.product-modal {
+  display: grid;
+  height: 80%;
+  grid-template-columns: auto 300px;
+}
+
+.image__container {
+  max-width: 1200px;
+}
+
+.product-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px 0 0 10px;
 }
 
 .header {
@@ -28,23 +42,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
   width: 100%;
-  min-height: 70px;
-}
-
-.body {
-  border-top: 1px solid t.$light-secondary-color;
   padding: 1rem;
-}
-
-.btn-area {
-  display: flex;
-  justify-content: flex-end;
-
-  & button {
-    padding: 1rem 3rem;
-  }
 }
 
 .thumbnail__close {
@@ -66,8 +65,43 @@
   color: t.$light-accent-color;
 }
 
+.body {
+  border-top: 1px solid t.$light-secondary-color;
+  padding: 1rem;
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 800;
+}
+
+.description {
+  font-size: 3rem;
+  font-weight: 200;
+}
+
+.price {
+  font-size: 3rem;
+}
+
+.user-image {
+  width: 60px;
+  border-radius: 50%;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-name {
+  font-weight: 700;
+}
+
 @include mixins.whenDarkModule() {
-  .modal {
+  .modal,
+  .product-modal {
     background: t.$dark-secondary-bgcolor;
   }
 }
