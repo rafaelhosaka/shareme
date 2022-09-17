@@ -95,7 +95,11 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
   const handleLikePost = async () => {
     if (currentUser) {
       const { data } = await likeUnlikePost(currentUser.id, post.id);
-      setPost(new PostEntity(data));
+      if (data instanceof PostEntity) {
+        setPost(new PostEntity(data));
+      } else {
+        setPost(new SharedPostEntity(data));
+      }
       setLiked((prev) => !prev);
     }
   };
