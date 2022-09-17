@@ -38,6 +38,7 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
   const [editableDescription, description, resetDescription] = useEditableText(
     comment.description
   );
+  const [likeCount, setLikeCount] = useState(0);
 
   const isLiked = comment.likes?.some((like) => {
     if (currentUser) return like.userId === currentUser.id;
@@ -63,10 +64,21 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
     if (showNewComment) focusOnNewComment();
   }, [showNewComment]);
 
+  useEffect(() => {
+    if (comment.likes) {
+      setLikeCount(comment.likes.length);
+    }
+  }, [user]);
+
   const handleLikeComment = async () => {
     if (currentUser) {
       await likeUnlikeComment(currentUser.id, comment.id as string);
       setLiked((prev) => !prev);
+      if (liked) {
+        setLikeCount((prev) => prev - 1);
+      } else {
+        setLikeCount((prev) => prev + 1);
+      }
     }
   };
 
@@ -178,7 +190,7 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
               liked ? css["liked"] : ""
             }`}
           >
-            {t("COMMENT.like")}
+            {likeCount && likeCount > 0 && likeCount} {t("COMMENT.like")}
           </div>
           {comment.subComments && (
             <div
