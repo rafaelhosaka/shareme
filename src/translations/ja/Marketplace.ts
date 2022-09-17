@@ -10,4 +10,6 @@ export const MARKETPLACE = {
   description: "説明",
   category: "カテゴリー",
   create: "作成",
+  alertImageEmpty: "写真を追加してください",
+  alertCreateSuccess: "作成しました",
 };

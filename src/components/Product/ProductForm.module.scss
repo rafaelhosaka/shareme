@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .form__container {
   background: t.$light-secondary-bgcolor;
@@ -124,5 +125,21 @@ textarea.field {
 
   &:hover {
     background: t.$light-secondary-color;
+  }
+}
+
+@include mixins.whenDarkModule {
+  .form__container {
+    background: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .dropzone {
+    border: 1px solid t.$dark-accent-color;
+    background: t.$dark-secondary-bgcolor;
+
+    &:hover {
+      background-color: t.$dark-secondary-color;
+    }
   }
 }

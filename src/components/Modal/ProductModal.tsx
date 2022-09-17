@@ -20,7 +20,7 @@ const ProductModal = ({ product, show, onReject }: ModalProps) => {
 
   useEffect(() => {
     setProductService(productImageDownload(product.id));
-    setUserImageService(userImageDownload(product.user.fileName));
+    setUserImageService(userImageDownload(product.user.id));
   }, []);
 
   return show ? (

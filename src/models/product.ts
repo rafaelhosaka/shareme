@@ -19,6 +19,14 @@ export function getTranslatedCategory(category: string, t: TFunction) {
       return t("CATEGORY.vehicle");
     case "apparel":
       return t("CATEGORY.apparel");
+    case "electronic":
+      return t("CATEGORY.electronic");
+    case "home_goods":
+      return t("CATEGORY.homeGoods");
+    case "musical_instrument":
+      return t("CATEGORY.musicalInstrument");
+    case "game":
+      return t("CATEGORY.game");
     case "other":
       return t("CATEGORY.other");
     default:

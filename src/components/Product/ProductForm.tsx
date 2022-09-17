@@ -119,10 +119,23 @@ const ProductForm = () => {
     );
   };
 
+  const isValid = () => {
+    if (files.length === 0) {
+      dispatchAlert(t("MARKETPLACE.alertImageEmpty"), "warning");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       setSubmmiting(true);
       e.preventDefault();
+      if (!isValid()) {
+        setSubmmiting(false);
+        return;
+      }
       if (currentUser) {
         const formData = new FormData();
         formData.append(
@@ -141,6 +154,7 @@ const ProductForm = () => {
         handleClose();
         reset();
         setSubmmiting(false);
+        dispatchAlert(t("MARKETPLACE.alertCreateSuccess"), "success");
       }
     } catch (ex) {
       console.log(ex);
@@ -189,7 +203,7 @@ const ProductForm = () => {
 
         <span className="form-label">{t("MARKETPLACE.title")}</span>
         <div className="form-group">
-          <input className={css.field} {...bindTitle} />
+          <input className={css.field} {...bindTitle} required />
         </div>
 
         <span className="form-label">{t("MARKETPLACE.price")}</span>
@@ -202,7 +216,7 @@ const ProductForm = () => {
               </option>
             ))}
           </select>
-          <input type="number" className={css.field} {...bindPrice} />
+          <input type="number" className={css.field} {...bindPrice} required />
         </div>
 
         <span className="form-label">{t("MARKETPLACE.image")}</span>
@@ -210,12 +224,12 @@ const ProductForm = () => {
 
         <span className="form-label">{t("MARKETPLACE.description")}</span>
         <div className="form-group">
-          <textarea className={css.field} {...bindDescription} />
+          <textarea className={css.field} {...bindDescription} required />
         </div>
 
         <span className="form-label">{t("MARKETPLACE.category")}</span>
         <div className="form-group">
-          <select className={`${css.field}`} {...bindCategory}>
+          <select className={`${css.field}`} {...bindCategory} required>
             <option value=""></option>
             {categories.map((c) => (
               <option key={c} value={c}>
