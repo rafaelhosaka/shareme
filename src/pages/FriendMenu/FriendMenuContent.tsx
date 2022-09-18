@@ -7,6 +7,7 @@ import { useParams } from "react-router";
 import FriendRequestList from "../../components/Friends/FriendRequest/FriendRequestList";
 import FriendRequestEntity from "../../models/friendRequest";
 import { getPendingFriendRequest } from "../../services/friendService";
+import { useStomp } from "../../hook/useStomp";
 
 interface FriendMenuContentProps {
   setRequestCount?: (quantity: number) => void;
@@ -19,6 +20,7 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
   const [friendRequests, setFriendRequests] = useState<FriendRequestEntity[]>(
     []
   );
+  const { receivedRequest } = useStomp();
 
   async function getFriends() {
     if (user) {
@@ -48,6 +50,12 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
   useEffect(() => {
     if (setRequestCount) setRequestCount(friendRequests.length);
   }, [friendRequests]);
+
+  useEffect(() => {
+    if (receivedRequest) {
+      setFriendRequests([...friendRequests, receivedRequest]);
+    }
+  }, [receivedRequest]);
 
   const renderContent = () => {
     switch (option) {

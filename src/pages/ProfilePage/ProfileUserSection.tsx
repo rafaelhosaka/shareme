@@ -36,7 +36,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { sendNotification } = useStomp();
+  const { sendNotification, sendRequest } = useStomp();
 
   const {
     refs: dropFriendRefs,
@@ -70,6 +70,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
         targetUserId: user.id,
       });
       sendNotification(data[1]);
+      sendRequest(data[0]);
       setRequested(true);
     }
   };

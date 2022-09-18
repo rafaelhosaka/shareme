@@ -34,7 +34,7 @@ function PeopleResult({
 
   const [pend, setPend] = useState<boolean>();
   const [req, setReq] = useState<boolean>();
-  const { sendNotification } = useStomp();
+  const { sendNotification, sendRequest } = useStomp();
 
   useEffect(() => {
     setService(userImageDownload(people.id));
@@ -53,7 +53,7 @@ function PeopleResult({
       });
 
       sendNotification(data[1]);
-
+      sendRequest(data[0]);
       setReq(true);
     }
   };
