@@ -53,10 +53,17 @@ function NotificationList({ updateCount }: NotificationListProps) {
 
   const handleDeleteNotification = (notificationId: string) => {
     deleteNotification(notificationId);
-    const newNotifications = notifications.filter(
-      (n) => n.id !== notificationId
-    );
-    updateCount(-1);
+    const newNotifications = notifications.filter((n) => {
+      if (n.id !== notificationId) {
+        return n;
+      } else {
+        if (!n.read) {
+          updateCount(-1);
+        }
+      }
+      return;
+    });
+
     setNotifications(newNotifications);
   };
 

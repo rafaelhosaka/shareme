@@ -6,7 +6,8 @@
 }
 
 .friend-requests {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .friend-request__container {
@@ -49,5 +50,11 @@
 
   .friend-request__body {
     background-color: t.$dark-secondary-color;
+  }
+}
+
+@include mixins.desktop {
+  .friend-requests {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
