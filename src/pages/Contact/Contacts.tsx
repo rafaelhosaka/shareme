@@ -6,6 +6,7 @@ import { useUser } from "../../context/userContext";
 import UserProfileEntity from "../../models/userProfile";
 import { markAsRead } from "../../services/chatService";
 import { getUsersFromIds } from "../../services/userService";
+import { fullName } from "../../utils/formatedNames";
 import css from "./Contact.module.scss";
 import ContactUser from "./ContactUser";
 
@@ -42,7 +43,7 @@ const Contacts = () => {
       open({
         minimized: false,
         userId: friend.id,
-        userName: friend.fullName,
+        userName: fullName(friend),
         imageUrl: undefined,
         online: friend.online,
       });

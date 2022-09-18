@@ -5,6 +5,7 @@ import { useBase64Image } from "../../../hook/useBase64Image";
 import Spinner from "../../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { fullName } from "../../../utils/formatedNames";
 
 interface FriendProps {
   friend: UserProfileEntity;
@@ -25,7 +26,7 @@ function Friend({ friend }: FriendProps) {
         </Spinner>
       </Link>
       <Link to={`/profile/${friend.id}/posts`}>
-        <span className={css["friend-name"]}>{friend.fullName}</span>
+        <span className={css["friend-name"]}>{fullName(friend)}</span>
       </Link>
     </div>
   );

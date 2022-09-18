@@ -7,6 +7,7 @@ import { ChatEntity } from "../../models/chat";
 import UserProfileEntity from "../../models/userProfile";
 import { userImageDownload } from "../../services/userService";
 import { pastTimeFromDate } from "../../utils/formatDate";
+import { fullName } from "../../utils/formatedNames";
 import css from "./Chat.module.scss";
 
 interface ChatProps {
@@ -38,7 +39,7 @@ export const Chat = ({ chat, onRead }: ChatProps) => {
         </div>
       </Spinner>
       <div className={`${css["body"]} ${!chat.read && css["unread"]}`}>
-        <div>{friend?.firstName + " " + friend?.lastName}</div>
+        <div>{fullName(friend)}</div>
         <div className={`${css["message__container"]}`}>
           <div className={`${css["message"]} ${!chat.read && css["unread"]}`}>
             {chat.lastMessage.sender.id === chat.owner.id && "You: "}

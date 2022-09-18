@@ -22,6 +22,7 @@ import DropdownItem from "../../components/DropdownMenu/DropdownItem";
 import { useTranslation } from "react-i18next";
 import Modal from "../../components/Modal/Modal";
 import { useStomp } from "../../hook/useStomp";
+import { fullName } from "../../utils/formatedNames";
 
 interface ProfileUserSectionProps {
   user: UserProfileEntity;
@@ -204,7 +205,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
       {renderUserImageSection()}
       <div className={css["profile-user__details"]}>
         <div className={css["profile-user__info"]}>
-          <span className={css["profile-user__name"]}>{user?.fullName}</span>
+          <span className={css["profile-user__name"]}>{fullName(user)}</span>
           <Link
             to={`/profile/${user.id}/friends`}
             className={css["profile-user__friends-qty"]}

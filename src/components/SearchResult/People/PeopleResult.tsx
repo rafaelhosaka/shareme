@@ -14,6 +14,7 @@ import UserProfileEntity from "../../../models/userProfile";
 import css from "./PeopleResult.module.scss";
 import { useTranslation } from "react-i18next";
 import { useStomp } from "../../../hook/useStomp";
+import { fullName } from "../../../utils/formatedNames";
 
 interface PeopleResultProps {
   people: UserProfileEntity;
@@ -139,7 +140,7 @@ function PeopleResult({
           to={`/profile/${people.id}/posts`}
           className={css["people__name"]}
         >
-          {people.fullName}
+          {fullName(people)}
         </Link>
       </div>
       {renderButton()}

@@ -11,6 +11,7 @@ import PostEntity from "../../models/post";
 import css from "./PostForm.module.scss";
 import UserProfileEntity, { UserProfileDTO } from "../../models/userProfile";
 import { useTranslation } from "react-i18next";
+import { fullName } from "../../utils/formatedNames";
 
 interface PostFormProps {
   handleNewPost: (post: PostEntity) => void;
@@ -149,7 +150,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
             className={css["user-name"]}
             to={`/profile/${currentUser?.id}/posts`}
           >
-            {currentUser?.fullName}
+            {fullName(currentUser)}
           </Link>
         </div>
 

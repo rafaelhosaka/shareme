@@ -47,9 +47,16 @@ function FriendList({ friends }: FriendListProps) {
       if (!searchQuery) {
         setFilteredFriends(friends);
       } else {
-        const filtered = friends.filter((f) =>
-          f.firstName.toLowerCase().startsWith(searchQuery.toLowerCase())
-        );
+        const filtered = friends.filter((f) => {
+          if (f.firstName.toLowerCase().startsWith(searchQuery.toLowerCase())) {
+            return f;
+          }
+          if (f.lastName.toLowerCase().startsWith(searchQuery.toLowerCase())) {
+            return f;
+          }
+          return;
+        });
+
         setFilteredFriends(filtered);
       }
   };

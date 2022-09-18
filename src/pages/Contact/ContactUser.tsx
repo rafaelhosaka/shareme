@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useBase64Image } from "../../hook/useBase64Image";
 import UserProfileEntity from "../../models/userProfile";
 import { userImageDownload } from "../../services/userService";
+import { fullName } from "../../utils/formatedNames";
 import css from "./Contact.module.scss";
 
 interface ChatUserProps {
@@ -22,7 +23,7 @@ const ContactUser = ({ user }: ChatUserProps) => {
         <img key={user.id} className={css["user-image"]} src={userImage} />
         {user.online && <div className={css["online"]}></div>}
       </div>
-      <span className={css["user-name"]}>{user.fullName}</span>
+      <span className={css["user-name"]}>{fullName(user)}</span>
     </div>
   );
 };

@@ -20,6 +20,7 @@ import {
 } from "../../services/postService";
 import { userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
+import { fullName } from "../../utils/formatedNames";
 import { calculateMaxPage, paginate } from "../../utils/paginate";
 import Comment from "../Comment/Comment";
 import NewComment from "../Comment/NewComment";
@@ -266,7 +267,7 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
                 to={`/profile/${post.user.id}/posts`}
                 className={css["user-name"]}
               >
-                {post.user.fullName}
+                {fullName(post.user)}
               </Link>
               {post instanceof SharedPostEntity && (
                 <>
@@ -275,7 +276,7 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
                     to={`/profile/${post.sharedPost.user.id}/posts`}
                     className={css["user-name"]}
                   >
-                    {post.sharedPost.user.fullName}
+                    {fullName(post.sharedPost.user)}
                   </Link>
                   <span className="label">
                     {t("POST.sharedPostSecondPart")}

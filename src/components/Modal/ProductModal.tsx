@@ -4,6 +4,7 @@ import { useBase64Image } from "../../hook/useBase64Image";
 import { ProductEntity } from "../../models/product";
 import { productImageDownload } from "../../services/productService";
 import { userImageDownload } from "../../services/userService";
+import { fullName } from "../../utils/formatedNames";
 import css from "./ProductModal.module.scss";
 
 interface ModalProps {
@@ -36,9 +37,7 @@ const ProductModal = ({ product, show, onReject }: ModalProps) => {
                 <img className={css["user-image"]} src={userImage} />
               </Link>
               <Link to={`/profile/${product.user.id}/posts`}>
-                <div className={css["user-name"]}>
-                  {product.user.firstName} {product.user.lastName}
-                </div>
+                <div className={css["user-name"]}>{fullName(product.user)}</div>
               </Link>
             </div>
             <div

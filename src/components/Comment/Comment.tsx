@@ -11,6 +11,7 @@ import { updateComment } from "../../services/commentService";
 import { likeUnlikeComment } from "../../services/likeService";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate, pastTimeFromDate } from "../../utils/formatDate";
+import { fullName } from "../../utils/formatedNames";
 import DropdownItem from "../DropdownMenu/DropdownItem";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import Modal from "../Modal/Modal";
@@ -133,7 +134,7 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
               className={css["comment__user-name"]}
               to={`/profile/${user?.id}/posts`}
             >
-              {user && `${user.firstName} ${user.lastName}`}
+              {user && `${fullName(user)}`}
             </Link>
             <span className={css["comment__description"]}>
               {editableDescription(editting)}

@@ -11,6 +11,7 @@ import { markAsRead } from "../../services/chatService";
 import { getMessages, saveMessage } from "../../services/messageService";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate } from "../../utils/formatDate";
+import { fullName } from "../../utils/formatedNames";
 import css from "./MessagePanel.module.scss";
 
 interface ChatMessagePanelProps {
@@ -120,7 +121,7 @@ const ChatMessagePanel = ({
               to={`/profile/${chattingUserId}/posts`}
               className={css["user-name"]}
             >
-              <span className={css["user-name"]}>{chattingUser?.fullName}</span>
+              <span className={css["user-name"]}>{fullName(chattingUser)}</span>
             </Link>
           </div>
         </div>

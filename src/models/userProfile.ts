@@ -31,10 +31,6 @@ export default class UserProfileEntity {
     this.roles = [];
   }
 
-  get fullName(): string {
-    return this.firstName + " " + this.lastName;
-  }
-
   get friendCount(): number {
     return this.friends.length;
   }

@@ -17,6 +17,7 @@ import { unreadCount as notificationUnreadCount } from "../../services/notificat
 import { useStomp } from "../../hook/useStomp";
 import NavLinkWithToolTip from "../ToolTip/NavLinkWithToolTip";
 import { useChat } from "../../context/chatContext";
+import { fullName } from "../../utils/formatedNames";
 
 const NavRight = () => {
   const { t } = useTranslation();
@@ -109,7 +110,7 @@ const NavRight = () => {
             onClick={() => setMenuVisible(false)}
           >
             <NavMenuItem
-              label={`${currentUser?.fullName}`}
+              label={`${fullName(currentUser)}`}
               active={_.startsWith(pathname, `/profile/${currentUser?.id}`)}
             >
               <Spinner show={!userImage} sizeClass="size--40">

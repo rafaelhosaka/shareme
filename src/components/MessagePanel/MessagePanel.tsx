@@ -11,6 +11,7 @@ import { markAsRead } from "../../services/chatService";
 import { getMessages, saveMessage } from "../../services/messageService";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate } from "../../utils/formatDate";
+import { fullName } from "../../utils/formatedNames";
 import css from "./MessagePanel.module.scss";
 
 interface MessagePanelProps {
@@ -119,7 +120,7 @@ const MessagePanel = ({
                 className={css["user-name"]}
               >
                 <span className={css["user-name"]}>
-                  {chattingUser?.fullName}
+                  {fullName(chattingUser)}
                 </span>
               </Link>
             </div>

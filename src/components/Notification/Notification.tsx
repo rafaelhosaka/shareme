@@ -8,6 +8,7 @@ import FriendRequestNotificationEntity, {
 } from "../../models/notification";
 import { userImageDownload } from "../../services/userService";
 import { pastTimeFromDate } from "../../utils/formatDate";
+import { fullName } from "../../utils/formatedNames";
 import DropdownItem from "../DropdownMenu/DropdownItem";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import css from "./Notification.module.scss";
@@ -56,9 +57,9 @@ const Notification = ({
             <img className={css["notification-image"]} src={image} />
           </div>
           <div className={css["body"]}>
-            <span
-              className={css["user-name"]}
-            >{`${notification.friendRequesting.firstName} ${notification.friendRequesting.lastName}`}</span>
+            <span className={css["user-name"]}>{`${fullName(
+              notification.friendRequesting
+            )}`}</span>
             <span>{t("NOTIFICATION.friendReqNotification")}</span>
             <div
               ref={(element) => (dropRefs.current[1] = element)}

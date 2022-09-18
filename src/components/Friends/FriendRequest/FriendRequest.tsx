@@ -8,6 +8,7 @@ import UserProfileEntity from "../../../models/userProfile";
 
 import css from "./FriendRequest.module.scss";
 import { useTranslation } from "react-i18next";
+import { fullName } from "../../../utils/formatedNames";
 
 interface FriendRequestProps {
   request: FriendRequestEntity;
@@ -44,7 +45,7 @@ function FriendRequest({
           className={css["friend-request__user-name"]}
           to={`/profile/${request.requestingUserId}/posts`}
         >
-          {user?.fullName}
+          {fullName(user)}
         </Link>
         <button
           onClick={() => handleConfirm(request)}

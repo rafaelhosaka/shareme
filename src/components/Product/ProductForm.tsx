@@ -11,6 +11,7 @@ import {
   getCategories,
   getCurrencies,
 } from "../../services/productService";
+import { fullName } from "../../utils/formatedNames";
 import { useAlert } from "../Alert/Alert";
 import Spinner from "../Spinner/Spinner";
 import css from "./ProductForm.module.scss";
@@ -197,7 +198,7 @@ const ProductForm = () => {
             className={css["user-name"]}
             to={`/profile/${currentUser?.id}/posts`}
           >
-            {currentUser?.fullName}
+            {fullName(currentUser)}
           </Link>
         </div>
 
