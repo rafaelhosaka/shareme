@@ -190,24 +190,28 @@ function RegisterForm() {
   };
 
   const getNameFields = () => {
-    switch (language.shortName) {
-      case "en":
-        return firstNameLastNameFormatField();
-      case "ja":
-        return lastNamefirstNameFormatField();
-      default:
-        return firstNameLastNameFormatField();
+    if (language) {
+      switch (language.shortName) {
+        case "ja":
+          return lastNamefirstNameFormatField();
+        default:
+          return firstNameLastNameFormatField();
+      }
+    } else {
+      return firstNameLastNameFormatField();
     }
   };
 
   const getDateFields = () => {
-    switch (language.shortName) {
-      case "en":
-        return monthDayYearFormatField();
-      case "ja":
-        return yearMonthDayFormatField();
-      default:
-        return monthDayYearFormatField();
+    if (language) {
+      switch (language.shortName) {
+        case "ja":
+          return yearMonthDayFormatField();
+        default:
+          return monthDayYearFormatField();
+      }
+    } else {
+      return monthDayYearFormatField();
     }
   };
 

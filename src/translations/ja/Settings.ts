@@ -7,6 +7,7 @@ export const SETTINGS = {
   name: "名前",
   password: "パスワード",
   current: "現在のパスワード",
+  birthday: "生年月日",
   new: "新しいパスワード",
   reType: "新しいパスワードを再入力",
   edit: "編集",

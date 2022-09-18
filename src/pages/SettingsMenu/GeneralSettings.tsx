@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useAlert } from "../../components/Alert/Alert";
+import SettingDateItem from "../../components/SettingItem/SettingDateItem";
 import SettingItem from "../../components/SettingItem/SettingItem";
 import SettingPasswordItem from "../../components/SettingItem/SettingPasswordItem";
 import { useUser } from "../../context/userContext";
@@ -21,6 +22,15 @@ const GeneralSettings = () => {
     }
   };
 
+  const handleSaveBirthDate = (value: Date) => {
+    if (user && setUser) {
+      user.birthDate = value;
+      updateUser(user);
+      setUser(user);
+      dispatchAlert(t("SETTINGS.alertChangeSaved"), "success");
+    }
+  };
+
   if (user) {
     return (
       <div className={`${css["general-settings__container"]} p2`}>
@@ -31,6 +41,11 @@ const GeneralSettings = () => {
             label={t("SETTINGS.name")}
             value={[user.firstName, user.lastName]}
             onSave={handleSaveName}
+          />
+          <SettingDateItem
+            label={t("SETTINGS.birthday")}
+            value={user.birthDate}
+            onSave={handleSaveBirthDate}
           />
           <SettingPasswordItem
             label={t("SETTINGS.password")}

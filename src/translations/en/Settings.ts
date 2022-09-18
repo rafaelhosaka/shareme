@@ -8,6 +8,7 @@ export const SETTINGS = {
   password: "Password",
   current: "Current",
   new: "New",
+  birthday: "Birthday",
   reType: "Re-type new",
   edit: "Edit",
   save: "Save",

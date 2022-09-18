@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useAlert } from "../../components/Alert/Alert";
-import SettingSelectItem from "../../components/SettingItem/SettingLanguageItem";
+import SettingLanguageItem from "../../components/SettingItem/SettingLanguageItem";
 import { useLanguage } from "../../context/languageContext";
 import { useUser } from "../../context/userContext";
 import { getLanguageList, LanguageEntity } from "../../models/language";
@@ -29,7 +29,7 @@ const LanguageSettings = () => {
         {alert}
         <h2>{t("SETTINGS.languageSettingHeader")}</h2>
         <div className={css["setting-list"]}>
-          <SettingSelectItem
+          <SettingLanguageItem
             label={t("SETTINGS.language")}
             value={user.languagePreference?.shortName}
             items={getLanguageList()}
