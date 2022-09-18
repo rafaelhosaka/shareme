@@ -4,8 +4,11 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   justify-items: center;
+  align-items: center;
   width: 100%;
   min-height: 50px;
+  border-bottom: 1px solid t.$light-secondary-color;
+  padding: 1rem;
 
   & span {
     font-weight: 700;
@@ -19,6 +22,23 @@
 .field {
   display: flex;
   gap: 10px;
+}
+
+.field-names {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  & > span {
+    color: t.$light-accent-color;
+    filter: brightness(200%);
+  }
 }
 
 .field-passwords {

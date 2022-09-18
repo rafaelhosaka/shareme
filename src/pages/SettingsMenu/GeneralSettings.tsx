@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useAlert } from "../../components/Alert/Alert";
 import SettingDateItem from "../../components/SettingItem/SettingDateItem";
-import SettingItem from "../../components/SettingItem/SettingItem";
+import SettingNamesItem from "../../components/SettingItem/SettingNamesItem";
 import SettingPasswordItem from "../../components/SettingItem/SettingPasswordItem";
 import { useUser } from "../../context/userContext";
 import { updateUser } from "../../services/userService";
@@ -12,10 +12,10 @@ const GeneralSettings = () => {
   const { user, setUser } = useUser();
   const [alert, dispatchAlert] = useAlert();
 
-  const handleSaveName = (values: string[]) => {
+  const handleSaveName = (firstValue: string, secondValue: string) => {
     if (user && setUser) {
-      user.firstName = values[0];
-      user.lastName = values[1];
+      user.firstName = firstValue;
+      user.lastName = secondValue;
       updateUser(user);
       setUser(user);
       dispatchAlert(t("SETTINGS.alertChangeSaved"), "success");
@@ -33,13 +33,14 @@ const GeneralSettings = () => {
 
   if (user) {
     return (
-      <div className={`${css["general-settings__container"]} p2`}>
+      <div className={`${css["general-settings__container"]}`}>
         {alert}
-        <h2>{t("SETTINGS.generalSettingHeader")}</h2>
+        <h2 className="p2">{t("SETTINGS.generalSettingHeader")}</h2>
         <div className={css["setting-list"]}>
-          <SettingItem
+          <SettingNamesItem
             label={t("SETTINGS.name")}
-            value={[user.firstName, user.lastName]}
+            firstNameParam={user.firstName}
+            lastNameParam={user.lastName}
             onSave={handleSaveName}
           />
           <SettingDateItem

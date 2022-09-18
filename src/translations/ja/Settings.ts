@@ -5,6 +5,8 @@ export const SETTINGS = {
   generalSettingHeader: "一般アカウントの設定",
   languageSettingHeader: "言語の設定",
   name: "名前",
+  first: "名",
+  last: "姓",
   password: "パスワード",
   current: "現在のパスワード",
   birthday: "生年月日",

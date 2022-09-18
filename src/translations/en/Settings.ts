@@ -5,6 +5,8 @@ export const SETTINGS = {
   generalSettingHeader: "General Account Settings",
   languageSettingHeader: "Language Settings",
   name: "Name",
+  first: "First",
+  last: "Last",
   password: "Password",
   current: "Current",
   new: "New",

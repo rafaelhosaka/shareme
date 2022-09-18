@@ -25,9 +25,9 @@ const LanguageSettings = () => {
 
   if (user) {
     return (
-      <div className={`${css["general-settings__container"]} p2`}>
+      <div className={`${css["general-settings__container"]}`}>
         {alert}
-        <h2>{t("SETTINGS.languageSettingHeader")}</h2>
+        <h2 className="p2">{t("SETTINGS.languageSettingHeader")}</h2>
         <div className={css["setting-list"]}>
           <SettingLanguageItem
             label={t("SETTINGS.language")}
