@@ -38,6 +38,7 @@ const MessagePanel = ({
     useBase64Image(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const { sendMessage, receivedMessage, updateCounter } = useChat();
+  const [sending, setSending] = useState(false);
 
   async function markChatAsRead() {
     if (updateCounter && currentUser) {
@@ -77,11 +78,17 @@ const MessagePanel = ({
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (sending || !text) {
+      return;
+    }
+    setSending(true);
     if (currentUser && sendMessage) {
       const { data } = await saveMessage(currentUser.id, chattingUserId, text);
       sendMessage(data);
       setMessages([...messages, data]);
       resetText();
+      setSending(false);
     }
   };
 

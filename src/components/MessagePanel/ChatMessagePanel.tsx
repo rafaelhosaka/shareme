@@ -33,6 +33,7 @@ const ChatMessagePanel = ({
   const bottomRef = useRef<HTMLDivElement>(null);
   const { sendMessage, receivedMessage, statusChangedUser, updateCounter } =
     useChat();
+  const [sending, setSending] = useState(false);
 
   async function markChatAsRead() {
     if (updateCounter && currentUser) {
@@ -77,12 +78,17 @@ const ChatMessagePanel = ({
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (sending || !text) {
+      return;
+    }
+    setSending(true);
     if (currentUser && sendMessage) {
       const { data } = await saveMessage(currentUser.id, chattingUserId, text);
       sendMessage(data);
       setMessages([...messages, data]);
       resetText();
       onSend(data, chattingUserId);
+      setSending(false);
     }
   };
 
