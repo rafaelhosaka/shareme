@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useChat } from "../../context/chatContext";
+import { useStompContext } from "../../context/stompContext";
 
 import { useUser } from "../../context/userContext";
 import UserProfileEntity from "../../models/userProfile";
@@ -13,7 +14,8 @@ import ContactUser from "./ContactUser";
 const Contacts = () => {
   const { t } = useTranslation();
   const { user: currentUser } = useUser();
-  const { open, statusChangedUser, updateCounter } = useChat();
+  const { open, updateCounter } = useChat();
+  const { statusChangedUser } = useStompContext();
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
 
   async function getFriends() {

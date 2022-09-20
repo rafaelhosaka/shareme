@@ -17,6 +17,7 @@ import { unreadCount as notificationUnreadCount } from "../../services/notificat
 import NavLinkWithToolTip from "../ToolTip/NavLinkWithToolTip";
 import { useChat } from "../../context/chatContext";
 import { fullName } from "../../utils/formatedNames";
+import { useStompContext } from "../../context/stompContext";
 
 const NavRight = () => {
   const { t } = useTranslation();
@@ -44,12 +45,8 @@ const NavRight = () => {
 
   const [notificationCounter, setNotificationCounter] = useState(0);
 
-  const {
-    chatUnreadCount,
-    updateCounter,
-    receivedNotification,
-    receivedMessage,
-  } = useChat();
+  const { chatUnreadCount, updateCounter } = useChat();
+  const { receivedNotification, receivedMessage } = useStompContext();
 
   const updateNotificationCounter = (count: number) => {
     setNotificationCounter((prev) => prev + count);

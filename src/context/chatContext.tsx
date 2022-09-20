@@ -1,10 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Panel } from "../components/MessagePanel/MessagePanelList";
-import { useStomp } from "../hook/useStomp";
-import FriendRequestEntity from "../models/friendRequest";
-import { MessageEntity } from "../models/message";
-import { NotificationEntity } from "../models/notification";
 import { unreadCount } from "../services/chatService";
+import { useStompContext } from "./stompContext";
 import { useUser } from "./userContext";
 
 interface ChatContextInterface {
@@ -15,15 +12,6 @@ interface ChatContextInterface {
   close: ((id: string) => void) | null;
   minimize: ((id: string, imageUrl: string | undefined) => void) | null;
   maximize: ((id: string) => void) | null;
-
-  sendMessage: ((message: MessageEntity) => void) | null;
-  receivedMessage: MessageEntity | undefined;
-  changeStatus: ((id: string, status: boolean) => void) | null;
-  statusChangedUser: { id: string; online: boolean } | undefined;
-  receivedNotification: NotificationEntity | undefined;
-  sendNotification: ((notification: NotificationEntity) => void) | null;
-  sendRequest: ((notification: FriendRequestEntity) => void) | null;
-  receivedRequest: FriendRequestEntity | undefined;
 }
 
 const ChatContext = React.createContext<ChatContextInterface>({
@@ -34,14 +22,6 @@ const ChatContext = React.createContext<ChatContextInterface>({
   close: null,
   minimize: null,
   maximize: null,
-  sendMessage: null,
-  receivedMessage: undefined,
-  changeStatus: null,
-  statusChangedUser: undefined,
-  receivedNotification: undefined,
-  sendNotification: null,
-  sendRequest: null,
-  receivedRequest: undefined,
 });
 
 ChatContext.displayName = "ChatContext";
@@ -57,17 +37,7 @@ interface ChatProviderProps {
 export function ChatProvider({ children }: ChatProviderProps) {
   const { user } = useUser();
   const [panels, setPanels] = useState<Panel[]>([]);
-  const {
-    sendMessage,
-    receivedMessage,
-    changeStatus,
-    statusChangedUser,
-    receivedNotification,
-    sendNotification,
-    sendRequest,
-    receivedRequest,
-    isConnected,
-  } = useStomp();
+  const { statusChangedUser } = useStompContext();
 
   const [chatUnreadCount, setChatUnreadCount] = useState(0);
 
@@ -91,18 +61,6 @@ export function ChatProvider({ children }: ChatProviderProps) {
     });
     setPanels(newPanels);
   }, [statusChangedUser]);
-
-  useEffect(() => {
-    if (changeStatus && user) {
-      changeStatus(user.id, true);
-
-      window.addEventListener(
-        "beforeunload",
-        () => changeStatus(user.id, false),
-        false
-      );
-    }
-  }, [isConnected]);
 
   const updateCounter = (newValue?: number) => {
     if (newValue) {
@@ -153,14 +111,6 @@ export function ChatProvider({ children }: ChatProviderProps) {
         close,
         minimize,
         maximize,
-        sendMessage,
-        receivedMessage,
-        changeStatus,
-        statusChangedUser,
-        receivedNotification,
-        sendNotification,
-        sendRequest,
-        receivedRequest,
       }}
     >
       {children}

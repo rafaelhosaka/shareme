@@ -22,7 +22,7 @@ import DropdownItem from "../../components/DropdownMenu/DropdownItem";
 import { useTranslation } from "react-i18next";
 import Modal from "../../components/Modal/Modal";
 import { fullName } from "../../utils/formatedNames";
-import { useChat } from "../../context/chatContext";
+import { useStompContext } from "../../context/stompContext";
 
 interface ProfileUserSectionProps {
   user: UserProfileEntity;
@@ -37,7 +37,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { sendNotification, sendRequest } = useChat();
+  const { sendNotification, sendRequest } = useStompContext();
 
   const {
     refs: dropFriendRefs,

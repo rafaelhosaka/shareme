@@ -4,6 +4,7 @@ import { useLocation } from "react-router";
 import MenuItem from "../../components/MenuList/MenuItem";
 import MenuList from "../../components/MenuList/MenuList";
 import { useChat } from "../../context/chatContext";
+import { useStompContext } from "../../context/stompContext";
 import { useUser } from "../../context/userContext";
 import { ChatEntity } from "../../models/chat";
 import { MessageEntity } from "../../models/message";
@@ -16,7 +17,8 @@ const ChatMenu = () => {
   const [chats, setChats] = useState<ChatEntity[]>([]);
   const { user: currentUser } = useUser();
   const { pathname } = useLocation();
-  const { statusChangedUser, receivedMessage, updateCounter } = useChat();
+  const { updateCounter } = useChat();
+  const { statusChangedUser, receivedMessage } = useStompContext();
 
   async function getChats(receivedMessage?: MessageEntity) {
     if (currentUser) {

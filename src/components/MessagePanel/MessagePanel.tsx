@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useChat } from "../../context/chatContext";
+import { useStompContext } from "../../context/stompContext";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { useInput } from "../../hook/useInput";
@@ -37,7 +38,8 @@ const MessagePanel = ({
   const { image: userImage, setService: setUserImageService } =
     useBase64Image(null);
   const bottomRef = useRef<HTMLDivElement>(null);
-  const { sendMessage, receivedMessage, updateCounter } = useChat();
+  const { updateCounter } = useChat();
+  const { sendMessage, receivedMessage } = useStompContext();
   const [sending, setSending] = useState(false);
 
   async function markChatAsRead() {

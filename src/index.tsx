@@ -7,6 +7,7 @@ import { UserProvider } from "./context/userContext";
 import { ThemeProvider } from "./context/themeContext";
 import { ChatProvider } from "./context/chatContext";
 import { LanguageProvider } from "./context/languageContext";
+import { StompProvider } from "./context/stompContext";
 
 document.title = process.env.REACT_APP_NAME as string;
 
@@ -18,9 +19,11 @@ root.render(
       <UserProvider>
         <LanguageProvider>
           <ThemeProvider>
-            <ChatProvider>
-              <App />
-            </ChatProvider>
+            <StompProvider>
+              <ChatProvider>
+                <App />
+              </ChatProvider>
+            </StompProvider>
           </ThemeProvider>
         </LanguageProvider>
       </UserProvider>

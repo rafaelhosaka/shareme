@@ -14,7 +14,7 @@ import UserProfileEntity from "../../../models/userProfile";
 import css from "./PeopleResult.module.scss";
 import { useTranslation } from "react-i18next";
 import { fullName } from "../../../utils/formatedNames";
-import { useChat } from "../../../context/chatContext";
+import { useStompContext } from "../../../context/stompContext";
 
 interface PeopleResultProps {
   people: UserProfileEntity;
@@ -35,7 +35,7 @@ function PeopleResult({
 
   const [pend, setPend] = useState<boolean>();
   const [req, setReq] = useState<boolean>();
-  const { sendNotification, sendRequest } = useChat();
+  const { sendNotification, sendRequest } = useStompContext();
 
   useEffect(() => {
     setService(userImageDownload(people.id));

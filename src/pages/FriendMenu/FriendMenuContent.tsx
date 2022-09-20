@@ -7,7 +7,7 @@ import { useParams } from "react-router";
 import FriendRequestList from "../../components/Friends/FriendRequest/FriendRequestList";
 import FriendRequestEntity from "../../models/friendRequest";
 import { getPendingFriendRequest } from "../../services/friendService";
-import { useChat } from "../../context/chatContext";
+import { useStompContext } from "../../context/stompContext";
 
 interface FriendMenuContentProps {
   setRequestCount?: (quantity: number) => void;
@@ -20,7 +20,7 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
   const [friendRequests, setFriendRequests] = useState<FriendRequestEntity[]>(
     []
   );
-  const { receivedRequest } = useChat();
+  const { receivedRequest } = useStompContext();
 
   async function getFriends() {
     if (user) {
