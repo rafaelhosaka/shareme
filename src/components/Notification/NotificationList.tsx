@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useChat } from "../../context/chatContext";
 import { useUser } from "../../context/userContext";
-import { useStomp } from "../../hook/useStomp";
 import { NotificationEntity } from "../../models/notification";
 import {
   deleteNotification,
@@ -19,7 +19,7 @@ function NotificationList({ updateCount }: NotificationListProps) {
   const { t } = useTranslation();
   const [notifications, setNotifications] = useState<NotificationEntity[]>([]);
   const { user } = useUser();
-  const { receivedNotification } = useStomp();
+  const { receivedNotification } = useChat();
 
   useEffect(() => {
     async function getNotifications() {

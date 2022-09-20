@@ -14,7 +14,6 @@ import { useMediaQuery } from "react-responsive";
 import { useTranslation } from "react-i18next";
 import NotificationList from "../Notification/NotificationList";
 import { unreadCount as notificationUnreadCount } from "../../services/notificationService";
-import { useStomp } from "../../hook/useStomp";
 import NavLinkWithToolTip from "../ToolTip/NavLinkWithToolTip";
 import { useChat } from "../../context/chatContext";
 import { fullName } from "../../utils/formatedNames";
@@ -45,8 +44,12 @@ const NavRight = () => {
 
   const [notificationCounter, setNotificationCounter] = useState(0);
 
-  const { receivedNotification, receivedMessage } = useStomp();
-  const { chatUnreadCount, updateCounter } = useChat();
+  const {
+    chatUnreadCount,
+    updateCounter,
+    receivedNotification,
+    receivedMessage,
+  } = useChat();
 
   const updateNotificationCounter = (count: number) => {
     setNotificationCounter((prev) => prev + count);

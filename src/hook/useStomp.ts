@@ -29,25 +29,17 @@ export const useStomp = (): {
   const [receivedRequest, setReceivedRequest] = useState<FriendRequestEntity>();
   const [isConnected, setConnected] = useState(false);
 
-  useEffect(() => {
-    connect();
-  }, []);
-
-  useEffect(() => {
-    if (stompClient) {
-      stompClient.connect({}, onConnected, onError);
-      stompClient.debug = () => {};
-    }
-  }, [stompClient, user]);
-
   const connect = () => {
     let socket = new SockJS(process.env.REACT_APP_SOCKET_URL as string);
     let client = over(socket);
+
+    client.connect({}, onConnected, onError);
+    client.debug = () => {};
     setStompClient(client);
   };
 
-  const onConnected = () => {
-    if (stompClient) {
+  useEffect(() => {
+    if (isConnected && stompClient) {
       user?.friends.map((friendId) => {
         stompClient.subscribe(`/user/${friendId}/status`, onStatusUpdated);
       });
@@ -58,8 +50,13 @@ export const useStomp = (): {
         onNotificationReceived
       );
       stompClient.subscribe(`/user/${user?.id}/request`, onRequestReceived);
-      setConnected(true);
     }
+  }, [isConnected]);
+
+  const onConnected = () => {
+    setTimeout(() => {
+      setConnected(true);
+    }, 1000);
   };
 
   const onStatusUpdated = (payload: any) => {
@@ -79,7 +76,6 @@ export const useStomp = (): {
 
   const onRequestReceived = (payload: any) => {
     const payloadData = JSON.parse(payload.body);
-
     setReceivedRequest(payloadData);
   };
 
@@ -114,6 +110,12 @@ export const useStomp = (): {
       stompClient.send("/app/request", {}, JSON.stringify(request));
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      connect();
+    }
+  }, [user]);
 
   return {
     sendMessage,

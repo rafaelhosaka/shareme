@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Panel } from "../components/MessagePanel/MessagePanelList";
 import { useStomp } from "../hook/useStomp";
+import FriendRequestEntity from "../models/friendRequest";
 import { MessageEntity } from "../models/message";
+import { NotificationEntity } from "../models/notification";
 import { unreadCount } from "../services/chatService";
 import { useUser } from "./userContext";
 
@@ -13,10 +15,15 @@ interface ChatContextInterface {
   close: ((id: string) => void) | null;
   minimize: ((id: string, imageUrl: string | undefined) => void) | null;
   maximize: ((id: string) => void) | null;
+
   sendMessage: ((message: MessageEntity) => void) | null;
   receivedMessage: MessageEntity | undefined;
   changeStatus: ((id: string, status: boolean) => void) | null;
   statusChangedUser: { id: string; online: boolean } | undefined;
+  receivedNotification: NotificationEntity | undefined;
+  sendNotification: ((notification: NotificationEntity) => void) | null;
+  sendRequest: ((notification: FriendRequestEntity) => void) | null;
+  receivedRequest: FriendRequestEntity | undefined;
 }
 
 const ChatContext = React.createContext<ChatContextInterface>({
@@ -31,6 +38,10 @@ const ChatContext = React.createContext<ChatContextInterface>({
   receivedMessage: undefined,
   changeStatus: null,
   statusChangedUser: undefined,
+  receivedNotification: undefined,
+  sendNotification: null,
+  sendRequest: null,
+  receivedRequest: undefined,
 });
 
 ChatContext.displayName = "ChatContext";
@@ -51,8 +62,13 @@ export function ChatProvider({ children }: ChatProviderProps) {
     receivedMessage,
     changeStatus,
     statusChangedUser,
+    receivedNotification,
+    sendNotification,
+    sendRequest,
+    receivedRequest,
     isConnected,
   } = useStomp();
+
   const [chatUnreadCount, setChatUnreadCount] = useState(0);
 
   async function getChatUnreadCount() {
@@ -67,6 +83,16 @@ export function ChatProvider({ children }: ChatProviderProps) {
   }, [user]);
 
   useEffect(() => {
+    const newPanels = panels.map((panel) => {
+      if (panel.userId === statusChangedUser?.id) {
+        return { ...panel, online: statusChangedUser.online };
+      }
+      return panel;
+    });
+    setPanels(newPanels);
+  }, [statusChangedUser]);
+
+  useEffect(() => {
     if (changeStatus && user) {
       changeStatus(user.id, true);
 
@@ -77,16 +103,6 @@ export function ChatProvider({ children }: ChatProviderProps) {
       );
     }
   }, [isConnected]);
-
-  useEffect(() => {
-    const newPanels = panels.map((panel) => {
-      if (panel.userId === statusChangedUser?.id) {
-        return { ...panel, online: statusChangedUser.online };
-      }
-      return panel;
-    });
-    setPanels(newPanels);
-  }, [statusChangedUser]);
 
   const updateCounter = (newValue?: number) => {
     if (newValue) {
@@ -141,6 +157,10 @@ export function ChatProvider({ children }: ChatProviderProps) {
         receivedMessage,
         changeStatus,
         statusChangedUser,
+        receivedNotification,
+        sendNotification,
+        sendRequest,
+        receivedRequest,
       }}
     >
       {children}
