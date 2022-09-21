@@ -8,6 +8,7 @@ function MenuItem({
   active = false,
   iconClass,
   children,
+  boolean,
 }: NavMenuItemProps) {
   const getIcon = () => {
     return iconClass ? (
@@ -33,6 +34,13 @@ function MenuItem({
         {getIcon()}
         <li>{label}</li>
       </div>
+      {boolean !== undefined && (
+        <div className={`${css["toggle"]} ${boolean && css["on"]}`}>
+          <div
+            className={`${css["toggle-circle"]} ${boolean && css["on"]}`}
+          ></div>
+        </div>
+      )}
       {toMenuId && <i className="fa-solid fa-chevron-right fa-xl"></i>}
     </div>
   );

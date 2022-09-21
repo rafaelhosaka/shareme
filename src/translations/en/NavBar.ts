@@ -16,4 +16,5 @@ export const NAVBAR = {
   device: "Device",
   general: "General",
   language: "Language",
+  online: "Online",
 };

@@ -38,7 +38,7 @@ interface StompProviderProps {
 }
 
 export function StompProvider({ children }: StompProviderProps) {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
 
   const {
     sendMessage,
@@ -53,9 +53,10 @@ export function StompProvider({ children }: StompProviderProps) {
   } = useStomp();
 
   useEffect(() => {
-    if (changeStatus && user) {
+    if (user && setUser) {
       changeStatus(user.id, true);
-
+      user.online = true;
+      setUser(user);
       window.addEventListener(
         "beforeunload",
         () => changeStatus(user.id, false),

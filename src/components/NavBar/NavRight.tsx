@@ -46,7 +46,8 @@ const NavRight = () => {
   const [notificationCounter, setNotificationCounter] = useState(0);
 
   const { chatUnreadCount, updateCounter } = useChat();
-  const { receivedNotification, receivedMessage } = useStompContext();
+  const { receivedNotification, receivedMessage, changeStatus } =
+    useStompContext();
 
   const updateNotificationCounter = (count: number) => {
     setNotificationCounter((prev) => prev + count);
@@ -101,6 +102,15 @@ const NavRight = () => {
     }
   };
 
+  const handleOnlineChange = async () => {
+    if (currentUser && setUser && changeStatus) {
+      currentUser.online = !currentUser.online;
+      const updatedUser = await updateUser(currentUser);
+      setUser(updatedUser);
+      changeStatus(updatedUser.id, updatedUser.online);
+    }
+  };
+
   const getProfileMenu = () => {
     return (
       <NavMenu currentMenuId={menuId} mainMenuId="1">
@@ -121,6 +131,13 @@ const NavRight = () => {
               </Spinner>
             </NavMenuItem>
           </Link>
+          <div onClick={() => handleOnlineChange()}>
+            <NavMenuItem
+              iconClass="fa-solid fa-comments fa-xl"
+              label={t("NAVBAR.online")}
+              boolean={currentUser?.online}
+            />
+          </div>
           <NavMenuItem
             iconClass="fa-solid fa-palette fa-xl"
             label={`${t("NAVBAR.theme")}: ${getThemeLabel(

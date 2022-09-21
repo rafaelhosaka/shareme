@@ -22,6 +22,7 @@ export interface NavMenuItemProps {
   redirectToMenu?: (menuId: string | undefined) => void;
   active?: boolean;
   children?: ReactElement | ReactElement[];
+  boolean?: boolean | undefined;
 }
 
 export function isMenuItemProps(obj: any) {

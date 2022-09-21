@@ -75,6 +75,32 @@
   padding: 1rem;
 }
 
+.toggle {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  width: 60px;
+  height: 30px;
+  background: t.$light-accent-color;
+  padding: 3px;
+}
+
+.toggle.on {
+  background: t.$light-primary-color;
+}
+
+.toggle-circle {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: t.$light-secondary-bgcolor;
+  transition: translate 0.5s;
+}
+
+.toggle-circle.on {
+  translate: 29px;
+}
+
 @include mixins.whenDarkModule {
   .menu-list-container {
     border: 1px solid white;
