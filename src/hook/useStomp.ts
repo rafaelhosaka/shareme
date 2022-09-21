@@ -5,12 +5,13 @@ import SockJS from "sockjs-client";
 import { useEffect, useState } from "react";
 import { useUser } from "../context/userContext";
 import FriendRequestEntity from "../models/friendRequest";
+import { ChatStatusEntity } from "../models/chat";
 
 export const useStomp = (): {
   sendMessage: (message: MessageEntity) => void;
   receivedMessage: MessageEntity | undefined;
-  changeStatus: (id: string, status: boolean) => void;
-  statusChangedUser: { id: string; online: boolean } | undefined;
+  changeStatus: (id: string, status: boolean, connected: boolean) => void;
+  statusChangedUser: ChatStatusEntity | undefined;
   sendNotification: (notification: NotificationEntity) => void;
   receivedNotification: NotificationEntity | undefined;
   sendRequest: (request: FriendRequestEntity) => void;
@@ -23,6 +24,7 @@ export const useStomp = (): {
   const [statusChangedUser, setStatusChangedUser] = useState<{
     id: string;
     online: boolean;
+    connected: boolean;
   }>();
   const [receivedNotification, setReceivedNotification] =
     useState<NotificationEntity>();
@@ -61,6 +63,8 @@ export const useStomp = (): {
 
   const onStatusUpdated = (payload: any) => {
     const payloadData = JSON.parse(payload.body);
+    console.log(payloadData);
+
     setStatusChangedUser(payloadData);
   };
 
@@ -89,12 +93,12 @@ export const useStomp = (): {
     }
   };
 
-  const changeStatus = (id: string, online: boolean) => {
+  const changeStatus = (id: string, online: boolean, connected: boolean) => {
     if (stompClient?.connected) {
       stompClient.send(
         "/app/change-status",
         {},
-        JSON.stringify({ id, online })
+        JSON.stringify({ id, online, connected })
       );
     }
   };

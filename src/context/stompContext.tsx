@@ -1,15 +1,19 @@
 import React, { useContext, useEffect } from "react";
 import { useStomp } from "../hook/useStomp";
+import { ChatStatusEntity } from "../models/chat";
 import FriendRequestEntity from "../models/friendRequest";
 import { MessageEntity } from "../models/message";
 import { NotificationEntity } from "../models/notification";
+import { updateUser } from "../services/userService";
 import { useUser } from "./userContext";
 
 interface StompContextInterface {
   sendMessage: ((message: MessageEntity) => void) | null;
   receivedMessage: MessageEntity | undefined;
-  changeStatus: ((id: string, status: boolean) => void) | null;
-  statusChangedUser: { id: string; online: boolean } | undefined;
+  changeStatus:
+    | ((id: string, status: boolean, connected: boolean) => void)
+    | null;
+  statusChangedUser: ChatStatusEntity | undefined;
   receivedNotification: NotificationEntity | undefined;
   sendNotification: ((notification: NotificationEntity) => void) | null;
   sendRequest: ((notification: FriendRequestEntity) => void) | null;
@@ -54,12 +58,15 @@ export function StompProvider({ children }: StompProviderProps) {
 
   useEffect(() => {
     if (user && setUser) {
-      changeStatus(user.id, true);
-      user.online = true;
+      if (user.online) {
+        changeStatus(user.id, user.online, true);
+      }
+      user.connected = true;
+      updateUser(user);
       setUser(user);
       window.addEventListener(
         "beforeunload",
-        () => changeStatus(user.id, false),
+        () => changeStatus(user.id, user.online, false),
         false
       );
     }

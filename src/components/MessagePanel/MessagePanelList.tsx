@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useChat } from "../../context/chatContext";
+import { ChatStatusEntity } from "../../models/chat";
 import MessagePanel from "./MessagePanel";
 import css from "./MessagePanel.module.scss";
 
 export interface Panel {
+  chattingUserChat: ChatStatusEntity;
   minimized: boolean;
-  userId: string;
   userName: string;
   imageUrl: string | undefined;
-  online: boolean;
 }
 
 function MessagePanelList() {
@@ -35,10 +35,9 @@ function MessagePanelList() {
     <div className={css["message-panel-list__container"]}>
       {panels.map((panel) => (
         <MessagePanel
-          key={panel.userId}
+          key={panel.chattingUserChat.id}
           minimized={panel.minimized}
-          chattingUserId={panel.userId}
-          online={panel.online}
+          chattingUserChat={panel.chattingUserChat}
           onMinimized={handleMinimize}
           onClose={handleClose}
         />
@@ -47,13 +46,16 @@ function MessagePanelList() {
         {panels.map(
           (panel) =>
             panel.minimized && (
-              <div key={panel.userId} className={css["minimized-panel"]}>
+              <div
+                key={panel.chattingUserChat.id}
+                className={css["minimized-panel"]}
+              >
                 <div className={css["minimized-user-name"]}>
                   <div className={"tooltip-text left"}>{panel.userName}</div>
                 </div>
                 <img
                   onClick={() => {
-                    if (maximize) maximize(panel.userId);
+                    if (maximize) maximize(panel.chattingUserChat.id);
                   }}
                   className={css["minimized-user-image"]}
                   src={panel.imageUrl}

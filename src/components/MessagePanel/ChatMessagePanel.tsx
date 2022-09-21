@@ -121,7 +121,9 @@ const ChatMessagePanel = ({
             >
               <div className={css["user-image__container"]}>
                 <img className={css["user-image"]} src={userImage} />
-                {chattingUser?.online && <div className={css["online"]} />}
+                {chattingUser?.online && chattingUser.connected && (
+                  <div className={css["online"]} />
+                )}
               </div>
             </Link>
             <Link

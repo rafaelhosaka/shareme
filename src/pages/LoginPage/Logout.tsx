@@ -10,7 +10,7 @@ const Logout = () => {
 
   useEffect(() => {
     if (changeStatus && user) {
-      changeStatus(user.id, false);
+      changeStatus(user.id, user.online, false);
       setFinished(true);
     }
   }, []);

@@ -35,7 +35,9 @@ export const Chat = ({ chat, onRead }: ChatProps) => {
       <Spinner show={!friendImage} sizeClass="size--60">
         <div className={css["image__container"]}>
           <img className={`${css["user-image"]} size--60`} src={friendImage} />
-          {friend?.online && <div className={css["online"]}></div>}
+          {chat.friend?.online && chat.friend.connected && (
+            <div className={css["online"]}></div>
+          )}
         </div>
       </Spinner>
       <div className={`${css["body"]} ${!chat.read && css["unread"]}`}>

@@ -107,7 +107,7 @@ const NavRight = () => {
       currentUser.online = !currentUser.online;
       const updatedUser = await updateUser(currentUser);
       setUser(updatedUser);
-      changeStatus(updatedUser.id, updatedUser.online);
+      changeStatus(updatedUser.id, updatedUser.online, updatedUser.connected);
     }
   };
 

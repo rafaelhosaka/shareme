@@ -29,6 +29,7 @@ const Contacts = () => {
     const newFriends = friends.map((friend) => {
       if (friend.id === statusChangedUser?.id) {
         friend.online = statusChangedUser.online;
+        friend.connected = statusChangedUser.connected;
         return friend;
       }
       return friend;
@@ -44,10 +45,13 @@ const Contacts = () => {
     if (open && currentUser && updateCounter) {
       open({
         minimized: false,
-        userId: friend.id,
+        chattingUserChat: {
+          id: friend.id,
+          online: friend.online,
+          connected: friend.connected,
+        },
         userName: fullName(friend),
         imageUrl: undefined,
-        online: friend.online,
       });
       const { data } = await markAsRead(currentUser.id, friend.id);
       updateCounter(data);

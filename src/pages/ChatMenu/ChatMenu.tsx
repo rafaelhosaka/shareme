@@ -55,6 +55,7 @@ const ChatMenu = () => {
     const newChats = chats.map((chat) => {
       if (chat.friend.id === statusChangedUser?.id) {
         chat.friend.online = statusChangedUser.online;
+        chat.friend.connected = statusChangedUser.connected;
         return chat;
       }
       return chat;

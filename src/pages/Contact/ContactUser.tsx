@@ -21,7 +21,7 @@ const ContactUser = ({ user }: ChatUserProps) => {
     <div className={css["user__container"]}>
       <div className={css["user-image__container"]}>
         <img key={user.id} className={css["user-image"]} src={userImage} />
-        {user.online && <div className={css["online"]}></div>}
+        {user.online && user.connected && <div className={css["online"]}></div>}
       </div>
       <span className={css["user-name"]}>{fullName(user)}</span>
     </div>

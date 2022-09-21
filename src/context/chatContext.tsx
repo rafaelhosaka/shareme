@@ -54,8 +54,15 @@ export function ChatProvider({ children }: ChatProviderProps) {
 
   useEffect(() => {
     const newPanels = panels.map((panel) => {
-      if (panel.userId === statusChangedUser?.id) {
-        return { ...panel, online: statusChangedUser.online };
+      if (panel.chattingUserChat.id === statusChangedUser?.id) {
+        return {
+          ...panel,
+          chattingUserChat: {
+            id: statusChangedUser.id,
+            online: statusChangedUser.online,
+            connected: statusChangedUser.connected,
+          },
+        };
       }
       return panel;
     });
@@ -71,19 +78,24 @@ export function ChatProvider({ children }: ChatProviderProps) {
   };
 
   const open = (panel: Panel) => {
-    if (panels.filter((p) => p.userId === panel.userId).length > 0) {
-      return maximize(panel.userId);
+    if (
+      panels.filter((p) => p.chattingUserChat.id === panel.chattingUserChat.id)
+        .length > 0
+    ) {
+      return maximize(panel.chattingUserChat.id);
     }
     setPanels((prev) => [...prev, panel]);
   };
 
   const close = (id: string) => {
-    setPanels((prev) => prev.filter((panel) => panel.userId !== id));
+    setPanels((prev) =>
+      prev.filter((panel) => panel.chattingUserChat.id !== id)
+    );
   };
 
   const minimize = (userId: string, imageUrl: string | undefined) => {
     const newPanels = panels.map((panel) => {
-      if (panel.userId === userId) {
+      if (panel.chattingUserChat.id === userId) {
         return { ...panel, imageUrl, minimized: true };
       }
       return panel;
@@ -93,7 +105,7 @@ export function ChatProvider({ children }: ChatProviderProps) {
 
   const maximize = (id: string) => {
     const newPanels = panels.map((panel) => {
-      if (panel.userId === id) {
+      if (panel.chattingUserChat.id === id) {
         return { ...panel, minimized: false };
       }
       return panel;

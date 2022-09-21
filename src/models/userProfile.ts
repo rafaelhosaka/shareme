@@ -13,6 +13,7 @@ export default class UserProfileEntity {
   themePreference: string;
   languagePreference: LanguageEntity;
   online: boolean;
+  connected: boolean;
   roles: string[];
 
   constructor(data: UserProfileEntity) {
@@ -28,6 +29,7 @@ export default class UserProfileEntity {
     this.themePreference = data.themePreference;
     this.languagePreference = data.languagePreference;
     this.online = data.online;
+    this.connected = data.connected;
     this.roles = [];
   }
 

@@ -6,6 +6,7 @@ import { useStompContext } from "../../context/stompContext";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { useInput } from "../../hook/useInput";
+import { ChatStatusEntity } from "../../models/chat";
 import { MessageEntity } from "../../models/message";
 import UserProfileEntity from "../../models/userProfile";
 import { markAsRead } from "../../services/chatService";
@@ -16,17 +17,15 @@ import { fullName } from "../../utils/formatedNames";
 import css from "./MessagePanel.module.scss";
 
 interface MessagePanelProps {
-  chattingUserId: string;
+  chattingUserChat: ChatStatusEntity;
   minimized: boolean;
-  online: boolean;
   onMinimized: (userId: string, imageUrl: string | undefined) => void;
   onClose: (userId: string) => void;
 }
 
 const MessagePanel = ({
-  chattingUserId,
+  chattingUserChat,
   minimized,
-  online,
   onMinimized,
   onClose,
 }: MessagePanelProps) => {
@@ -44,14 +43,14 @@ const MessagePanel = ({
 
   async function markChatAsRead() {
     if (updateCounter && currentUser) {
-      const { data } = await markAsRead(currentUser.id, chattingUserId);
+      const { data } = await markAsRead(currentUser.id, chattingUserChat.id);
       updateCounter(data);
     }
   }
 
   useEffect(() => {
     if (receivedMessage) {
-      if (receivedMessage.sender.id === chattingUserId) {
+      if (receivedMessage.sender.id === chattingUserChat.id) {
         setMessages([...messages, receivedMessage]);
         markChatAsRead();
       }
@@ -61,8 +60,8 @@ const MessagePanel = ({
   useEffect(() => {
     async function getUserMessages() {
       if (currentUser) {
-        const user = await getUserById(chattingUserId);
-        setUserImageService(userImageDownload(chattingUserId));
+        const user = await getUserById(chattingUserChat.id);
+        setUserImageService(userImageDownload(chattingUserChat.id));
         setChattingUser(user);
 
         const { data } = await getMessages(currentUser.id, user.id);
@@ -86,7 +85,11 @@ const MessagePanel = ({
     }
     setSending(true);
     if (currentUser && sendMessage) {
-      const { data } = await saveMessage(currentUser.id, chattingUserId, text);
+      const { data } = await saveMessage(
+        currentUser.id,
+        chattingUserChat.id,
+        text
+      );
       sendMessage(data);
       setMessages([...messages, data]);
       resetText();
@@ -95,7 +98,7 @@ const MessagePanel = ({
   };
 
   const mouseOver = (e: React.MouseEvent, id: string) => {
-    const body = document.getElementById(`body-${chattingUserId}`);
+    const body = document.getElementById(`body-${chattingUserChat.id}`);
     const tooltip = document.getElementById(`date-sent-${id}`);
     if (tooltip && body && e.currentTarget instanceof HTMLDivElement) {
       let bodyOffset = body.getBoundingClientRect();
@@ -116,16 +119,18 @@ const MessagePanel = ({
           <div className={css["header"]}>
             <div className={css["user-info"]}>
               <Link
-                to={`/profile/${chattingUserId}/posts`}
+                to={`/profile/${chattingUserChat.id}/posts`}
                 className={css["user-name"]}
               >
                 <div className={css["user-image__container"]}>
                   <img className={css["user-image"]} src={userImage} />
-                  {online && <div className={css["online"]} />}
+                  {chattingUserChat.online && chattingUserChat.connected && (
+                    <div className={css["online"]} />
+                  )}
                 </div>
               </Link>
               <Link
-                to={`/profile/${chattingUserId}/posts`}
+                to={`/profile/${chattingUserChat.id}/posts`}
                 className={css["user-name"]}
               >
                 <span className={css["user-name"]}>
@@ -136,18 +141,18 @@ const MessagePanel = ({
             <div className={css["btn-area"]}>
               <i
                 onClick={() => {
-                  onMinimized(chattingUserId, userImage);
+                  onMinimized(chattingUserChat.id, userImage);
                 }}
                 className={`${css["icon"]} fa-solid fa-minus fa-lg`}
               ></i>
               <i
-                onClick={() => onClose(chattingUserId)}
+                onClick={() => onClose(chattingUserChat.id)}
                 className={`${css["icon"]} fa-solid fa-xmark fa-lg`}
               ></i>
             </div>
           </div>
 
-          <div id={`body-${chattingUserId}`} className={css["body"]}>
+          <div id={`body-${chattingUserChat.id}`} className={css["body"]}>
             {messages.map((message) => (
               <div key={message.id} className={css["message__container"]}>
                 <div
