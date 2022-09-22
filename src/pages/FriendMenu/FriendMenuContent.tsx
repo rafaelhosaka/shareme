@@ -14,13 +14,14 @@ interface FriendMenuContentProps {
 }
 
 function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
-  const { user, setUser } = useUser();
+  const { user } = useUser();
   const { option } = useParams();
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
   const [friendRequests, setFriendRequests] = useState<FriendRequestEntity[]>(
     []
   );
-  const { receivedRequest, receivedNewFriend } = useStompContext();
+  const { receivedRequest, receivedNewFriend, receivedRemovedFriend } =
+    useStompContext();
 
   async function getFriends() {
     if (user) {
@@ -58,10 +59,16 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
   }, [receivedRequest]);
 
   useEffect(() => {
-    if (receivedNewFriend && setUser && user) {
-      user.friends.push(receivedNewFriend.newFriend.id);
-      setUser(user);
-      setFriends([...friends, receivedNewFriend.newFriend]);
+    if (receivedRemovedFriend) {
+      setFriends(
+        friends.filter((f) => f.id !== receivedRemovedFriend.friend.id)
+      );
+    }
+  }, [receivedRemovedFriend]);
+
+  useEffect(() => {
+    if (receivedNewFriend) {
+      setFriends([...friends, receivedNewFriend.friend]);
     }
   }, [receivedNewFriend]);
 

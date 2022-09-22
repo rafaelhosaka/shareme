@@ -39,7 +39,7 @@ function FriendRequestList({
       sendNotification(returnData[2]);
       sendNewFriend({
         targetUserId: request.requestingUserId,
-        newFriend: user,
+        friend: user,
       });
     }
   };

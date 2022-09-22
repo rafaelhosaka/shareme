@@ -1,14 +1,12 @@
 import React, { useContext, useEffect } from "react";
 import { useStomp } from "../hook/useStomp";
-import {
-  ChatStatusEntity,
-  NewFriendInformationEntity,
-} from "../models/websocket";
+import { ChatStatusEntity, FriendInformationEntity } from "../models/websocket";
 import FriendRequestEntity from "../models/friendRequest";
 import { MessageEntity } from "../models/message";
 import { NotificationEntity } from "../models/notification";
 import { updateUser } from "../services/userService";
 import { useUser } from "./userContext";
+import UserProfileEntity from "../models/userProfile";
 
 interface StompContextInterface {
   sendMessage: ((message: MessageEntity) => void) | null;
@@ -21,8 +19,10 @@ interface StompContextInterface {
   receivedNotification: NotificationEntity | undefined;
   sendRequest: ((notification: FriendRequestEntity) => void) | null;
   receivedRequest: FriendRequestEntity | undefined;
-  sendNewFriend: ((newFriend: NewFriendInformationEntity) => void) | null;
-  receivedNewFriend: NewFriendInformationEntity | undefined;
+  sendNewFriend: ((friendInfo: FriendInformationEntity) => void) | null;
+  receivedNewFriend: FriendInformationEntity | undefined;
+  sendRemovedFriend: ((friendInfo: FriendInformationEntity) => void) | null;
+  receivedRemovedFriend: FriendInformationEntity | undefined;
 }
 
 const StompContext = React.createContext<StompContextInterface>({
@@ -36,6 +36,8 @@ const StompContext = React.createContext<StompContextInterface>({
   receivedRequest: undefined,
   sendNewFriend: null,
   receivedNewFriend: undefined,
+  sendRemovedFriend: null,
+  receivedRemovedFriend: undefined,
 });
 
 StompContext.displayName = "StompContext";
@@ -52,6 +54,7 @@ export function StompProvider({ children }: StompProviderProps) {
   const { user, setUser } = useUser();
 
   const {
+    connect,
     sendMessage,
     receivedMessage,
     changeStatus,
@@ -62,8 +65,14 @@ export function StompProvider({ children }: StompProviderProps) {
     receivedRequest,
     sendNewFriend,
     receivedNewFriend,
+    sendRemovedFriend,
+    receivedRemovedFriend,
     isConnected,
   } = useStomp();
+
+  useEffect(() => {
+    connect();
+  }, [user]);
 
   useEffect(() => {
     if (user && setUser) {
@@ -81,6 +90,33 @@ export function StompProvider({ children }: StompProviderProps) {
     }
   }, [isConnected]);
 
+  useEffect(() => {
+    if (
+      receivedNewFriend &&
+      user &&
+      !user.friends.includes(receivedNewFriend.friend.id) &&
+      setUser
+    ) {
+      console.log("ADD");
+
+      const newUser = new UserProfileEntity(user);
+      newUser.friends = [...user.friends, receivedNewFriend.friend.id];
+      setUser(newUser);
+    }
+  }, [receivedNewFriend]);
+
+  useEffect(() => {
+    if (receivedRemovedFriend && user && setUser) {
+      const newFriendsId = user.friends.filter(
+        (id) => id !== receivedRemovedFriend.friend.id
+      );
+      console.log("REMOVE");
+      const newUser = new UserProfileEntity(user);
+      newUser.friends = newFriendsId;
+      setUser(newUser);
+    }
+  }, [receivedRemovedFriend]);
+
   return (
     <StompContext.Provider
       value={{
@@ -94,6 +130,8 @@ export function StompProvider({ children }: StompProviderProps) {
         receivedRequest,
         sendNewFriend,
         receivedNewFriend,
+        sendRemovedFriend,
+        receivedRemovedFriend,
       }}
     >
       {children}

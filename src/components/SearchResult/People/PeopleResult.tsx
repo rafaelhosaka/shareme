@@ -15,6 +15,7 @@ import css from "./PeopleResult.module.scss";
 import { useTranslation } from "react-i18next";
 import { fullName } from "../../../utils/formatedNames";
 import { useStompContext } from "../../../context/stompContext";
+import { FriendRequestNotificationEntity } from "../../../models/notification";
 
 interface PeopleResultProps {
   people: UserProfileEntity;
@@ -35,7 +36,13 @@ function PeopleResult({
 
   const [pend, setPend] = useState<boolean>();
   const [req, setReq] = useState<boolean>();
-  const { sendNotification, sendRequest } = useStompContext();
+  const {
+    sendNotification,
+    sendRequest,
+    sendNewFriend,
+    receivedNotification,
+    receivedRemovedFriend,
+  } = useStompContext();
 
   useEffect(() => {
     setService(userImageDownload(people.id));
@@ -45,6 +52,22 @@ function PeopleResult({
     setReq(requested);
     setPend(pending);
   }, [requested, pending]);
+
+  useEffect(() => {
+    if (
+      receivedNotification &&
+      receivedNotification instanceof FriendRequestNotificationEntity
+    ) {
+      if (receivedNotification.friendRequesting.id === people.id) {
+        setPend(true);
+      }
+    }
+  }, [receivedNotification]);
+
+  useEffect(() => {
+    setPend(false);
+    setReq(false);
+  }, [receivedRemovedFriend]);
 
   const handleAddFriend = async () => {
     if (currentUser && sendNotification && sendRequest) {
@@ -68,7 +91,7 @@ function PeopleResult({
   };
 
   const handleConfirm = async () => {
-    if (currentUser && setUser && sendNotification) {
+    if (currentUser && setUser && sendNotification && sendNewFriend) {
       const { data: request } = await getFriendRequestFromIds(
         currentUser.id,
         people.id
@@ -76,6 +99,7 @@ function PeopleResult({
       const returnData = await acceptFriendRequest(request);
       setUser(returnData[1]);
       sendNotification(returnData[2]);
+      sendNewFriend({ targetUserId: people.id, friend: currentUser });
     }
   };
 

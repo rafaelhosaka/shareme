@@ -1,5 +1,9 @@
-import { NewFriendInformationEntity } from "./../models/websocket";
-import { NotificationEntity } from "./../models/notification";
+import { FriendInformationEntity } from "./../models/websocket";
+import {
+  FriendAcceptedNotificationEntity,
+  FriendRequestNotificationEntity,
+  NotificationEntity,
+} from "./../models/notification";
 import { MessageEntity } from "./../models/message";
 import { over, Client } from "stompjs";
 import SockJS from "sockjs-client";
@@ -7,8 +11,10 @@ import { useEffect, useState } from "react";
 import { useUser } from "../context/userContext";
 import FriendRequestEntity from "../models/friendRequest";
 import { ChatStatusEntity } from "../models/websocket";
+import _ from "lodash";
 
 export const useStomp = (): {
+  connect: () => void;
   sendMessage: (message: MessageEntity) => void;
   receivedMessage: MessageEntity | undefined;
   changeStatus: (id: string, status: boolean, connected: boolean) => void;
@@ -17,8 +23,10 @@ export const useStomp = (): {
   receivedNotification: NotificationEntity | undefined;
   sendRequest: (request: FriendRequestEntity) => void;
   receivedRequest: FriendRequestEntity | undefined;
-  sendNewFriend: (newFriend: NewFriendInformationEntity) => void;
-  receivedNewFriend: NewFriendInformationEntity | undefined;
+  sendNewFriend: (newFriend: FriendInformationEntity) => void;
+  receivedNewFriend: FriendInformationEntity | undefined;
+  sendRemovedFriend: (newFriend: FriendInformationEntity) => void;
+  receivedRemovedFriend: FriendInformationEntity | undefined;
   isConnected: boolean;
 } => {
   const { user } = useUser();
@@ -30,16 +38,19 @@ export const useStomp = (): {
     useState<NotificationEntity>();
   const [receivedRequest, setReceivedRequest] = useState<FriendRequestEntity>();
   const [receivedNewFriend, setReceivedNewFriend] =
-    useState<NewFriendInformationEntity>();
+    useState<FriendInformationEntity>();
+  const [receivedRemovedFriend, setReceivedRemovedFriend] =
+    useState<FriendInformationEntity>();
   const [isConnected, setConnected] = useState(false);
 
   const connect = () => {
-    let socket = new SockJS(process.env.REACT_APP_SOCKET_URL as string);
-    let client = over(socket);
-
-    client.connect({}, onConnected, onError);
-    client.debug = () => {};
-    setStompClient(client);
+    if (!isConnected) {
+      let socket = new SockJS(process.env.REACT_APP_SOCKET_URL as string);
+      let client = over(socket);
+      client.connect({}, onConnected, onError);
+      client.debug = () => {};
+      setStompClient(client);
+    }
   };
 
   useEffect(() => {
@@ -54,7 +65,11 @@ export const useStomp = (): {
         onNotificationReceived
       );
       stompClient.subscribe(`/user/${user?.id}/request`, onRequestReceived);
-      stompClient.subscribe(`/user/${user?.id}/friend`, onNewFriendReceived);
+      stompClient.subscribe(`/user/${user?.id}/newFriend`, onNewFriendReceived);
+      stompClient.subscribe(
+        `/user/${user?.id}/removeFriend`,
+        onRemovedFriendReceived
+      );
     }
   }, [isConnected]);
 
@@ -75,8 +90,16 @@ export const useStomp = (): {
   };
 
   const onNotificationReceived = (payload: any) => {
-    const payloadData = JSON.parse(payload.body);
-    setReceivedNotification(payloadData);
+    const notification = JSON.parse(payload.body);
+    if (_.has(notification, "friendRequesting")) {
+      setReceivedNotification(
+        new FriendRequestNotificationEntity(notification)
+      );
+    } else {
+      setReceivedNotification(
+        new FriendAcceptedNotificationEntity(notification)
+      );
+    }
   };
 
   const onRequestReceived = (payload: any) => {
@@ -85,14 +108,22 @@ export const useStomp = (): {
   };
 
   const onNewFriendReceived = (payload: any) => {
-    const payloadData = JSON.parse(payload.body);
-    console.log(payloadData);
+    const payloadData: FriendInformationEntity = JSON.parse(payload.body);
 
     setReceivedNewFriend(payloadData);
   };
 
+  const onRemovedFriendReceived = (payload: any) => {
+    const payloadData: FriendInformationEntity = JSON.parse(payload.body);
+
+    setReceivedRemovedFriend(payloadData);
+  };
+
   const onError = (err: any) => {
-    console.log("onError : " + err);
+    console.log("STOMP: " + err);
+    setConnected(false);
+    setTimeout(connect, 10000);
+    console.log("STOMP: Reconecting in 10 seconds");
   };
 
   const sendMessage = (message: MessageEntity) => {
@@ -123,19 +154,20 @@ export const useStomp = (): {
     }
   };
 
-  const sendNewFriend = (newFriend: NewFriendInformationEntity) => {
+  const sendNewFriend = (friendInfo: FriendInformationEntity) => {
     if (stompClient?.connected) {
-      stompClient.send("/app/friend", {}, JSON.stringify(newFriend));
+      stompClient.send("/app/newFriend", {}, JSON.stringify(friendInfo));
     }
   };
 
-  useEffect(() => {
-    if (user) {
-      connect();
+  const sendRemovedFriend = (friendInfo: FriendInformationEntity) => {
+    if (stompClient?.connected) {
+      stompClient.send("/app/removeFriend", {}, JSON.stringify(friendInfo));
     }
-  }, [user]);
+  };
 
   return {
+    connect,
     sendMessage,
     receivedMessage,
     changeStatus,
@@ -146,6 +178,8 @@ export const useStomp = (): {
     receivedRequest,
     sendNewFriend,
     receivedNewFriend,
+    sendRemovedFriend,
+    receivedRemovedFriend,
     isConnected,
   };
 };

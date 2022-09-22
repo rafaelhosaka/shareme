@@ -8,7 +8,7 @@ export interface ChatStatusEntity {
   connected: boolean;
 }
 
-export interface NewFriendInformationEntity {
+export interface FriendInformationEntity {
   targetUserId: string;
-  newFriend: UserProfileEntity;
+  friend: UserProfileEntity;
 }

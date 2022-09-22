@@ -37,8 +37,14 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { sendNotification, sendRequest, sendNewFriend, receivedNewFriend } =
-    useStompContext();
+  const {
+    sendNotification,
+    sendRequest,
+    sendNewFriend,
+    sendRemovedFriend,
+    receivedRequest,
+    receivedRemovedFriend,
+  } = useStompContext();
 
   const {
     refs: dropFriendRefs,
@@ -58,15 +64,17 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   }, [user]);
 
   useEffect(() => {
-    if (
-      receivedNewFriend?.newFriend.id === user.id &&
-      setCurrentUser &&
-      currentUser
-    ) {
-      currentUser.friends.push(receivedNewFriend.newFriend.id);
-      setCurrentUser(currentUser);
+    if (receivedRemovedFriend?.friend.id === user.id) {
+      setRequested(false);
+      setPending(false);
     }
-  }, [receivedNewFriend]);
+  }, [receivedRemovedFriend]);
+
+  useEffect(() => {
+    if (receivedRequest?.requestingUserId === user.id) {
+      setPending(true);
+    }
+  }, [receivedRequest]);
 
   const handleCancelRequest = async () => {
     if (currentUser && user) {
@@ -102,15 +110,16 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
       setCurrentUser(new UserProfileEntity(returnData[1]));
       setUser(new UserProfileEntity(returnData[0]));
       sendNotification(returnData[2]);
-      sendNewFriend({ targetUserId: user.id, newFriend: currentUser });
+      sendNewFriend({ targetUserId: user.id, friend: currentUser });
     }
   };
 
   const handleUnfriend = async () => {
-    if (currentUser && user && setCurrentUser) {
+    if (currentUser && user && setCurrentUser && sendRemovedFriend) {
       const modifieUsers = await unfriend(currentUser, user);
       setCurrentUser(new UserProfileEntity(modifieUsers[0]));
       setUser(new UserProfileEntity(modifieUsers[1]));
+      sendRemovedFriend({ targetUserId: user.id, friend: currentUser });
     }
   };
 
@@ -131,6 +140,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
 
   const renderButton = () => {
     if (currentUser?.id === user.id) return;
+
     if (user && currentUser?.friends.includes(user.id)) {
       return (
         <div
