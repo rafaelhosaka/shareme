@@ -1,6 +1,10 @@
-import { NotificationEntity } from "./../models/notification";
-import FriendRequestNotificationEntity from "../models/notification";
+import {
+  FriendAcceptedNotificationEntity,
+  NotificationEntity,
+} from "./../models/notification";
+import { FriendRequestNotificationEntity } from "../models/notification";
 import httpService from "./httpService";
+import _ from "lodash";
 
 const apiEndPoint = "/notification";
 
@@ -10,9 +14,15 @@ export async function getNotificationsByUserId(userId: string) {
   );
 
   return data.map((notification) => {
-    return (notification = new FriendRequestNotificationEntity(
-      notification as FriendRequestNotificationEntity
-    ));
+    if (_.has(notification, "friendRequesting")) {
+      return (notification = new FriendRequestNotificationEntity(
+        notification as FriendRequestNotificationEntity
+      ));
+    } else {
+      return (notification = new FriendAcceptedNotificationEntity(
+        notification as FriendAcceptedNotificationEntity
+      ));
+    }
   });
 }
 

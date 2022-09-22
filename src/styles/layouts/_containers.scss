@@ -1,3 +1,5 @@
+@use "../../styles/abstracts/mixins" as mixins;
+
 .template {
   display: grid;
   grid-template-rows: 70px auto 1fr;
@@ -36,7 +38,7 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@include mixins.tablet {
   .template {
     grid-template: 70px auto/ 25fr 50fr;
     grid-template-areas:
@@ -57,7 +59,7 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
+@include mixins.desktop {
   .template {
     grid-template: 70px auto / 25fr 50fr 25fr;
     grid-template-areas:

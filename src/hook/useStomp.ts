@@ -63,8 +63,6 @@ export const useStomp = (): {
 
   const onStatusUpdated = (payload: any) => {
     const payloadData = JSON.parse(payload.body);
-    console.log(payloadData);
-
     setStatusChangedUser(payloadData);
   };
 

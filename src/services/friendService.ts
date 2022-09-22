@@ -53,11 +53,11 @@ export async function isPending(
 }
 
 export async function acceptFriendRequest(friendRequest: FriendRequestEntity) {
-  const { data: modifiedUsers } = await httpService.post(
+  const { data } = await httpService.post(
     `${apiEndPoint}/acceptRequest`,
     friendRequest
   );
-  return modifiedUsers; //[0] = requestingUser, [1] = targetUser
+  return data; //[0] = requestingUser, [1] = targetUser, [2] = FriendAcceptedNotification
 }
 
 export async function unfriend(

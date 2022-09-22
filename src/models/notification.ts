@@ -14,11 +14,20 @@ export class NotificationEntity {
   }
 }
 
-export default class FriendRequestNotificationEntity extends NotificationEntity {
+export class FriendRequestNotificationEntity extends NotificationEntity {
   friendRequesting: UserProfileEntity;
 
   constructor(data: FriendRequestNotificationEntity) {
     super(data);
     this.friendRequesting = data.friendRequesting;
+  }
+}
+
+export class FriendAcceptedNotificationEntity extends NotificationEntity {
+  acceptedFriend: UserProfileEntity;
+
+  constructor(data: FriendAcceptedNotificationEntity) {
+    super(data);
+    this.acceptedFriend = data.acceptedFriend;
   }
 }
