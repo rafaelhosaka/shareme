@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import FriendList from "../../components/Friends/FriendList/FriendList";
 import UserProfileEntity from "../../models/userProfile";
-import { getUsersFromIds } from "../../services/userService";
+import { getUserFriends } from "../../services/userService";
 import { useUser } from "../../context/userContext";
 import { useParams } from "react-router";
 import FriendRequestList from "../../components/Friends/FriendRequest/FriendRequestList";
@@ -14,17 +14,17 @@ interface FriendMenuContentProps {
 }
 
 function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const { option } = useParams();
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
   const [friendRequests, setFriendRequests] = useState<FriendRequestEntity[]>(
     []
   );
-  const { receivedRequest } = useStompContext();
+  const { receivedRequest, receivedNewFriend } = useStompContext();
 
   async function getFriends() {
     if (user) {
-      const data = await getUsersFromIds(user.friends);
+      const { data } = await getUserFriends(user.id);
       setFriends(data);
     }
   }
@@ -56,6 +56,14 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
       setFriendRequests([...friendRequests, receivedRequest]);
     }
   }, [receivedRequest]);
+
+  useEffect(() => {
+    if (receivedNewFriend && setUser && user) {
+      user.friends.push(receivedNewFriend.newFriend.id);
+      setUser(user);
+      setFriends([...friends, receivedNewFriend.newFriend]);
+    }
+  }, [receivedNewFriend]);
 
   const renderContent = () => {
     switch (option) {

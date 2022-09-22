@@ -1,6 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import { useStomp } from "../hook/useStomp";
-import { ChatStatusEntity } from "../models/chat";
+import {
+  ChatStatusEntity,
+  NewFriendInformationEntity,
+} from "../models/websocket";
 import FriendRequestEntity from "../models/friendRequest";
 import { MessageEntity } from "../models/message";
 import { NotificationEntity } from "../models/notification";
@@ -14,10 +17,12 @@ interface StompContextInterface {
     | ((id: string, status: boolean, connected: boolean) => void)
     | null;
   statusChangedUser: ChatStatusEntity | undefined;
-  receivedNotification: NotificationEntity | undefined;
   sendNotification: ((notification: NotificationEntity) => void) | null;
+  receivedNotification: NotificationEntity | undefined;
   sendRequest: ((notification: FriendRequestEntity) => void) | null;
   receivedRequest: FriendRequestEntity | undefined;
+  sendNewFriend: ((newFriend: NewFriendInformationEntity) => void) | null;
+  receivedNewFriend: NewFriendInformationEntity | undefined;
 }
 
 const StompContext = React.createContext<StompContextInterface>({
@@ -25,10 +30,12 @@ const StompContext = React.createContext<StompContextInterface>({
   receivedMessage: undefined,
   changeStatus: null,
   statusChangedUser: undefined,
-  receivedNotification: undefined,
   sendNotification: null,
+  receivedNotification: undefined,
   sendRequest: null,
   receivedRequest: undefined,
+  sendNewFriend: null,
+  receivedNewFriend: undefined,
 });
 
 StompContext.displayName = "StompContext";
@@ -49,10 +56,12 @@ export function StompProvider({ children }: StompProviderProps) {
     receivedMessage,
     changeStatus,
     statusChangedUser,
-    receivedNotification,
     sendNotification,
+    receivedNotification,
     sendRequest,
     receivedRequest,
+    sendNewFriend,
+    receivedNewFriend,
     isConnected,
   } = useStomp();
 
@@ -79,10 +88,12 @@ export function StompProvider({ children }: StompProviderProps) {
         receivedMessage,
         changeStatus,
         statusChangedUser,
-        receivedNotification,
         sendNotification,
+        receivedNotification,
         sendRequest,
         receivedRequest,
+        sendNewFriend,
+        receivedNewFriend,
       }}
     >
       {children}

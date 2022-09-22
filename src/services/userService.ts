@@ -67,3 +67,7 @@ export async function updateUser(user: UserProfileEntity) {
   const { data } = await httpService.put(`${apiEndPoint}/updateUser`, user);
   return new UserProfileEntity(data);
 }
+
+export async function getUserFriends(id: string) {
+  return httpService.get(`${apiEndPoint}/${id}/getUserFriend`);
+}

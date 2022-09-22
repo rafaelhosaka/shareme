@@ -6,7 +6,7 @@ import { useStompContext } from "../../context/stompContext";
 import { useUser } from "../../context/userContext";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { useInput } from "../../hook/useInput";
-import { ChatStatusEntity } from "../../models/chat";
+import { ChatStatusEntity } from "../../models/websocket";
 import { MessageEntity } from "../../models/message";
 import UserProfileEntity from "../../models/userProfile";
 import { markAsRead } from "../../services/chatService";

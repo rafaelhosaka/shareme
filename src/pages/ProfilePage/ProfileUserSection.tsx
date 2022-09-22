@@ -37,7 +37,8 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const { sendNotification, sendRequest } = useStompContext();
+  const { sendNotification, sendRequest, sendNewFriend, receivedNewFriend } =
+    useStompContext();
 
   const {
     refs: dropFriendRefs,
@@ -55,6 +56,17 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
     }
     initialize();
   }, [user]);
+
+  useEffect(() => {
+    if (
+      receivedNewFriend?.newFriend.id === user.id &&
+      setCurrentUser &&
+      currentUser
+    ) {
+      currentUser.friends.push(receivedNewFriend.newFriend.id);
+      setCurrentUser(currentUser);
+    }
+  }, [receivedNewFriend]);
 
   const handleCancelRequest = async () => {
     if (currentUser && user) {
@@ -77,12 +89,20 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   };
 
   const handleConfirm = async () => {
-    if (currentUser && setCurrentUser && user) {
+    if (
+      currentUser &&
+      setCurrentUser &&
+      user &&
+      sendNotification &&
+      sendNewFriend
+    ) {
       const { data } = await getFriendRequestFromIds(currentUser.id, user.id);
-      const modifiedUsers = await acceptFriendRequest(data);
+      const returnData = await acceptFriendRequest(data);
       setPending(false);
-      setCurrentUser(new UserProfileEntity(modifiedUsers[1]));
-      setUser(new UserProfileEntity(modifiedUsers[0]));
+      setCurrentUser(new UserProfileEntity(returnData[1]));
+      setUser(new UserProfileEntity(returnData[0]));
+      sendNotification(returnData[2]);
+      sendNewFriend({ targetUserId: user.id, newFriend: currentUser });
     }
   };
 

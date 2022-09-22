@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useChat } from "../../context/chatContext";
-import { ChatStatusEntity } from "../../models/chat";
+import { ChatStatusEntity } from "../../models/websocket";
 import MessagePanel from "./MessagePanel";
 import css from "./MessagePanel.module.scss";
 

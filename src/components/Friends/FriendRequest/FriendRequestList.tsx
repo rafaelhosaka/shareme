@@ -7,7 +7,6 @@ import {
 import { useAlert } from "../../Alert/Alert";
 import FriendRequest from "./FriendRequest";
 import css from "./FriendRequest.module.scss";
-import UserProfileEntity from "../../../models/userProfile";
 import { useTranslation } from "react-i18next";
 import { useStompContext } from "../../../context/stompContext";
 
@@ -23,9 +22,9 @@ function FriendRequestList({
   setFriendRequests,
 }: FriendRequestListProps) {
   const { t } = useTranslation();
-  const { setUser } = useUser();
+  const { user } = useUser();
   const [alert, dispatchAlert] = useAlert();
-  const { sendNotification } = useStompContext();
+  const { sendNotification, sendNewFriend } = useStompContext();
 
   const handleDelete = (request: FriendRequestEntity) => {
     deleteFriendRequest(request);
@@ -33,12 +32,15 @@ function FriendRequestList({
   };
 
   const handleConfirm = async (request: FriendRequestEntity) => {
-    if (setUser && sendNotification) {
+    if (user && sendNotification && sendNewFriend) {
       const returnData = await acceptFriendRequest(request);
       setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
       dispatchAlert(t("FRIENDS.alertFriendAccepted"), "success");
-      setUser(new UserProfileEntity(returnData[1]));
       sendNotification(returnData[2]);
+      sendNewFriend({
+        targetUserId: request.requestingUserId,
+        newFriend: user,
+      });
     }
   };
 

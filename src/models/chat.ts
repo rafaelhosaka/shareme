@@ -8,9 +8,3 @@ export interface ChatEntity {
   lastMessage: MessageEntity;
   read: boolean;
 }
-
-export interface ChatStatusEntity {
-  id: string;
-  online: boolean;
-  connected: boolean;
-}

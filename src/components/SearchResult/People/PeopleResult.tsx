@@ -68,13 +68,14 @@ function PeopleResult({
   };
 
   const handleConfirm = async () => {
-    if (currentUser && setUser) {
+    if (currentUser && setUser && sendNotification) {
       const { data: request } = await getFriendRequestFromIds(
         currentUser.id,
         people.id
       );
-      const modifiedUsers = await acceptFriendRequest(request);
-      setUser(modifiedUsers[1]);
+      const returnData = await acceptFriendRequest(request);
+      setUser(returnData[1]);
+      sendNotification(returnData[2]);
     }
   };
 
