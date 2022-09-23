@@ -13,6 +13,7 @@ export const POST = {
   editPost: "Edit post",
   save: "Save",
   cancel: "Cancel",
+  noPosts: "No posts yet",
   sharedPostFirstPart: "shared post from",
   sharedPostSecondPart: "",
   alertPostDeleted: "Post deleted successfully",

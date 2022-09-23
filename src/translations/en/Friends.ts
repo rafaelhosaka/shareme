@@ -7,5 +7,6 @@ export const FRIENDS = {
   search: "Search",
   confirm: "Confirm",
   delete: "Delete",
+  noRequests: "You do not have any friend request",
   alertFriendAccepted: "Friend request accepted",
 };

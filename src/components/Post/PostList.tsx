@@ -6,6 +6,7 @@ import PostEntity, { SharedPostEntity } from "../../models/post";
 import { calculateMaxPage, paginate } from "../../utils/paginate";
 import { useAlert } from "../Alert/Alert";
 import Post from "./Post";
+import css from "./Post.module.scss";
 
 interface PostListProps {
   posts: (PostEntity | SharedPostEntity)[];
@@ -78,6 +79,9 @@ const PostList = ({ posts, onDelete }: PostListProps) => {
   return (
     <div>
       {alert}
+      {pagedPosts?.length === 0 && (
+        <div className={css["no-post"]}>{t("POST.noPosts")}</div>
+      )}
       {pagedPosts.map((post) => (
         <Post
           key={post.id}

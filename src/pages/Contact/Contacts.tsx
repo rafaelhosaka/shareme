@@ -75,8 +75,9 @@ const Contacts = () => {
 
   return (
     <div className={css["container"]}>
-      {friends.length > 0 && (
-        <span className={css["header"]}>{t("CHAT_MENU.header")}</span>
+      <span className={css["header"]}>{t("CHAT_MENU.header")}</span>
+      {friends.length === 0 && (
+        <span className={css["no-contacts"]}>{t("CHAT_MENU.noContacts")}</span>
       )}
       {friends.map((friend) => (
         <div

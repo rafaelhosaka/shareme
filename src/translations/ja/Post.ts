@@ -13,6 +13,7 @@ export const POST = {
   editPost: "投稿を編集する",
   save: "保存",
   cancel: "キャンセル",
+  noPosts: "まだ投稿がありません",
   sharedPostFirstPart: "この投稿は",
   sharedPostSecondPart: "からシェアされたものです",
   alertPostDeleted: "投稿を削除しました",

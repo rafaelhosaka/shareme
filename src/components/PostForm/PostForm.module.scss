@@ -3,7 +3,8 @@
 
 .form-post__container {
   background: t.$light-secondary-bgcolor;
-  width: 100%;
+  max-width: 1200px;
+  width: 100vw;
   border-radius: 10px;
   box-shadow: t.$light-box-shadow;
 }

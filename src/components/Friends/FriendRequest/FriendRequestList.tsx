@@ -48,6 +48,9 @@ function FriendRequestList({
     <div className={css["friend-request-list__container"]}>
       {alert}
       <h2>{t("FRIENDS.friendRequests")}</h2>
+      {friendRequests.length === 0 && (
+        <div className={css["no-request"]}>{t("FRIENDS.noRequests")}</div>
+      )}
       <div className={css["friend-requests"]}>
         {friendRequests.map((request) => (
           <FriendRequest

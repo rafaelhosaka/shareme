@@ -7,5 +7,6 @@ export const FRIENDS = {
   search: "検索",
   confirm: "確認",
   delete: "削除する",
+  noRequests: "まだ友達リクエストがありません",
   alertFriendAccepted: "新たに友達を追加しました",
 };

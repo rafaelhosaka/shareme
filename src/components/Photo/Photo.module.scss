@@ -41,4 +41,8 @@
   .photo-list__container {
     background-color: t.$dark-secondary-bgcolor;
   }
+
+  .result {
+    color: rgb(t.$dark-accent-color, 60%);
+  }
 }
