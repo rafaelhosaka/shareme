@@ -15,7 +15,8 @@ const Contacts = () => {
   const { t } = useTranslation();
   const { user: currentUser } = useUser();
   const { open, updateCounter } = useChat();
-  const { statusChangedUser } = useStompContext();
+  const { statusChangedUser, receivedNewFriend, receivedRemovedFriend } =
+    useStompContext();
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
 
   async function getFriends() {
@@ -40,6 +41,20 @@ const Contacts = () => {
   useEffect(() => {
     getFriends();
   }, []);
+
+  useEffect(() => {
+    if (receivedNewFriend) {
+      setFriends([...friends, receivedNewFriend.friend]);
+    }
+  }, [receivedNewFriend]);
+
+  useEffect(() => {
+    if (receivedRemovedFriend) {
+      setFriends(
+        friends.filter((f) => f.id !== receivedRemovedFriend.friend.id)
+      );
+    }
+  }, [receivedRemovedFriend]);
 
   const handleOpenPanel = async (friend: UserProfileEntity) => {
     if (open && currentUser && updateCounter) {
