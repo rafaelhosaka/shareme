@@ -54,6 +54,11 @@
 }
 
 @include mixins.whenDarkModule {
+  .friend-request-list__container {
+    background: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+
   .friend-request__container {
     box-shadow: t.$dark-box-shadow;
   }

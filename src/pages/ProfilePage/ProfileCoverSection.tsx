@@ -54,10 +54,12 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
     if (currentUser?.id !== user.id) return;
 
     return (
-      <div className={css["edit-bg__container"]}>
+      <div
+        onClick={() => setDropCoverVisible((prev) => !prev)}
+        className={css["edit-bg__container"]}
+      >
         <button
           ref={(element) => (dropCoverRefs.current[0] = element)}
-          onClick={() => setDropCoverVisible((prev) => !prev)}
           className="btn btn--primary"
         >
           <i className="fa-solid fa-camera"></i>
