@@ -20,8 +20,12 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
   const [friendRequests, setFriendRequests] = useState<FriendRequestEntity[]>(
     []
   );
-  const { receivedRequest, receivedNewFriend, receivedRemovedFriend } =
-    useStompContext();
+  const {
+    receivedNewRequest,
+    receivedNewFriend,
+    receivedRemovedFriend,
+    receivedRemovedRequest,
+  } = useStompContext();
 
   async function getFriends() {
     if (user) {
@@ -53,10 +57,21 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
   }, [friendRequests]);
 
   useEffect(() => {
-    if (receivedRequest) {
-      setFriendRequests([...friendRequests, receivedRequest]);
+    if (receivedNewRequest) {
+      setFriendRequests([...friendRequests, receivedNewRequest]);
     }
-  }, [receivedRequest]);
+  }, [receivedNewRequest]);
+
+  useEffect(() => {
+    if (receivedRemovedRequest) {
+      setFriendRequests(
+        friendRequests.filter(
+          (req) =>
+            req.requestingUserId !== receivedRemovedRequest.requestingUserId
+        )
+      );
+    }
+  }, [receivedRemovedRequest]);
 
   useEffect(() => {
     if (receivedRemovedFriend) {

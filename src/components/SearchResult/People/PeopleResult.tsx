@@ -38,8 +38,10 @@ function PeopleResult({
   const [req, setReq] = useState<boolean>();
   const {
     sendNotification,
-    sendRequest,
+    sendNewRequest,
     sendNewFriend,
+    sendRemovedRequest,
+    receivedRemovedRequest,
     receivedNotification,
     receivedRemovedFriend,
   } = useStompContext();
@@ -52,6 +54,15 @@ function PeopleResult({
     setReq(requested);
     setPend(pending);
   }, [requested, pending]);
+
+  useEffect(() => {
+    if (
+      receivedRemovedRequest &&
+      receivedRemovedRequest.requestingUserId === people.id
+    ) {
+      setPend((prev) => !prev);
+    }
+  }, [receivedRemovedRequest]);
 
   useEffect(() => {
     if (
@@ -70,22 +81,23 @@ function PeopleResult({
   }, [receivedRemovedFriend]);
 
   const handleAddFriend = async () => {
-    if (currentUser && sendNotification && sendRequest) {
+    if (currentUser && sendNotification && sendNewRequest) {
       const { data } = await createFriendRequest({
         requestingUserId: currentUser.id,
         targetUserId: people.id,
       });
 
       sendNotification(data[1]);
-      sendRequest(data[0]);
+      sendNewRequest(data[0]);
       setReq(true);
     }
   };
 
   const handleCancelRequest = async () => {
-    if (currentUser) {
+    if (currentUser && sendRemovedRequest) {
       const { data } = await getFriendRequestFromIds(people.id, currentUser.id);
       deleteFriendRequest(data);
+      sendRemovedRequest(data);
       setReq(false);
     }
   };

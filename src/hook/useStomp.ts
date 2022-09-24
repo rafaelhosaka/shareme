@@ -21,8 +21,10 @@ export const useStomp = (): {
   statusChangedUser: ChatStatusEntity | undefined;
   sendNotification: (notification: NotificationEntity) => void;
   receivedNotification: NotificationEntity | undefined;
-  sendRequest: (request: FriendRequestEntity) => void;
-  receivedRequest: FriendRequestEntity | undefined;
+  sendNewRequest: (request: FriendRequestEntity) => void;
+  receivedNewRequest: FriendRequestEntity | undefined;
+  sendRemovedRequest: (request: FriendRequestEntity) => void;
+  receivedRemovedRequest: FriendRequestEntity | undefined;
   sendNewFriend: (newFriend: FriendInformationEntity) => void;
   receivedNewFriend: FriendInformationEntity | undefined;
   sendRemovedFriend: (newFriend: FriendInformationEntity) => void;
@@ -36,7 +38,10 @@ export const useStomp = (): {
     useState<ChatStatusEntity>();
   const [receivedNotification, setReceivedNotification] =
     useState<NotificationEntity>();
-  const [receivedRequest, setReceivedRequest] = useState<FriendRequestEntity>();
+  const [receivedNewRequest, setReceivedNewRequest] =
+    useState<FriendRequestEntity>();
+  const [receivedRemovedRequest, setReceivedRemovedRequest] =
+    useState<FriendRequestEntity>();
   const [receivedNewFriend, setReceivedNewFriend] =
     useState<FriendInformationEntity>();
   const [receivedRemovedFriend, setReceivedRemovedFriend] =
@@ -64,7 +69,11 @@ export const useStomp = (): {
         `/user/${user?.id}/notification`,
         onNotificationReceived
       );
-      stompClient.subscribe(`/user/${user?.id}/request`, onRequestReceived);
+      stompClient.subscribe(`/user/${user?.id}/newRequest`, onRequestReceived);
+      stompClient.subscribe(
+        `/user/${user?.id}/removeRequest`,
+        onRemovedRequestReceived
+      );
       stompClient.subscribe(`/user/${user?.id}/newFriend`, onNewFriendReceived);
       stompClient.subscribe(
         `/user/${user?.id}/removeFriend`,
@@ -104,7 +113,12 @@ export const useStomp = (): {
 
   const onRequestReceived = (payload: any) => {
     const payloadData = JSON.parse(payload.body);
-    setReceivedRequest(payloadData);
+    setReceivedNewRequest(payloadData);
+  };
+
+  const onRemovedRequestReceived = (payload: any) => {
+    const payloadData = JSON.parse(payload.body);
+    setReceivedRemovedRequest(payloadData);
   };
 
   const onNewFriendReceived = (payload: any) => {
@@ -148,9 +162,15 @@ export const useStomp = (): {
     }
   };
 
-  const sendRequest = (request: FriendRequestEntity) => {
+  const sendNewRequest = (request: FriendRequestEntity) => {
     if (stompClient?.connected) {
-      stompClient.send("/app/request", {}, JSON.stringify(request));
+      stompClient.send("/app/newRequest", {}, JSON.stringify(request));
+    }
+  };
+
+  const sendRemovedRequest = (request: FriendRequestEntity) => {
+    if (stompClient?.connected) {
+      stompClient.send("/app/removeRequest", {}, JSON.stringify(request));
     }
   };
 
@@ -174,8 +194,10 @@ export const useStomp = (): {
     statusChangedUser,
     sendNotification,
     receivedNotification,
-    sendRequest,
-    receivedRequest,
+    sendNewRequest,
+    receivedNewRequest,
+    sendRemovedRequest,
+    receivedRemovedRequest,
     sendNewFriend,
     receivedNewFriend,
     sendRemovedFriend,

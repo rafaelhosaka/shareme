@@ -39,10 +39,11 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const [showModal, setShowModal] = useState(false);
   const {
     sendNotification,
-    sendRequest,
+    sendNewRequest,
     sendNewFriend,
     sendRemovedFriend,
-    receivedRequest,
+    receivedNewRequest,
+    receivedRemovedRequest,
     receivedRemovedFriend,
   } = useStompContext();
 
@@ -71,10 +72,16 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   }, [receivedRemovedFriend]);
 
   useEffect(() => {
-    if (receivedRequest?.requestingUserId === user.id) {
+    if (receivedNewRequest?.requestingUserId === user.id) {
       setPending(true);
     }
-  }, [receivedRequest]);
+  }, [receivedNewRequest]);
+
+  useEffect(() => {
+    if (receivedRemovedRequest?.requestingUserId === user.id) {
+      setPending(false);
+    }
+  }, [receivedRemovedRequest]);
 
   const handleCancelRequest = async () => {
     if (currentUser && user) {
@@ -85,13 +92,13 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   };
 
   const handleAddFriend = async () => {
-    if (currentUser && user && sendNotification && sendRequest) {
+    if (currentUser && user && sendNotification && sendNewRequest) {
       const { data } = await createFriendRequest({
         requestingUserId: currentUser.id,
         targetUserId: user.id,
       });
       sendNotification(data[1]);
-      sendRequest(data[0]);
+      sendNewRequest(data[0]);
       setRequested(true);
     }
   };

@@ -17,8 +17,10 @@ interface StompContextInterface {
   statusChangedUser: ChatStatusEntity | undefined;
   sendNotification: ((notification: NotificationEntity) => void) | null;
   receivedNotification: NotificationEntity | undefined;
-  sendRequest: ((notification: FriendRequestEntity) => void) | null;
-  receivedRequest: FriendRequestEntity | undefined;
+  sendNewRequest: ((notification: FriendRequestEntity) => void) | null;
+  receivedNewRequest: FriendRequestEntity | undefined;
+  sendRemovedRequest: ((notification: FriendRequestEntity) => void) | null;
+  receivedRemovedRequest: FriendRequestEntity | undefined;
   sendNewFriend: ((friendInfo: FriendInformationEntity) => void) | null;
   receivedNewFriend: FriendInformationEntity | undefined;
   sendRemovedFriend: ((friendInfo: FriendInformationEntity) => void) | null;
@@ -32,8 +34,10 @@ const StompContext = React.createContext<StompContextInterface>({
   statusChangedUser: undefined,
   sendNotification: null,
   receivedNotification: undefined,
-  sendRequest: null,
-  receivedRequest: undefined,
+  sendNewRequest: null,
+  receivedNewRequest: undefined,
+  sendRemovedRequest: null,
+  receivedRemovedRequest: undefined,
   sendNewFriend: null,
   receivedNewFriend: undefined,
   sendRemovedFriend: null,
@@ -61,8 +65,10 @@ export function StompProvider({ children }: StompProviderProps) {
     statusChangedUser,
     sendNotification,
     receivedNotification,
-    sendRequest,
-    receivedRequest,
+    sendNewRequest,
+    receivedNewRequest,
+    sendRemovedRequest,
+    receivedRemovedRequest,
     sendNewFriend,
     receivedNewFriend,
     sendRemovedFriend,
@@ -97,8 +103,6 @@ export function StompProvider({ children }: StompProviderProps) {
       !user.friends.includes(receivedNewFriend.friend.id) &&
       setUser
     ) {
-      console.log("ADD");
-
       const newUser = new UserProfileEntity(user);
       newUser.friends = [...user.friends, receivedNewFriend.friend.id];
       setUser(newUser);
@@ -110,7 +114,6 @@ export function StompProvider({ children }: StompProviderProps) {
       const newFriendsId = user.friends.filter(
         (id) => id !== receivedRemovedFriend.friend.id
       );
-      console.log("REMOVE");
       const newUser = new UserProfileEntity(user);
       newUser.friends = newFriendsId;
       setUser(newUser);
@@ -126,8 +129,10 @@ export function StompProvider({ children }: StompProviderProps) {
         statusChangedUser,
         sendNotification,
         receivedNotification,
-        sendRequest,
-        receivedRequest,
+        sendNewRequest,
+        receivedNewRequest,
+        sendRemovedRequest,
+        receivedRemovedRequest,
         sendNewFriend,
         receivedNewFriend,
         sendRemovedFriend,
