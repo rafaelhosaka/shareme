@@ -56,11 +56,14 @@ function PeopleResult({
   }, [requested, pending]);
 
   useEffect(() => {
-    if (
-      receivedRemovedRequest &&
-      receivedRemovedRequest.requestingUserId === people.id
-    ) {
-      setPend((prev) => !prev);
+    if (receivedRemovedRequest) {
+      if (receivedRemovedRequest.requestingUserId === people.id) {
+        setPend(() => false);
+      }
+
+      if (receivedRemovedRequest.targetUserId === people.id) {
+        setReq(() => false);
+      }
     }
   }, [receivedRemovedRequest]);
 

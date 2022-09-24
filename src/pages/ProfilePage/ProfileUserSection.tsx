@@ -40,6 +40,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const {
     sendNotification,
     sendNewRequest,
+    sendRemovedRequest,
     sendNewFriend,
     sendRemovedFriend,
     receivedNewRequest,
@@ -84,10 +85,11 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   }, [receivedRemovedRequest]);
 
   const handleCancelRequest = async () => {
-    if (currentUser && user) {
+    if (currentUser && user && sendRemovedRequest) {
       const { data } = await getFriendRequestFromIds(user.id, currentUser.id);
       deleteFriendRequest(data);
       setRequested(false);
+      sendRemovedRequest(data);
     }
   };
 

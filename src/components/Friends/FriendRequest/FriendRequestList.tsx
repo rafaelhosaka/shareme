@@ -24,11 +24,15 @@ function FriendRequestList({
   const { t } = useTranslation();
   const { user } = useUser();
   const [alert, dispatchAlert] = useAlert();
-  const { sendNotification, sendNewFriend } = useStompContext();
+  const { sendNotification, sendNewFriend, sendRemovedRequest } =
+    useStompContext();
 
   const handleDelete = (request: FriendRequestEntity) => {
-    deleteFriendRequest(request);
-    setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
+    if (sendRemovedRequest) {
+      deleteFriendRequest(request);
+      setFriendRequests((prev) => prev.filter((req) => req.id !== request.id));
+      sendRemovedRequest(request);
+    }
   };
 
   const handleConfirm = async (request: FriendRequestEntity) => {
