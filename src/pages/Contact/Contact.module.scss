@@ -2,10 +2,13 @@
 @use "../../styles/abstracts/mixins" as mixins;
 
 .container {
-  position: fixed;
   margin-top: 1rem;
-  margin-left: 7rem;
-  width: 100%;
+  width: 300px;
+  position: relative;
+}
+
+.contacts {
+  position: fixed;
 }
 
 .header {

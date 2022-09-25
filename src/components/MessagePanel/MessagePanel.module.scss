@@ -17,7 +17,8 @@
   border-radius: 10px 10px 0 0;
   margin-right: 2rem;
   width: 338px;
-  height: 455px;
+  max-height: 455px;
+  height: calc(100vh - 80px);
   box-shadow: t.$light-box-shadow;
   z-index: 1;
 }

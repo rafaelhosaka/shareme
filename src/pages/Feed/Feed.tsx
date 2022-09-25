@@ -6,6 +6,7 @@ import PostEntity, { SharedPostEntity } from "../../models/post";
 import { useUser } from "../../context/userContext";
 import PostList from "../../components/Post/PostList";
 import Contacts from "../Contact/Contacts";
+import css from "./Feed.module.scss";
 
 const Feed = () => {
   const { user: currentUser } = useUser();
@@ -35,7 +36,7 @@ const Feed = () => {
 
   return (
     <>
-      <main className="container center">
+      <main className={`${css["feed"]} container center`}>
         <PostForm handleNewPost={handleNewPost} />
         <PostList posts={posts} onDelete={handleDeletePost} />
       </main>

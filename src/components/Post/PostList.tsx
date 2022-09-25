@@ -77,7 +77,7 @@ const PostList = ({ posts, onDelete }: PostListProps) => {
   };
 
   return (
-    <div>
+    <>
       {alert}
       {pagedPosts?.length === 0 && (
         <div className={css["no-post"]}>{t("POST.noPosts")}</div>
@@ -90,7 +90,7 @@ const PostList = ({ posts, onDelete }: PostListProps) => {
           onShare={handleSharePost}
         ></Post>
       ))}
-    </div>
+    </>
   );
 };
 

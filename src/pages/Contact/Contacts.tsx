@@ -75,18 +75,22 @@ const Contacts = () => {
 
   return (
     <div className={css["container"]}>
-      <span className={css["header"]}>{t("CHAT_MENU.header")}</span>
-      {friends.length === 0 && (
-        <span className={css["no-contacts"]}>{t("CHAT_MENU.noContacts")}</span>
-      )}
-      {friends.map((friend) => (
-        <div
-          key={friend.id}
-          onClick={() => handleOpenPanel(new UserProfileEntity(friend))}
-        >
-          <ContactUser user={new UserProfileEntity(friend)} />
-        </div>
-      ))}
+      <div className={css["contacts"]}>
+        <span className={css["header"]}>{t("CHAT_MENU.header")}</span>
+        {friends.length === 0 && (
+          <span className={css["no-contacts"]}>
+            {t("CHAT_MENU.noContacts")}
+          </span>
+        )}
+        {friends.map((friend) => (
+          <div
+            key={friend.id}
+            onClick={() => handleOpenPanel(new UserProfileEntity(friend))}
+          >
+            <ContactUser user={new UserProfileEntity(friend)} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,0 +1,15 @@
+.feed {
+  width: 100vw;
+}
+
+@media screen and (min-width: 1024px) {
+  .feed {
+    width: calc(100vw - 300px);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .feed {
+    width: calc(100vw - 300px);
+  }
+}
