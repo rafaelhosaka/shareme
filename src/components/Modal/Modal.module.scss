@@ -14,12 +14,31 @@
   justify-content: center;
 }
 
+.modal__container.close {
+  display: none;
+}
+
 .modal {
   background: t.$light-secondary-bgcolor;
   border-radius: 10px;
   width: 700px;
   padding-top: 1rem;
   padding-bottom: 3rem;
+  animation: popup 0.3s;
+  transition: scale 0.3s;
+}
+
+.modal.close {
+  scale: 0;
+}
+
+@keyframes popup {
+  0% {
+    scale: 0;
+  }
+  100% {
+    scale: 1;
+  }
 }
 
 .header {

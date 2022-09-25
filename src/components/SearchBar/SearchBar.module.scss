@@ -35,7 +35,7 @@
 }
 
 .search-container.expanded {
-  width: inherit;
+  width: 31rem;
 }
 
 @include mixins.whenDarkModule {

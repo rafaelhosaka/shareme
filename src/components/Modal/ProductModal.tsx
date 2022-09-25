@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { ProductEntity } from "../../models/product";
@@ -18,15 +18,38 @@ const ProductModal = ({ product, show, onReject }: ModalProps) => {
     useBase64Image(null);
   const { image: userImage, setService: setUserImageService } =
     useBase64Image(null);
+  const [visible, setVisible] = useState(show);
 
   useEffect(() => {
     setProductService(productImageDownload(product.id));
     setUserImageService(userImageDownload(product.user.id));
   }, []);
 
-  return show ? (
-    <div className={css["modal__container"]}>
-      <div className={css["product-modal"]}>
+  useEffect(() => {
+    if (show) {
+      setVisible(show);
+    } else {
+      setTimeout(() => {
+        setVisible(show);
+      }, 300);
+    }
+  }, [show]);
+
+  return (
+    <div
+      className={
+        visible
+          ? css["modal__container"]
+          : `${css["modal__container"]} ${css["close"]}`
+      }
+    >
+      <div
+        className={
+          show
+            ? css["product-modal"]
+            : `${css["product-modal"]} ${css["close"]}`
+        }
+      >
         <div className={css["image__container"]}>
           <img className={css["product-image"]} src={productImage} />
         </div>
@@ -58,8 +81,6 @@ const ProductModal = ({ product, show, onReject }: ModalProps) => {
         </div>
       </div>
     </div>
-  ) : (
-    <></>
   );
 };
 

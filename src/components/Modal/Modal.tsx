@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import css from "./Modal.module.scss";
 
@@ -19,14 +20,33 @@ const Modal = ({
   onAccept,
 }: ModalProps) => {
   const { t } = useTranslation();
+  const [visible, setVisible] = useState(show);
 
-  return show ? (
-    <div className={css["modal__container"]}>
-      <div className={css["modal"]}>
+  useEffect(() => {
+    if (show) {
+      setVisible(show);
+    } else {
+      setTimeout(() => {
+        setVisible(show);
+      }, 300);
+    }
+  }, [show]);
+
+  return (
+    <div
+      className={
+        visible
+          ? css["modal__container"]
+          : `${css["modal__container"]} ${css["close"]}`
+      }
+    >
+      <div className={show ? css["modal"] : `${css["modal"]} ${css["close"]}`}>
         <div className={css["header"]}>
           <h1>{title}</h1>
           <div
-            onClick={() => onReject()}
+            onClick={() => {
+              onReject();
+            }}
             className={`${css["thumbnail__close"]} m1 size--40`}
           >
             <i className={`${css["close__icon"]} fa-solid fa-xmark`}></i>
@@ -45,8 +65,6 @@ const Modal = ({
         )}
       </div>
     </div>
-  ) : (
-    <></>
   );
 };
 

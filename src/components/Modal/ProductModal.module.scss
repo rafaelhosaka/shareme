@@ -14,9 +14,28 @@
   justify-content: center;
 }
 
+.modal__container.close {
+  display: none;
+}
+
 .product-modal {
   background: t.$light-secondary-bgcolor;
   border-radius: 10px;
+  animation: popup 0.3s;
+  transition: scale 0.3s;
+}
+
+.product-modal.close {
+  scale: 0;
+}
+
+@keyframes popup {
+  0% {
+    scale: 0;
+  }
+  100% {
+    scale: 1;
+  }
 }
 
 .product-modal {

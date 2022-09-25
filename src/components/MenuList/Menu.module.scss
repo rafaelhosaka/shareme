@@ -8,6 +8,18 @@
   top: 70px;
   width: 100vw;
   box-shadow: t.$light-box-shadow;
+  animation: slide 0.3s;
+}
+
+@keyframes slide {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
 }
 
 .menu__heading {
