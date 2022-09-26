@@ -59,7 +59,7 @@ export const useStomp = (): {
   };
 
   useEffect(() => {
-    if (isConnected && stompClient) {
+    if (isConnected && stompClient?.connected) {
       user?.friends.map((friendId) => {
         stompClient.subscribe(`/user/${friendId}/status`, onStatusUpdated);
       });
@@ -80,7 +80,7 @@ export const useStomp = (): {
         onRemovedFriendReceived
       );
     }
-  }, [isConnected]);
+  }, [isConnected, stompClient]);
 
   const onConnected = () => {
     setTimeout(() => {

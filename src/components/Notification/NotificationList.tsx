@@ -8,6 +8,7 @@ import {
   getNotificationsByUserId,
   markAsRead,
 } from "../../services/notificationService";
+import LoadingContainer from "../LoadingContainer/LoadingContainer";
 import Notification from "./Notification";
 import css from "./Notification.module.scss";
 
@@ -20,6 +21,7 @@ function NotificationList({ updateCount }: NotificationListProps) {
   const [notifications, setNotifications] = useState<NotificationEntity[]>([]);
   const { user } = useUser();
   const { receivedNotification } = useStompContext();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getNotifications() {
@@ -33,6 +35,7 @@ function NotificationList({ updateCount }: NotificationListProps) {
         });
         setNotifications(sorted);
       }
+      setLoading(false);
     }
     getNotifications();
   }, [receivedNotification]);
@@ -67,24 +70,32 @@ function NotificationList({ updateCount }: NotificationListProps) {
     setNotifications(newNotifications);
   };
 
+  const renderResult = () => {
+    return (
+      <>
+        {notifications.length === 0 && (
+          <div className={css["no-notifications"]}>
+            {t("NOTIFICATION.noNotifications")}
+          </div>
+        )}
+        {notifications.map((n) => (
+          <Notification
+            key={n.id}
+            notification={n}
+            markAsRead={handleMarkAsRead}
+            onDelete={handleDeleteNotification}
+          />
+        ))}
+      </>
+    );
+  };
+
   return (
     <div className={css["notification-list__container"]}>
       <h1 className={css["notification-list__header"]}>
         {t("NOTIFICATION.header")}
       </h1>
-      {notifications.length === 0 && (
-        <div className={css["no-notifications"]}>
-          {t("NOTIFICATION.noNotifications")}
-        </div>
-      )}
-      {notifications.map((n) => (
-        <Notification
-          key={n.id}
-          notification={n}
-          markAsRead={handleMarkAsRead}
-          onDelete={handleDeleteNotification}
-        />
-      ))}
+      {loading ? <LoadingContainer /> : renderResult()}
     </div>
   );
 }

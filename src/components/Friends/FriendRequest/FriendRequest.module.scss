@@ -66,6 +66,10 @@
   .friend-request__body {
     background-color: t.$dark-secondary-color;
   }
+
+  .no-request {
+    color: rgb(t.$dark-accent-color, 60%);
+  }
 }
 
 @include mixins.desktop {

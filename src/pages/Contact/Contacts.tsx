@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 import { useChat } from "../../context/chatContext";
 import { useStompContext } from "../../context/stompContext";
 
@@ -18,11 +19,13 @@ const Contacts = () => {
   const { statusChangedUser, receivedNewFriend, receivedRemovedFriend } =
     useStompContext();
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
+  const [loading, setLoading] = useState(true);
 
   async function getFriends() {
     if (currentUser) {
       const data = await getUsersFromIds(currentUser.friends);
       setFriends(data);
+      setLoading(false);
     }
   }
 
@@ -73,10 +76,9 @@ const Contacts = () => {
     }
   };
 
-  return (
-    <div className={css["container"]}>
-      <div className={css["contacts"]}>
-        <span className={css["header"]}>{t("CHAT_MENU.header")}</span>
+  const renderResult = () => {
+    return (
+      <>
         {friends.length === 0 && (
           <span className={css["no-contacts"]}>
             {t("CHAT_MENU.noContacts")}
@@ -90,6 +92,15 @@ const Contacts = () => {
             <ContactUser user={new UserProfileEntity(friend)} />
           </div>
         ))}
+      </>
+    );
+  };
+
+  return (
+    <div className={css["container"]}>
+      <div className={css["contacts"]}>
+        <span className={css["header"]}>{t("CHAT_MENU.header")}</span>
+        {loading ? <LoadingContainer showBackground={false} /> : renderResult()}
       </div>
     </div>
   );

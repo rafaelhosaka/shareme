@@ -14,6 +14,7 @@ import { useUser } from "../../context/userContext";
 import MenuList from "../../components/MenuList/MenuList";
 import MenuItem from "../../components/MenuList/MenuItem";
 import { useTranslation } from "react-i18next";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 
 function SearchMenu() {
   const { t } = useTranslation();
@@ -22,6 +23,7 @@ function SearchMenu() {
   let query = searchParams.get("q");
   const [result, setResult] = useState<UserProfileEntity[]>([]);
   const { user: currentUser } = useUser();
+  const [loading, setLoading] = useState(true);
 
   const [requestedUsers, setRequestedUsers] = useState([]);
   const [pendingUsers, setPedingUsers] = useState([]);
@@ -39,6 +41,7 @@ function SearchMenu() {
 
   useEffect(() => {
     async function filterResult() {
+      setLoading(true);
       switch (filter) {
         case "people":
           if (currentUser) {
@@ -53,6 +56,7 @@ function SearchMenu() {
             setPedingUsers(pending);
           }
       }
+      setLoading(false);
     }
     filterResult();
   }, [filter, query]);
@@ -103,7 +107,9 @@ function SearchMenu() {
 
   return (
     <>
-      <main className="container right center m2">{renderResult()}</main>
+      <main className="container right center m2">
+        {loading ? <LoadingContainer /> : renderResult()}
+      </main>
       <div className="left-content">
         <MenuList title="Search Results">
           <span className={css["search-filter"]}>{t("SEARCH.filters")}</span>

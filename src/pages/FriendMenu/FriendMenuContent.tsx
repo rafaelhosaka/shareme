@@ -8,6 +8,7 @@ import FriendRequestList from "../../components/Friends/FriendRequest/FriendRequ
 import FriendRequestEntity from "../../models/friendRequest";
 import { getPendingFriendRequest } from "../../services/friendService";
 import { useStompContext } from "../../context/stompContext";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 
 interface FriendMenuContentProps {
   setRequestCount?: (quantity: number) => void;
@@ -26,11 +27,13 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
     receivedRemovedFriend,
     receivedRemovedRequest,
   } = useStompContext();
+  const [loading, setLoading] = useState(true);
 
   async function getFriends() {
     if (user) {
       const { data } = await getUserFriends(user.id);
       setFriends(data);
+      setLoading(false);
     }
   }
 
@@ -38,10 +41,12 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
     if (user) {
       const { data } = await getPendingFriendRequest(user.id);
       setFriendRequests(data);
+      setLoading(false);
     }
   }
 
   useEffect(() => {
+    setLoading(true);
     switch (option) {
       case "all":
         getFriends();
@@ -88,6 +93,9 @@ function FriendMenuContent({ setRequestCount }: FriendMenuContentProps) {
   }, [receivedNewFriend]);
 
   const renderContent = () => {
+    if (loading) {
+      return <LoadingContainer labelSize="medium" />;
+    }
     switch (option) {
       case "all":
         return <FriendList friends={friends} />;

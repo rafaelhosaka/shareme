@@ -79,7 +79,7 @@ const PostList = ({ posts, onDelete }: PostListProps) => {
   return (
     <>
       {alert}
-      {pagedPosts?.length === 0 && (
+      {posts.length === 0 && (
         <div className={css["no-post"]}>{t("POST.noPosts")}</div>
       )}
       {pagedPosts.map((post) => (

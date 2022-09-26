@@ -1,0 +1,48 @@
+@use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
+
+.container {
+  width: 100%;
+  max-width: inherit;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.background {
+  background: t.$light-secondary-bgcolor;
+}
+
+.label {
+  font-weight: 900;
+}
+
+.small {
+  font-size: 2rem;
+}
+
+.medium {
+  font-size: 4rem;
+}
+
+.label::after {
+  content: "";
+  animation: load 3s linear infinite;
+}
+
+@keyframes load {
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}
+
+@include mixins.whenDarkModule {
+  .background {
+    background: t.$dark-secondary-bgcolor;
+  }
+}

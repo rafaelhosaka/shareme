@@ -113,4 +113,8 @@
       background-color: t.$dark-primary-color;
     }
   }
+
+  .no-notifications {
+    color: rgb(t.$dark-accent-color, 60%);
+  }
 }

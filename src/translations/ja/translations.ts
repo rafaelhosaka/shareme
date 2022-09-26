@@ -23,6 +23,7 @@ import { PHOTO } from "./Photo";
 import { SETTINGS } from "./Settings";
 
 export const TRANSLATIONS_JA = {
+  loading: "ロード中",
   DATE,
   LOGIN_FORM,
   REGISTER_FORM,

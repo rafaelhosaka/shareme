@@ -7,10 +7,12 @@ import { useUser } from "../../context/userContext";
 import PostList from "../../components/Post/PostList";
 import Contacts from "../Contact/Contacts";
 import css from "./Feed.module.scss";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 
 const Feed = () => {
   const { user: currentUser } = useUser();
   const [posts, setPosts] = useState<(PostEntity | SharedPostEntity)[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getPosts() {
@@ -20,6 +22,7 @@ const Feed = () => {
         );
 
         setPosts([...posts]);
+        setLoading(false);
       }
     }
     getPosts();
@@ -38,7 +41,11 @@ const Feed = () => {
     <>
       <main className={`${css["feed"]} container center`}>
         <PostForm handleNewPost={handleNewPost} />
-        <PostList posts={posts} onDelete={handleDeletePost} />
+        {loading ? (
+          <LoadingContainer />
+        ) : (
+          <PostList posts={posts} onDelete={handleDeletePost} />
+        )}
       </main>
       <div className="right-content">
         <Contacts />

@@ -212,4 +212,8 @@
       background: t.$dark-secondary-color;
     }
   }
+
+  .no-post {
+    color: rgb(t.$dark-accent-color, 60%);
+  }
 }

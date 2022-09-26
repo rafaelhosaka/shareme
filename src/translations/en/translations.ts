@@ -23,6 +23,7 @@ import { VERIFY_EMAIL } from "./VerifyEmail";
 import { CHAT_MENU } from "./ChatMenu";
 
 export const TRANSLATIONS_EN = {
+  loading: "loading",
   DATE,
   LOGIN_FORM,
   REGISTER_FORM,
