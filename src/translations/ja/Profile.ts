@@ -8,6 +8,7 @@ export const PROFILE = {
   photos: "写真",
   videos: "動画",
   confirmRequest: "承認する",
+  uploadPhoto: "写真を追加する",
   cancelRequest: "リクエストをキャンセル",
   addFriend: "友達を追加",
   editCoverPhoto: "カバー写真を編集",

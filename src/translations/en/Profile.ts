@@ -7,6 +7,7 @@ export const PROFILE = {
   unfriend: "Unfriend",
   photos: "Photos",
   videos: "Videos",
+  uploadPhoto: "Upload photo",
   confirmRequest: "Confirm Request",
   cancelRequest: "Cancel Request",
   addFriend: "Add Friend",

@@ -55,11 +55,11 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
 
     return (
       <div
-        onClick={() => setDropCoverVisible((prev) => !prev)}
+        ref={(element) => (dropCoverRefs.current[0] = element)}
         className={css["edit-bg__container"]}
       >
         <button
-          ref={(element) => (dropCoverRefs.current[0] = element)}
+          onClick={() => setDropCoverVisible((prev) => !prev)}
           className="btn btn--primary"
         >
           <i className="fa-solid fa-camera"></i>
@@ -67,11 +67,8 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
         </button>
         {isDropCoverVisible && (
           <DropdownMenu>
-            <label
-              ref={(element) => (dropCoverRefs.current[1] = element)}
-              htmlFor="upload-cover-image"
-            >
-              <DropdownItem label="Upload Photo">
+            <label className={css["upload-label"]} htmlFor="upload-cover-image">
+              <DropdownItem label={t("PROFILE.uploadPhoto")}>
                 <i className="fa-solid fa-file-arrow-up"></i>
               </DropdownItem>
               <input
