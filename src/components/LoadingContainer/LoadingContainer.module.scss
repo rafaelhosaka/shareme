@@ -24,6 +24,10 @@
   font-size: 4rem;
 }
 
+.large {
+  font-size: 6rem;
+}
+
 .label::after {
   content: "";
   animation: load 3s linear infinite;

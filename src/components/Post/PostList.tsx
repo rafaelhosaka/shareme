@@ -27,34 +27,41 @@ const PostList = ({ posts, onDelete }: PostListProps) => {
   const PAGE_SIZE = 10;
   const MAX_PAGE = calculateMaxPage(posts.length, PAGE_SIZE);
 
+  function getPosts() {
+    const sorted = posts.sort(function (a, b) {
+      const dateA = new Date(a.dateCreated);
+      const dateB = new Date(b.dateCreated);
+
+      return dateB.getTime() - dateA.getTime();
+    });
+
+    setSortedPosts(sorted);
+
+    const paged = paginate(sorted, currentPage, PAGE_SIZE);
+
+    setPagedPosts(paged);
+  }
+
   useEffect(() => {
-    function getPosts() {
-      const sorted = posts.sort(function (a, b) {
-        const dateA = new Date(a.dateCreated);
-        const dateB = new Date(b.dateCreated);
-
-        return dateB.getTime() - dateA.getTime();
-      });
-
-      setSortedPosts(sorted);
-
-      const paged = paginate(sorted, currentPage, PAGE_SIZE);
-
-      setPagedPosts(paged);
-      window.addEventListener("scroll", onScroll, true);
-    }
-
     getPosts();
-
+    window.addEventListener("scroll", onScroll, true);
     return () => {
       window.removeEventListener("scroll", onScroll, true);
     };
+  }, []);
+
+  useEffect(() => {
+    getPosts();
   }, [posts]);
 
   useEffect(() => {
-    const paged = paginate(sortedPosts, currentPage, PAGE_SIZE);
-    const concatPages = [...pagedPosts, ...paged];
-    setPagedPosts(concatPages);
+    if (currentPage > 1) {
+      const paged = paginate(sortedPosts, currentPage, PAGE_SIZE);
+
+      const concatPages = [...pagedPosts, ...paged];
+
+      setPagedPosts(concatPages);
+    }
   }, [currentPage]);
 
   const handleDelete = (postId: string) => {

@@ -8,6 +8,7 @@ import FriendList from "../../components/Friends/FriendList/FriendList";
 import PostList from "../../components/Post/PostList";
 import css from "./Profile.module.scss";
 import PhotoList from "../../components/Photo/PhotoList";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 
 interface ProfileContentProps {
   user: UserProfileEntity;
@@ -15,25 +16,26 @@ interface ProfileContentProps {
 
 const ProfileContent = ({ user }: ProfileContentProps) => {
   const { option } = useParams();
-
+  const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<(PostEntity | SharedPostEntity)[]>([]);
   const [friends, setFriends] = useState<UserProfileEntity[]>([]);
+  const [postPhotos, setPostPhotos] = useState<PostEntity[]>([]);
 
   async function getPosts() {
     const posts = await getPostsByUsersId([user.id]);
 
     setPosts(posts);
+    setLoading(false);
   }
 
   async function getFriends() {
     const data = await getUsersFromIds(user.friends);
     setFriends(data);
+    setLoading(false);
   }
 
   useEffect(() => {
-    setPosts([]);
-    setFriends([]);
-
+    setLoading(true);
     switch (option) {
       case "posts":
         getPosts();
@@ -41,59 +43,49 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
       case "friends":
         getFriends();
         break;
-    }
-  }, [user]);
-
-  useEffect(() => {
-    switch (option) {
-      case "posts":
-        if (posts.length === 0) getPosts();
+      case "photos":
+        getPostPhotos();
         break;
-      case "friends":
-        if (friends.length === 0) getFriends();
-        break;
+      default:
+        setLoading(false);
     }
   }, [option]);
 
-  const getMyPosts = () => {
+  const getPostPhotos = async () => {
     let myPosts: PostEntity[] = [];
+    let posts = await getPostsByUsersId([user.id]);
     posts.forEach((post) => {
       if (post instanceof PostEntity) {
         myPosts.push(post);
       }
     });
-    return myPosts;
+    setPostPhotos(myPosts);
+    setLoading(false);
+  };
+
+  const renderResult = () => {
+    switch (option) {
+      case "posts":
+        return <PostList posts={posts} />;
+      case "friends":
+        return <FriendList friends={friends} />;
+      case "photos":
+        return <PhotoList items={postPhotos} />;
+    }
+    return <></>;
   };
 
   return (
     <>
-      <div
-        className={
-          option === "posts"
-            ? `${css["profile-content-container"]} ${css["show"]}`
-            : `${css["profile-content-container"]}`
-        }
-      >
-        <PostList posts={posts} />
-      </div>
-      <div
-        className={
-          option === "friends"
-            ? `${css["profile-content-container"]} ${css["show"]}`
-            : `${css["profile-content-container"]}`
-        }
-      >
-        <FriendList friends={friends} />
-      </div>
-      <div
-        className={
-          option === "photos"
-            ? `${css["profile-content-container"]} ${css["show"]}`
-            : `${css["profile-content-container"]}`
-        }
-      >
-        <PhotoList items={getMyPosts()} />
-      </div>
+      {loading ? (
+        <div className="m2">
+          <LoadingContainer />
+        </div>
+      ) : (
+        <div className={`${css["profile-content-container"]}`}>
+          {renderResult()}
+        </div>
+      )}
     </>
   );
 };

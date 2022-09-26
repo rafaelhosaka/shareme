@@ -7,11 +7,13 @@ import ProfileContent from "./ProfileContent";
 import ProfileCoverSection from "./ProfileCoverSection";
 import ProfileUserSection from "./ProfileUserSection";
 import { useTranslation } from "react-i18next";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 
 function Profile() {
   const { t } = useTranslation();
   const { id } = useParams();
   const [user, setUser] = useState<UserProfileEntity>();
+  const [loading, setLoading] = useState(true);
 
   const menu = [
     { key: "posts", value: t("PROFILE.posts") },
@@ -23,6 +25,7 @@ function Profile() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    setLoading(true);
     async function getUser(id: string) {
       try {
         const data = await getUserById(id);
@@ -37,6 +40,10 @@ function Profile() {
       getUser(id);
     }
   }, [id]);
+
+  useEffect(() => {
+    setLoading(false);
+  }, [user]);
 
   const renderMenu = () => {
     return menu.map((option) => {
@@ -72,7 +79,11 @@ function Profile() {
               {renderMenu()}
             </div>
           </div>
-          {user && <ProfileContent user={user} />}
+          {loading ? (
+            <LoadingContainer />
+          ) : (
+            user && <ProfileContent user={user} />
+          )}
         </div>
       </main>
     </>
