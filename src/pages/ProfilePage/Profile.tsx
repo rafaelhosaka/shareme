@@ -80,7 +80,9 @@ function Profile() {
             </div>
           </div>
           {loading ? (
-            <LoadingContainer />
+            <div className="m2">
+              <LoadingContainer />
+            </div>
           ) : (
             user && <ProfileContent user={user} />
           )}

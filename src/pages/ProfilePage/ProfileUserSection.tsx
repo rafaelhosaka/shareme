@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useBase64Image } from "../../hook/useBase64Image";
 import { userImageDownload, userImageUpload } from "../../services/userService";
 import { useUser } from "../../context/userContext";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useComponentVisible from "../../hook/useComponentVisible";
 import {
   acceptFriendRequest,
@@ -21,8 +21,9 @@ import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import DropdownItem from "../../components/DropdownMenu/DropdownItem";
 import { useTranslation } from "react-i18next";
 import Modal from "../../components/Modal/Modal";
-import { fullName } from "../../utils/formatedNames";
 import { useStompContext } from "../../context/stompContext";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
+import { fullName } from "../../utils/formatedNames";
 
 interface ProfileUserSectionProps {
   user: UserProfileEntity;
@@ -31,6 +32,8 @@ interface ProfileUserSectionProps {
 
 const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const { t } = useTranslation();
+  const { id } = useParams();
+  const [loading, setLoading] = useState(true);
   const { user: currentUser, setUser: setCurrentUser } = useUser();
   const { image: userImage, setService: setImageService } =
     useBase64Image(null);
@@ -55,9 +58,15 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   } = useComponentVisible(false);
 
   useEffect(() => {
+    setLoading(true);
+    setImageService(null);
+  }, [id]);
+
+  useEffect(() => {
     async function initialize() {
       if (currentUser) {
         setImageService(userImageDownload(user.id));
+        setLoading(false);
         setRequested(await isRequested(currentUser.id, user.id));
         setPending(await isPending(user.id, currentUser.id));
       }
@@ -242,22 +251,26 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   return (
     <>
       {renderUserImageSection()}
-      <div className={css["profile-user__details"]}>
-        <div className={css["profile-user__info"]}>
-          <span className={css["profile-user__name"]}>{fullName(user)}</span>
-          <Link
-            to={`/profile/${user.id}/friends`}
-            className={css["profile-user__friends-qty"]}
-          >
-            {user && user.friendCount <= 1
-              ? t("PROFILE.friend_singular", { count: user.friendCount })
-              : t("PROFILE.friend_plural", { count: user.friendCount })}
-          </Link>
+      {loading ? (
+        <LoadingContainer showBackground={false} labelSize="medium" />
+      ) : (
+        <div className={css["profile-user__details"]}>
+          <div className={css["profile-user__info"]}>
+            <span className={css["profile-user__name"]}>{fullName(user)}</span>
+            <Link
+              to={`/profile/${user.id}/friends`}
+              className={css["profile-user__friends-qty"]}
+            >
+              {user && user.friendCount <= 1
+                ? t("PROFILE.friend_singular", { count: user.friendCount })
+                : t("PROFILE.friend_plural", { count: user.friendCount })}
+            </Link>
+          </div>
+          <div className={css["profile-user__buttons-area"]}>
+            {renderButton()}
+          </div>
         </div>
-        <div className={css["profile-user__buttons-area"]}>
-          {renderButton()}
-        </div>
-      </div>
+      )}
     </>
   );
 };

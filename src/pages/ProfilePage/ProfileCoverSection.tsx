@@ -13,6 +13,7 @@ import {
 } from "../../services/userService";
 import { useUser } from "../../context/userContext";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 
 interface ProfileCoverSectionProps {
   user: UserProfileEntity;
@@ -21,6 +22,7 @@ interface ProfileCoverSectionProps {
 
 const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
   const { t } = useTranslation();
+  const { id } = useParams();
   const { user: currentUser, setUser: setCurrentUser } = useUser();
   const { image: userCoverImage, setService: setCoverImageService } =
     useBase64Image(null);
@@ -30,6 +32,10 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
     isComponentVisible: isDropCoverVisible,
     setIsComponentVisible: setDropCoverVisible,
   } = useComponentVisible(false);
+
+  useEffect(() => {
+    setCoverImageService(null);
+  }, [id]);
 
   useEffect(() => {
     setCoverImageService(userCoverImageDownload(user.id));
