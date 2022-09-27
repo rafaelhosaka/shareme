@@ -27,7 +27,7 @@ const Product = ({ product }: ProductProps) => {
         onReject={() => setShowModal(false)}
       />
       <div className={css["image__container"]}>
-        <Spinner show={!productImage} sizeClass="size--200">
+        <Spinner show={!productImage} sizeClass="size--400">
           <img
             onClick={() => setShowModal(true)}
             className={css["product-image"]}
