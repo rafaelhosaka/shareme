@@ -15,6 +15,10 @@
   justify-content: center;
   max-width: 768px;
   height: 500px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .product-image {
@@ -26,10 +30,6 @@
   margin-bottom: 1rem;
   background-color: t.$light-secondary-bgcolor;
   display: flex;
-
-  &:hover {
-    cursor: pointer;
-  }
 }
 
 .price {

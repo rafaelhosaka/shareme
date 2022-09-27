@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/userContext";
 import { useInput } from "../../hook/useInput";
 import CommentEntity from "../../models/comment";
+import Spinner from "../Spinner/Spinner";
 import css from "./Comment.module.scss";
 
 interface NewCommentProps {
@@ -47,7 +48,9 @@ function NewComment({ handleNewComment, elementRef }: NewCommentProps) {
   return (
     <div className={css["new-comment__container"]}>
       <Link to={`/profile/${currentUser?.id}/posts`}>
-        <img className={`${css["comment__user"]} size--40`} src={userImage} />
+        <Spinner show={!userImage} sizeClass={"size--40"}>
+          <img className={`${css["comment__user"]} size--40`} src={userImage} />
+        </Spinner>
       </Link>
       <form className={css["new-comment__form"]}>
         <textarea

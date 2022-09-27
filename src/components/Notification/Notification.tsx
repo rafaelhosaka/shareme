@@ -13,6 +13,7 @@ import { pastTimeFromDate } from "../../utils/formatDate";
 import { fullName } from "../../utils/formatedNames";
 import DropdownItem from "../DropdownMenu/DropdownItem";
 import DropdownMenu from "../DropdownMenu/DropdownMenu";
+import Spinner from "../Spinner/Spinner";
 import css from "./Notification.module.scss";
 
 interface NotificationProps {
@@ -90,7 +91,9 @@ const Notification = ({
         }`}
       >
         <div>
-          <img className={css["notification-image"]} src={image} />
+          <Spinner show={!image} sizeClass="size--60">
+            <img className={css["notification-image"]} src={image} />
+          </Spinner>
         </div>
         <div className={css["body"]}>
           <span className={css["user-name"]}>{renderName()}</span>

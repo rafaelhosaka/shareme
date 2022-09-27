@@ -5,6 +5,7 @@ import { ProductEntity } from "../../models/product";
 import { productImageDownload } from "../../services/productService";
 import { userImageDownload } from "../../services/userService";
 import { fullName } from "../../utils/formatedNames";
+import Spinner from "../Spinner/Spinner";
 import css from "./ProductModal.module.scss";
 
 interface ModalProps {
@@ -57,7 +58,9 @@ const ProductModal = ({ product, show, onReject }: ModalProps) => {
           <div className={css["header"]}>
             <div className={css["user"]}>
               <Link to={`/profile/${product.user.id}/posts`}>
-                <img className={css["user-image"]} src={userImage} />
+                <Spinner show={!userImage} sizeClass="size--60">
+                  <img className={css["user-image"]} src={userImage} />
+                </Spinner>
               </Link>
               <Link to={`/profile/${product.user.id}/posts`}>
                 <div className={css["user-name"]}>{fullName(product.user)}</div>

@@ -3,6 +3,7 @@ import { useBase64Image } from "../../hook/useBase64Image";
 import { postImageDownload } from "../../services/postService";
 import PostEntity from "../../models/post";
 import css from "./Photo.module.scss";
+import Spinner from "../Spinner/Spinner";
 
 interface PhotoProps {
   item: PostEntity;
@@ -17,7 +18,9 @@ const Photo = ({ item }: PhotoProps) => {
 
   return (
     <div className={css["photo__container"]}>
-      <img className={css["photo"]} src={image} />
+      <Spinner show={!image}>
+        <img className={css["photo"]} src={image} />
+      </Spinner>
     </div>
   );
 };

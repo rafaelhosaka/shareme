@@ -13,6 +13,7 @@ import { getMessages, saveMessage } from "../../services/messageService";
 import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate } from "../../utils/formatDate";
 import { fullName } from "../../utils/formatedNames";
+import Spinner from "../Spinner/Spinner";
 import css from "./MessagePanel.module.scss";
 
 interface ChatMessagePanelProps {
@@ -110,21 +111,21 @@ const ChatMessagePanel = ({
 
   return (
     <>
-      <div
-        className={`${` ${css["chat-message-panel"]} ${css["message-panel"]}`}`}
-      >
+      <div className={`${` ${css["chat-message-panel"]} ${css["panel"]}`}`}>
         <div className={`${css["header"]}`}>
           <div className={css["user-info"]}>
             <Link
               to={`/profile/${chattingUserId}/posts`}
               className={css["user-name"]}
             >
-              <div className={css["user-image__container"]}>
-                <img className={css["user-image"]} src={userImage} />
-                {chattingUser?.online && chattingUser.connected && (
-                  <div className={css["online"]} />
-                )}
-              </div>
+              <Spinner show={!userImage} sizeClass="size--30">
+                <div className={css["user-image__container"]}>
+                  <img className={css["user-image"]} src={userImage} />
+                  {chattingUser?.online && chattingUser.connected && (
+                    <div className={css["online"]} />
+                  )}
+                </div>
+              </Spinner>
             </Link>
             <Link
               to={`/profile/${chattingUserId}/posts`}

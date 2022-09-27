@@ -9,19 +9,22 @@
   z-index: 1;
 }
 
-.message-panel {
+.panel {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr auto;
   position: relative;
   background: t.$light-secondary-bgcolor;
   border-radius: 10px 10px 0 0;
+  z-index: 1;
   margin-right: 2rem;
   width: 338px;
+}
+
+.message-panel {
   max-height: 455px;
   height: calc(100vh - 80px);
   box-shadow: t.$light-box-shadow;
-  z-index: 1;
 }
 
 .chat-message-panel {
@@ -48,8 +51,8 @@
 }
 
 .user-image {
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
 }
 
@@ -203,8 +206,11 @@
 }
 
 @include mixins.whenDarkModule {
-  .message-panel {
+  .panel {
     background: t.$dark-secondary-bgcolor;
+  }
+
+  .message-panel {
     box-shadow: t.$dark-box-shadow;
   }
 

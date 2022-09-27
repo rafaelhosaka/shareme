@@ -15,6 +15,7 @@ import { getUserById, userImageDownload } from "../../services/userService";
 import { formatDate } from "../../utils/formatDate";
 import { fullName } from "../../utils/formatedNames";
 import css from "./MessagePanel.module.scss";
+import Spinner from "../Spinner/Spinner";
 
 interface MessagePanelProps {
   chattingUserChat: ChatStatusEntity;
@@ -115,19 +116,21 @@ const MessagePanel = ({
   return (
     <>
       {!minimized && (
-        <div className={`${css["message-panel"]}`}>
+        <div className={`${css["message-panel"]} ${css["panel"]}`}>
           <div className={css["header"]}>
             <div className={css["user-info"]}>
               <Link
                 to={`/profile/${chattingUserChat.id}/posts`}
                 className={css["user-name"]}
               >
-                <div className={css["user-image__container"]}>
-                  <img className={css["user-image"]} src={userImage} />
-                  {chattingUserChat.online && chattingUserChat.connected && (
-                    <div className={css["online"]} />
-                  )}
-                </div>
+                <Spinner show={!userImage} sizeClass={"size--30"}>
+                  <div className={css["user-image__container"]}>
+                    <img className={css["user-image"]} src={userImage} />
+                    {chattingUserChat.online && chattingUserChat.connected && (
+                      <div className={css["online"]} />
+                    )}
+                  </div>
+                </Spinner>
               </Link>
               <Link
                 to={`/profile/${chattingUserChat.id}/posts`}
