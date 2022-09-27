@@ -18,8 +18,11 @@ const LanguageSettings = () => {
       user.languagePreference = value;
       updateUser(user);
       setUser(user);
-      dispatchAlert(t("SETTINGS.alertChangeSaved"), "success");
       changeLanguage(value);
+      dispatchAlert(
+        t("SETTINGS.alertChangeSaved", { lng: value.shortName }),
+        "success"
+      );
     }
   };
 
