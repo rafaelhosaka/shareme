@@ -1,4 +1,5 @@
 @use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
 
 .chat__container {
   display: grid;
@@ -61,4 +62,21 @@
 .date {
   font-size: 1.3rem;
   font-weight: 300;
+}
+
+.no-chat {
+  background: t.$light-secondary-bgcolor;
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  width: 100%;
+}
+
+@include mixins.whenDarkModule {
+  .no-chat {
+    background: t.$dark-secondary-bgcolor;
+    color: rgb(t.$dark-accent-color, 60%);
+  }
 }

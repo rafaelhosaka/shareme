@@ -11,9 +11,12 @@ import { MessageEntity } from "../../models/message";
 import { getChatByUserId, markAsRead } from "../../services/chatService";
 import { Chat } from "./Chat";
 import ChatMenuContent from "./ChatMenuContent";
+import css from "./Chat.module.scss";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 
 const ChatMenu = () => {
   const { t } = useTranslation();
+  const [loading, setLoading] = useState(true);
   const [chats, setChats] = useState<ChatEntity[]>([]);
   const { user: currentUser } = useUser();
   const { pathname } = useLocation();
@@ -38,10 +41,12 @@ const ChatMenu = () => {
       } else {
         setChats(data);
       }
+      setLoading(false);
     }
   }
 
   useEffect(() => {
+    setLoading(true);
     getChats();
   }, []);
 
@@ -97,6 +102,24 @@ const ChatMenu = () => {
     setChats(newChats);
   };
 
+  const renderResult = () => {
+    return (
+      <>
+        {chats.length === 0 && (
+          <div className={css["no-chat"]}>{t("CHAT_MENU.noChats")}</div>
+        )}
+        {chats.map((chat) => (
+          <MenuItem
+            key={chat.id}
+            active={pathname === `/chat/${chat.friend.id}`}
+          >
+            <Chat onRead={handleRead} chat={chat} />
+          </MenuItem>
+        ))}
+      </>
+    );
+  };
+
   return (
     <>
       <main className="container right">
@@ -104,14 +127,7 @@ const ChatMenu = () => {
       </main>
       <div className="left-content">
         <MenuList title={t("CHAT_MENU.chatMenuHeader")}>
-          {chats.map((chat) => (
-            <MenuItem
-              key={chat.id}
-              active={pathname === `/chat/${chat.friend.id}`}
-            >
-              <Chat onRead={handleRead} chat={chat} />
-            </MenuItem>
-          ))}
+          {loading ? <LoadingContainer /> : renderResult()}
         </MenuList>
       </div>
     </>
