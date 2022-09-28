@@ -13,7 +13,7 @@ const NavLeft = () => {
 
   return (
     <>
-      <Link className={css["logo-container"]} to="/">
+      <Link className={css["logo-container"]} to="/home">
         <img
           className={css.logo}
           src={process.env.PUBLIC_URL + "/images/logo.png"}

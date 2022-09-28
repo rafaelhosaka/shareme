@@ -1,9 +1,7 @@
 import { useTheme } from "../../context/themeContext";
-import { useUser } from "../../context/userContext";
 import AppRoutes from "./AppRoutes";
 import { useEffect } from "react";
 function App(): JSX.Element {
-  const { user: currentUser } = useUser();
   const isDark = useTheme();
 
   useEffect(() => {
@@ -14,7 +12,7 @@ function App(): JSX.Element {
     }
   }, [isDark]);
 
-  return <AppRoutes currentUser={currentUser} />;
+  return <AppRoutes />;
 }
 
 export default App;

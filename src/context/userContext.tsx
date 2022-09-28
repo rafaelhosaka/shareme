@@ -7,6 +7,7 @@ import UserProfileEntity from "../models/userProfile";
 interface UserContextInterface {
   user?: UserProfileEntity;
   setUser: (user: UserProfileEntity) => void;
+  loading: boolean;
 }
 
 const UserContext = React.createContext<Partial<UserContextInterface>>({});
@@ -30,6 +31,7 @@ interface UserProviderProps {
 export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<UserProfileEntity | null>(null);
   const { image: userImage, setService: setService } = useBase64Image(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getUser() {
@@ -40,7 +42,11 @@ export function UserProvider({ children }: UserProviderProps) {
         data.roles = currentUser.roles;
         setUser(data);
       }
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
     }
+    setLoading(true);
     getUser();
   }, []);
 
@@ -59,7 +65,7 @@ export function UserProvider({ children }: UserProviderProps) {
 
   return (
     <UserContext.Provider
-      value={{ user, setUser: updateUser } as UserContextInterface}
+      value={{ user, setUser: updateUser, loading } as UserContextInterface}
     >
       <UserImageContext.Provider value={userImage}>
         {children}

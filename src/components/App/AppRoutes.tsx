@@ -10,7 +10,6 @@ import RegisterForm from "../../pages/RegisterPage/RegisterForm";
 import SearchMenu from "../../pages/SearchMenu/SearchMenu";
 import ProtectedRoutes from "../ProtectedRoutes/ProtectedRoutes";
 import Unauthorized from "../../pages/Unauthorized/Unauthorized";
-import UserProfileEntity from "../../models/userProfile";
 import SettingsMenu from "../../pages/SettingsMenu/SettingsMenu";
 import GeneralSettings from "../../pages/SettingsMenu/GeneralSettings";
 import ReSendEmail from "../../pages/ReSendEmail/ReSendEmail";
@@ -23,24 +22,46 @@ import Footer from "../../pages/Footer/Footer";
 import LanguageSettings from "../../pages/SettingsMenu/LanguageSettings";
 import MarketMenu from "../../pages/MarketMenu/MarketMenu";
 import ChatMenu from "../../pages/ChatMenu/ChatMenu";
+import { useUser } from "../../context/userContext";
+import LoadingPage from "../../pages/Loading/LoadingPage";
+import { useEffect, useState } from "react";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
 
-interface AppRoutesProps {
-  currentUser: UserProfileEntity | undefined;
-}
+function AppRoutes() {
+  const { user: currentUser, loading } = useUser();
+  const { pathname, state } = useLocation();
+  const stringfiedState = JSON.stringify(state as string);
+  const stateObject = JSON.parse(stringfiedState);
+  const [from, setFrom] = useState("/login");
 
-function AppRoutes({ currentUser }: AppRoutesProps) {
-  const { pathname } = useLocation();
+  useEffect(() => {
+    if (stateObject?.from) {
+      setFrom(stateObject.from);
+    }
+  }, [stateObject]);
 
   return (
     <>
       <div className="template">
-        <header className="header">{currentUser && <Navbar />}</header>
+        <header className="header">
+          {currentUser && !loading && <Navbar />}
+        </header>
         <Routes>
           {/* Public */}
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route
+            path="/"
+            element={
+              loading ? (
+                <LoadingPage />
+              ) : currentUser ? (
+                <Navigate to={from} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
+          />
           <Route
             path="/login"
             element={currentUser ? <Navigate to="/home" /> : <LoginForm />}
