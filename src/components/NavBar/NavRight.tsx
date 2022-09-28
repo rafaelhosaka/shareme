@@ -26,9 +26,9 @@ const NavRight = () => {
   const { pathname } = useLocation();
 
   const {
-    refs: menuRefs,
-    isComponentVisible: isMenuVisible,
-    setIsComponentVisible: setMenuVisible,
+    refs: profileMenuRefs,
+    isComponentVisible: isProfileMenuVisible,
+    setIsComponentVisible: setProfileMenuVisible,
   } = useComponentVisible(false);
 
   const {
@@ -69,8 +69,8 @@ const NavRight = () => {
   }, []);
 
   useEffect(() => {
-    if (!isMenuVisible) setMenuId("1");
-  }, [isMenuVisible]);
+    if (!isProfileMenuVisible) setMenuId("1");
+  }, [isProfileMenuVisible]);
 
   useEffect(() => {
     if (updateCounter) {
@@ -117,7 +117,7 @@ const NavRight = () => {
         <NavMenuList id="1">
           <Link
             to={`/profile/${currentUser?.id}/posts`}
-            onClick={() => setMenuVisible(false)}
+            onClick={() => setProfileMenuVisible(false)}
           >
             <NavMenuItem
               label={`${fullName(currentUser)}`}
@@ -182,18 +182,22 @@ const NavRight = () => {
         </NavMenuList>
         <NavMenuList id="3" title={t("NAVBAR.settings")}>
           <Link to="/settings/general">
-            <NavMenuItem
-              active={pathname === `/settings/general`}
-              iconClass="fa-solid fa-gear fa-xl"
-              label={t("NAVBAR.general")}
-            />
+            <div onClick={() => setProfileMenuVisible(false)}>
+              <NavMenuItem
+                active={pathname === `/settings/general`}
+                iconClass="fa-solid fa-gear fa-xl"
+                label={t("NAVBAR.general")}
+              />
+            </div>
           </Link>
           <Link to="/settings/language">
-            <NavMenuItem
-              active={pathname === `/settings/language`}
-              iconClass="fa-solid fa-language fa-xl"
-              label={t("NAVBAR.language")}
-            />
+            <div onClick={() => setProfileMenuVisible(false)}>
+              <NavMenuItem
+                active={pathname === `/settings/language`}
+                iconClass="fa-solid fa-language fa-xl"
+                label={t("NAVBAR.language")}
+              />
+            </div>
           </Link>
         </NavMenuList>
       </NavMenu>
@@ -317,8 +321,8 @@ const NavRight = () => {
       )}
       <DivWithToolTip tooltipLabel={t("NAVBAR.profile")}>
         <div
-          ref={(element) => (menuRefs.current[1] = element)}
-          onClick={() => setMenuVisible((prev) => !prev)}
+          ref={(element) => (profileMenuRefs.current[1] = element)}
+          onClick={() => setProfileMenuVisible((prev) => !prev)}
           className={css["user"]}
         >
           <Spinner show={!userImage} sizeClass="size--40">
@@ -328,10 +332,10 @@ const NavRight = () => {
       </DivWithToolTip>
 
       <div
-        ref={(element) => (menuRefs.current[0] = element)}
+        ref={(element) => (profileMenuRefs.current[0] = element)}
         className={css.menu}
       >
-        {isMenuVisible && getProfileMenu()}
+        {isProfileMenuVisible && getProfileMenu()}
       </div>
 
       <div
