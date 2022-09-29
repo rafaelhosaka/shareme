@@ -1,4 +1,6 @@
 export const RECOVER_PASSWORD = {
+  recoverPasswordHeader: "Recover password",
+  changePasswordHeader: "Change password",
   placeHolderEmail: "Type your email here...",
   recoverPassword: "Recover password",
   back: "Back",

@@ -51,7 +51,10 @@ const ReSendEmail = () => {
         }`}
       >
         <Spinner show={loading} sizeClass="size--400">
-          <form onSubmit={handleSendEmail}>
+          <div className={`${css.header} p2`}>
+            <h1>{t("RESEND_EMAIL.header")}</h1>
+          </div>
+          <form className="p2" onSubmit={handleSendEmail}>
             <div className="form-group">
               <input
                 required

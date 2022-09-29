@@ -1,4 +1,6 @@
 export const RECOVER_PASSWORD = {
+  recoverPasswordHeader: "パスワード再設定",
+  changePasswordHeader: "パスワードを変更",
   placeHolderEmail: "メールアドレスを入力してください",
   recoverPassword: "パスワードを再設定する",
   back: "戻る",

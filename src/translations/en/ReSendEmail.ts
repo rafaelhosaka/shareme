@@ -1,4 +1,5 @@
 export const RESEND_EMAIL = {
+  header: "Resend verification email",
   placeHolderEmail: "Type your email here...",
   sendNewEmail: "Send new verification email",
   back: "Back",

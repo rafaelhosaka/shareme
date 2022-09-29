@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { getLanguageByShortName, LanguageEntity } from "../models/language";
 import { changeLanguage as change } from "../translations/i18n";
 import { useUser } from "./userContext";
@@ -29,13 +30,17 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
     shortName: "en",
     longName: "English",
   });
+  const [params] = useSearchParams();
+  const lng = params.get("lng");
 
   useEffect(() => {
     if (user) {
-      setLanguage(user.languagePreference);
-    } else {
-      setLanguage(getLanguageByShortName(navigator.language));
+      return setLanguage(user.languagePreference);
     }
+    if (lng) {
+      return setLanguage(getLanguageByShortName(lng));
+    }
+    setLanguage(getLanguageByShortName(navigator.language));
   }, [user]);
 
   useEffect(() => {

@@ -38,7 +38,10 @@ const RecoverPassword = () => {
       />
       <div className={`${css["container"]} ${loading ? css["loading"] : ""}`}>
         <Spinner show={loading} sizeClass="size--400">
-          <form onSubmit={handleSendEmail}>
+          <div className={`${css.header} p2`}>
+            <h1>{t("RECOVER_PASSWORD.recoverPasswordHeader")}</h1>
+          </div>
+          <form className="p2" onSubmit={handleSendEmail}>
             <div className="form-group">
               <input
                 required

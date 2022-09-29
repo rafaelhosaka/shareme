@@ -19,7 +19,7 @@ $alert-danger-bg: rgb(249, 215, 218);
   color: $alert-default-color;
   display: flex;
   justify-content: space-between;
-  z-index: 1;
+  z-index: 99;
 
   .message {
     font-weight: 400;

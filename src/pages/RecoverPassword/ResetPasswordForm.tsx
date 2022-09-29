@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAlert } from "../../components/Alert/Alert";
 import Spinner from "../../components/Spinner/Spinner";
 import { useLanguage } from "../../context/languageContext";
 import { useInput } from "../../hook/useInput";
-import { getLanguageByShortName } from "../../models/language";
 import { changePasswordByToken } from "../../services/authService";
 import css from "./RecoverPassword.module.scss";
 
@@ -24,15 +23,17 @@ const ResetPasswordForm = () => {
   const [alert, dispatchAlert] = useAlert();
   const [params] = useSearchParams();
   const token = params.get("token");
-  const language = params.get("lng");
-  const { changeLanguage } = useLanguage();
+  const { language } = useLanguage();
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    if (changeLanguage) {
-      changeLanguage(getLanguageByShortName(language ?? "en"));
-    }
-  }, [changeLanguage]);
+    navigate({
+      pathname: "/resetPassword",
+      search: `?token=${token}&lng=${language.shortName}`,
+    });
+  }, [language]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     if (!token) {
@@ -65,7 +66,10 @@ const ResetPasswordForm = () => {
       {alert}
       <div className={`${css["container"]} ${loading ? css["loading"] : ""}`}>
         <Spinner show={loading} sizeClass="size--400">
-          <form onSubmit={handleSubmit}>
+          <div className={`${css.header} p2`}>
+            <h1>{t("RECOVER_PASSWORD.changePasswordHeader")}</h1>
+          </div>
+          <form className="p2" onSubmit={handleSubmit}>
             <div className="form-group">
               <input
                 className="form-input"
