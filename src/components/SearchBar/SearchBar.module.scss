@@ -26,7 +26,7 @@
 .search__form {
   display: flex;
   align-items: center;
-  width: 31rem;
+  width: 25rem;
   height: inherit;
 }
 
@@ -35,7 +35,21 @@
 }
 
 .search-container.expanded {
-  width: 31rem;
+  width: 25rem;
+}
+
+@include mixins.tablet {
+  .search-container {
+    height: 4.5rem;
+  }
+
+  .search__form {
+    width: 31rem;
+  }
+
+  .search-container.expanded {
+    width: 31rem;
+  }
 }
 
 @include mixins.whenDarkModule {

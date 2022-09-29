@@ -2,14 +2,14 @@
 @use "../../styles/abstracts/mixins" as mixins;
 
 .profile__container {
-  padding: 0 20rem;
+  width: 100vw;
 }
 
 .profile__background {
   background: t.$light-gradient-color;
-  width: 100vw;
+  width: 100%;
   position: absolute;
-  height: 730px;
+  height: 510px;
   display: inline-block;
   box-shadow: t.$light-box-shadow;
   z-index: -1;
@@ -31,14 +31,14 @@
   z-index: -1;
   position: absolute;
   width: 100%;
-  height: 45rem;
+  height: 25rem;
   object-fit: cover;
   border-radius: 0 0 10px 10px;
 }
 
 .edit-bg__container {
   position: absolute;
-  top: 380px;
+  top: 190px;
   right: 25px;
   z-index: 2;
 
@@ -60,7 +60,7 @@
   flex-direction: column;
   justify-content: flex-end;
   max-width: 100%;
-  height: 670px;
+  height: 450px;
   padding-bottom: 0.5rem;
 }
 
@@ -208,5 +208,46 @@
 
   .profile-option:hover.profile-option:not(.active) {
     background: t.$dark-secondary-color;
+  }
+}
+
+@include mixins.tablet {
+  .profile__container {
+    padding: 0 5rem;
+  }
+
+  .cover-image {
+    height: 45rem;
+  }
+
+  .profile__background {
+    height: 730px;
+  }
+
+  .profile-user__container {
+    height: 670px;
+  }
+  .edit-bg__container {
+    position: absolute;
+    top: 380px;
+    right: 25px;
+    z-index: 2;
+
+    & > div {
+      position: relative;
+      left: 70px;
+    }
+
+    [id="upload-cover-image"] {
+      opacity: 0;
+      position: absolute;
+      z-index: -1;
+    }
+  }
+}
+
+@include mixins.desktop {
+  .profile__container {
+    padding: 0 10rem;
   }
 }

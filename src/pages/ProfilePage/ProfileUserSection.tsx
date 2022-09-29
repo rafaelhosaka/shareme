@@ -227,8 +227,8 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
           <img className={css["profile-user__image"]} src={user && userImage} />
           {currentUser?.id === user?.id && (
             <div className={css["change-icon__container"]}>
-              <label htmlFor="upload-image">
-                <div className={css["change-icon"]}>
+              <label className={css["change-icon"]} htmlFor="upload-image">
+                <div>
                   <i className="fa-solid fa-camera fa-xl"></i>
                 </div>
                 <input
