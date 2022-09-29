@@ -1,3 +1,4 @@
+import UserProfileEntity from "./../models/userProfile";
 import ApplicationUserEntity from "../models/applicationUser";
 import httpService from "./httpService";
 import axios from "axios";
@@ -21,8 +22,18 @@ export function logout() {
   localStorage.removeItem(refreshToken);
 }
 
-export function createUserAccount(user: ApplicationUserEntity) {
-  return httpService.post(apiEndPoint + "/user/save", user);
+export function createUserAccount(
+  appUser: ApplicationUserEntity,
+  userProfile: UserProfileEntity
+) {
+  const formData = new FormData();
+  formData.append("appUser", JSON.stringify(appUser));
+  formData.append("userProfile", JSON.stringify(userProfile));
+  return httpService.post(apiEndPoint + "/user/createAccount", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 }
 
 export function getCurrentUser() {

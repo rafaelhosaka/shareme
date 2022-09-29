@@ -21,4 +21,12 @@ export const REGISTER_FORM = {
   oct: "10月",
   nov: "11月",
   dec: "12月",
+  errorUsernameAlreadyRegistered:
+    "このメールアドレスはもうすでに使われています",
+  errorInvalidDate: "入力した生年月日は無効です",
+  errorUsernameEmpty: "メールアドレスを入力してください",
+  errorPasswordEmpty: "パスワードを入力してください",
+  errorFirstNameEmpty: "名を入力してください",
+  errorLastNameEmpty: "姓を入力してください",
+  errorGenderEmpty: "性別を入力してください",
 };

@@ -48,6 +48,8 @@ export class UserProfileDTO {
   fileName: string;
   friends: string[];
   themePreference: string;
+  coverFileName: string;
+  languagePreference: LanguageEntity;
 
   constructor(data: UserProfileEntity) {
     this.id = data.id;
@@ -59,5 +61,7 @@ export class UserProfileDTO {
     this.gender = data.gender;
     this.friends = data.friends;
     this.themePreference = data.themePreference;
+    this.coverFileName = data.coverFileName;
+    this.languagePreference = data.languagePreference;
   }
 }

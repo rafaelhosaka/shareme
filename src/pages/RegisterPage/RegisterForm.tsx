@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useInput } from "../../hook/useInput";
 import authService from "../../services/authService";
-import { saveUser } from "../../services/userService";
 import { useAlert } from "../../components/Alert/Alert";
 import { createSearchParams, Link, useNavigate } from "react-router-dom";
 import UserProfileEntity from "../../models/userProfile";
@@ -51,32 +50,32 @@ function RegisterForm() {
 
   const currentYear = new Date().getFullYear();
 
-  const createUser = () => {
-    return saveUser({
+  const buildUser = () => {
+    return {
       firstName: firstName,
       lastName: lastName,
       email: email,
       birthDate: new Date(parseInt(year), parseInt(month), parseInt(day)),
       gender: gender,
       languagePreference: getLanguageByShortName(language.shortName),
-    } as UserProfileEntity);
+    } as UserProfileEntity;
   };
 
   const createUserAccount = () => {
-    return authService.createUserAccount({
-      username: email,
-      password: password,
-    });
+    return authService.createUserAccount(
+      {
+        username: email,
+        password: password,
+      },
+      buildUser()
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault();
       setLoading(true);
-      const response = await createUserAccount();
-      if (response.status === 201) {
-        await createUser();
-      }
+      await createUserAccount();
       navigate({
         pathname: "/notify",
         search: createSearchParams({
@@ -85,7 +84,7 @@ function RegisterForm() {
       });
     } catch (ex: any) {
       setLoading(false);
-      dispatchAlert(ex.response.data, "danger");
+      dispatchAlert(t(`REGISTER_FORM.${ex.response.data}`), "danger");
     }
   };
 

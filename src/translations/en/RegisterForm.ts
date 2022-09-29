@@ -21,4 +21,11 @@ export const REGISTER_FORM = {
   oct: "Oct",
   nov: "Nov",
   dec: "Dec",
+  errorUsernameAlreadyRegistered: "This email is already registered",
+  errorInvalidDate: "Invalid date",
+  errorUsernameEmpty: "Email cannot be empty",
+  errorPasswordEmpty: "Password cannot be empty",
+  errorFirstNameEmpty: "First name cannot be empty",
+  errorLastNameEmpty: "Last name cannot be empty",
+  errorGenderEmpty: "Gender cannot be empty",
 };

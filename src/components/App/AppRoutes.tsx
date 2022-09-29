@@ -136,7 +136,7 @@ function AppRoutes() {
         <>
           {currentUser && !pathname.startsWith("/chat") && <MessagePanelList />}
         </>
-        {!currentUser && <Footer />}
+        {!currentUser && !loading && <Footer />}
       </div>
     </>
   );
