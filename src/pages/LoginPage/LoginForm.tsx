@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useInput } from "../../hook/useInput";
 import authService from "../../services/authService";
@@ -11,16 +11,22 @@ import { useNavigate } from "react-router";
 import Spinner from "../../components/Spinner/Spinner";
 import { useTranslation } from "react-i18next";
 import Modal from "../../components/Modal/Modal";
+import { useLanguage } from "../../context/languageContext";
 
 function LoginForm() {
   const { t } = useTranslation();
   const { setUser } = useUser();
+  const { language } = useLanguage();
   const { value: email, bind: bindEmail } = useInput("demo@shareme.com");
   const { value: password, bind: bindPassword } = useInput("demo");
   const [alert, dispatchAlert] = useAlert();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
+
+  useEffect(() => {
+    setShowModal(true);
+  }, [language]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     setLoading(true);
