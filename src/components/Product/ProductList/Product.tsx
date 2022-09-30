@@ -34,11 +34,13 @@ const Product = ({ product }: ProductProps) => {
           <img className={css["product-image"]} src={productImage} />
         </Spinner>
       </div>
-      <div className={css["price"]}>
-        {product.currency}
-        {product.price}
+      <div>
+        <div className={css["price"]}>
+          {product.currency}
+          {product.price}
+        </div>
+        <div className={css["title"]}>{product.title}</div>
       </div>
-      <div className={css["title"]}>{product.title}</div>
     </div>
   );
 };
