@@ -9,6 +9,8 @@
   width: 100vw;
   box-shadow: t.$light-box-shadow;
   animation: slide 0.3s;
+  height: calc(100vh - 70px);
+  overflow-y: scroll;
 }
 
 @keyframes slide {
@@ -42,7 +44,6 @@
 
 .menu__list {
   opacity: 0;
-  overflow: hidden;
   max-height: 0;
   transition: all 0.3s;
 }
@@ -93,10 +94,21 @@
   }
 }
 
+.separator {
+  margin: 1rem 0;
+  border-top: 1px solid t.$light-secondary-color;
+  filter: brightness(80%);
+}
+
+.separator-title {
+  padding: 1.5rem;
+  font-size: 1.7rem;
+  font-weight: 600;
+}
+
 @include mixins.tablet {
   .menu__container {
     width: auto;
-    height: calc(100vh - 70px);
   }
 
   .menu__list {

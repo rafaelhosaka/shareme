@@ -7,6 +7,10 @@ export function getAllProducts() {
   return httpService.get(`${apiEndPoint}/all`);
 }
 
+export function getProductsByCategory(category: string) {
+  return httpService.get(`${apiEndPoint}/${category}`);
+}
+
 export function createProduct(formData: FormData) {
   return httpService.post(`${apiEndPoint}/create`, formData, {
     headers: { "Content-Type": "multipart/form-data" },

@@ -9,6 +9,7 @@ export const MARKETPLACE = {
   dragDrop: "or drag and drop",
   description: "Description",
   category: "Category",
+  categories: "Categories",
   create: "Create",
   alertImageEmpty: "Please select a image for your product",
   alertCreateSuccess: "Created sucessfully",
