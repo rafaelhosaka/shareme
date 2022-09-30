@@ -51,7 +51,14 @@ const ProductModal = ({ product, show, onReject }: ModalProps) => {
             : `${css["product-modal"]} ${css["close"]}`
         }
       >
+        <div
+          onClick={() => onReject()}
+          className={`${css["thumbnail__close"]} m1 size--40`}
+        >
+          <i className={`${css["close__icon"]} fa-solid fa-xmark`}></i>
+        </div>
         <div className={css["image__container"]}>
+          <img className={css["background-image"]} src={productImage} />
           <img className={css["product-image"]} src={productImage} />
         </div>
         <div>
@@ -65,12 +72,6 @@ const ProductModal = ({ product, show, onReject }: ModalProps) => {
               <Link to={`/profile/${product.user.id}/posts`}>
                 <div className={css["user-name"]}>{fullName(product.user)}</div>
               </Link>
-            </div>
-            <div
-              onClick={() => onReject()}
-              className={`${css["thumbnail__close"]} m1 size--40`}
-            >
-              <i className={`${css["close__icon"]} fa-solid fa-xmark`}></i>
             </div>
           </div>
           <div className={css["body"]}>

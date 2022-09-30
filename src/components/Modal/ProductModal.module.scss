@@ -40,19 +40,34 @@
 
 .product-modal {
   display: grid;
-  height: 80%;
-  grid-template-columns: auto 300px;
+  grid-template-rows: auto 300px;
+  margin: 10px 10px;
+  margin-top: 80px;
+  height: 90%;
+  width: 90%;
+  position: relative;
 }
 
 .image__container {
-  max-width: 1200px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px 10px 0 0;
 }
 
 .product-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.background-image {
+  position: absolute;
   object-fit: cover;
   width: 100%;
   height: 100%;
-  border-radius: 10px 0 0 10px;
+  filter: blur(8px) brightness(80%);
+  scale: (1.1);
 }
 
 .header {
@@ -73,6 +88,10 @@
   position: absolute;
   cursor: pointer;
   background: t.$light-secondary-bgcolor;
+  z-index: 2;
+  display: flex;
+  align-content: center;
+  justify-content: center;
 
   &:hover {
     background: t.$light-secondary-color;
@@ -116,6 +135,22 @@
 
 .user-name {
   font-weight: 700;
+}
+
+@include mixins.tablet {
+}
+
+@include mixins.desktop {
+  .product-modal {
+    grid-template-rows: none;
+    grid-template-columns: auto 300px;
+  }
+
+  .image__container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px 0 0 10px;
+  }
 }
 
 @include mixins.whenDarkModule() {

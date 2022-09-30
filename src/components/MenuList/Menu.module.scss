@@ -9,8 +9,6 @@
   width: 100vw;
   box-shadow: t.$light-box-shadow;
   animation: slide 0.3s;
-  height: calc(100vh - 70px);
-  overflow-y: scroll;
 }
 
 @keyframes slide {
@@ -45,6 +43,7 @@
 .menu__list {
   opacity: 0;
   max-height: 0;
+  overflow: hidden;
   transition: all 0.3s;
 }
 
@@ -109,9 +108,12 @@
 @include mixins.tablet {
   .menu__container {
     width: auto;
+    height: calc(100vh - 70px);
+    overflow-y: scroll;
   }
 
   .menu__list {
+    overflow: visible;
     list-style: none;
     padding: 0;
     display: flex;
