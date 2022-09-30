@@ -11,6 +11,7 @@ export const MARKETPLACE = {
   category: "Category",
   categories: "Categories",
   create: "Create",
+  noProducts: "No product found",
   alertImageEmpty: "Please select a image for your product",
   alertCreateSuccess: "Created sucessfully",
 };

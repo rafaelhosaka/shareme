@@ -45,7 +45,6 @@ const MarketMenuContent = () => {
       default:
         return <ProductList products={products} />;
     }
-    return <></>;
   };
 
   return renderContent();
