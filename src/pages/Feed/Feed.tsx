@@ -8,11 +8,13 @@ import PostList from "../../components/Post/PostList";
 import Contacts from "../Contact/Contacts";
 import css from "./Feed.module.scss";
 import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
+import { useMediaQuery } from "react-responsive";
 
 const Feed = () => {
   const { user: currentUser } = useUser();
   const [posts, setPosts] = useState<(PostEntity | SharedPostEntity)[]>([]);
   const [loading, setLoading] = useState(true);
+  const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
 
   useEffect(() => {
     async function getPosts() {
@@ -47,9 +49,11 @@ const Feed = () => {
           <PostList posts={posts} onDelete={handleDeletePost} />
         )}
       </main>
-      <div className="right-content">
-        <Contacts />
-      </div>
+      {!isTablet && (
+        <div className="right-content">
+          <Contacts />
+        </div>
+      )}
     </>
   );
 };

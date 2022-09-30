@@ -1,6 +1,7 @@
 @use "../../styles/abstracts/mixins" as mixins;
 
 .template {
+  overflow: hidden;
   display: grid;
   grid-template-rows: 70px auto 1fr;
   grid-template-areas:
