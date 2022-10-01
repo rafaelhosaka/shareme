@@ -225,9 +225,11 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
 
   const renderPostImage = () => {
     const jsx = (
-      <Spinner show={!postImage} sizeClass="size--840">
-        <img className={css["post__image"]} src={postImage} />
-      </Spinner>
+      <div className={css["post__image"]}>
+        <Spinner show={!postImage}>
+          <img className={css["post__image"]} src={postImage} />
+        </Spinner>
+      </div>
     );
     if (post instanceof PostEntity) {
       return post.fileName ? jsx : <></>;

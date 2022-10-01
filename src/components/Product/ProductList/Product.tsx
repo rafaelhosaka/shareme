@@ -30,7 +30,7 @@ const Product = ({ product }: ProductProps) => {
         className={css["image__container"]}
         onClick={() => setShowModal(true)}
       >
-        <Spinner show={!productImage} sizeClass="size--400">
+        <Spinner show={!productImage}>
           <img className={css["product-image"]} src={productImage} />
         </Spinner>
       </div>

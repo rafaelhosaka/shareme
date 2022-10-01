@@ -7,21 +7,21 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 
   & > div {
     border-radius: 50%;
     animation: spin 2s linear infinite;
     background-color: t.$light-secondary-bgcolor;
-    max-width: 100%;
-    max-height: 100%;
-
-    @each $size, $value in s.$sizes {
-      &.size--#{$size} {
-        border: calc($value * 0.1) solid t.$light-secondary-color;
-        border-top: calc($value * 0.1) solid t.$light-primary-color;
-      }
-    }
+    width: 100%;
   }
+}
+
+.color {
+  border-top: solid t.$light-primary-color;
+  border-left: solid t.$light-secondary-color;
+  border-right: solid t.$light-secondary-color;
+  border-bottom: solid t.$light-secondary-color;
 }
 
 @keyframes spin {
@@ -37,13 +37,13 @@
   .loader {
     & > div {
       background-color: t.$dark-secondary-bgcolor;
-
-      @each $size, $value in s.$sizes {
-        &.size--#{$size} {
-          border: calc($value * 0.1) solid t.$dark-secondary-color;
-          border-top: calc($value * 0.1) solid t.$dark-accent-color;
-        }
-      }
     }
+  }
+
+  .color {
+    border-top: solid t.$dark-accent-color;
+    border-left: solid t.$dark-secondary-color;
+    border-right: solid t.$dark-secondary-color;
+    border-bottom: solid t.$dark-secondary-color;
   }
 }

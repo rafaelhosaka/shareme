@@ -97,7 +97,7 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
   return (
     <>
       <div className={css["cover-image"]}>
-        <Spinner show={!userCoverImage} sizeClass="size--400">
+        <Spinner show={!userCoverImage} sizeClass="size--200">
           {user?.coverFileName ? (
             <img className={css["cover-image"]} src={userCoverImage} />
           ) : (
