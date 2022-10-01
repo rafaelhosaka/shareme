@@ -7,7 +7,7 @@ interface SpinnerProps {
   children: ReactElement | ReactElement[];
 }
 
-function Spinner({ children, sizeClass }: SpinnerProps) {
+function Spinner({ children, sizeClass, show }: SpinnerProps) {
   const loaderRef = useRef<HTMLDivElement>(null);
   const spinnerRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +34,7 @@ function Spinner({ children, sizeClass }: SpinnerProps) {
 
   return (
     <>
-      {true ? (
+      {show ? (
         <div ref={loaderRef} className={`${css.loader} ${sizeClass}`}>
           <div ref={spinnerRef}></div>
         </div>

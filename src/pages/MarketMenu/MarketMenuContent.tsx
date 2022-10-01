@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 import ProductForm from "../../components/Product/ProductForm";
 import ProductList from "../../components/Product/ProductList/ProductList";
 import {
@@ -10,14 +11,17 @@ import {
 const MarketMenuContent = () => {
   const { option } = useParams();
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     if (option) {
       switch (option) {
         case "all":
           getProducts();
           break;
         case "listing":
+          setLoading(false);
           break;
         default:
           getProductsByCategory(option);
@@ -29,11 +33,13 @@ const MarketMenuContent = () => {
   async function getProducts() {
     const { data } = await getAllProducts();
     setProducts(data);
+    setLoading(false);
   }
 
   async function getProductsByCategory(category: string) {
     const { data } = await getProductsByCategoryService(category);
     setProducts(data);
+    setLoading(false);
   }
 
   const renderContent = () => {
@@ -47,7 +53,9 @@ const MarketMenuContent = () => {
     }
   };
 
-  return renderContent();
+  return (
+    <>{loading ? <LoadingContainer labelSize="medium" /> : renderContent()}</>
+  );
 };
 
 export default MarketMenuContent;
