@@ -4,9 +4,9 @@ import logo from "./logo100.png";
 const LoadingPage = () => {
   return (
     <>
-      <div className={css["container"]}>
+      <main className={`container ${css["container"]}`}>
         <img className={css["logo"]} src={logo} />
-      </div>
+      </main>
       <footer className={css["footer"]}>
         <span>developed by</span>
         <span className={css["name"]}>Rafael Hideki Hosaka</span>

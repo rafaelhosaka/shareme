@@ -24,13 +24,16 @@ function Spinner({ children, sizeClass, show }: SpinnerProps) {
   };
 
   useEffect(() => {
-    adjustSize();
     window.addEventListener("resize", adjustSize);
 
     return () => {
       window.removeEventListener("resize", adjustSize);
     };
   }, []);
+
+  useEffect(() => {
+    adjustSize();
+  }, [show]);
 
   return (
     <>
