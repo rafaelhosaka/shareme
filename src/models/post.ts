@@ -22,11 +22,13 @@ export class BasePostEntity {
 
 export default class PostEntity extends BasePostEntity {
   fileName: string;
+  fileType: string;
   sharedUsersId: string[];
 
   constructor(data: PostEntity) {
     super(data);
     this.fileName = data.fileName;
+    this.fileType = data.fileType;
     this.sharedUsersId = data.sharedUsersId;
   }
 }

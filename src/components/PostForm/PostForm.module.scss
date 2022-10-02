@@ -65,9 +65,6 @@
   text-align: center;
   display: grid;
   grid-template-columns: auto;
-
-  max-height: 450px;
-  overflow: scroll;
 }
 
 .thumbnail__close {
@@ -78,6 +75,7 @@
   position: absolute;
   cursor: pointer;
   background: t.$light-secondary-bgcolor;
+  z-index: 1;
 
   &:hover {
     background: t.$light-secondary-color;
@@ -93,6 +91,7 @@
   justify-self: center;
   object-fit: cover;
   width: 100%;
+  height: 100%;
 }
 
 .dropzone__label {

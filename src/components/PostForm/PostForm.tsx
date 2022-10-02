@@ -42,8 +42,11 @@ function PostForm({ handleNewPost }: PostFormProps) {
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: onDrop,
     accept: {
+      "video/*": [],
       "image/*": [],
     },
+    maxFiles: 1,
+    useFsAccessApi: false,
   });
   const { user: currentUser } = useUser();
   const userImage = useUserImage();
@@ -82,11 +85,23 @@ function PostForm({ handleNewPost }: PostFormProps) {
         </div>
         <div className={files.length <= 1 ? "" : "grid--2x1"}>
           {files.map((file) => (
-            <img
-              className={css["thumbnail__image"]}
-              key={file.name}
-              src={URL.createObjectURL(file)}
-            />
+            <>
+              {file.type.startsWith("image") ? (
+                <img
+                  className={css["thumbnail__image"]}
+                  key={file.name}
+                  src={URL.createObjectURL(file)}
+                />
+              ) : (
+                <video
+                  className={css["thumbnail__image"]}
+                  controls
+                  controlsList="nodownload"
+                >
+                  <source src={URL.createObjectURL(file)} />
+                </video>
+              )}
+            </>
           ))}
         </div>
       </div>

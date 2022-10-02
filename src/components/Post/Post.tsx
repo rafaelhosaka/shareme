@@ -39,8 +39,11 @@ interface PostProps {
 const Post = ({ data, onDelete, onShare }: PostProps) => {
   const { t } = useTranslation();
   const [post, setPost] = useState(data);
-  const { image: postImage, setService: setPostImageService } =
-    useBase64Image(null);
+  const {
+    image: postImage,
+    setService: setPostImageService,
+    type,
+  } = useBase64Image(null);
   const { image: postUserImage, setService: setPostUserService } =
     useBase64Image(null);
   const { user: currentUser } = useUser();
@@ -227,7 +230,17 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
     const jsx = (
       <div className={css["post__image"]}>
         <Spinner show={!postImage}>
-          <img className={css["post__image"]} src={postImage} />
+          {type?.startsWith("image") ? (
+            <img className={css["post__image"]} src={postImage} />
+          ) : (
+            <video
+              controls
+              controlsList="nodownload"
+              className={css["post__image"]}
+            >
+              <source src={postImage} />
+            </video>
+          )}
         </Spinner>
       </div>
     );

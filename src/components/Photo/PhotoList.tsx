@@ -16,7 +16,7 @@ const PhotoList = ({ items }: PhotoListProps) => {
       <h2>{t("PHOTO.photos")}</h2>
       <div className={css["photo-list"]}>
         {items.map((item) => {
-          if (item.fileName) {
+          if (item.fileType?.startsWith("image")) {
             hasImage = true;
             return <Photo key={item.id} item={item} />;
           }
