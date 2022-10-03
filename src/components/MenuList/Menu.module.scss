@@ -8,7 +8,6 @@
   top: 70px;
   width: 100vw;
   box-shadow: t.$light-box-shadow;
-  animation: slide 0.3s;
 }
 
 @keyframes slide {
@@ -110,6 +109,7 @@
     width: auto;
     height: calc(100vh - 70px);
     overflow-y: scroll;
+    animation: slide 0.3s;
   }
 
   .menu__list {
