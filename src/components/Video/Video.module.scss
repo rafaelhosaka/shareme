@@ -1,0 +1,47 @@
+@use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
+
+.video-list__container {
+  background-color: t.$light-secondary-bgcolor;
+  width: 100%;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: t.$light-box-shadow;
+}
+
+.video-list {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  padding-top: 2rem;
+}
+
+.video__container {
+  width: 18.7rem;
+  height: 18.7rem;
+}
+
+.video {
+  object-fit: cover;
+  width: 18.7rem;
+  height: 18.7rem;
+  border-radius: 10px;
+}
+
+.result {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 2rem;
+  padding-top: 1.5rem;
+}
+
+@include mixins.whenDarkModule {
+  .video-list__container {
+    background-color: t.$dark-secondary-bgcolor;
+  }
+
+  .result {
+    color: rgb(t.$dark-accent-color, 60%);
+  }
+}

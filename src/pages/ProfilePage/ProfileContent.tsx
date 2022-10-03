@@ -9,6 +9,7 @@ import PostList from "../../components/Post/PostList";
 import css from "./Profile.module.scss";
 import PhotoList from "../../components/Photo/PhotoList";
 import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
+import VideoList from "../../components/Video/VideoList";
 
 interface ProfileContentProps {
   user: UserProfileEntity;
@@ -46,6 +47,9 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
       case "photos":
         getPostPhotos();
         break;
+      case "videos":
+        getPostVideos();
+        break;
       default:
         setLoading(false);
     }
@@ -55,7 +59,19 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
     let myPosts: PostEntity[] = [];
     let posts = await getPostsByUsersId([user.id]);
     posts.forEach((post) => {
-      if (post instanceof PostEntity) {
+      if (post instanceof PostEntity && post.fileType?.startsWith("image")) {
+        myPosts.push(post);
+      }
+    });
+    setPostPhotos(myPosts);
+    setLoading(false);
+  };
+
+  const getPostVideos = async () => {
+    let myPosts: PostEntity[] = [];
+    let posts = await getPostsByUsersId([user.id]);
+    posts.forEach((post) => {
+      if (post instanceof PostEntity && post.fileType?.startsWith("video")) {
         myPosts.push(post);
       }
     });
@@ -71,6 +87,8 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
         return <FriendList friends={friends} />;
       case "photos":
         return <PhotoList items={postPhotos} />;
+      case "videos":
+        return <VideoList items={postPhotos} />;
     }
     return <></>;
   };

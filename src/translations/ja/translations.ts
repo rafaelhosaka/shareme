@@ -1,3 +1,4 @@
+import { VIDEO } from "./Video";
 import { DEMO } from "./Demo";
 import { CATEGORY } from "./Category";
 import { MARKETPLACE } from "./Marketplace";
@@ -46,5 +47,6 @@ export const TRANSLATIONS_JA = {
   NOTIFICATION,
   MARKETPLACE,
   CATEGORY,
+  VIDEO,
   DEMO,
 };

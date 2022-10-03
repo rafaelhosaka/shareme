@@ -9,21 +9,18 @@ interface PhotoListProps {
 
 const PhotoList = ({ items }: PhotoListProps) => {
   const { t } = useTranslation();
-  let hasImage = false;
 
   return (
     <div className={css["photo-list__container"]}>
       <h2>{t("PHOTO.photos")}</h2>
       <div className={css["photo-list"]}>
         {items.map((item) => {
-          if (item.fileType?.startsWith("image")) {
-            hasImage = true;
-            return <Photo key={item.id} item={item} />;
-          }
-          return;
+          return <Photo key={item.id} item={item} />;
         })}
       </div>
-      {!hasImage && <div className={css["result"]}>{t("PHOTO.noPhoto")}</div>}
+      {items.length === 0 && (
+        <div className={css["result"]}>{t("PHOTO.noPhoto")}</div>
+      )}
     </div>
   );
 };
