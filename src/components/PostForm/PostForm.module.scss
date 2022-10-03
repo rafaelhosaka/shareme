@@ -43,68 +43,6 @@
   padding-bottom: 2rem;
 }
 
-.dropzone {
-  border: 1px solid black;
-  border-radius: 10px;
-  background: t.$light-secondary-bgcolor;
-  text-align: center;
-  cursor: pointer;
-  height: 160px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  &:hover {
-    background-color: t.$light-secondary-color;
-  }
-}
-
-.thumbnail {
-  border-radius: 10px;
-  border: 1px solid black;
-  text-align: center;
-  display: grid;
-  grid-template-columns: auto;
-}
-
-.thumbnail__close {
-  border: 1px solid black;
-  border-radius: 32px;
-  padding: 5px;
-  justify-self: end;
-  position: absolute;
-  cursor: pointer;
-  background: t.$light-secondary-bgcolor;
-  z-index: 1;
-
-  &:hover {
-    background: t.$light-secondary-color;
-  }
-}
-
-.close__icon {
-  font-size: 30px;
-  color: t.$light-accent-color;
-}
-
-.thumbnail__image {
-  justify-self: center;
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
-}
-
-.dropzone__label {
-  font-weight: 600;
-  font-size: 2rem;
-  letter-spacing: 1px;
-}
-
-.dropzone__sublabel {
-  font-weight: 300;
-  font-size: 1.2rem;
-}
-
 @include mixins.whenDarkModule {
   .form-post__container {
     background: t.$dark-secondary-bgcolor;
@@ -113,14 +51,5 @@
 
   .description {
     background: t.$dark-secondary-bgcolor;
-  }
-
-  .dropzone {
-    background: t.$dark-secondary-bgcolor;
-    border: 1px solid t.$dark-accent-color;
-
-    &:hover {
-      background: t.$dark-primary-bgcolor;
-    }
   }
 }

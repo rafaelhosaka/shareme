@@ -5,8 +5,6 @@ export const MARKETPLACE = {
   title: "タイトル",
   price: "価格",
   image: "写真",
-  addPhoto: "写真を追加する",
-  dragDrop: "またはドラッグ＆ドロップ",
   description: "説明",
   category: "カテゴリー",
   categories: "カテゴリー",

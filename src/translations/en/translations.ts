@@ -1,3 +1,4 @@
+import { DROPZONE } from "./Dropzone";
 import { GROUP } from "./Group";
 import { VIDEO } from "./Video";
 import { DEMO } from "./Demo";
@@ -50,5 +51,6 @@ export const TRANSLATIONS_EN = {
   CATEGORY,
   VIDEO,
   GROUP,
+  DROPZONE,
   DEMO,
 };

@@ -5,8 +5,6 @@ export const MARKETPLACE = {
   title: "Title",
   price: "Price",
   image: "Image",
-  addPhoto: "Add photo",
-  dragDrop: "or drag and drop",
   description: "Description",
   category: "Category",
   categories: "Categories",

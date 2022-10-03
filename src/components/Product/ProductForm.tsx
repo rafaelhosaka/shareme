@@ -1,5 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
-import { FileRejection, useDropzone } from "react-dropzone";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useUser, useUserImage } from "../../context/userContext";
@@ -13,6 +12,7 @@ import {
 } from "../../services/productService";
 import { fullName } from "../../utils/formatedNames";
 import { useAlert } from "../Alert/Alert";
+import Dropzone from "../Dropzone/Dropzone";
 import Spinner from "../Spinner/Spinner";
 import css from "./ProductForm.module.scss";
 
@@ -45,25 +45,6 @@ const ProductForm = () => {
   const [alert, dispatchAlert] = useAlert();
   const [files, setFiles] = useState<File[]>([]);
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[], fileRejections: FileRejection[]) => {
-      if (fileRejections.length !== 0) {
-        dispatchAlert("Invalid type", "danger");
-        fileRejections = [];
-      } else {
-        setFiles(acceptedFiles);
-      }
-    },
-    []
-  );
-
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: onDrop,
-    accept: {
-      "image/*": [],
-    },
-  });
-
   useEffect(() => {
     async function init() {
       const { data: categories } = await getCategories();
@@ -73,52 +54,6 @@ const ProductForm = () => {
     }
     init();
   }, []);
-
-  const handleClose = () => {
-    setFiles([]);
-  };
-
-  const renderPreview = () => {
-    if (files.length === 0) return getDropZone();
-
-    return getThumbnail();
-  };
-
-  const getDropZone = () => {
-    return (
-      <div {...getRootProps({ className: css.dropzone })}>
-        <input {...getInputProps()} />
-        <div className={css["dropzone__label"]}>
-          {t("MARKETPLACE.addPhoto")}
-        </div>
-        <div className={css["dropzone__sublabel"]}>
-          {t("MARKETPLACE.dragDrop")}
-        </div>
-      </div>
-    );
-  };
-
-  const getThumbnail = () => {
-    return (
-      <div className={css.thumbnail}>
-        <div
-          onClick={() => handleClose()}
-          className={`${css["thumbnail__close"]} m1 size--40`}
-        >
-          <i className={`${css["close__icon"]} fa-solid fa-xmark`}></i>
-        </div>
-        <div className={files.length <= 1 ? "" : "grid--2x1"}>
-          {files.map((file) => (
-            <img
-              className={css["thumbnail__image"]}
-              key={file.name}
-              src={URL.createObjectURL(file)}
-            />
-          ))}
-        </div>
-      </div>
-    );
-  };
 
   const isValid = () => {
     if (files.length === 0) {
@@ -152,7 +87,7 @@ const ProductForm = () => {
         );
         formData.append("file", files[0]);
         createProduct(formData);
-        handleClose();
+        setFiles([]);
         reset();
         setSubmmiting(false);
         dispatchAlert(t("MARKETPLACE.alertCreateSuccess"), "success");
@@ -221,7 +156,14 @@ const ProductForm = () => {
         </div>
 
         <span className="form-label">{t("MARKETPLACE.image")}</span>
-        <div className="form-group">{renderPreview()}</div>
+        <div className="form-group">
+          <Dropzone
+            files={files}
+            onSelect={(files: File[]) => setFiles(files)}
+            onClose={() => setFiles([])}
+            onError={(message: string) => dispatchAlert(t(message), "danger")}
+          />
+        </div>
 
         <span className="form-label">{t("MARKETPLACE.description")}</span>
         <div className="form-group">

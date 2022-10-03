@@ -1,7 +1,6 @@
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import { useInput } from "../../hook/useInput";
 import { savePostWithImage } from "../../services/postService";
-import { FileRejection, useDropzone } from "react-dropzone";
 import { useUser, useUserImage } from "../../context/userContext";
 import { useAlert } from "../Alert/Alert";
 import { Link } from "react-router-dom";
@@ -12,6 +11,7 @@ import css from "./PostForm.module.scss";
 import UserProfileEntity, { UserProfileDTO } from "../../models/userProfile";
 import { useTranslation } from "react-i18next";
 import { fullName } from "../../utils/formatedNames";
+import Dropzone from "../Dropzone/Dropzone";
 
 interface PostFormProps {
   handleNewPost: (post: PostEntity) => void;
@@ -21,91 +21,19 @@ function PostForm({ handleNewPost }: PostFormProps) {
   const { t } = useTranslation();
   const [submitting, setSubmmiting] = useState(false);
 
-  const onDrop = useCallback(
-    (acceptedFiles: File[], fileRejections: FileRejection[]) => {
-      if (fileRejections.length !== 0) {
-        dispatchAlert(t("POST_FORM.alertInvalidFileType"), "danger");
-        fileRejections = [];
-      } else {
-        setFiles(acceptedFiles);
-      }
-    },
-    []
-  );
-
   const {
     value: description,
     bind: bindDescription,
     reset: resetDescription,
   } = useInput("");
   const [files, setFiles] = useState<File[]>([]);
-  const { getRootProps, getInputProps } = useDropzone({
-    onDrop: onDrop,
-    accept: {
-      "video/*": [],
-      "image/*": [],
-    },
-    maxFiles: 1,
-    useFsAccessApi: false,
-  });
+
   const { user: currentUser } = useUser();
   const userImage = useUserImage();
   const [alert, dispatchAlert] = useAlert();
 
   const handleClose = () => {
     setFiles([]);
-  };
-
-  const renderPreview = () => {
-    if (files.length === 0) return getDropZone();
-
-    return getThumbnail();
-  };
-
-  const getDropZone = () => {
-    return (
-      <div {...getRootProps({ className: css.dropzone })}>
-        <input {...getInputProps()} />
-        <div className={css["dropzone__label"]}>{t("POST_FORM.addPhotos")}</div>
-        <div className={css["dropzone__sublabel"]}>
-          {t("POST_FORM.dragDrop")}
-        </div>
-      </div>
-    );
-  };
-
-  const getThumbnail = () => {
-    return (
-      <div className={css.thumbnail}>
-        <div
-          onClick={() => handleClose()}
-          className={`${css["thumbnail__close"]} m1 size--40`}
-        >
-          <i className={`${css["close__icon"]} fa-solid fa-xmark`}></i>
-        </div>
-        <div className={files.length <= 1 ? "" : "grid--2x1"}>
-          {files.map((file) => (
-            <>
-              {file.type.startsWith("image") ? (
-                <img
-                  className={css["thumbnail__image"]}
-                  key={file.name}
-                  src={URL.createObjectURL(file)}
-                />
-              ) : (
-                <video
-                  className={css["thumbnail__image"]}
-                  controls
-                  controlsList="nodownload"
-                >
-                  <source src={URL.createObjectURL(file)} />
-                </video>
-              )}
-            </>
-          ))}
-        </div>
-      </div>
-    );
   };
 
   const createPost = async (currentUser: UserProfileEntity) => {
@@ -177,7 +105,13 @@ function PostForm({ handleNewPost }: PostFormProps) {
           />
         </div>
 
-        {renderPreview()}
+        <Dropzone
+          files={files}
+          onSelect={(files) => setFiles(files)}
+          onClose={() => setFiles([])}
+          acceptVideo
+          onError={(message: string) => dispatchAlert(t(message), "danger")}
+        />
         <button
           disabled={submitting}
           className="btn my-2 btn--primary btn--stretched"
