@@ -215,7 +215,7 @@ const NavRight = () => {
 
   const getCenterMenu = () => {
     return (
-      <>
+      <div onClick={() => setCenterMenuVisible(false)}>
         <Link to="/home">
           <NavMenuItem
             iconClass="fa-solid fa-house fa-xl"
@@ -254,7 +254,6 @@ const NavRight = () => {
         <div
           onClick={() => {
             setNotificationVisible(true);
-            setCenterMenuVisible(false);
           }}
         >
           <NavMenuItem
@@ -263,7 +262,7 @@ const NavRight = () => {
             active={pathname === "/notifications"}
           ></NavMenuItem>
         </div>
-      </>
+      </div>
     );
   };
 
