@@ -28,7 +28,7 @@ const NavCenter = () => {
       <NavLinkWithToolTip
         activeClass={css.active}
         className={css["nav-link"]}
-        to="/group"
+        to="/group/feed"
         tooltipLabel={t("NAVBAR.group")}
       >
         <i className="fa-solid fa-users-line fa-xl"></i>

@@ -25,6 +25,7 @@ import ChatMenu from "../../pages/ChatMenu/ChatMenu";
 import { useUser } from "../../context/userContext";
 import LoadingPage from "../../pages/Loading/LoadingPage";
 import { useEffect, useState } from "react";
+import GroupMenu from "../../pages/GroupMenu/GroupMenu";
 
 const userRole = ["ROLE_USER"];
 const adminRole = ["ROLE_ADMIN"];
@@ -108,6 +109,7 @@ function AppRoutes() {
             <Route path="/home" element={<Feed />} />
 
             <Route path="/marketplace/:option" element={<MarketMenu />} />
+            <Route path="/group/:option" element={<GroupMenu />} />
 
             <Route path="/friends/:option" element={<FriendMenu />} />
 

@@ -230,11 +230,11 @@ const NavRight = () => {
             active={_.startsWith(pathname, "/friends")}
           />
         </Link>
-        <Link to="/group">
+        <Link to="/group/feed">
           <NavMenuItem
             iconClass="fa-solid fa-users-line fa-xl"
             label={t("NAVBAR.group")}
-            active={pathname === "/group"}
+            active={_.startsWith(pathname, "/group")}
           />
         </Link>
         <Link to="/marketplace/all">
