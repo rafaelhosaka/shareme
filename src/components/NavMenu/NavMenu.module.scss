@@ -2,12 +2,12 @@
 @use "../../styles/abstracts/theme" as t;
 
 .menu-list-container {
-  border: 1px solid white;
-  height: auto;
   min-width: 300px;
   background-color: t.$light-secondary-bgcolor;
   border-radius: 10px;
   box-shadow: t.$light-box-shadow;
+  overflow-x: hidden;
+  animation: initialAnimation 0.5s linear;
 }
 
 .menu-heading {
@@ -101,9 +101,37 @@
   translate: 29px;
 }
 
+.animateRightToLeft {
+  animation: rightToLeft 0.3s;
+}
+
+.animateLeftToRight {
+  animation: leftToRight 0.3s;
+}
+
+@keyframes initialAnimation {
+  0% {
+    max-height: 0;
+  }
+  100% {
+    max-height: 1000px;
+  }
+}
+
+@keyframes leftToRight {
+  0% {
+    translate: 300px;
+  }
+}
+
+@keyframes rightToLeft {
+  0% {
+    translate: -300px;
+  }
+}
+
 @include mixins.whenDarkModule {
   .menu-list-container {
-    border: 1px solid white;
     background-color: t.$dark-secondary-bgcolor;
     border-radius: 10px;
     box-shadow: t.$dark-box-shadow;
