@@ -1,5 +1,7 @@
 export const GROUP = {
   header: "Groups",
-  feed: "your feed",
+  feed: "Feed",
   createGroup: "Create new group",
+  search: "Search groups",
+  joinedGroups: "Groups you've joined",
 };

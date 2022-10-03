@@ -1,0 +1,16 @@
+@use "../../styles/abstracts/theme" as t;
+@use "../../styles/abstracts/mixins" as mixins;
+
+.form__container {
+  background: t.$light-secondary-bgcolor;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: t.$light-box-shadow;
+}
+
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  padding: 2rem;
+  border-bottom: 1px solid lightgrey;
+}

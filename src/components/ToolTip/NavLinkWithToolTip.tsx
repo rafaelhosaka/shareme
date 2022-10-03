@@ -11,7 +11,7 @@ interface NavLinkWithToolTipProps {
   initializeToolTipText: (text: string) => void;
   className: string;
   activeClass?: string;
-  startWith?: string;
+  activeStartWith?: string;
   [x: string]: any;
 }
 
@@ -23,13 +23,13 @@ function NavLinkWithToolTip({
   showToolTip,
   className,
   activeClass,
-  startWith,
+  activeStartWith,
   ...props
 }: NavLinkWithToolTipProps) {
   const { pathname: currentURL } = useLocation();
   const isActive = () => {
-    if (startWith) {
-      return currentURL.startsWith(startWith);
+    if (activeStartWith) {
+      return currentURL.startsWith(activeStartWith);
     } else {
       return to === currentURL;
     }

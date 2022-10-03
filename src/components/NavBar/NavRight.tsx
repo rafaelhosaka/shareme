@@ -290,7 +290,7 @@ const NavRight = () => {
             className={css["nav-link"]}
             to="/chat"
             tooltipLabel={t("NAVBAR.chat")}
-            startWith="/chat"
+            activeStartWith="/chat"
           >
             <i className="fas fa-comments fa-xl"></i>
             {chatUnreadCount > 0 && (
