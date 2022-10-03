@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUserById, userImageDownload } from "../../../services/userService";
-import { useBase64Image } from "../../../hook/useBase64Image";
+import { useBase64File } from "../../../hook/useBase64File";
 import { Link } from "react-router-dom";
 import Spinner from "../../Spinner/Spinner";
 import FriendRequestEntity from "../../../models/friendRequest";
@@ -22,7 +22,7 @@ function FriendRequest({
   handleConfirm,
 }: FriendRequestProps) {
   const { t } = useTranslation();
-  const { image, setService } = useBase64Image(null);
+  const { file: friendImage, setService } = useBase64File(null);
   const [user, setUser] = useState<UserProfileEntity>();
 
   useEffect(() => {
@@ -36,8 +36,11 @@ function FriendRequest({
   return (
     <div className={`${css["friend-request__container"]} m2`}>
       <Link to={`/profile/${request.requestingUserId}/posts`}>
-        <Spinner show={!image} sizeClass="size--200">
-          <img src={image} className={css["friend-request__user-image"]} />
+        <Spinner show={!friendImage} sizeClass="size--200">
+          <img
+            src={friendImage}
+            className={css["friend-request__user-image"]}
+          />
         </Spinner>
       </Link>
       <div className={css["friend-request__body"]}>

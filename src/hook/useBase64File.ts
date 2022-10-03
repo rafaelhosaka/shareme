@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 
-export function useBase64Image(httpService: Promise<AxiosResponse> | null) {
-  const [image, setImage] = useState<string | undefined>();
+export function useBase64File(httpService: Promise<AxiosResponse> | null) {
+  const [file, setFile] = useState<string | undefined>();
   const [service, setService] = useState(httpService);
   const [type, setType] = useState("");
 
@@ -13,16 +13,16 @@ export function useBase64Image(httpService: Promise<AxiosResponse> | null) {
 
         if (data) {
           setType(data[1]);
-          setImage(`data:${data[1]};base64,${data[0]}`);
+          setFile(`data:${data[1]};base64,${data[0]}`);
         } else {
-          setImage(process.env.PUBLIC_URL + "/images/no-picture.jpeg");
+          setFile(process.env.PUBLIC_URL + "/images/no-picture.jpeg");
         }
       } else {
-        setImage(undefined);
+        setFile(undefined);
       }
     }
     getImage();
   }, [service]);
 
-  return { image, setService, type };
+  return { file, setService, type };
 }

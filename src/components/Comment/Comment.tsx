@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useUser } from "../../context/userContext";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import useComponentVisible from "../../hook/useComponentVisible";
 import { useEditableText } from "../../hook/useEditableText";
 import CommentEntity from "../../models/comment";
@@ -29,7 +29,7 @@ interface CommentProps {
 function Comment({ comment, onDelete, replyComment }: CommentProps) {
   const { t } = useTranslation();
   const [user, setUser] = useState<UserProfileEntity>();
-  const { image: commentUserImage, setService } = useBase64Image(null);
+  const { file: commentUserImage, setService } = useBase64File(null);
   const { user: currentUser } = useUser();
   const newCommentRef = useRef<HTMLTextAreaElement>(null);
   const [showNewComment, setShowNewComment] = useState(false);

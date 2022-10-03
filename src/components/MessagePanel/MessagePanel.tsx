@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useChat } from "../../context/chatContext";
 import { useStompContext } from "../../context/stompContext";
 import { useUser } from "../../context/userContext";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import { useInput } from "../../hook/useInput";
 import { ChatStatusEntity } from "../../models/websocket";
 import { MessageEntity } from "../../models/message";
@@ -35,8 +35,8 @@ const MessagePanel = ({
   const [chattingUser, setChattingUser] = useState<UserProfileEntity>();
   const [messages, setMessages] = useState<MessageEntity[]>([]);
   const { value: text, bind: bindText, reset: resetText } = useInput("");
-  const { image: userImage, setService: setUserImageService } =
-    useBase64Image(null);
+  const { file: userImage, setService: setUserImageService } =
+    useBase64File(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const { updateCounter } = useChat();
   const { sendMessage, receivedMessage } = useStompContext();

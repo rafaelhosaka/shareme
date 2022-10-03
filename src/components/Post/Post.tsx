@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useUser } from "../../context/userContext";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import useComponentVisible from "../../hook/useComponentVisible";
 import { useEditableTextArea } from "../../hook/useEditableTextArea";
 import CommentEntity from "../../models/comment";
@@ -40,12 +40,12 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
   const { t } = useTranslation();
   const [post, setPost] = useState(data);
   const {
-    image: postImage,
+    file: postFile,
     setService: setPostImageService,
     type,
-  } = useBase64Image(null);
-  const { image: postUserImage, setService: setPostUserService } =
-    useBase64Image(null);
+  } = useBase64File(null);
+  const { file: postUserImage, setService: setPostUserService } =
+    useBase64File(null);
   const { user: currentUser } = useUser();
   const inputNewCommentRef = useRef<HTMLTextAreaElement>(null);
   const [showComments, setShowComments] = useState(false);
@@ -229,16 +229,16 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
   const renderPostImage = () => {
     const jsx = (
       <div className={css["post__image"]}>
-        <Spinner show={!postImage}>
+        <Spinner show={!postFile}>
           {type?.startsWith("image") ? (
-            <img className={css["post__image"]} src={postImage} />
+            <img className={css["post__image"]} src={postFile} />
           ) : (
             <video
               controls
               controlsList="nodownload"
               className={css["post__image"]}
             >
-              <source src={postImage} />
+              <source src={postFile} />
             </video>
           )}
         </Spinner>

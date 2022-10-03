@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import { postImageDownload } from "../../services/postService";
 import PostEntity from "../../models/post";
 import css from "./Photo.module.scss";
@@ -10,7 +10,7 @@ interface PhotoProps {
 }
 
 const Photo = ({ item }: PhotoProps) => {
-  const { image, setService } = useBase64Image(null);
+  const { file, setService } = useBase64File(null);
 
   useEffect(() => {
     setService(postImageDownload(item.id));
@@ -18,8 +18,8 @@ const Photo = ({ item }: PhotoProps) => {
 
   return (
     <div className={css["photo__container"]}>
-      <Spinner show={!image}>
-        <img className={css["photo"]} src={image} />
+      <Spinner show={!file}>
+        <img className={css["photo"]} src={file} />
       </Spinner>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import Spinner from "../../components/Spinner/Spinner";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import UserProfileEntity from "../../models/userProfile";
 import { userImageDownload } from "../../services/userService";
 import { fullName } from "../../utils/formatedNames";
@@ -11,8 +11,8 @@ interface ChatUserProps {
 }
 
 const ContactUser = ({ user }: ChatUserProps) => {
-  const { image: userImage, setService: setUserImageService } =
-    useBase64Image(null);
+  const { file: userImage, setService: setUserImageService } =
+    useBase64File(null);
 
   useEffect(() => {
     setUserImageService(userImageDownload(user.id));

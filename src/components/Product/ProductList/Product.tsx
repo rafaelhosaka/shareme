@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useBase64Image } from "../../../hook/useBase64Image";
+import { useBase64File } from "../../../hook/useBase64File";
 import { ProductEntity } from "../../../models/product";
 import { productImageDownload } from "../../../services/productService";
 import ProductModal from "../../Modal/ProductModal";
@@ -11,8 +11,8 @@ interface ProductProps {
 }
 
 const Product = ({ product }: ProductProps) => {
-  const { image: productImage, setService: setProductService } =
-    useBase64Image(null);
+  const { file: productImage, setService: setProductService } =
+    useBase64File(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {

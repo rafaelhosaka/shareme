@@ -1,7 +1,7 @@
 import UserProfileEntity from "../../../models/userProfile";
 import { userImageDownload } from "../../../services/userService";
 import css from "./Friend.module.scss";
-import { useBase64Image } from "../../../hook/useBase64Image";
+import { useBase64File } from "../../../hook/useBase64File";
 import Spinner from "../../Spinner/Spinner";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
@@ -12,7 +12,7 @@ interface FriendProps {
 }
 
 function Friend({ friend }: FriendProps) {
-  const { image: userImage, setService } = useBase64Image(null);
+  const { file: userImage, setService } = useBase64File(null);
 
   useEffect(() => {
     setService(userImageDownload(friend.id));

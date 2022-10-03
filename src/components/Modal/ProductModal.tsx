@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import { ProductEntity } from "../../models/product";
 import { productImageDownload } from "../../services/productService";
 import { userImageDownload } from "../../services/userService";
@@ -15,10 +15,10 @@ interface ModalProps {
 }
 
 const ProductModal = ({ product, show, onReject }: ModalProps) => {
-  const { image: productImage, setService: setProductService } =
-    useBase64Image(null);
-  const { image: userImage, setService: setUserImageService } =
-    useBase64Image(null);
+  const { file: productImage, setService: setProductService } =
+    useBase64File(null);
+  const { file: userImage, setService: setUserImageService } =
+    useBase64File(null);
   const [visible, setVisible] = useState(show);
 
   useEffect(() => {

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import PostEntity from "../../models/post";
 import { postImageDownload } from "../../services/postService";
 import Spinner from "../Spinner/Spinner";
@@ -10,7 +10,7 @@ interface VideoProps {
 }
 
 const Video = ({ item }: VideoProps) => {
-  const { image, setService } = useBase64Image(null);
+  const { file, setService } = useBase64File(null);
 
   console.log(item);
 
@@ -20,9 +20,9 @@ const Video = ({ item }: VideoProps) => {
 
   return (
     <div className={css["video__container"]}>
-      <Spinner show={!image}>
+      <Spinner show={!file}>
         <video className={css["video"]}>
-          <source src={image} />
+          <source src={file} />
         </video>
       </Spinner>
     </div>

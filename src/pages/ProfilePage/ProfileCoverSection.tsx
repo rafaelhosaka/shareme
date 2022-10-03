@@ -2,7 +2,7 @@ import DropdownMenu from "../../components/DropdownMenu/DropdownMenu";
 import Spinner from "../../components/Spinner/Spinner";
 import DropdownItem from "../../components/DropdownMenu/DropdownItem";
 import useComponentVisible from "../../hook/useComponentVisible";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 
 import css from "./Profile.module.scss";
 import UserProfileEntity from "../../models/userProfile";
@@ -24,8 +24,8 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
   const { t } = useTranslation();
   const { id } = useParams();
   const { user: currentUser, setUser: setCurrentUser } = useUser();
-  const { image: userCoverImage, setService: setCoverImageService } =
-    useBase64Image(null);
+  const { file: userCoverImage, setService: setCoverImageService } =
+    useBase64File(null);
 
   const {
     refs: dropCoverRefs,

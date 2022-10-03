@@ -1,7 +1,7 @@
 import { SyntheticEvent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import useComponentVisible from "../../hook/useComponentVisible";
 import {
   FriendAcceptedNotificationEntity,
@@ -28,7 +28,7 @@ const Notification = ({
   onDelete,
 }: NotificationProps) => {
   const { t } = useTranslation();
-  const { image, setService } = useBase64Image(null);
+  const { file, setService } = useBase64File(null);
   const navigate = useNavigate();
 
   const {
@@ -91,8 +91,8 @@ const Notification = ({
         }`}
       >
         <div>
-          <Spinner show={!image} sizeClass="size--60">
-            <img className={css["notification-image"]} src={image} />
+          <Spinner show={!file} sizeClass="size--60">
+            <img className={css["notification-image"]} src={file} />
           </Spinner>
         </div>
         <div className={css["body"]}>

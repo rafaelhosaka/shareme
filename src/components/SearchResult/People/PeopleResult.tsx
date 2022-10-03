@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useBase64Image } from "../../../hook/useBase64Image";
+import { useBase64File } from "../../../hook/useBase64File";
 import { userImageDownload } from "../../../services/userService";
 import Spinner from "../../Spinner/Spinner";
 import {
@@ -31,7 +31,7 @@ function PeopleResult({
   ownSelf,
 }: PeopleResultProps) {
   const { t } = useTranslation();
-  const { image: userImage, setService } = useBase64Image(null);
+  const { file: userImage, setService } = useBase64File(null);
   const { user: currentUser, setUser } = useUser();
 
   const [pend, setPend] = useState<boolean>();

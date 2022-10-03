@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import { ChatEntity } from "../../models/chat";
 import UserProfileEntity from "../../models/userProfile";
 import { userImageDownload } from "../../services/userService";
@@ -18,8 +18,8 @@ interface ChatProps {
 export const Chat = ({ chat, onRead }: ChatProps) => {
   const { t } = useTranslation();
   const [friend, setFriend] = useState<UserProfileEntity>();
-  const { image: friendImage, setService: setFriendImageService } =
-    useBase64Image(null);
+  const { file: friendImage, setService: setFriendImageService } =
+    useBase64File(null);
 
   useEffect(() => {
     setFriend(chat.friend);

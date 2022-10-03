@@ -3,7 +3,7 @@ import UserProfileEntity from "../../models/userProfile";
 
 import css from "./Profile.module.scss";
 import { useEffect, useState } from "react";
-import { useBase64Image } from "../../hook/useBase64Image";
+import { useBase64File } from "../../hook/useBase64File";
 import { userImageDownload, userImageUpload } from "../../services/userService";
 import { useUser } from "../../context/userContext";
 import { Link, useParams } from "react-router-dom";
@@ -35,8 +35,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const { user: currentUser, setUser: setCurrentUser } = useUser();
-  const { image: userImage, setService: setImageService } =
-    useBase64Image(null);
+  const { file: userImage, setService: setImageService } = useBase64File(null);
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
   const [showModal, setShowModal] = useState(false);

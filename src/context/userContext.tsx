@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import authService from "../services/authService";
 import { getUserByEmail, userImageDownload } from "../services/userService";
-import { useBase64Image } from "../hook/useBase64Image";
+import { useBase64File } from "../hook/useBase64File";
 import UserProfileEntity from "../models/userProfile";
 
 interface UserContextInterface {
@@ -30,7 +30,7 @@ interface UserProviderProps {
 
 export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<UserProfileEntity | null>(null);
-  const { image: userImage, setService: setService } = useBase64Image(null);
+  const { file: userImage, setService: setService } = useBase64File(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
