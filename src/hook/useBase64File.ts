@@ -11,7 +11,7 @@ export function useBase64File(httpService: Promise<AxiosResponse> | null) {
       if (service) {
         const { data } = await service;
 
-        if (data) {
+        if (data[0]) {
           setType(data[1]);
           setFile(`data:${data[1]};base64,${data[0]}`);
         } else {

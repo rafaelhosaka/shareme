@@ -33,6 +33,7 @@ const GroupForm = () => {
         }),
         files[0]
       );
+      setFiles([]);
       reset();
       dispatchAlert(t("GROUP.alertCreateSuccess"), "success");
     }

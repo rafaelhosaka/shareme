@@ -3,28 +3,39 @@ import { useToggle } from "../../hook/useToggle";
 import css from "./SearchBar.module.scss";
 
 interface SearchBarProps {
-  placeHolder: string;
+  placeHolder?: string;
   onSubmit?: (searchQuery: string) => void;
   onChange?: (searchQuery: string | undefined) => void;
   expanded?: boolean;
   expandable?: boolean;
+  searchRef?: boolean;
+  focused?: boolean;
 }
 
 function SearchBar({
-  placeHolder,
+  placeHolder = "",
   onSubmit,
   onChange,
   expanded = false,
   expandable = false,
+  focused = false,
 }: SearchBarProps) {
   const [showSearch, toggleSearch] = useToggle(expanded);
   const searchRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (showSearch) {
-      searchRef?.current?.focus();
+    if (focused) {
+      focus();
     }
+  }, []);
+
+  useEffect(() => {
+    focus();
   }, [showSearch]);
+
+  const focus = () => {
+    searchRef?.current?.focus();
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

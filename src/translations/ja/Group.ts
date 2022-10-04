@@ -8,5 +8,8 @@ export const GROUP = {
   create: "作成",
   search: "グループを検索",
   joinedGroups: "参加しているグループ",
+  join: "参加",
+  member_singular: "メンバー{{count}}人",
+  member_plural: "メンバー{{count}}人",
   alertCreateSuccess: "作成に成功しました",
 };

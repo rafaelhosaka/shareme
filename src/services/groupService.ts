@@ -11,6 +11,20 @@ export function createGroup(groupJson: string, file: File) {
   });
 }
 
+export function getAllGroups() {
+  return httpService.get(`${apiEndPoint}/all`);
+}
+
 export function getGroupsByUserId(userId: string) {
   return httpService.get(`${apiEndPoint}/user/${userId}`);
+}
+
+export function downloadGroupImage(groupId: string) {
+  return httpService.get(`${apiEndPoint}/download/${groupId}`);
+}
+
+export function searchGroupsContainsName(searchedName: string) {
+  return httpService.get(
+    apiEndPoint + "/search/name?query=" + encodeURIComponent(searchedName)
+  );
 }

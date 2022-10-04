@@ -8,5 +8,8 @@ export const GROUP = {
   create: "Create",
   search: "Search groups",
   joinedGroups: "Groups you've joined",
+  join: "Join",
+  member_singular: "{{count}} Member",
+  member_plural: "{{count}} Members",
   alertCreateSuccess: "Created sucessfully",
 };

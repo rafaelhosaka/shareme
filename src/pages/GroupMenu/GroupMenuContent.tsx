@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import GroupForm from "../../components/Group/GroupForm";
+import SearchGroup from "../SearchGroup/SearchGroup";
 
 const GroupMenuContent = () => {
   const { option } = useParams();
@@ -11,7 +12,7 @@ const GroupMenuContent = () => {
       case "create":
         return <GroupForm />;
       case "search":
-        break;
+        return <SearchGroup />;
     }
 
     return <></>;
