@@ -11,5 +11,5 @@ export const MARKETPLACE = {
   noProducts: "一致する結果はありませんでした",
   create: "作成",
   alertImageEmpty: "写真を追加してください",
-  alertCreateSuccess: "作成しました",
+  alertCreateSuccess: "作成に成功しました",
 };

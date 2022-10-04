@@ -73,9 +73,7 @@ const ProductForm = () => {
         return;
       }
       if (currentUser) {
-        const formData = new FormData();
-        formData.append(
-          "product",
+        createProduct(
           JSON.stringify({
             title,
             price,
@@ -83,10 +81,9 @@ const ProductForm = () => {
             category,
             currency,
             user: new UserProfileDTO(currentUser),
-          })
+          }),
+          files[0]
         );
-        formData.append("file", files[0]);
-        createProduct(formData);
         setFiles([]);
         reset();
         setSubmmiting(false);

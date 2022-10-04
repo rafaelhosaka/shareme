@@ -11,7 +11,10 @@ export function getProductsByCategory(category: string) {
   return httpService.get(`${apiEndPoint}/${category}`);
 }
 
-export function createProduct(formData: FormData) {
+export function createProduct(productJson: string, file: File) {
+  const formData = new FormData();
+  formData.append("product", productJson);
+  formData.append("file", file);
   return httpService.post(`${apiEndPoint}/create`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });

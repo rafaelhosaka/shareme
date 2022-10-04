@@ -14,3 +14,18 @@
   padding: 2rem;
   border-bottom: 1px solid lightgrey;
 }
+
+.field {
+  border-radius: 10px;
+  padding: 1rem;
+  outline: 0;
+  font-size: 2rem;
+  border: 1px solid black;
+}
+
+@include mixins.whenDarkModule {
+  .form__container {
+    background: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+}
