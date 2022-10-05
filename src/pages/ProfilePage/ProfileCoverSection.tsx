@@ -73,7 +73,7 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
         </button>
         {isDropCoverVisible && (
           <DropdownMenu>
-            <label className={css["upload-label"]} htmlFor="upload-cover-image">
+            <label htmlFor="upload-cover-image">
               <DropdownItem label={t("PROFILE.uploadPhoto")}>
                 <i className="fa-solid fa-file-arrow-up"></i>
               </DropdownItem>

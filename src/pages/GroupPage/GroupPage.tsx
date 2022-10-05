@@ -74,11 +74,15 @@ const GroupPage = () => {
     setPosts(posts.filter((p) => p.id !== postId));
   };
 
+  const handleUpdate = (group: GroupEntity) => {
+    setGroup(group);
+  };
+
   const renderResult = () => {
     return (
       group && (
         <div className={css["container"]}>
-          <Group group={group} />
+          <Group group={group} onUpdate={handleUpdate} />
           <PostForm handleNewPost={handleNewPost} />
           <PostList posts={posts} onDelete={handleDeletePost} />
         </div>

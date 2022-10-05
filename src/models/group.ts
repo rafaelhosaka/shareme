@@ -4,5 +4,5 @@ export interface GroupEntity {
   members: string[];
   name: string;
   dateCreated: Date;
-  fileName?: string;
+  coverFileName?: string;
 }

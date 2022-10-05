@@ -10,6 +10,8 @@ export const GROUP = {
   joinedGroups: "参加しているグループ",
   join: "参加",
   joined: "参加済み",
+  editCoverPhoto: "写真を追加する",
+  uploadPhoto: "カバー写真を編集",
   member_singular: "メンバー{{count}}人",
   member_plural: "メンバー{{count}}人",
   alertCreateSuccess: "作成に成功しました",

@@ -32,3 +32,12 @@ export function searchGroupsContainsName(searchedName: string) {
     apiEndPoint + "/search/name?query=" + encodeURIComponent(searchedName)
   );
 }
+
+export function groupCoverImageUpload(groupId: string, file: File) {
+  const formData = new FormData();
+  formData.append("groupId", groupId);
+  formData.append("file", file);
+  return httpService.put(`${apiEndPoint}/uploadCoverImage`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+}

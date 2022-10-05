@@ -10,6 +10,8 @@ export const GROUP = {
   joinedGroups: "Groups you've joined",
   join: "Join",
   joined: "Joined",
+  editCoverPhoto: "Upload photo",
+  uploadPhoto: "Edit cover photo",
   member_singular: "{{count}} Member",
   member_plural: "{{count}} Members",
   alertCreateSuccess: "Created sucessfully",
