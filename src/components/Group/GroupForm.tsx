@@ -45,12 +45,10 @@ const GroupForm = () => {
   };
 
   return (
-    <div className={`${css["form__container"]} my-2`}>
+    <div className={`${css["form__container"]}`}>
       {alert}
       <header>
-        <h1 className={`${css.heading} my-2`}>
-          {t("GROUP.createGroupHeader")}
-        </h1>
+        <h1 className={`${css.heading}`}>{t("GROUP.createGroupHeader")}</h1>
       </header>
       <form
         className="p2"

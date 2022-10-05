@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import GroupForm from "../../components/Group/GroupForm";
+import GroupPage from "../GroupPage/GroupPage";
 import SearchGroup from "../SearchGroup/SearchGroup";
 
 const GroupMenuContent = () => {
@@ -10,11 +11,20 @@ const GroupMenuContent = () => {
       case "feed":
         break;
       case "create":
-        return <GroupForm />;
+        return (
+          <div className="m2">
+            <GroupForm />
+          </div>
+        );
       case "search":
-        return <SearchGroup />;
+        return (
+          <div className="m2">
+            <SearchGroup />
+          </div>
+        );
+      default:
+        return <GroupPage />;
     }
-
     return <></>;
   };
 

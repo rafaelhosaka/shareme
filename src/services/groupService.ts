@@ -15,6 +15,10 @@ export function getAllGroups() {
   return httpService.get(`${apiEndPoint}/all`);
 }
 
+export function getGroupById(groupId: string) {
+  return httpService.get(`${apiEndPoint}/${groupId}`);
+}
+
 export function getGroupsByUserId(userId: string) {
   return httpService.get(`${apiEndPoint}/user/${userId}`);
 }

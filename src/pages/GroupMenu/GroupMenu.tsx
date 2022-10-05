@@ -28,7 +28,7 @@ const GroupMenu = () => {
 
   return (
     <>
-      <main className="container right m2">
+      <main className="container right">
         <GroupMenuContent />
       </main>
       <div className="left-content">

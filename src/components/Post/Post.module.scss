@@ -90,10 +90,15 @@
   position: absolute;
   top: 20px;
   right: 117px;
+  z-index: 1;
 }
 
 .description {
   padding: 1rem;
+}
+
+.btn-area {
+  margin: 2rem 0;
 }
 
 .post__image {

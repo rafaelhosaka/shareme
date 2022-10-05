@@ -9,6 +9,7 @@ export const GROUP = {
   search: "グループを検索",
   joinedGroups: "参加しているグループ",
   join: "参加",
+  joined: "参加済み",
   member_singular: "メンバー{{count}}人",
   member_plural: "メンバー{{count}}人",
   alertCreateSuccess: "作成に成功しました",

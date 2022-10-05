@@ -9,6 +9,7 @@ export const GROUP = {
   search: "Search groups",
   joinedGroups: "Groups you've joined",
   join: "Join",
+  joined: "Joined",
   member_singular: "{{count}} Member",
   member_plural: "{{count}} Members",
   alertCreateSuccess: "Created sucessfully",

@@ -70,7 +70,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
       {alert}
 
       <header>
-        <h1 className={`${css.heading} my-2`}>{t("POST_FORM.createPost")}</h1>
+        <h1 className={`${css.heading}`}>{t("POST_FORM.createPost")}</h1>
       </header>
       <form
         id="form-post"

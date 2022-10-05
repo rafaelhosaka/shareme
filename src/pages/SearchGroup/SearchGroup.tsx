@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import GroupList from "../../components/Group/GroupList/GroupList";
+import GroupList from "./Result/GroupResultList";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { GroupEntity } from "../../models/group";
 import { searchGroupsContainsName } from "../../services/groupService";
