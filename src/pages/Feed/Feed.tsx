@@ -30,7 +30,8 @@ const Feed = () => {
     getPosts();
   }, []);
 
-  const handleNewPost = (post: PostEntity) => {
+  const handleNewPost = async (postJson: string, file: File) => {
+    const post = await postService.savePost(postJson, file);
     setPosts((prev) => [post, ...prev]);
   };
 

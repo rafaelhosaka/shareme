@@ -5,7 +5,6 @@ import Group from "../../components/Group/GroupList/Group";
 import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 import PostForm from "../../components/PostForm/PostForm";
 import { GroupEntity } from "../../models/group";
-import PostEntity from "../../models/post";
 import { getGroupById } from "../../services/groupService";
 import css from "./GroupPage.module.scss";
 
@@ -34,8 +33,9 @@ const GroupPage = () => {
     getGroup();
   }, [option]);
 
-  const handleNewPost = (post: PostEntity) => {
-    console.log(post);
+  const handleNewPost = (postJson: string, file: File) => {
+    console.log(postJson);
+    console.log(file);
   };
 
   const renderResult = () => {

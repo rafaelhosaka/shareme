@@ -26,10 +26,14 @@ export async function getPostsByUsersId(usersId: string[]) {
   });
 }
 
-export function savePostWithImage(formData: FormData) {
-  return httpService.post(`${apiEndPoint}/upload`, formData, {
+export async function savePost(postJson: string, file: File) {
+  const formData = new FormData();
+  formData.append("post", postJson);
+  formData.append("file", file);
+  const { data } = await httpService.post(`${apiEndPoint}/upload`, formData, {
     headers: { "Content-Type": "multipart/form-data" },
   });
+  return new PostEntity(data);
 }
 
 export function postImageDownload(postId: string) {

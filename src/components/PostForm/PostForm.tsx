@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { useInput } from "../../hook/useInput";
-import { savePostWithImage } from "../../services/postService";
 import { useUser, useUserImage } from "../../context/userContext";
 import { useAlert } from "../Alert/Alert";
 import { Link } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
-import PostEntity from "../../models/post";
 
 import css from "./PostForm.module.scss";
-import UserProfileEntity, { UserProfileDTO } from "../../models/userProfile";
+import { UserProfileDTO } from "../../models/userProfile";
 import { useTranslation } from "react-i18next";
 import { fullName } from "../../utils/formatedNames";
 import Dropzone from "../Dropzone/Dropzone";
 
 interface PostFormProps {
-  handleNewPost: (post: PostEntity) => void;
+  handleNewPost: (postJson: string, file: File) => void;
 }
 
 function PostForm({ handleNewPost }: PostFormProps) {
@@ -36,32 +34,20 @@ function PostForm({ handleNewPost }: PostFormProps) {
     setFiles([]);
   };
 
-  const createPost = async (currentUser: UserProfileEntity) => {
-    const formData = new FormData();
-
-    formData.append(
-      "post",
-      JSON.stringify({ user: new UserProfileDTO(currentUser), description })
-    );
-    formData.append("file", files[0]); //for now accept only one image
-    const { data } = await savePostWithImage(formData);
-
-    return data;
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
-    try {
-      setSubmmiting(true);
-      e.preventDefault();
-      if (currentUser) {
-        const newPost = await createPost(currentUser);
-        handleNewPost(new PostEntity(newPost));
-        handleClose();
-        resetDescription();
-        setSubmmiting(false);
-      }
-    } catch (ex) {
-      console.log(ex);
+    setSubmmiting(true);
+    e.preventDefault();
+    if (currentUser) {
+      handleNewPost(
+        JSON.stringify({
+          user: new UserProfileDTO(currentUser),
+          description,
+        }),
+        files[0]
+      );
+      handleClose();
+      resetDescription();
+      setSubmmiting(false);
     }
   };
 
