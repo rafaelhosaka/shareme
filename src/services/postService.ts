@@ -61,3 +61,7 @@ export function updatePost(post: PostEntity) {
 export function getGroupPosts(groupId: string) {
   return httpService.get(`${apiEndPoint}/group/${groupId}`);
 }
+
+export function getAllGroupsPosts(userId: string) {
+  return httpService.get(`${apiEndPoint}/group/all/${userId}`);
+}

@@ -1,0 +1,15 @@
+@use "../../styles/abstracts/mixins" as mixins;
+
+.feed {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  margin: 2rem 0;
+}
+
+@include mixins.tablet {
+  .feed {
+    margin: 2rem;
+    width: auto;
+  }
+}

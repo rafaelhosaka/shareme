@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import GroupForm from "../../components/Group/GroupForm";
 import GroupPage from "../GroupPage/GroupPage";
+import GroupsFeed from "../GroupsFeed/GroupsFeed";
 import SearchGroup from "../SearchGroup/SearchGroup";
 
 const GroupMenuContent = () => {
@@ -9,7 +10,7 @@ const GroupMenuContent = () => {
   const renderResult = () => {
     switch (option) {
       case "feed":
-        break;
+        return <GroupsFeed />;
       case "create":
         return (
           <div className="m2">
