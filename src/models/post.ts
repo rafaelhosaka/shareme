@@ -9,6 +9,7 @@ export class BasePostEntity {
   user: UserProfileEntity;
   likes: LikeEntity[];
   comments: CommentEntity[];
+  visibility: VisibilityEntity;
 
   constructor(data: BasePostEntity) {
     this.id = data.id;
@@ -17,6 +18,7 @@ export class BasePostEntity {
     this.user = new UserProfileEntity(data.user);
     this.likes = data.likes;
     this.comments = data.comments;
+    this.visibility = data.visibility;
   }
 }
 
@@ -40,4 +42,9 @@ export class SharedPostEntity extends BasePostEntity {
     super(data);
     this.sharedPost = new PostEntity(data.sharedPost);
   }
+}
+
+export interface VisibilityEntity {
+  type: string;
+  allowedIds: string[];
 }

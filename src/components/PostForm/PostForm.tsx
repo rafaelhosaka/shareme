@@ -6,13 +6,12 @@ import { Link } from "react-router-dom";
 import Spinner from "../Spinner/Spinner";
 
 import css from "./PostForm.module.scss";
-import { UserProfileDTO } from "../../models/userProfile";
 import { useTranslation } from "react-i18next";
 import { fullName } from "../../utils/formatedNames";
 import Dropzone from "../Dropzone/Dropzone";
 
 interface PostFormProps {
-  handleNewPost: (postJson: string, file: File) => void;
+  handleNewPost: (description: string, file: File) => void;
 }
 
 function PostForm({ handleNewPost }: PostFormProps) {
@@ -38,13 +37,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
     setSubmmiting(true);
     e.preventDefault();
     if (currentUser) {
-      handleNewPost(
-        JSON.stringify({
-          user: new UserProfileDTO(currentUser),
-          description,
-        }),
-        files[0]
-      );
+      handleNewPost(description, files[0]);
       handleClose();
       resetDescription();
       setSubmmiting(false);

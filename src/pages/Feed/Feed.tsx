@@ -9,6 +9,7 @@ import Contacts from "../Contact/Contacts";
 import css from "./Feed.module.scss";
 import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 import { useMediaQuery } from "react-responsive";
+import { UserProfileDTO } from "../../models/userProfile";
 
 const Feed = () => {
   const { user: currentUser } = useUser();
@@ -30,9 +31,14 @@ const Feed = () => {
     getPosts();
   }, []);
 
-  const handleNewPost = async (postJson: string, file: File) => {
-    const post = await postService.savePost(postJson, file);
-    setPosts((prev) => [post, ...prev]);
+  const handleNewPost = async (description: string, file: File) => {
+    if (currentUser) {
+      const post = await postService.savePost(
+        JSON.stringify({ user: new UserProfileDTO(currentUser), description }),
+        file
+      );
+      setPosts((prev) => [post, ...prev]);
+    }
   };
 
   const handleDeletePost = (postId: string) => {

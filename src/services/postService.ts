@@ -57,3 +57,7 @@ export function sharePost(sharingUserId: string, sharingPostId: string) {
 export function updatePost(post: PostEntity) {
   return httpService.put(`${apiEndPoint}/update`, post);
 }
+
+export function getGroupPosts(groupId: string) {
+  return httpService.get(`${apiEndPoint}/group/${groupId}`);
+}
