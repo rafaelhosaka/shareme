@@ -215,8 +215,12 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
         <>
           <Modal
             show={showModal}
-            title={`${t("PROFILE.modalUnfriendTitle")}`}
-            description={t("PROFILE.modalUnfriendDescription")}
+            title={`${t("PROFILE.modalUnfriendTitle", {
+              fullName: fullName(user),
+            })}`}
+            description={t("PROFILE.modalUnfriendDescription", {
+              fullName: fullName(user),
+            })}
             onReject={() => setShowModal(false)}
             onAccept={() => {
               handleUnfriend();

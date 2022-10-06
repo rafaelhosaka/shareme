@@ -12,6 +12,7 @@ export const PROFILE = {
   cancelRequest: "Cancel Request",
   addFriend: "Add Friend",
   editCoverPhoto: "Edit cover photo",
-  modalUnfriendTitle: "Unfriend",
-  modalUnfriendDescription: "Are you sure you want to unfriend?",
+  modalUnfriendTitle: "Unfriend {{fullName}}",
+  modalUnfriendDescription:
+    "Are you sure you want to remove {{fullName}} as your friend?",
 };

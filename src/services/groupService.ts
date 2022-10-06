@@ -48,3 +48,10 @@ export function joinGroup(groupId: string, userId: string) {
   formData.append("userId", userId);
   return httpService.put(`${apiEndPoint}/join`, formData);
 }
+
+export function leaveGroup(groupId: string, userId: string) {
+  const formData = new FormData();
+  formData.append("groupId", groupId);
+  formData.append("userId", userId);
+  return httpService.put(`${apiEndPoint}/leave`, formData);
+}

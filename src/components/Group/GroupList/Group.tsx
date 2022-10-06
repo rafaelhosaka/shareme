@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useUser } from "../../../context/userContext";
 import { useBase64File } from "../../../hook/useBase64File";
@@ -8,9 +8,11 @@ import {
   downloadGroupImage,
   groupCoverImageUpload,
   joinGroup,
+  leaveGroup,
 } from "../../../services/groupService";
 import DropdownItem from "../../DropdownMenu/DropdownItem";
 import DropdownMenu from "../../DropdownMenu/DropdownMenu";
+import Modal from "../../Modal/Modal";
 import Spinner from "../../Spinner/Spinner";
 import css from "./Group.module.scss";
 
@@ -29,6 +31,12 @@ const Group = ({ group, onUpdate }: GroupProps) => {
     isComponentVisible: isDropCoverVisible,
     setIsComponentVisible: setDropCoverVisible,
   } = useComponentVisible(false);
+  const {
+    refs: dropJoinedRefs,
+    isComponentVisible: isDropJoinedVisible,
+    setIsComponentVisible: setDropJoinedVisible,
+  } = useComponentVisible(false);
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
 
   useEffect(() => {
     setService(downloadGroupImage(group.id));
@@ -50,6 +58,13 @@ const Group = ({ group, onUpdate }: GroupProps) => {
   const handleJoin = async () => {
     if (currentUser) {
       const { data } = await joinGroup(group.id, currentUser.id);
+      onUpdate(data);
+    }
+  };
+
+  const handleLeave = async () => {
+    if (currentUser) {
+      const { data } = await leaveGroup(group.id, currentUser.id);
       onUpdate(data);
     }
   };
@@ -107,6 +122,16 @@ const Group = ({ group, onUpdate }: GroupProps) => {
   const render = () => {
     return (
       <div className={css["container"]}>
+        <Modal
+          show={showLeaveModal}
+          title={`${t("GROUP.modalLeaveTitle")}`}
+          description={t("GROUP.modalLeaveDescription")}
+          onReject={() => setShowLeaveModal(false)}
+          onAccept={() => {
+            handleLeave();
+            setShowLeaveModal(false);
+          }}
+        />
         <div className={css["cover__container"]}>
           <Spinner show={!groupImage} sizeClass="size--300">
             {group?.coverFileName ? (
@@ -132,7 +157,24 @@ const Group = ({ group, onUpdate }: GroupProps) => {
             </div>
           </div>
           {checkJoined() ? (
-            <button className="btn btn--primary">{t("GROUP.joined")}</button>
+            <div ref={(element) => (dropJoinedRefs.current[0] = element)}>
+              <button
+                onClick={() => setDropJoinedVisible(true)}
+                className="btn btn--secondary"
+              >
+                {t("GROUP.joined")}
+              </button>
+              {isDropJoinedVisible && (
+                <DropdownMenu>
+                  <DropdownItem
+                    onClick={() => setShowLeaveModal(true)}
+                    label={t("GROUP.leave")}
+                  >
+                    <i className="fa-solid fa-door-open"></i>
+                  </DropdownItem>
+                </DropdownMenu>
+              )}
+            </div>
           ) : (
             <button onClick={handleJoin} className="btn btn--primary">
               {t("GROUP.join")}

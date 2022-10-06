@@ -17,6 +17,6 @@ export const POST = {
   sharedPostFirstPart: "shared post from",
   sharedPostSecondPart: "",
   alertPostDeleted: "Post deleted successfully",
-  modalDeletePostTitle: "Delete Post",
+  modalDeletePostTitle: "Delete Post?",
   modalDeletePostDescription: "Are you sure you want to delete this post?",
 };

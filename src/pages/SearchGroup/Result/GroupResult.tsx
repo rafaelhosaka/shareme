@@ -63,7 +63,9 @@ const GroupResult = ({ group, onUpdate }: GroupResultProps) => {
         </div>
       </div>
       {checkJoined() ? (
-        <button className="btn btn--primary">{t("GROUP.joined")}</button>
+        <Link to={`/group/${group.id}`}>
+          <button className="btn btn--secondary">{t("GROUP.visit")}</button>
+        </Link>
       ) : (
         <button onClick={handleJoin} className="btn btn--primary">
           {t("GROUP.join")}

@@ -17,6 +17,6 @@ export const POST = {
   sharedPostFirstPart: "この投稿は",
   sharedPostSecondPart: "からシェアされたものです",
   alertPostDeleted: "投稿を削除しました",
-  modalDeletePostTitle: "投稿を削除",
+  modalDeletePostTitle: "投稿を削除しますか？",
   modalDeletePostDescription: "この投稿を削除してもよろしいでしょうか？",
 };

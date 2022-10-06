@@ -7,6 +7,6 @@ export const COMMENT = {
   editComment: "コメントを編集する",
   save: "保存",
   cancel: "キャンセル",
-  modalDeleteCommentTitle: "コメントを削除",
+  modalDeleteCommentTitle: "コメントを削除しますか？",
   modalDeleteCommentDescription: "このコメントを削除してもよろしいでしょうか？",
 };
