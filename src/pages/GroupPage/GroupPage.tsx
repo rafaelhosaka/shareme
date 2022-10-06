@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 import { useAlert } from "../../components/Alert/Alert";
 import Group from "../../components/Group/GroupList/Group";
@@ -18,6 +19,7 @@ import {
 import css from "./GroupPage.module.scss";
 
 const GroupPage = () => {
+  const { t } = useTranslation();
   const { option } = useParams();
   const [group, setGroup] = useState<GroupEntity>();
   const [alert, dispatchAlert] = useAlert();
@@ -32,7 +34,7 @@ const GroupPage = () => {
         setGroup(data);
       } catch (ex: any) {
         if (ex.response.status === 400) {
-          dispatchAlert("Sorry this group does not seem to exist", "warning");
+          dispatchAlert(t("GROUP.alertGroupNotExist"), "warning");
         }
       }
     }

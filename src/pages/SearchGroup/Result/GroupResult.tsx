@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import { useUser } from "../../../context/userContext";
 import { useBase64File } from "../../../hook/useBase64File";
 import { GroupEntity } from "../../../models/group";
-import { downloadGroupImage } from "../../../services/groupService";
+import { downloadGroupImage, joinGroup } from "../../../services/groupService";
 import css from "./GroupResult.module.scss";
 
 interface GroupResultProps {
   group: GroupEntity;
+  onUpdate: (group: GroupEntity) => void;
 }
 
-const GroupResult = ({ group }: GroupResultProps) => {
+const GroupResult = ({ group, onUpdate }: GroupResultProps) => {
   const { t } = useTranslation();
   const { file: groupImage, setService } = useBase64File(null);
   const { user: currentUser } = useUser();
@@ -31,6 +32,13 @@ const GroupResult = ({ group }: GroupResultProps) => {
       }
     }
     return joined;
+  };
+
+  const handleJoin = async () => {
+    if (currentUser) {
+      const { data } = await joinGroup(group.id, currentUser.id);
+      onUpdate(data);
+    }
   };
 
   return (
@@ -57,7 +65,9 @@ const GroupResult = ({ group }: GroupResultProps) => {
       {checkJoined() ? (
         <button className="btn btn--primary">{t("GROUP.joined")}</button>
       ) : (
-        <button className="btn btn--primary">{t("GROUP.join")}</button>
+        <button onClick={handleJoin} className="btn btn--primary">
+          {t("GROUP.join")}
+        </button>
       )}
     </div>
   );

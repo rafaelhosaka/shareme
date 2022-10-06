@@ -15,4 +15,5 @@ export const GROUP = {
   member_singular: "{{count}} Member",
   member_plural: "{{count}} Members",
   alertCreateSuccess: "Created sucessfully",
+  alertGroupNotExist: "This group page does not seem to exist anymore",
 };

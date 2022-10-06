@@ -23,6 +23,17 @@ const SearchGroup = () => {
     }
   };
 
+  const handleUpdate = (group: GroupEntity) => {
+    setGroups(
+      groups.map((g) => {
+        if (g.id === group.id) {
+          return group;
+        }
+        return g;
+      })
+    );
+  };
+
   const renderResult = () => {
     if (beforeSearch) {
       return (
@@ -31,7 +42,7 @@ const SearchGroup = () => {
     }
 
     if (groups.length > 0) {
-      return <GroupList groups={groups} />;
+      return <GroupList groups={groups} onUpdate={handleUpdate} />;
     }
 
     return <div className={css["result"]}>{t("SEARCH_GROUP.noResult")}</div>;

@@ -7,6 +7,7 @@ import { GroupEntity } from "../../../models/group";
 import {
   downloadGroupImage,
   groupCoverImageUpload,
+  joinGroup,
 } from "../../../services/groupService";
 import DropdownItem from "../../DropdownMenu/DropdownItem";
 import DropdownMenu from "../../DropdownMenu/DropdownMenu";
@@ -44,6 +45,13 @@ const Group = ({ group, onUpdate }: GroupProps) => {
       }
     }
     return joined;
+  };
+
+  const handleJoin = async () => {
+    if (currentUser) {
+      const { data } = await joinGroup(group.id, currentUser.id);
+      onUpdate(data);
+    }
   };
 
   const handleUploadCoverImage = async (e: React.FormEvent) => {
@@ -126,7 +134,9 @@ const Group = ({ group, onUpdate }: GroupProps) => {
           {checkJoined() ? (
             <button className="btn btn--primary">{t("GROUP.joined")}</button>
           ) : (
-            <button className="btn btn--primary">{t("GROUP.join")}</button>
+            <button onClick={handleJoin} className="btn btn--primary">
+              {t("GROUP.join")}
+            </button>
           )}
         </div>
       </div>

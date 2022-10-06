@@ -41,3 +41,10 @@ export function groupCoverImageUpload(groupId: string, file: File) {
     headers: { "Content-Type": "multipart/form-data" },
   });
 }
+
+export function joinGroup(groupId: string, userId: string) {
+  const formData = new FormData();
+  formData.append("groupId", groupId);
+  formData.append("userId", userId);
+  return httpService.put(`${apiEndPoint}/join`, formData);
+}

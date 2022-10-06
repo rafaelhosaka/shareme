@@ -15,4 +15,5 @@ export const GROUP = {
   member_singular: "メンバー{{count}}人",
   member_plural: "メンバー{{count}}人",
   alertCreateSuccess: "作成に成功しました",
+  alertGroupNotExist: "このグループページはもう存在しないようです",
 };
