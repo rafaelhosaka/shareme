@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router";
 import { NavLink } from "react-router-dom";
+import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 import MenuItem from "../../components/MenuList/MenuItem";
 import MenuList from "../../components/MenuList/MenuList";
 import MenuSeparator from "../../components/MenuList/MenuSeparator";
@@ -15,13 +16,16 @@ const GroupMenu = () => {
   const { t } = useTranslation();
   const { user: currentUser } = useUser();
   const [groups, setGroups] = useState<GroupEntity[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     async function getGroups() {
       if (currentUser) {
         const { data } = await getGroupsByUserId(currentUser.id);
         setGroups(data);
       }
+      setLoading(false);
     }
     getGroups();
   }, []);
@@ -44,14 +48,18 @@ const GroupMenu = () => {
           </MenuItem>
           <MenuSeparator title={t("GROUP.joinedGroups")} />
           <>
-            {groups.map((group) => (
-              <MenuItem
-                key={group.id}
-                active={pathname === `/group/${group.id}`}
-              >
-                <NavLink to={`/group/${group.id}`}>{group.name}</NavLink>
-              </MenuItem>
-            ))}
+            {loading ? (
+              <LoadingContainer showBackground={false} />
+            ) : (
+              groups.map((group) => (
+                <MenuItem
+                  key={group.id}
+                  active={pathname === `/group/${group.id}`}
+                >
+                  <NavLink to={`/group/${group.id}`}>{group.name}</NavLink>
+                </MenuItem>
+              ))
+            )}
           </>
         </MenuList>
       </div>

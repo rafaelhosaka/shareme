@@ -78,13 +78,30 @@ const GroupPage = () => {
     setGroup(group);
   };
 
+  const checkJoined = () => {
+    let joined = false;
+    if (currentUser && group) {
+      if (group.admins.includes(currentUser.id)) {
+        joined = true;
+      }
+      if (group.members.includes(currentUser.id)) {
+        joined = true;
+      }
+    }
+    return joined;
+  };
+
   const renderResult = () => {
     return (
       group && (
         <div className={css["container"]}>
           <Group group={group} onUpdate={handleUpdate} />
-          <PostForm handleNewPost={handleNewPost} />
-          <PostList posts={posts} onDelete={handleDeletePost} />
+          {checkJoined() && (
+            <>
+              <PostForm handleNewPost={handleNewPost} />
+              <PostList posts={posts} onDelete={handleDeletePost} />
+            </>
+          )}
         </div>
       )
     );

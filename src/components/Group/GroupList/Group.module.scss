@@ -20,7 +20,7 @@
   height: 300px;
   object-fit: cover;
   background: t.$light-secondary-bgcolor;
-  border: 1px solid t.$light-secondary-color;
+  border-bottom: 1px solid t.$light-secondary-bgcolor;
 }
 
 .body {
@@ -50,5 +50,16 @@
     opacity: 0;
     position: absolute;
     z-index: -1;
+  }
+}
+
+@include mixins.whenDarkModule {
+  .container {
+    background: t.$dark-secondary-bgcolor;
+    box-shadow: t.$dark-box-shadow;
+  }
+
+  .cover {
+    background: t.$dark-primary-bgcolor;
   }
 }

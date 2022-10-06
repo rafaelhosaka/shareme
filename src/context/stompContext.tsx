@@ -77,7 +77,9 @@ export function StompProvider({ children }: StompProviderProps) {
   } = useStomp();
 
   useEffect(() => {
-    connect();
+    if (user) {
+      connect();
+    }
   }, [user]);
 
   useEffect(() => {
@@ -88,11 +90,13 @@ export function StompProvider({ children }: StompProviderProps) {
       user.connected = true;
       updateUser(user);
       setUser(user);
-      window.addEventListener(
-        "beforeunload",
-        () => changeStatus(user.id, user.online, false),
-        false
-      );
+      window.onbeforeunload = closingCode;
+      function closingCode() {
+        if (user) {
+          changeStatus(user.id, user.online, false);
+        }
+        return null;
+      }
     }
   }, [isConnected]);
 
