@@ -127,7 +127,11 @@ const ChatMenu = () => {
       </main>
       <div className="left-content">
         <MenuList title={t("CHAT_MENU.chatMenuHeader")}>
-          {loading ? <LoadingContainer /> : renderResult()}
+          {loading ? (
+            <LoadingContainer showBackground={false} />
+          ) : (
+            renderResult()
+          )}
         </MenuList>
       </div>
     </>

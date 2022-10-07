@@ -11,11 +11,18 @@ interface ChatUserProps {
 }
 
 const ContactUser = ({ user }: ChatUserProps) => {
-  const { file: userImage, setService: setUserImageService } =
-    useBase64File(null);
+  const {
+    file: userImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
 
   useEffect(() => {
-    setUserImageService(userImageDownload(user.id));
+    userImageDownloadExecute(user.id);
+
+    return () => {
+      userImageDownloadCancel();
+    };
   }, []);
 
   return (

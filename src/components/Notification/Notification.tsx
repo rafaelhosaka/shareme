@@ -28,7 +28,11 @@ const Notification = ({
   onDelete,
 }: NotificationProps) => {
   const { t } = useTranslation();
-  const { file, setService } = useBase64File(null);
+  const {
+    file,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
   const navigate = useNavigate();
 
   const {
@@ -39,12 +43,16 @@ const Notification = ({
 
   useEffect(() => {
     if (notification instanceof FriendRequestNotificationEntity) {
-      setService(userImageDownload(notification.friendRequesting?.id));
+      userImageDownloadExecute(notification.friendRequesting?.id);
     }
 
     if (notification instanceof FriendAcceptedNotificationEntity) {
-      setService(userImageDownload(notification.acceptedFriend?.id));
+      userImageDownloadExecute(notification.acceptedFriend?.id);
     }
+
+    return () => {
+      userImageDownloadCancel();
+    };
   }, []);
 
   const handleClick = () => {

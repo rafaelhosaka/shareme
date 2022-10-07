@@ -1,28 +1,30 @@
-import { useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
+import { useState } from "react";
+import { AxiosResponse, CancelToken } from "axios";
+import { useCancellableRequest } from "./useCancellableRequest";
 
-export function useBase64File(httpService: Promise<AxiosResponse> | null) {
+export function useBase64File<T extends any[]>(
+  method: (...args: [...T, CancelToken]) => Promise<AxiosResponse<any, any>>
+) {
   const [file, setFile] = useState<string | undefined>();
-  const [service, setService] = useState(httpService);
+  const [execute, cancelRequest] = useCancellableRequest(method);
   const [type, setType] = useState("");
 
-  useEffect(() => {
-    async function getImage() {
-      if (service) {
-        const { data } = await service;
+  function clearImage() {
+    setFile(undefined);
+  }
 
-        if (data[0]) {
-          setType(data[1]);
-          setFile(`data:${data[1]};base64,${data[0]}`);
-        } else {
-          setFile(process.env.PUBLIC_URL + "/images/no-picture.jpeg");
-        }
+  async function executeRequest(...args: [...T]) {
+    async function getImage(...args: [...T]) {
+      const { data } = await execute(...args);
+      if (data[0]) {
+        setType(data[1]);
+        setFile(`data:${data[1]};base64,${data[0]}`);
       } else {
-        setFile(undefined);
+        setFile(process.env.PUBLIC_URL + "/images/no-picture.jpeg");
       }
     }
-    getImage();
-  }, [service]);
+    getImage(...args);
+  }
 
-  return { file, setService, type };
+  return { file, type, executeRequest, cancelRequest, clearImage };
 }

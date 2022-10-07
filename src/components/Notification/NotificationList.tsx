@@ -95,7 +95,7 @@ function NotificationList({ updateCount }: NotificationListProps) {
       <h1 className={css["notification-list__header"]}>
         {t("NOTIFICATION.header")}
       </h1>
-      {loading ? <LoadingContainer /> : renderResult()}
+      {loading ? <LoadingContainer showBackground={false} /> : renderResult()}
     </div>
   );
 }

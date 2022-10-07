@@ -1,3 +1,4 @@
+import { CancelToken } from "axios";
 import _ from "lodash";
 import httpService from "./httpService";
 
@@ -20,8 +21,13 @@ export function createProduct(productJson: string, file: File) {
   });
 }
 
-export function productImageDownload(productId: string) {
-  return httpService.get(apiEndPoint + "/download/" + productId);
+export function productImageDownload(
+  productId: string,
+  cancelToken?: CancelToken
+) {
+  return httpService.get(apiEndPoint + "/download/" + productId, {
+    cancelToken,
+  });
 }
 
 export function getCategories() {

@@ -12,10 +12,18 @@ interface FriendProps {
 }
 
 function Friend({ friend }: FriendProps) {
-  const { file: userImage, setService } = useBase64File(null);
+  const {
+    file: userImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
 
   useEffect(() => {
-    setService(userImageDownload(friend.id));
+    userImageDownloadExecute(friend.id);
+
+    return () => {
+      userImageDownloadCancel();
+    };
   }, []);
 
   return (

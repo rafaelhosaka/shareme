@@ -14,11 +14,19 @@ interface GroupResultProps {
 
 const GroupResult = ({ group, onUpdate }: GroupResultProps) => {
   const { t } = useTranslation();
-  const { file: groupImage, setService } = useBase64File(null);
+  const {
+    file: groupImage,
+    executeRequest: downloadGroupImageExecute,
+    cancelRequest: downloadGroupImageCancel,
+  } = useBase64File(downloadGroupImage);
   const { user: currentUser } = useUser();
 
   useEffect(() => {
-    setService(downloadGroupImage(group.id));
+    downloadGroupImageExecute(group.id);
+
+    return () => {
+      downloadGroupImageCancel();
+    };
   }, []);
 
   const checkJoined = () => {

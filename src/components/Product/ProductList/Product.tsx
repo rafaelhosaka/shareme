@@ -11,12 +11,19 @@ interface ProductProps {
 }
 
 const Product = ({ product }: ProductProps) => {
-  const { file: productImage, setService: setProductService } =
-    useBase64File(null);
+  const {
+    file: productImage,
+    executeRequest: productImageDownloadExecute,
+    cancelRequest: productImageDownloadCancel,
+  } = useBase64File(productImageDownload);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
-    setProductService(productImageDownload(product.id));
+    productImageDownloadExecute(product.id);
+
+    return () => {
+      productImageDownloadCancel();
+    };
   }, []);
 
   return (

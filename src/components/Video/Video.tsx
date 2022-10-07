@@ -10,12 +10,20 @@ interface VideoProps {
 }
 
 const Video = ({ item }: VideoProps) => {
-  const { file, setService } = useBase64File(null);
+  const {
+    file,
+    executeRequest: postImageDownloadExecute,
+    cancelRequest: postImageDownloadCancel,
+  } = useBase64File(postImageDownload);
 
   console.log(item);
 
   useEffect(() => {
-    setService(postImageDownload(item.id));
+    postImageDownloadExecute(item.id);
+
+    return () => {
+      postImageDownloadCancel();
+    };
   }, []);
 
   return (

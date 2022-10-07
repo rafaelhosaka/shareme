@@ -24,7 +24,9 @@ axios.interceptors.response.use(
       error.response.status < 500;
 
     if (!expectedError) {
-      console.log("Unexpected error " + error);
+      if (error.message === "cancel_hook") {
+        return new Promise(() => {});
+      }
     } else {
       if (error.response.status === 403) {
         const prevRequest = error?.config;

@@ -10,10 +10,18 @@ interface PhotoProps {
 }
 
 const Photo = ({ item }: PhotoProps) => {
-  const { file, setService } = useBase64File(null);
+  const {
+    file,
+    executeRequest: postImageDownloadExecute,
+    cancelRequest: postImageDownloadCancel,
+  } = useBase64File(postImageDownload);
 
   useEffect(() => {
-    setService(postImageDownload(item.id));
+    postImageDownloadExecute(item.id);
+
+    return () => {
+      postImageDownloadCancel();
+    };
   }, []);
 
   return (

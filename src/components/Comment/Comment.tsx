@@ -29,7 +29,11 @@ interface CommentProps {
 function Comment({ comment, onDelete, replyComment }: CommentProps) {
   const { t } = useTranslation();
   const [user, setUser] = useState<UserProfileEntity>();
-  const { file: commentUserImage, setService } = useBase64File(null);
+  const {
+    file: commentUserImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
   const { user: currentUser } = useUser();
   const newCommentRef = useRef<HTMLTextAreaElement>(null);
   const [showNewComment, setShowNewComment] = useState(false);
@@ -58,7 +62,11 @@ function Comment({ comment, onDelete, replyComment }: CommentProps) {
       setUser(await getUserById(comment.userId));
     }
     getUser();
-    setService(userImageDownload(comment.userId));
+    userImageDownloadExecute(comment.userId);
+
+    return () => {
+      userImageDownloadCancel();
+    };
   }, []);
 
   useEffect(() => {

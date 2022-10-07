@@ -24,8 +24,12 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
   const { t } = useTranslation();
   const { id } = useParams();
   const { user: currentUser, setUser: setCurrentUser } = useUser();
-  const { file: userCoverImage, setService: setCoverImageService } =
-    useBase64File(null);
+  const {
+    file: userCoverImage,
+    executeRequest: userCoverImageDownloadExecute,
+    cancelRequest: userCoverImageDownloadCancel,
+    clearImage: userCoverImageDownloadClear,
+  } = useBase64File(userCoverImageDownload);
 
   const {
     refs: dropCoverRefs,
@@ -34,11 +38,17 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
   } = useComponentVisible(false);
 
   useEffect(() => {
-    setCoverImageService(null);
+    return () => {
+      userCoverImageDownloadCancel();
+    };
+  }, []);
+
+  useEffect(() => {
+    userCoverImageDownloadClear();
   }, [id]);
 
   useEffect(() => {
-    setCoverImageService(userCoverImageDownload(user.id));
+    userCoverImageDownloadExecute(user.id);
   }, [user]);
 
   const handleUploadCoverImage = async (e: React.FormEvent) => {
@@ -50,7 +60,7 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
           formData.append("userId", user.id);
           const data = await userCoverImageUpload(formData);
           setUser(data);
-          setCoverImageService(userCoverImageDownload(data.id));
+          userCoverImageDownloadExecute(data.id);
           setCurrentUser(data);
         }
     }
@@ -82,7 +92,7 @@ const ProfileCoverSection = ({ user, setUser }: ProfileCoverSectionProps) => {
                 type="file"
                 accept=".png,.jpeg,.jpg"
                 onChange={(e) => {
-                  setCoverImageService(null);
+                  userCoverImageDownloadClear();
                   handleUploadCoverImage(e);
                   setDropCoverVisible(false);
                 }}

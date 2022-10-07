@@ -15,15 +15,26 @@ interface ModalProps {
 }
 
 const ProductModal = ({ product, show, onReject }: ModalProps) => {
-  const { file: productImage, setService: setProductService } =
-    useBase64File(null);
-  const { file: userImage, setService: setUserImageService } =
-    useBase64File(null);
+  const {
+    file: productImage,
+    executeRequest: productImageDownloadExecute,
+    cancelRequest: productImageDownloadCancel,
+  } = useBase64File(productImageDownload);
+  const {
+    file: userImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
   const [visible, setVisible] = useState(show);
 
   useEffect(() => {
-    setProductService(productImageDownload(product.id));
-    setUserImageService(userImageDownload(product.user.id));
+    productImageDownloadExecute(product.id);
+    userImageDownloadExecute(product.user.id);
+
+    return () => {
+      productImageDownloadCancel();
+      userImageDownloadCancel();
+    };
   }, []);
 
   useEffect(() => {

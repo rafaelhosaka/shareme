@@ -1,3 +1,4 @@
+import { CancelToken } from "axios";
 import httpService from "./httpService";
 import UserProfileEntity from "../models/userProfile";
 
@@ -25,12 +26,17 @@ export function saveUser(user: UserProfileEntity) {
   return httpService.post(apiEndPoint + "/save", user);
 }
 
-export function userImageDownload(userId: string) {
-  return httpService.get(apiEndPoint + "/download/" + userId);
+export function userImageDownload(userId: string, cancelToken?: CancelToken) {
+  return httpService.get(apiEndPoint + "/download/" + userId, { cancelToken });
 }
 
-export function userCoverImageDownload(userId: string) {
-  return httpService.get(apiEndPoint + "/downloadCoverImage/" + userId);
+export function userCoverImageDownload(
+  userId: string,
+  cancelToken?: CancelToken
+) {
+  return httpService.get(apiEndPoint + "/downloadCoverImage/" + userId, {
+    cancelToken,
+  });
 }
 
 export async function userImageUpload(

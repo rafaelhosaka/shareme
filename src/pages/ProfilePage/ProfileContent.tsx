@@ -10,6 +10,7 @@ import css from "./Profile.module.scss";
 import PhotoList from "../../components/Photo/PhotoList";
 import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 import VideoList from "../../components/Video/VideoList";
+import { initPosts } from "../../utils/postUtils";
 
 interface ProfileContentProps {
   user: UserProfileEntity;
@@ -23,9 +24,8 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
   const [postPhotos, setPostPhotos] = useState<PostEntity[]>([]);
 
   async function getPosts() {
-    const posts = await getPostsByUsersId([user.id]);
-
-    setPosts(posts);
+    const { data } = await getPostsByUsersId([user.id]);
+    setPosts(initPosts(data));
     setLoading(false);
   }
 
@@ -57,7 +57,8 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
 
   const getPostPhotos = async () => {
     let myPosts: PostEntity[] = [];
-    let posts = await getPostsByUsersId([user.id]);
+    const { data } = await getPostsByUsersId([user.id]);
+    const posts = initPosts(data);
     posts.forEach((post) => {
       if (post instanceof PostEntity && post.fileType?.startsWith("image")) {
         myPosts.push(post);
@@ -69,7 +70,8 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
 
   const getPostVideos = async () => {
     let myPosts: PostEntity[] = [];
-    let posts = await getPostsByUsersId([user.id]);
+    const { data } = await getPostsByUsersId([user.id]);
+    let posts = initPosts(data);
     posts.forEach((post) => {
       if (post instanceof PostEntity && post.fileType?.startsWith("video")) {
         myPosts.push(post);

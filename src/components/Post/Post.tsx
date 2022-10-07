@@ -41,11 +41,16 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
   const [post, setPost] = useState(data);
   const {
     file: postFile,
-    setService: setPostImageService,
     type,
-  } = useBase64File(null);
-  const { file: postUserImage, setService: setPostUserService } =
-    useBase64File(null);
+    executeRequest: postImageDownloadExecute,
+    cancelRequest: postImageDownloadCancel,
+  } = useBase64File(postImageDownload);
+  const {
+    file: postUserImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
+
   const { user: currentUser } = useUser();
   const inputNewCommentRef = useRef<HTMLTextAreaElement>(null);
   const [showComments, setShowComments] = useState(false);
@@ -73,12 +78,15 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
   const MAX_PAGE = calculateMaxPage(post.comments.length, PAGE_SIZE);
 
   useEffect(() => {
-    setPostUserService(userImageDownload(post.user.id));
-    setPostImageService(
-      postImageDownload(
-        post instanceof PostEntity ? post?.id : post.sharedPost?.id
-      )
+    userImageDownloadExecute(post.user.id);
+    postImageDownloadExecute(
+      post instanceof PostEntity ? post?.id : post.sharedPost?.id
     );
+
+    return () => {
+      userImageDownloadCancel();
+      postImageDownloadCancel();
+    };
   }, []);
 
   useEffect(() => {

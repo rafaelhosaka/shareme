@@ -31,7 +31,11 @@ function PeopleResult({
   ownSelf,
 }: PeopleResultProps) {
   const { t } = useTranslation();
-  const { file: userImage, setService } = useBase64File(null);
+  const {
+    file: userImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
   const { user: currentUser, setUser } = useUser();
 
   const [pend, setPend] = useState<boolean>();
@@ -47,7 +51,11 @@ function PeopleResult({
   } = useStompContext();
 
   useEffect(() => {
-    setService(userImageDownload(people.id));
+    userImageDownloadExecute(people.id);
+
+    return () => {
+      userImageDownloadCancel();
+    };
   }, []);
 
   useEffect(() => {

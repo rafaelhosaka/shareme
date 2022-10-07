@@ -35,8 +35,11 @@ const MessagePanel = ({
   const [chattingUser, setChattingUser] = useState<UserProfileEntity>();
   const [messages, setMessages] = useState<MessageEntity[]>([]);
   const { value: text, bind: bindText, reset: resetText } = useInput("");
-  const { file: userImage, setService: setUserImageService } =
-    useBase64File(null);
+  const {
+    file: userImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
   const bottomRef = useRef<HTMLDivElement>(null);
   const { updateCounter } = useChat();
   const { sendMessage, receivedMessage } = useStompContext();
@@ -48,6 +51,12 @@ const MessagePanel = ({
       updateCounter(data);
     }
   }
+
+  useEffect(() => {
+    return () => {
+      userImageDownloadCancel();
+    };
+  }, []);
 
   useEffect(() => {
     if (receivedMessage) {
@@ -62,7 +71,7 @@ const MessagePanel = ({
     async function getUserMessages() {
       if (currentUser) {
         const user = await getUserById(chattingUserChat.id);
-        setUserImageService(userImageDownload(chattingUserChat.id));
+        userImageDownloadExecute(chattingUserChat.id);
         setChattingUser(user);
 
         const { data } = await getMessages(currentUser.id, user.id);

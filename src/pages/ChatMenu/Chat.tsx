@@ -18,12 +18,19 @@ interface ChatProps {
 export const Chat = ({ chat, onRead }: ChatProps) => {
   const { t } = useTranslation();
   const [friend, setFriend] = useState<UserProfileEntity>();
-  const { file: friendImage, setService: setFriendImageService } =
-    useBase64File(null);
+  const {
+    file: friendImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
 
   useEffect(() => {
     setFriend(chat.friend);
-    setFriendImageService(userImageDownload(chat.friend.id));
+    userImageDownloadExecute(chat.friend.id);
+
+    return () => {
+      userImageDownloadCancel();
+    };
   }, []);
 
   return (

@@ -1,4 +1,4 @@
-import { SharedPostEntity } from "./../models/post";
+import { CancelToken } from "axios";
 import _ from "lodash";
 import PostEntity from "../models/post";
 import httpService from "./httpService";
@@ -13,16 +13,12 @@ export function getPostById(id: string) {
   return httpService.get(`${apiEndPoint}/${id}`);
 }
 
-export async function getPostsByUsersId(usersId: string[]) {
-  const { data }: { data: (PostEntity | SharedPostEntity)[] } =
-    await httpService.post(`${apiEndPoint}/getPostsByUsersId`, usersId);
-
-  return data.map((post) => {
-    if (_.has(post, "fileName")) {
-      return (post = new PostEntity(post as PostEntity));
-    } else {
-      return (post = new SharedPostEntity(post as SharedPostEntity));
-    }
+export function getPostsByUsersId(
+  usersId: string[],
+  cancelToken?: CancelToken
+) {
+  return httpService.post(`${apiEndPoint}/getPostsByUsersId`, usersId, {
+    cancelToken,
   });
 }
 
@@ -36,8 +32,8 @@ export async function savePost(postJson: string, file: File) {
   return new PostEntity(data);
 }
 
-export function postImageDownload(postId: string) {
-  return httpService.get(apiEndPoint + "/download/" + postId);
+export function postImageDownload(postId: string, cancelToken?: CancelToken) {
+  return httpService.get(apiEndPoint + "/download/" + postId, { cancelToken });
 }
 
 export function deletePost(postId: string) {

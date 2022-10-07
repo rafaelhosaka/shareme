@@ -30,7 +30,11 @@ interface UserProviderProps {
 
 export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<UserProfileEntity | null>(null);
-  const { file: userImage, setService: setService } = useBase64File(null);
+  const {
+    file: userImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -38,7 +42,7 @@ export function UserProvider({ children }: UserProviderProps) {
       const currentUser = authService.getCurrentUser();
       if (currentUser) {
         const data = await getUserByEmail(currentUser.sub);
-        setService(userImageDownload(data.id));
+        userImageDownloadExecute(data.id);
         data.roles = currentUser.roles;
         setUser(data);
       }
@@ -48,11 +52,15 @@ export function UserProvider({ children }: UserProviderProps) {
     }
     setLoading(true);
     getUser();
+
+    return () => {
+      userImageDownloadCancel();
+    };
   }, []);
 
   useEffect(() => {
     if (user) {
-      setService(userImageDownload(user.id));
+      userImageDownloadExecute(user.id);
     }
   }, [user]);
 

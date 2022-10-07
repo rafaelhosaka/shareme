@@ -35,7 +35,12 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const { user: currentUser, setUser: setCurrentUser } = useUser();
-  const { file: userImage, setService: setImageService } = useBase64File(null);
+  const {
+    file: userImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+    clearImage: userImageDownloadClear,
+  } = useBase64File(userImageDownload);
   const [requested, setRequested] = useState(false);
   const [pending, setPending] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -57,14 +62,20 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
   } = useComponentVisible(false);
 
   useEffect(() => {
+    return () => {
+      userImageDownloadCancel();
+    };
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
-    setImageService(null);
+    userImageDownloadClear();
   }, [id]);
 
   useEffect(() => {
     async function initialize() {
       if (currentUser) {
-        setImageService(userImageDownload(user.id));
+        userImageDownloadExecute(user.id);
         setLoading(false);
         setRequested(await isRequested(currentUser.id, user.id));
         setPending(await isPending(user.id, currentUser.id));
@@ -149,7 +160,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
           formData.append("userId", user.id);
           const data = await userImageUpload(formData);
           setUser(data);
-          setImageService(userImageDownload(data.id));
+          userImageDownloadExecute(data.id);
           setCurrentUser(data);
         }
     }
@@ -239,7 +250,7 @@ const ProfileUserSection = ({ user, setUser }: ProfileUserSectionProps) => {
                   type="file"
                   accept=".png,.jpeg,.jpg"
                   onChange={(e) => {
-                    setImageService(null);
+                    userImageDownloadClear();
                     handleUploadImage(e);
                   }}
                 />

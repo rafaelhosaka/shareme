@@ -1,3 +1,4 @@
+import { CancelToken } from "axios";
 import httpService from "./httpService";
 
 const apiEndPoint = "/group";
@@ -23,8 +24,8 @@ export function getGroupsByUserId(userId: string) {
   return httpService.get(`${apiEndPoint}/user/${userId}`);
 }
 
-export function downloadGroupImage(groupId: string) {
-  return httpService.get(`${apiEndPoint}/download/${groupId}`);
+export function downloadGroupImage(groupId: string, cancelToken?: CancelToken) {
+  return httpService.get(`${apiEndPoint}/download/${groupId}`, { cancelToken });
 }
 
 export function searchGroupsContainsName(searchedName: string) {

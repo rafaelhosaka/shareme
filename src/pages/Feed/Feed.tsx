@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import * as postService from "../../services/postService";
 import _ from "lodash";
 import PostForm from "../../components/PostForm/PostForm";
 import PostEntity, { SharedPostEntity } from "../../models/post";
@@ -10,30 +9,43 @@ import css from "./Feed.module.scss";
 import LoadingContainer from "../../components/LoadingContainer/LoadingContainer";
 import { useMediaQuery } from "react-responsive";
 import { UserProfileDTO } from "../../models/userProfile";
+import { useCancellableRequest } from "../../hook/useCancellableRequest";
+import {
+  deletePost,
+  getPostsByUsersId,
+  savePost,
+} from "../../services/postService";
+import { initPosts } from "../../utils/postUtils";
 
 const Feed = () => {
   const { user: currentUser } = useUser();
   const [posts, setPosts] = useState<(PostEntity | SharedPostEntity)[]>([]);
   const [loading, setLoading] = useState(true);
   const isTablet = useMediaQuery({ query: "(max-width: 1024px)" });
+  const [execute, cancel] = useCancellableRequest(getPostsByUsersId);
 
   useEffect(() => {
     async function getPosts() {
       if (currentUser) {
-        const posts = await postService.getPostsByUsersId(
+        const { data } = await execute(
           _.concat(currentUser.friends, currentUser.id)
         );
+        const posts = initPosts(data);
 
         setPosts([...posts]);
         setLoading(false);
       }
     }
     getPosts();
+
+    return () => {
+      cancel();
+    };
   }, []);
 
   const handleNewPost = async (description: string, file: File) => {
     if (currentUser) {
-      const post = await postService.savePost(
+      const post = await savePost(
         JSON.stringify({ user: new UserProfileDTO(currentUser), description }),
         file
       );
@@ -42,7 +54,7 @@ const Feed = () => {
   };
 
   const handleDeletePost = (postId: string) => {
-    postService.deletePost(postId);
+    deletePost(postId);
     setPosts(posts.filter((p) => p.id !== postId));
   };
 

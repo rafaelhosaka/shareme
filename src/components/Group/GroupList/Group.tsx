@@ -23,7 +23,12 @@ interface GroupProps {
 
 const Group = ({ group, onUpdate }: GroupProps) => {
   const { t } = useTranslation();
-  const { file: groupImage, setService } = useBase64File(null);
+  const {
+    file: groupImage,
+    executeRequest: downloadGroupImageExecute,
+    cancelRequest: downloadGroupImageCancel,
+    clearImage: downloadGroupImageClear,
+  } = useBase64File(downloadGroupImage);
   const { user: currentUser } = useUser();
 
   const {
@@ -39,7 +44,11 @@ const Group = ({ group, onUpdate }: GroupProps) => {
   const [showLeaveModal, setShowLeaveModal] = useState(false);
 
   useEffect(() => {
-    setService(downloadGroupImage(group.id));
+    downloadGroupImageExecute(group.id);
+
+    return () => {
+      downloadGroupImageCancel();
+    };
   }, []);
 
   const checkJoined = () => {
@@ -76,7 +85,7 @@ const Group = ({ group, onUpdate }: GroupProps) => {
           group.id,
           e.target.files[0]
         );
-        setService(downloadGroupImage(data.id));
+        downloadGroupImageExecute(data.id);
         onUpdate(data);
       }
   };
@@ -107,7 +116,7 @@ const Group = ({ group, onUpdate }: GroupProps) => {
                 type="file"
                 accept=".png,.jpeg,.jpg"
                 onChange={(e) => {
-                  setService(null);
+                  downloadGroupImageClear();
                   handleUploadCoverImage(e);
                   setDropCoverVisible(false);
                 }}

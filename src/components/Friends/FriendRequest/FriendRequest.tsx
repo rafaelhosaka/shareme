@@ -22,7 +22,11 @@ function FriendRequest({
   handleConfirm,
 }: FriendRequestProps) {
   const { t } = useTranslation();
-  const { file: friendImage, setService } = useBase64File(null);
+  const {
+    file: friendImage,
+    executeRequest: userImageDownloadExecute,
+    cancelRequest: userImageDownloadCancel,
+  } = useBase64File(userImageDownload);
   const [user, setUser] = useState<UserProfileEntity>();
 
   useEffect(() => {
@@ -30,7 +34,11 @@ function FriendRequest({
       setUser(await getUserById(request.requestingUserId));
     }
     getUser();
-    setService(userImageDownload(request.requestingUserId));
+    userImageDownloadExecute(request.requestingUserId);
+
+    return () => {
+      userImageDownloadCancel();
+    };
   }, []);
 
   return (
