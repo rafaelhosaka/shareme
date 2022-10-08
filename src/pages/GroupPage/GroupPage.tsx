@@ -8,7 +8,7 @@ import PostList from "../../components/Post/PostList";
 import PostForm from "../../components/PostForm/PostForm";
 import { useUser } from "../../context/userContext";
 import { GroupEntity } from "../../models/group";
-import PostEntity from "../../models/post";
+import PostEntity, { SharedPostEntity } from "../../models/post";
 import { UserProfileDTO } from "../../models/userProfile";
 import { getGroupById } from "../../services/groupService";
 import {
@@ -16,6 +16,7 @@ import {
   getGroupPosts,
   savePost,
 } from "../../services/postService";
+import { initPosts } from "../../utils/postUtils";
 import css from "./GroupPage.module.scss";
 
 const GroupPage = () => {
@@ -25,7 +26,7 @@ const GroupPage = () => {
   const [alert, dispatchAlert] = useAlert();
   const [loading, setLoading] = useState(true);
   const { user: currentUser } = useUser();
-  const [posts, setPosts] = useState<PostEntity[]>([]);
+  const [posts, setPosts] = useState<(PostEntity | SharedPostEntity)[]>([]);
 
   async function getGroup() {
     if (option) {
@@ -44,7 +45,8 @@ const GroupPage = () => {
   async function getPosts() {
     if (group) {
       const { data } = await getGroupPosts(group.id);
-      setPosts(data);
+      const posts = initPosts(data);
+      setPosts(posts);
     }
   }
 

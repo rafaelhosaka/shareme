@@ -11,9 +11,14 @@ import css from "./Post.module.scss";
 interface PostListProps {
   posts: (PostEntity | SharedPostEntity)[];
   onDelete?: (postId: string) => void;
+  showGroupLabel?: boolean;
 }
 
-const PostList = ({ posts, onDelete }: PostListProps) => {
+const PostList = ({
+  posts,
+  onDelete,
+  showGroupLabel = false,
+}: PostListProps) => {
   const { t } = useTranslation();
   const [pagedPosts, setPagedPosts] = useState<
     (PostEntity | SharedPostEntity)[]
@@ -80,7 +85,9 @@ const PostList = ({ posts, onDelete }: PostListProps) => {
   };
 
   const handleSharePost = async (sharedPost: SharedPostEntity) => {
-    setPagedPosts([sharedPost, ...pagedPosts]);
+    if (showGroupLabel) {
+      setPagedPosts([sharedPost, ...pagedPosts]);
+    }
   };
 
   return (
@@ -95,6 +102,7 @@ const PostList = ({ posts, onDelete }: PostListProps) => {
           data={post}
           onDelete={handleDelete}
           onShare={handleSharePost}
+          showGroupLabel={showGroupLabel}
         ></Post>
       ))}
     </>

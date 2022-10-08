@@ -45,6 +45,6 @@ export class SharedPostEntity extends BasePostEntity {
 }
 
 export interface VisibilityEntity {
-  type: string;
+  type: "public" | "group";
   allowedIds: string[];
 }

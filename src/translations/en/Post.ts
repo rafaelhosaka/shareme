@@ -16,6 +16,8 @@ export const POST = {
   noPosts: "No posts yet",
   sharedPostFirstPart: "shared post from",
   sharedPostSecondPart: "",
+  groupPostFirstPart: "this post was posted on",
+  groupPostSecondPart: "",
   alertPostDeleted: "Post deleted successfully",
   modalDeletePostTitle: "Delete Post?",
   modalDeletePostDescription: "Are you sure you want to delete this post?",

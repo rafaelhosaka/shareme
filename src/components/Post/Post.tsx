@@ -6,12 +6,14 @@ import { useBase64File } from "../../hook/useBase64File";
 import useComponentVisible from "../../hook/useComponentVisible";
 import { useEditableTextArea } from "../../hook/useEditableTextArea";
 import CommentEntity from "../../models/comment";
+import { GroupEntity } from "../../models/group";
 import PostEntity, { SharedPostEntity } from "../../models/post";
 import {
   deleteComment,
   newComment,
   replyComment,
 } from "../../services/commentService";
+import { getGroupById } from "../../services/groupService";
 import { likeUnlikePost } from "../../services/likeService";
 import {
   postImageDownload,
@@ -34,9 +36,15 @@ interface PostProps {
   data: PostEntity | SharedPostEntity;
   onDelete: (postId: string) => void;
   onShare: (sharedPost: SharedPostEntity) => void;
+  showGroupLabel?: boolean;
 }
 
-const Post = ({ data, onDelete, onShare }: PostProps) => {
+const Post = ({
+  data,
+  onDelete,
+  onShare,
+  showGroupLabel = false,
+}: PostProps) => {
   const { t } = useTranslation();
   const [post, setPost] = useState(data);
   const {
@@ -50,7 +58,6 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
     executeRequest: userImageDownloadExecute,
     cancelRequest: userImageDownloadCancel,
   } = useBase64File(userImageDownload);
-
   const { user: currentUser } = useUser();
   const inputNewCommentRef = useRef<HTMLTextAreaElement>(null);
   const [showComments, setShowComments] = useState(false);
@@ -58,12 +65,12 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
   const [editting, setEditting] = useState(false);
   const [editableDescription, description, resetDescription] =
     useEditableTextArea(post.description);
-
   const {
     refs: dropPostRefs,
     isComponentVisible: isDropPostVisible,
     setIsComponentVisible: setDropPostVisible,
   } = useComponentVisible(false);
+  const [group, setGroup] = useState<GroupEntity>();
 
   const [pagedComments, setPagedComments] = useState<CommentEntity[]>([]);
   const [commentCount, setCommentCount] = useState(
@@ -78,6 +85,12 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
   const MAX_PAGE = calculateMaxPage(post.comments.length, PAGE_SIZE);
 
   useEffect(() => {
+    async function getGroup() {
+      const { data } = await getGroupById(post.visibility.allowedIds[0]);
+      setGroup(data);
+    }
+
+    if (post.visibility.type === "group") getGroup();
     userImageDownloadExecute(post.user.id);
     postImageDownloadExecute(
       post instanceof PostEntity ? post?.id : post.sharedPost?.id
@@ -306,7 +319,15 @@ const Post = ({ data, onDelete, onShare }: PostProps) => {
                   </span>
                 </>
               )}
-
+              {showGroupLabel && group && (
+                <>
+                  <span className="label">{t("POST.groupPostFirstPart")}</span>
+                  <Link to={`/group/${group.id}`} className={css["user-name"]}>
+                    {group.name}
+                  </Link>
+                  <span className="label">{t("POST.groupPostSecondPart")}</span>
+                </>
+              )}
               <p className={css["post__past-time"]}>
                 {pastTimeFromDate(post.dateCreated, t).endsWith("y")
                   ? formatDate(post.dateCreated, t("DATE.bcp47"), {

@@ -16,6 +16,8 @@ export const POST = {
   noPosts: "まだ投稿がありません",
   sharedPostFirstPart: "この投稿は",
   sharedPostSecondPart: "からシェアされたものです",
+  groupPostFirstPart: "この投稿は",
+  groupPostSecondPart: "に投稿したものです",
   alertPostDeleted: "投稿を削除しました",
   modalDeletePostTitle: "投稿を削除しますか？",
   modalDeletePostDescription: "この投稿を削除してもよろしいでしょうか？",
