@@ -3,6 +3,8 @@
 .feed {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100vw;
   margin: 2rem 0;
 }
