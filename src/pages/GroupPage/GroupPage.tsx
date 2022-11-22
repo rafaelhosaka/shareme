@@ -101,10 +101,10 @@ const GroupPage = () => {
         <div className={css["container"]}>
           <Group group={group} onUpdate={handleUpdate} />
           {checkJoined() && (
-            <>
+            <div className={css["feed"]}>
               <PostForm handleNewPost={handleNewPost} />
               <PostList posts={posts} onDelete={handleDeletePost} />
-            </>
+            </div>
           )}
         </div>
       )

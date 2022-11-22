@@ -45,7 +45,7 @@ function PostForm({ handleNewPost }: PostFormProps) {
   };
 
   return (
-    <div className={`${css["form-post__container"]} my-2`}>
+    <div className={`${css["form-post__container"]}`}>
       {alert}
 
       <header>

@@ -4,10 +4,12 @@
 .post {
   background: t.$light-secondary-bgcolor;
   width: 100%;
-  max-width: 1000px;
   border-radius: 10px;
   box-shadow: t.$light-box-shadow;
-  margin-bottom: 2rem;
+}
+
+.post + .post {
+  margin-top: 2rem;
 }
 
 .header {
@@ -188,8 +190,7 @@
   font-size: 2rem;
   font-weight: 800;
   width: 100%;
-  margin-bottom: 1rem;
-  max-width: 1000px;
+  margin-bottom: 2rem;
 }
 
 @include mixins.whenDarkModule {
