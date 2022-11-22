@@ -4,7 +4,7 @@
 .post {
   background: t.$light-secondary-bgcolor;
   width: 100%;
-  border-radius: 10px;
+
   box-shadow: t.$light-box-shadow;
 }
 
@@ -191,6 +191,12 @@
   font-weight: 800;
   width: 100%;
   margin-bottom: 2rem;
+}
+
+@include mixins.tablet {
+  .post {
+    border-radius: 10px;
+  }
 }
 
 @include mixins.whenDarkModule {

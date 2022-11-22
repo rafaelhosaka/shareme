@@ -1,13 +1,25 @@
+@use "../../styles/abstracts/mixins" as mixins;
+
 .feed {
   width: 100vw;
   max-width: 1024px;
   margin: 2rem 0;
 }
 
-@media screen and (min-width: 1024px) {
+@include mixins.tablet {
+  .feed > div {
+    border-radius: 0;
+  }
+}
+
+@include mixins.desktop {
   .feed {
     margin: 2rem;
     width: calc(100vw - 300px);
+  }
+
+  .feed > div {
+    border-radius: 10px;
   }
 }
 
