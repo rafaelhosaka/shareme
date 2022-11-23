@@ -21,6 +21,7 @@
   grid-template-columns: auto 1fr;
   padding: 1rem;
   border-radius: 10px;
+  margin: 0.5rem 0;
   &:hover {
     cursor: pointer;
     background: t.$light-secondary-color;
@@ -29,6 +30,10 @@
   &.active {
     background: t.$light-primary-bgcolor;
   }
+}
+
+.notification__container:last-child {
+  margin-bottom: 0;
 }
 
 .notification-image {
