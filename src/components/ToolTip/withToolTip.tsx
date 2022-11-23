@@ -1,4 +1,4 @@
-import { ComponentType, useRef, useState } from "react";
+import { ComponentType, useEffect, useRef, useState } from "react";
 
 export default function withToolTip<T>(Component: ComponentType<T>) {
   function ComponentWithToolTip(props: any) {
@@ -6,17 +6,24 @@ export default function withToolTip<T>(Component: ComponentType<T>) {
     const [toolTipText, setToolTipText] = useState("");
     const ref = useRef<HTMLSpanElement>(null);
 
-    const mouseOut = () => {
-      setShowToolTip(false);
-    };
-    const mouseOver = () => {
-      setShowToolTip(true);
+    useEffect(() => {
+      moveTooltipWhenOutsideWindow();
+    }, [showToolTip]);
+
+    const moveTooltipWhenOutsideWindow = () => {
       if (ref.current) {
         let offset = ref.current.getBoundingClientRect();
         if (offset.x + offset.width > window.innerWidth) {
           ref.current.style.left = -offset.width + 70 + "px";
         }
       }
+    };
+
+    const mouseOut = () => {
+      setShowToolTip(false);
+    };
+    const mouseOver = () => {
+      setShowToolTip(true);
     };
 
     const initializeToolTipText = (text: string) => {

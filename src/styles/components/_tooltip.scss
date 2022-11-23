@@ -17,6 +17,7 @@
   border-radius: 5px;
   width: max-content;
   z-index: 99;
+  pointer-events: none;
 
   &.left {
     top: -20px;

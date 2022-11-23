@@ -45,7 +45,6 @@
   width: 9rem;
   height: 5rem;
   justify-content: center;
-  padding: 3.3rem;
   transition: transform 0.3s;
 
   & > i {
@@ -56,19 +55,19 @@
     background-color: t.$light-secondary-color;
     background-size: cover;
     border-radius: 10px;
-    padding: 2rem;
     transform: scale(1.5);
     cursor: pointer;
+    z-index: 1;
   }
 
   &.active {
-    border-bottom: 5px solid t.$light-primary-color;
     & > i {
       color: t.$light-primary-color;
-    }
-
-    &:hover {
-      border-bottom: none;
+      padding: 3.3rem;
+      border-bottom: 5px solid t.$light-primary-color;
+      &:hover {
+        border-bottom: none;
+      }
     }
   }
 }
@@ -92,12 +91,13 @@
 }
 
 .user {
-  margin: 0 1rem;
   transition: transform 0.3s;
   width: 100%;
+  margin-right: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: -1;
 
   &:hover {
     transform: scale(1.5);
@@ -107,6 +107,7 @@
 
 .user-image {
   border-radius: 2rem;
+  z-index: 0;
 }
 
 .user-name {
@@ -141,7 +142,8 @@
   text-align: center;
 }
 
-@include mixins.tablet {
+//breaking point is different for navbar
+@media only screen and (min-width: 820px) {
   .nav-center {
     font-weight: bold;
     display: flex;
@@ -191,15 +193,18 @@
     }
 
     &.active {
-      border-bottom: 5px solid t.$dark-accent-color;
       & > i {
         color: white;
+        border-bottom: 5px solid t.$dark-accent-color;
       }
     }
 
     &:hover {
       background-color: t.$dark-secondary-color;
-      border-bottom: none;
+
+      & > i {
+        border-bottom: none;
+      }
     }
   }
 }

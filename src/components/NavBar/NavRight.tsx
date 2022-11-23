@@ -55,7 +55,7 @@ const NavRight = () => {
 
   const [menuId, setMenuId] = useState("1");
 
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const isMobile = useMediaQuery({ query: "(max-width: 820px)" });
 
   async function getNotificationUnreadCount() {
     if (currentUser) {
@@ -297,16 +297,15 @@ const NavRight = () => {
               <span className={css["count"]}>{chatUnreadCount}</span>
             )}
           </NavLinkWithToolTip>
-          <DivWithToolTip tooltipLabel={t("NAVBAR.notifications")}>
-            <div
-              className={css["nav-link"]}
-              onClick={() => setNotificationVisible(true)}
-            >
-              <i className="fa-solid fa-bell fa-xl"></i>
-              {notificationCounter > 0 && (
-                <span className={css["count"]}>{notificationCounter}</span>
-              )}
-            </div>
+          <DivWithToolTip
+            tooltipLabel={t("NAVBAR.notifications")}
+            className={css["nav-link"]}
+            onClick={() => setNotificationVisible(true)}
+          >
+            <i className="fa-solid fa-bell fa-xl"></i>
+            {notificationCounter > 0 && (
+              <span className={css["count"]}>{notificationCounter}</span>
+            )}
           </DivWithToolTip>
         </>
       )}

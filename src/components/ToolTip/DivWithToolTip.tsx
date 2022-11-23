@@ -7,6 +7,7 @@ interface DivWithToolTipProps {
   className: string;
   showToolTip: boolean;
   initializeToolTipText: (text: string) => void;
+  onClick: () => void;
 }
 
 function DivWithToolTip({
@@ -14,12 +15,17 @@ function DivWithToolTip({
   tooltipLabel,
   className,
   initializeToolTipText,
+  onClick,
 }: DivWithToolTipProps) {
   useEffect(() => {
     initializeToolTipText(tooltipLabel);
   }, [tooltipLabel]);
 
-  return <div className={className}>{children}</div>;
+  return (
+    <div onClick={onClick} className={className}>
+      {children}
+    </div>
+  );
 }
 
 export default withToolTip(DivWithToolTip);
