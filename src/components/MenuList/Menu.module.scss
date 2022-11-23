@@ -149,8 +149,7 @@
 
   .toggle-btn {
     &:hover {
-      background-color: t.$dark-accent-color;
-      color: t.$dark-primary-color;
+      background-color: t.$dark-secondary-color;
     }
   }
 }
