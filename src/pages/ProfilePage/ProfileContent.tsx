@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import PostEntity, { SharedPostEntity } from "../../models/post";
 import UserProfileEntity from "../../models/userProfile";
-import { getPostsByUsersId } from "../../services/postService";
+import { deletePost, getPostsByUsersId } from "../../services/postService";
 import { getUsersFromIds } from "../../services/userService";
 import FriendList from "../../components/Friends/FriendList/FriendList";
 import PostList from "../../components/Post/PostList";
@@ -81,10 +81,15 @@ const ProfileContent = ({ user }: ProfileContentProps) => {
     setLoading(false);
   };
 
+  const handleDeletePost = (postId: string) => {
+    deletePost(postId);
+    setPosts(posts.filter((p) => p.id !== postId));
+  };
+
   const renderResult = () => {
     switch (option) {
       case "posts":
-        return <PostList posts={posts} />;
+        return <PostList onDelete={handleDeletePost} posts={posts} />;
       case "friends":
         return <FriendList friends={friends} />;
       case "photos":
