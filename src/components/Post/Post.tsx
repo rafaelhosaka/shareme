@@ -31,6 +31,7 @@ import DropdownMenu from "../DropdownMenu/DropdownMenu";
 import Modal from "../Modal/Modal";
 import Spinner from "../Spinner/Spinner";
 import css from "./Post.module.scss";
+import { initPost } from "../../utils/postUtils";
 
 interface PostProps {
   data: PostEntity | SharedPostEntity;
@@ -119,7 +120,8 @@ const Post = ({
 
   const handleLikePost = async () => {
     if (currentUser) {
-      const { data } = await likeUnlikePost(currentUser.id, post.id);
+      let { data } = await likeUnlikePost(currentUser.id, post.id);
+      data = initPost(data);
       if (data instanceof PostEntity) {
         setPost(new PostEntity(data));
       } else {
